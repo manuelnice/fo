@@ -1,0 +1,165 @@
+<section id="content">
+	<section class="hbox stretch">
+	
+		<aside class="aside-md bg-white b-r" id="subNav">
+
+			<div class="wrapper b-b header"><?=lang('registered_clients')?>
+			</div>
+			<section class="vbox">
+			 <section class="scrollable w-f">
+			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+			<ul class="nav">
+			<?php
+			if (!empty($clients)) {
+			foreach ($clients as $key => $user) { ?>
+				<li class="b-b b-light">
+				<a href="<?=base_url()?>clients/view/details/<?=$user->id*1200?>">
+				<?=ucfirst($this->user_profile->get_profile_details($user->id,'fullname')? $this->user_profile->get_profile_details($user->id,'fullname'):$user->username)?>
+				
+				<small class="block text-muted"><?=strftime("%B %d, %Y", strtotime($user->created));?> </small>
+
+				</a> </li>
+				<?php } } ?>
+			</ul> 
+			</div></section>
+			</section>
+			</aside> 
+			
+			<aside>
+			<section class="vbox">
+				<header class="header bg-white b-b clearfix">
+					<div class="row m-t-sm">
+						<div class="col-sm-8 m-b-xs">
+							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
+							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+						<div class="btn-group">
+						<a class="btn btn-sm btn-default" href="<?=current_url()?>" title="Refresh"><i class="fa fa-refresh"></i></a>
+						</div>
+						<a class="btn btn-sm btn-danger" href="<?=base_url()?>users/registered/all" title="<?=lang('system_users')?>">
+						<i class="fa fa-group"></i> <?=lang('system_users')?></a>
+						<a class="btn btn-sm btn-dark" href="<?=base_url()?>clients/add" data-toggle="ajaxModal" title="<?=lang('new_client')?>">
+						<i class="fa fa-plus"></i> <?=lang('new_user')?></a>
+						</div>
+						<div class="col-sm-4 m-b-xs">
+						<?php  echo form_open(base_url().'users/registered/search'); ?>
+							<div class="input-group">
+								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
+								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
+								</span>
+							</div>
+							</form>
+						</div >   
+					</div> </header>
+					<?php  echo modules::run('sidebar/flash_msg');?>
+
+					<section class="vbox"> 
+
+		<section class="panel panel-default">
+	<section class="scrollable w-f">
+		
+		<div class="panel-body"> 
+		<?php
+								if (!empty($user_details)) {
+				foreach ($user_details as $key => $i) { ?>
+				
+		<!-- Start -->
+<ul class="nav nav-tabs" id="stats">
+<li class="active"><a href="#profile" data-toggle="tab"> <?=lang('profile')?> </a></li>
+
+
+      <li><a href="<?=base_url()?>clients/view/clientinvoices/<?=$i->id?>" data-target="#invoices" class="media_node active span" id="invoice_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('invoices')?> </a></li>
+      <li><a href="<?=base_url()?>clients/view/clientprojects/<?=$i->id?>" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('projects')?></a></li>
+      <li><a href="/gh/gist/response.html/3843306/" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_activities')?></a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="profile">
+	<!-- ZOHO START -->
+<div class="col-md-6">
+			<div class="group">
+				<h4 class="subheader text-muted"><?=lang('contact_details')?></h4>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('company_name')?></div>
+					<div class="col-md-6"><?=$i->company?></div>
+				</div>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('contact_person')?></div>
+					<div class="col-md-6"><?=$i->fullname?$i->fullname:$i->username?></div>
+				</div>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('email')?></div>
+					<div class="col-md-6"><?=$i->email?></div>
+				</div>
+			</div>	
+			<div class="group">
+				<h4 class="subheader text-muted"><?=lang('other_details')?></h4>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('country')?></div>
+					<div class="col-md-6 text-success"><?=$i->country?></div>
+				</div>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('city')?></div>
+					<div class="col-md-6"><?=$i->city?></div>
+				</div>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('phone')?></div>
+					<div class="col-md-6"><?=$i->phone?></div>
+				</div>
+				<div class="row inline-fields">
+					<div class="col-md-4"><?=lang('portal_status')?></div>
+					<div class="col-md-6 text-success"><?php if($i->activated == '1'){ echo "Enabled";}else{ echo "Disabled";}?></div>
+				</div>
+				</div>
+			<div class="group">
+				<div class="col-md-12">
+					<div class="row">
+						<h4 class="pull-left subheader text-muted"><?=lang('biography')?></h4>
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-muted"><?=$i->bio?></div>
+					<div class="col-md-12"><a class="text-info" href=""><?=lang('edit_contact')?></a></div>
+				</div>	
+			</div>
+		</div>
+<div class="col-md-6">
+			<div class="group">
+				<div class="row" style="margin-top: 5px">
+					<div class="rec-pay col-md-12">
+						<h4 class="subheader text-muted"><?=lang('received_amount')?></h4>
+						<h4 class="amount text-success cursor-pointer"><?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->client_paid($i->id),2)?></h4>
+						
+						
+					</div>
+				</div>
+			</div>
+			</div>
+          
+<!-- ZOHO END -->
+</div> 
+
+
+<div class="tab-pane" id="invoices">
+
+      </div>
+      <div class="tab-pane" id="projects">
+
+      </div>
+      <div class="tab-pane  urlbox span8" id="activities">
+
+      </div>
+    </div> <?php } }?></div>
+</section>
+
+
+
+		</section>
+
+		</section>
+
+
+
+
+		</aside> </section> <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
