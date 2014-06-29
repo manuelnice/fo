@@ -43,7 +43,15 @@ class Client_model extends CI_Model
 			return $query->result();
 		} 
 	}
-	
+	function user_payments($user_id)
+	{
+		$this->db->join('invoices','invoices.inv_id = payments.invoice');
+		$this->db->join('payment_methods','payment_methods.method_id = payments.payment_method');
+		$query = $this->db->where('paid_by',$user_id)->get('payments',20);
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
+	}
 }
 
 /* End of file model.php */

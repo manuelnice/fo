@@ -47,6 +47,11 @@ class View extends MX_Controller {
 		$data['user_projects'] = $this->user->user_projects($this->uri->segment(4));
 		$this->load->view('client_projects',isset($data) ? $data : NULL);
 	}
+	function payments()
+	{		
+		$data['user_payments'] = $this->user->user_payments($this->uri->segment(4));
+		$this->load->view('client_payments',isset($data) ? $data : NULL);
+	}
 }
 
 /* End of file view.php */

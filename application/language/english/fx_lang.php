@@ -279,6 +279,7 @@ $lang['portal_status'] = 'Portal Status';
 $lang['qty'] = 'Qty';
 $lang['recurring'] = 'Recurring';
 $lang['recent_activities'] = 'Recent Activities';
+$lang['recent_payments'] = 'Recent Payments';
 $lang['recent_tasks'] = 'Recent Tasks';
 $lang['recent_sellers'] = 'Recent Sellers';
 $lang['received_messages'] = 'Received Messages';

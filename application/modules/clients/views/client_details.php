@@ -69,6 +69,9 @@
 
       <li><a href="<?=base_url()?>clients/view/clientinvoices/<?=$i->id?>" data-target="#invoices" class="media_node active span" id="invoice_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('invoices')?> </a></li>
       <li><a href="<?=base_url()?>clients/view/clientprojects/<?=$i->id?>" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('projects')?></a></li>
+
+      <li><a href="<?=base_url()?>clients/view/payments/<?=$i->id?>" data-target="#payments" class="media_node span" id="payments_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_payments')?></a></li>
+
       <li><a href="/gh/gist/response.html/3843306/" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_activities')?></a></li>
 </ul>
 
@@ -120,7 +123,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-muted"><?=$i->bio?></div>
-					<div class="col-md-12"><a class="text-info" href=""><?=lang('edit_contact')?></a></div>
+					<div class="col-md-12"><a class="text-info" href="<?=base_url()?>clients/view/editclient"><?=lang('edit_contact')?></a></div>
 				</div>	
 			</div>
 		</div>
@@ -145,6 +148,9 @@
 
       </div>
       <div class="tab-pane" id="projects">
+
+      </div>
+      <div class="tab-pane" id="payments">
 
       </div>
       <div class="tab-pane  urlbox span8" id="activities">
