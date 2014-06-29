@@ -96,9 +96,9 @@ class Projects extends MX_Controller {
 			$this->db->delete('bugs', array('project' => $this->input->post('project_id'))); 
 			$this->db->delete('files', array('project' => $this->input->post('project_id'))); 
 			// Log Activity
-			$this->db->set('user', $this->tank_auth->get_user_id());
-			$this->db->set('activity', 'Deleted a project from the system');
-			$this->db->insert('activities'); 
+			$activity = 'Deleted Project #'.$this->input->post('project_id').' from the system';
+			$this->_log_activity($project_id,$activity); //log activity
+
 			//delete the files here
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_deleted_successfully'));
@@ -110,10 +110,11 @@ class Projects extends MX_Controller {
 		}
 	}
 	function _log_activity($project_id,$activity){
-			$this->db->set('project', $project_id);
+			$this->db->set('module', 'projects');
+			$this->db->set('module_field_id', $project_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
-			$this->db->insert('project_activities'); 
+			$this->db->insert('activities'); 
 	}
 }
 
