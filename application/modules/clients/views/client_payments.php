@@ -12,7 +12,7 @@
 				foreach ($user_payments as $key => $p) { ?>
 				<tr>
 					<td><?=strftime("%B %d, %Y", strtotime($p->created_date));?></td>
-					<td><a class="text-success" href=""><?=$p->reference_no?></a></td>
+					<td><a class="text-success" href="<?=base_url()?>invoices/manage/details/<?=$p->invoice?>"><?=$p->reference_no?></a></td>
 					<td><?=$p->method_name;?> </td>
 					<td><?=$p->amount;?></td>
 					<td><?=$p->trans_id;?></td>

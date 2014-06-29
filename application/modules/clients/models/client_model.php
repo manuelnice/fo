@@ -52,6 +52,14 @@ class Client_model extends CI_Model
 			return $query->result();
 		} 
 	}
+	function user_activities($user_id)
+	{
+		$this->db->join('users','users.id = activities.user');
+		$query = $this->db->where('user',$user_id)->get('activities',50);
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
+	}
 }
 
 /* End of file model.php */

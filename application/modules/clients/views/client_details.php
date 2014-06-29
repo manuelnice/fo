@@ -72,7 +72,7 @@
 
       <li><a href="<?=base_url()?>clients/view/payments/<?=$i->id?>" data-target="#payments" class="media_node span" id="payments_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_payments')?></a></li>
 
-      <li><a href="/gh/gist/response.html/3843306/" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_activities')?></a></li>
+      <li><a href="<?=base_url()?>clients/view/activities/<?=$i->id?>" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('recent_activities')?></a></li>
 </ul>
 
 <div class="tab-content">
