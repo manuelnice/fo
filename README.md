@@ -27,4 +27,4 @@ Freelance Office is a web based client portal application that you can use to ma
 ### If you need help ###
 
 * Get in touch William M. (wm@ticketbucket.net)
-* Skype willy.manda
+* Skype willy.mandai
