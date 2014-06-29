@@ -71,7 +71,7 @@ class Manage extends MX_Controller {
 			            );
 			$this->db->insert('invoices', $form_data); 
 			$invoice_id = $this->db->insert_id();
-			$activity = ucfirst('Invoice #'.$this->input->post('reference_no').' created.');
+			$activity = ucfirst('INVOICE #'.$this->input->post('reference_no').' created.');
 			$this->_log_activity($invoice_id,$activity); //log activity
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_created_successfully'));
@@ -177,7 +177,8 @@ class Manage extends MX_Controller {
 			                'year_paid' => date('Y'),
 			            );
 			$this->db->insert('payments', $form_data); 
-			$activity = 'Payment of '.$this->config->item('default_currency').' '.$this->input->post('amount').' received by '.$this->tank_auth->get_username();
+			$activity = 'Payment of '.$this->config->item('default_currency').' '.$this->input->post('amount').' received and applied to INVOICE #'.$this->input->post('invoice_ref');
+
 			$this->_log_activity($invoice_id,$activity); //log activity
 
 			$this->_send_payment_email($invoice_id,$paid_amount); //send thank you email
@@ -194,12 +195,6 @@ class Manage extends MX_Controller {
 		}
 	}
 
-	function _log_activity($invoice_id,$activity){
-			$this->db->set('invoice', $invoice_id);
-			$this->db->set('user', $this->tank_auth->get_user_id());
-			$this->db->set('activity', $activity);
-			$this->db->insert('invoice_activities'); 
-	}
 	function _send_payment_email($invoice_id,$paid_amount){
 			$client = $this->invoice->get_client($invoice_id);
 
@@ -317,9 +312,14 @@ class Manage extends MX_Controller {
 		$html = $this->load->view('emails/invoice',$data,TRUE);
 		pdf_create( $html , 'Invoice # '.$this->uri->segment(4) );
 		*/
-						
-			
-			
+				
+	}
+	function _log_activity($invoice_id,$activity){
+			$this->db->set('module', 'invoices');
+			$this->db->set('module_field_id', $invoice_id);
+			$this->db->set('user', $this->tank_auth->get_user_id());
+			$this->db->set('activity', $activity);
+			$this->db->insert('activities'); 
 	}
 
 }

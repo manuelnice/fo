@@ -7,6 +7,7 @@
 		<div class="modal-body">
 			<p><?=lang('payment_for_invoice')?> #<?=$reference?></p>
 			<input type="hidden" name="invoice_id" value="<?=$invoice_id?>">
+			<input type="hidden" name="invoice_ref" value="<?=$reference?>">
 			 
           				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('trans_id')?> <span class="text-danger">*</span></label>
