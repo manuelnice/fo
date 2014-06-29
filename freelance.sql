@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2014 at 01:37 PM
+-- Generation Time: Jun 29, 2014 at 07:23 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -80,26 +80,34 @@ INSERT INTO `fx_account_details` (`id`, `user_id`, `fullname`, `company`, `city`
 CREATE TABLE IF NOT EXISTS `fx_activities` (
 `activity_id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
+  `module` varchar(32) NOT NULL,
+  `module_field_id` int(11) NOT NULL,
   `activity` varchar(255) NOT NULL,
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `fx_activities`
 --
 
-INSERT INTO `fx_activities` (`activity_id`, `user`, `activity`, `activity_date`, `deleted`) VALUES
-(1, 1, 'Logged in from 127.0.0.1', '2014-02-26 14:40:59', 0),
-(2, 1, 'Uploaded a file to a <a class="text-info" href="projects/3">Project</a>', '2014-02-26 14:40:59', 0),
-(3, 2, 'Added a new <a class="text-info" href="tasks/3">Task</a>', '2014-03-31 06:23:51', 0),
-(4, 2, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 0),
-(5, 2, 'Deleted a project', '2014-03-31 06:53:41', 0),
-(6, 1, 'Edited a user information', '2014-05-12 17:42:05', 0),
-(7, 1, 'Edited a user information', '2014-05-12 17:43:03', 0),
-(8, 1, 'Edited a user information', '2014-05-14 05:58:00', 0),
-(9, 1, 'Edited a user information', '2014-05-14 05:59:02', 0),
-(10, 4, 'Edited a user information', '2014-05-14 06:09:10', 0);
+INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`, `activity`, `activity_date`, `deleted`) VALUES
+(1, 1, 'bugs', 3, 'Logged in from 127.0.0.1', '2014-02-26 14:40:59', 0),
+(2, 1, 'invoices', 1, 'Uploaded a file to a <a class="text-info" href="projects/3">Project</a>', '2014-02-26 14:40:59', 0),
+(3, 2, 'projects', 4, 'Added a new <a class="text-info" href="tasks/3">Task</a>', '2014-03-31 06:23:51', 0),
+(4, 2, 'bugs', 3, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 0),
+(5, 2, 'estimates', 6, 'Admin created estimate #129464', '2014-03-31 06:53:41', 0),
+(6, 1, 'bugs', 3, 'Added an Issue #5644', '2014-05-12 17:42:05', 0),
+(7, 1, 'payments', 2, 'Edited a user information', '2014-05-12 17:43:03', 0),
+(8, 1, 'general', 3, 'Edited a user information', '2014-05-14 05:58:00', 0),
+(9, 1, 'invoices', 3, 'Edited a user information', '2014-05-14 05:59:02', 0),
+(10, 2, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-05-14 06:09:10', 0),
+(11, 1, 'bugs', 3, 'Marked Issue #5467 as Resolved', '2014-06-29 15:04:23', 0),
+(12, 1, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-06-29 15:08:53', 0),
+(13, 1, 'invoices', 7, 'Payment of USD 15 received by admin', '2014-06-29 15:15:35', 0),
+(14, 1, 'invoices', 7, 'Payment of USD 100 received and applied to INVOICE 884439', '2014-06-29 15:19:10', 0),
+(15, 1, 'invoices', 8, 'INVOICE #418115 created.', '2014-06-29 15:21:26', 0),
+(16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 0);
 
 -- --------------------------------------------------------
 
@@ -128,43 +136,8 @@ CREATE TABLE IF NOT EXISTS `fx_bugs` (
 INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `attached_file`, `last_modified`) VALUES
 (1, 3445, 1, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
 (2, 3447, 2, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-10 21:00:00', 2, '2014-05-11 17:27:54'),
-(3, 5467, 1, 12, 4, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
+(3, 5467, 1, 12, 23, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
 (5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-05-11 13:51:06', 4, '2014-05-11 16:51:06');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fx_bug_activities`
---
-
-CREATE TABLE IF NOT EXISTS `fx_bug_activities` (
-`a_id` int(11) NOT NULL,
-  `bug_id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
-
---
--- Dumping data for table `fx_bug_activities`
---
-
-INSERT INTO `fx_bug_activities` (`a_id`, `bug_id`, `user`, `activity`, `date_saved`) VALUES
-(1, 1, 2, 'Added an Issue #5644', '2014-05-12 04:56:45'),
-(2, 1, 4, 'Edited issue #5444', '2014-05-12 04:56:45'),
-(3, 1, 4, 'Marked issue #5444 as In Progress', '2014-05-12 05:20:45'),
-(4, 3, 1, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-05-12 07:58:19'),
-(5, 1, 1, 'Assigned Issue #3445 to a user and marked as In Progress', '2014-05-12 08:00:29'),
-(6, 1, 1, 'Marked Issue # as Confirmed', '2014-05-12 08:16:00'),
-(7, 1, 1, 'Marked Issue #3445 as In Progress', '2014-05-12 08:17:42'),
-(8, 2, 1, 'Marked Issue #3447 as Confirmed', '2014-05-12 08:18:19'),
-(10, 6, 1, 'Created an Issue #5499', '2014-05-12 08:33:15'),
-(11, 6, 1, 'Edited an Issue #5499', '2014-05-12 08:35:48'),
-(12, 6, 1, 'Assigned Issue #5499 to a user and marked as In Progress', '2014-05-12 08:36:17'),
-(13, 6, 1, 'Marked Issue #5499 as Resolved', '2014-05-12 08:36:46'),
-(14, 5, 1, 'Assigned Issue #5468 to a user and marked as In Progress', '2014-06-07 07:19:32'),
-(15, 2, 1, 'Marked Issue #3447 as In Progress', '2014-06-12 16:02:33'),
-(16, 3, 1, 'Edited an Issue #5467', '2014-06-14 12:06:40');
 
 -- --------------------------------------------------------
 
@@ -317,7 +290,7 @@ INSERT INTO `fx_config` (`key`, `value`) VALUES
 ('auth_installed_key', 'GHG23GJB'),
 ('auth_secret_key', 'fv23gshdjwejbb3c32h321'),
 ('auth_sotfware_owner', 'mandai.willy@gmail.com'),
-('base_url', 'http://localhost/devfo/'),
+('base_url', 'http://localhost/fo/'),
 ('company_address', '1 Infinite Loop <br>95014 Cuperino, CA <br> United States'),
 ('company_city', 'Valencia'),
 ('company_country', 'Spain'),
@@ -417,32 +390,6 @@ INSERT INTO `fx_estimates` (`est_id`, `reference_no`, `client`, `due_date`, `not
 (3, '673957', '4', '17-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-06-01 12:28:25', 'No', '2014-05-31 09:31:53', 'No'),
 (4, '129464', '2', '05-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-06-02 12:28:25', 'No', '2014-06-01 16:22:37', 'No'),
 (5, '423291', '3', '10-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '', 'No', '2014-06-02 14:28:49', 'No');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fx_estimate_activities`
---
-
-CREATE TABLE IF NOT EXISTS `fx_estimate_activities` (
-`a_id` int(11) NOT NULL,
-  `estimate` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `fx_estimate_activities`
---
-
-INSERT INTO `fx_estimate_activities` (`a_id`, `estimate`, `user`, `activity`, `date_saved`) VALUES
-(1, 1, 1, 'Invoice #923852 created', '2014-05-31 09:28:25'),
-(2, 2, 1, 'Admin created invoice #659386', '2014-05-31 09:30:53'),
-(3, 3, 1, 'Admin created invoice #673957', '2014-05-31 09:31:53'),
-(4, 4, 1, 'Admin created invoice #129464', '2014-05-31 16:22:37'),
-(5, 5, 1, 'Admin created invoice #423291', '2014-06-02 14:28:49'),
-(6, 1, 1, 'Payment of USD 200received by admin', '2014-06-07 16:31:25');
 
 -- --------------------------------------------------------
 
@@ -556,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `fx_invoices` (
   `inv_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `emailed` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `fx_invoices`
@@ -569,54 +516,8 @@ INSERT INTO `fx_invoices` (`inv_id`, `reference_no`, `client`, `due_date`, `note
 (4, '129464', '4', '05-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '2014-06-02 12:28:25', 'No', '2014-06-01 16:22:37', 'No'),
 (5, '423291', '3', '10-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-24 19:03:57', 'No', '2014-06-02 14:28:49', 'Yes'),
 (6, '222867', '22', '10-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '', 'No', '2014-06-22 10:11:12', 'No'),
-(7, '884439', '11', '25-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-24 19:22:29', 'No', '2014-06-22 10:12:57', 'Yes');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fx_invoice_activities`
---
-
-CREATE TABLE IF NOT EXISTS `fx_invoice_activities` (
-`a_id` int(11) NOT NULL,
-  `invoice` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
-
---
--- Dumping data for table `fx_invoice_activities`
---
-
-INSERT INTO `fx_invoice_activities` (`a_id`, `invoice`, `user`, `activity`, `date_saved`) VALUES
-(1, 1, 1, 'Invoice #923852 created', '2014-05-31 09:28:25'),
-(2, 2, 1, 'Admin created invoice #659386', '2014-05-31 09:30:53'),
-(3, 3, 1, 'Admin created invoice #673957', '2014-05-31 09:31:53'),
-(4, 4, 1, 'Admin created invoice #129464', '2014-05-31 16:22:37'),
-(5, 5, 1, 'Admin created invoice #423291', '2014-06-02 14:28:49'),
-(6, 1, 1, 'Payment of USD 200received by admin', '2014-06-07 16:31:25'),
-(7, 5, 1, 'Payment of USD 19received by admin', '2014-06-20 15:16:53'),
-(8, 5, 1, 'Payment of USD 50 received by admin', '2014-06-20 16:13:46'),
-(9, 5, 1, 'Payment of USD 20 received by admin', '2014-06-20 16:15:58'),
-(10, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:16:41'),
-(11, 5, 1, 'Payment of USD 1 received by admin', '2014-06-20 16:17:35'),
-(12, 5, 1, 'Payment of USD 19 received by admin', '2014-06-20 16:18:17'),
-(13, 5, 1, 'Payment of USD 20 received by admin', '2014-06-20 16:23:35'),
-(14, 5, 1, 'Payment of USD 20 received by admin', '2014-06-20 16:25:38'),
-(15, 5, 1, 'Payment of USD 20 received by admin', '2014-06-20 16:29:14'),
-(16, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:33:54'),
-(17, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:34:25'),
-(18, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:34:57'),
-(19, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:42:22'),
-(20, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 16:43:01'),
-(21, 5, 1, 'Payment of USD 10 received by admin', '2014-06-20 17:45:19'),
-(22, 5, 1, 'Payment of USD 5 received by admin', '2014-06-20 17:45:45'),
-(23, 3, 1, 'Payment of USD 98 received by admin', '2014-06-21 05:29:43'),
-(24, 6, 1, 'Invoice #222867 created.', '2014-06-22 10:11:12'),
-(25, 7, 1, 'Invoice #884439 created.', '2014-06-22 10:12:57'),
-(26, 3, 1, 'Payment of USD 95 received by admin', '2014-06-25 08:42:35'),
-(27, 3, 1, 'Sent Invoice Reminder to client', '2014-06-25 16:19:40');
+(7, '884439', '11', '25-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-24 19:22:29', 'No', '2014-06-22 10:12:57', 'Yes'),
+(8, '418115', '17', '24-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-29 18:49:51', 'No', '2014-06-29 15:21:26', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -632,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `fx_items` (
   `quantity` int(11) NOT NULL,
   `total_cost` int(11) NOT NULL,
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `fx_items`
@@ -651,7 +552,9 @@ INSERT INTO `fx_items` (`item_id`, `invoice_id`, `item_desc`, `unit_cost`, `quan
 (10, 5, 'Wordpress Plugin', 240, 1, 240, '2014-06-12 15:59:34'),
 (11, 7, 'Bootstrap 3 Theme Dev', 750, 1, 750, '2014-06-22 10:13:25'),
 (12, 7, 'Codecanyon Wordpress Plugin', 450, 2, 900, '2014-06-22 10:13:45'),
-(13, 3, 'Sample Web System', 450, 1, 450, '2014-06-25 08:42:05');
+(13, 3, 'Sample Web System', 450, 1, 450, '2014-06-25 08:42:05'),
+(14, 8, 'Email Marketing', 50, 1, 50, '2014-06-29 15:21:50'),
+(15, 8, 'Mailchimp Wordpress Plugin', 350, 1, 350, '2014-06-29 15:22:12');
 
 -- --------------------------------------------------------
 
@@ -767,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `fx_payments` (
   `month_paid` varchar(32) NOT NULL,
   `year_paid` varchar(32) NOT NULL,
   `inv_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `fx_payments`
@@ -797,7 +700,9 @@ INSERT INTO `fx_payments` (`p_id`, `invoice`, `paid_by`, `payment_method`, `amou
 (21, 5, 3, '1', 10, '679727', '', '2014-06-20 17:45:19', '06', '2014', 'No'),
 (22, 5, 3, '1', 5, '861455', '', '2014-06-20 17:45:45', '06', '2014', 'No'),
 (23, 3, 3, '1', 98, '763777', '', '2014-06-21 05:29:43', '06', '2014', 'No'),
-(24, 3, 3, '1', 95, '625256', '', '2014-06-25 08:42:35', '06', '2014', 'No');
+(24, 3, 3, '1', 95, '625256', '', '2014-06-25 08:42:35', '06', '2014', 'No'),
+(25, 7, 0, '1', 15, '511952', '', '2014-06-29 15:15:35', '06', '2014', 'No'),
+(26, 7, 0, '1', 100, '462336', '', '2014-06-29 15:19:10', '06', '2014', 'No');
 
 -- --------------------------------------------------------
 
@@ -882,62 +787,6 @@ INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `clien
 (4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 0, 5, 'EUR', 21, 'Description goes here', 1, 'Active', 'No', '2014-05-24 16:44:20'),
 (5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 0, 5, 'USD', 59, 'Description db', 5, 'Active', 'No', '2014-05-24 16:44:56'),
 (7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 0, 5, 'USD', 62, 'Project Description', 4, 'Active', 'No', '2014-05-26 16:19:56');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fx_project_activities`
---
-
-CREATE TABLE IF NOT EXISTS `fx_project_activities` (
-`a_id` int(11) NOT NULL,
-  `project` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
-
---
--- Dumping data for table `fx_project_activities`
---
-
-INSERT INTO `fx_project_activities` (`a_id`, `project`, `user`, `activity`, `date_saved`) VALUES
-(1, 1, 2, 'Added an Issue #5644', '2014-05-12 04:56:45'),
-(2, 1, 4, 'Edited issue #5444', '2014-05-12 04:56:45'),
-(3, 1, 4, 'Marked issue #5444 as In Progress', '2014-05-12 05:20:45'),
-(4, 3, 1, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-05-12 07:58:19'),
-(5, 1, 1, 'Assigned Issue #3445 to a user and marked as In Progress', '2014-05-12 08:00:29'),
-(6, 1, 1, 'Marked Issue # as Confirmed', '2014-05-12 08:16:00'),
-(7, 1, 1, 'Marked Issue #3445 as In Progress', '2014-05-12 08:17:42'),
-(8, 2, 1, 'Marked Issue #3447 as Confirmed', '2014-05-12 08:18:19'),
-(11, 2, 2, 'Edited an Issue #5499', '2014-05-12 08:35:48'),
-(12, 2, 3, 'Assigned Issue #5499 to a user and marked as In Progress', '2014-05-12 08:36:17'),
-(13, 2, 3, 'Marked Issue #5499 as Resolved', '2014-05-15 08:36:46'),
-(14, 3, 1, 'Created a project #46483', '2014-05-24 16:40:52'),
-(15, 4, 1, 'Created a project #21735', '2014-05-24 16:44:20'),
-(16, 5, 1, 'Created a project #98946', '2014-05-24 16:44:56'),
-(18, 4, 1, 'Edited a project #21735', '2014-05-25 17:40:18'),
-(19, 4, 1, 'Edited a project #21735', '2014-05-25 17:42:22'),
-(21, 5, 1, 'Added a comment to Project #98946', '2014-05-25 17:58:26'),
-(25, 5, 1, 'Edited a project #98946', '2014-05-26 16:02:26'),
-(26, 5, 1, 'Edited a project #98946', '2014-05-26 16:03:31'),
-(27, 5, 1, 'Edited a project #98946', '2014-05-26 16:03:48'),
-(28, 5, 1, 'Edited a project #98946', '2014-05-26 16:04:03'),
-(29, 5, 1, 'Edited a project #98946', '2014-05-26 16:04:52'),
-(30, 5, 1, 'Edited a project #98946', '2014-05-26 16:05:23'),
-(31, 5, 1, 'Edited a project #98946', '2014-05-26 16:06:16'),
-(32, 5, 1, 'Edited a project #98946', '2014-05-26 16:06:27'),
-(33, 5, 1, 'Edited a project #98946', '2014-05-26 16:06:59'),
-(34, 5, 1, 'Edited a project #98946', '2014-05-26 16:07:11'),
-(35, 5, 1, 'Edited a project #98946', '2014-05-26 16:07:21'),
-(36, 5, 1, 'Edited a project #98946', '2014-05-26 16:07:33'),
-(37, 5, 1, 'Edited a project #98946', '2014-05-26 16:07:47'),
-(38, 7, 1, 'admin created a project #84952', '2014-05-26 16:19:56'),
-(39, 7, 1, 'Admin edited a project #84952', '2014-05-26 16:24:30'),
-(40, 7, 1, 'Added a comment to Project #84952', '2014-05-26 16:24:55'),
-(41, 7, 1, 'Added a comment to Project #84952', '2014-06-07 07:17:03'),
-(42, 5, 1, 'Added a comment to Project #98946', '2014-06-12 16:03:53'),
-(43, 7, 1, 'Added a comment to Project #84952', '2014-06-16 13:25:05');
 
 -- --------------------------------------------------------
 
@@ -1322,25 +1171,8 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('03b075aa8d90cfab4e172af41cdc1f2f', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403961355, ''),
-('12ef2ba43e2b20939232f8f86e91cacf', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960834, ''),
-('23af701ef1208f233e2c2ea0ebb77761', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960982, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('278e9f424f83e4a1c064dec8f71fcddf', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960941, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('2fa9ba9563bb714fec9ac5669c2221dc', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960832, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('35cf89dd4d240b594b7eea6f7e42dd17', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960848, ''),
-('8294465144e8647d0a2e5c3e5694d7cd', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960942, ''),
-('992bf75a5f3c2579fe8a7c7b79b4b91c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960847, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('999c832a310f9bd6587317c64214ca44', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960624, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:98:"Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance";}'),
-('a5a231f58beb797a9021dcb65a04f136', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403961353, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:98:"Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance";}'),
-('b091a3159c27c37f4499d5fa01a8811b', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404035175, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
-('bfd4759565f7deae70bf70e0efeb9d55', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960983, ''),
-('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, ''),
-('c2c5288d104a9642dca36e4aab40378a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960630, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('d1cda5e7553d21003e09e0cf4748317a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960844, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:98:"Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance";}'),
-('e19ab0f3252c4fc4cfb0d52979d79faf', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403961354, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:47:"You are not logged in. Please login to proceed.";}'),
-('eaaf5aeaa08c653c6880a1b8017d4835', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960632, ''),
-('f4130cfa14dc19113faec85892e088fc', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960831, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:98:"Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance";}'),
-('fb0ead0a9996d128eb51ec77818ff970', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1403960939, 'a:2:{s:9:"user_data";s:0:"";s:17:"flash:new:message";s:98:"Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance";}');
+('3a4e55b1646861811b5f641ef29f715c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404058124, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
+('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, '');
 
 -- --------------------------------------------------------
 
@@ -1372,7 +1204,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-06-29 12:49:04', '2014-02-26 14:18:04', '2014-06-29 09:49:04'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-06-29 15:57:19', '2014-02-26 14:18:04', '2014-06-29 12:57:19'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1435,12 +1267,6 @@ ALTER TABLE `fx_bugs`
  ADD PRIMARY KEY (`bug_id`), ADD UNIQUE KEY `issue_ref` (`issue_ref`);
 
 --
--- Indexes for table `fx_bug_activities`
---
-ALTER TABLE `fx_bug_activities`
- ADD PRIMARY KEY (`a_id`);
-
---
 -- Indexes for table `fx_bug_comments`
 --
 ALTER TABLE `fx_bug_comments`
@@ -1495,12 +1321,6 @@ ALTER TABLE `fx_estimates`
  ADD PRIMARY KEY (`est_id`), ADD UNIQUE KEY `reference_no` (`reference_no`);
 
 --
--- Indexes for table `fx_estimate_activities`
---
-ALTER TABLE `fx_estimate_activities`
- ADD PRIMARY KEY (`a_id`);
-
---
 -- Indexes for table `fx_estimate_items`
 --
 ALTER TABLE `fx_estimate_items`
@@ -1523,12 +1343,6 @@ ALTER TABLE `fx_files`
 --
 ALTER TABLE `fx_invoices`
  ADD PRIMARY KEY (`inv_id`), ADD UNIQUE KEY `reference_no` (`reference_no`);
-
---
--- Indexes for table `fx_invoice_activities`
---
-ALTER TABLE `fx_invoice_activities`
- ADD PRIMARY KEY (`a_id`);
 
 --
 -- Indexes for table `fx_items`
@@ -1583,12 +1397,6 @@ ALTER TABLE `fx_posts`
 --
 ALTER TABLE `fx_projects`
  ADD PRIMARY KEY (`project_id`);
-
---
--- Indexes for table `fx_project_activities`
---
-ALTER TABLE `fx_project_activities`
- ADD PRIMARY KEY (`a_id`);
 
 --
 -- Indexes for table `fx_project_timer`
@@ -1657,17 +1465,12 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
 ALTER TABLE `fx_bugs`
 MODIFY `bug_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `fx_bug_activities`
---
-ALTER TABLE `fx_bug_activities`
-MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `fx_bug_comments`
 --
@@ -1704,11 +1507,6 @@ MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `fx_estimates`
 MODIFY `est_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `fx_estimate_activities`
---
-ALTER TABLE `fx_estimate_activities`
-MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
 -- AUTO_INCREMENT for table `fx_estimate_items`
 --
 ALTER TABLE `fx_estimate_items`
@@ -1727,17 +1525,12 @@ MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `fx_invoices`
 --
 ALTER TABLE `fx_invoices`
-MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `fx_invoice_activities`
---
-ALTER TABLE `fx_invoice_activities`
-MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `fx_items`
 --
 ALTER TABLE `fx_items`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `fx_items_saved`
 --
@@ -1762,7 +1555,7 @@ MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `fx_payments`
 --
 ALTER TABLE `fx_payments`
-MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `fx_payment_methods`
 --
@@ -1778,11 +1571,6 @@ MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 ALTER TABLE `fx_projects`
 MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `fx_project_activities`
---
-ALTER TABLE `fx_project_activities`
-MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `fx_project_timer`
 --

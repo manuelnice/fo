@@ -100,6 +100,7 @@ class View extends MX_Controller {
 			$this->db->where('bug_id',$bug_id)->update('bugs', $form_data); 
 			$activity = 'Edited an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
 			redirect('bugs/view_by_status/all');
@@ -112,10 +113,11 @@ class View extends MX_Controller {
 		}
 	}
 	function _log_bug_activity($bug_id,$activity){
-			$this->db->set('bug_id', $bug_id);
+			$this->db->set('module', 'bugs');
+			$this->db->set('module_field_id', $bug_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
-			$this->db->insert('bug_activities'); 
+			$this->db->insert('activities'); 
 	}
 }
 
