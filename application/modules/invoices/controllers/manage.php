@@ -226,6 +226,10 @@ class Manage extends MX_Controller {
 			$this->db->set('date_sent', date ("Y-m-d H:i:s", time()));
 			$this->db->where('inv_id',$invoice_id)->update('invoices'); 
 
+			$activity = 'INVOICE #'.$ref. ' marked as Sent';
+
+			$this->_log_activity($invoice_id,$activity); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_sent_successfully'));
 			redirect('invoices/manage/details/'.$invoice_id);
