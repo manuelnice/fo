@@ -55,7 +55,7 @@ class Client_model extends CI_Model
 	function user_activities($user_id)
 	{
 		$this->db->join('users','users.id = activities.user');
-		$query = $this->db->where('user',$user_id)->get('activities',50);
+		$query = $this->db->where('user',$user_id)->order_by('activity_date','DESC')->get('activities',50);
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

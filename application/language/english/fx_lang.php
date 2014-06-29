@@ -112,6 +112,7 @@ $lang['delete_failed'] = 'The operation failed. Please try again';
 $lang['demo'] = 'Demo';
 $lang['demo_mode'] = 'Demo Mode';
 $lang['details'] = 'Details';
+$lang['detail'] = 'Detail';
 $lang['description'] = 'Description';
 $lang['documentation'] = 'Documentation';
 $lang['downloads'] = 'Downloads';

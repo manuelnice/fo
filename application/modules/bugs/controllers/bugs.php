@@ -87,6 +87,8 @@ class Bugs extends MX_Controller {
 			                'comment' => $this->input->post('comment')
 			            );
 			$this->db->insert('bug_comments', $form_data); 
+			$activity = "Added a comment to a bug";
+			$this->_log_bug_activity($this->input->post('bug'),$activity); //log activity
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
 			redirect('bugs/view/details/'.$this->input->get('bug',TRUE));
@@ -175,6 +177,9 @@ class Bugs extends MX_Controller {
 		}else{			
 			$this->db->delete('bugs', array('bug_id' => $this->input->post('bug_id'))); 
 			//delete the files here
+			$activity = $this->tank_auth->get_username()." deleted a bug";
+			$this->_log_bug_activity($this->input->post('bug_id'),$activity); //log activity
+			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_deleted_successfully'));
 			redirect('bugs');
@@ -185,10 +190,11 @@ class Bugs extends MX_Controller {
 		}
 	}
 	function _log_bug_activity($bug_id,$activity){
-			$this->db->set('bug_id', $bug_id);
+			$this->db->set('module', 'bugs');
+			$this->db->set('module_field_id', $bug_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
-			$this->db->insert('bug_activities'); 
+			$this->db->insert('activities'); 
 	}
 }
 
