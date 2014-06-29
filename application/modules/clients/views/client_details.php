@@ -75,7 +75,7 @@
 <div class="tab-content">
 
 <div class="tab-pane active" id="profile">
-	<!-- ZOHO START -->
+	<!-- Details START -->
 <div class="col-md-6">
 			<div class="group">
 				<h4 class="subheader text-muted"><?=lang('contact_details')?></h4>
@@ -137,7 +137,7 @@
 			</div>
 			</div>
           
-<!-- ZOHO END -->
+<!-- Details END -->
 </div> 
 
 
