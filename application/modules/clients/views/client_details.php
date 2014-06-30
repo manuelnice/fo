@@ -62,7 +62,7 @@
 								if (!empty($user_details)) {
 				foreach ($user_details as $key => $i) { ?>
 				
-		<!-- Start -->
+		<!-- Start of tabs-->
 <ul class="nav nav-tabs" id="stats">
 <li class="active"><a href="#profile" data-toggle="tab"> <?=lang('profile')?> </a></li>
 
