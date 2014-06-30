@@ -4,7 +4,7 @@
 								if (!empty($project_details)) {
 				foreach ($project_details as $key => $project) { ?>
 	<header class="header bg-white b-b b-light">
-	<p>#<?=$project->project_code?> <?=lang('project_details')?></p> </header> 
+	<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p> </header> 
 
 	<section class="scrollable"> 
 	<section class="hbox stretch"> 
@@ -13,14 +13,24 @@
 	<section class="scrollable w-f">
 	<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
 	<div class="wrapper">
-	
+	<!-- Start -->
+	<section class="panel panel-default"> 
+
+<header class="panel-heading">Task Status</header>
+<div class="panel-body text-center">
+<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']">60,40</div>
+<div class="line pull-in"></div> 
+
+<div class="text-xs"> <i class="fa fa-circle text-success"></i> 60% Open <i class="fa fa-circle text-danger"></i> 40% Closed</div> 
+</div> </section> 
+<!-- end -->
 		<div class="clearfix m-b">
 		<a href="#" class="pull-left thumb m-r"> 
 		<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($project->client,'avatar')?>" class="img-circle"> </a>
 			<div class="clear">
-				<div class="h3 m-t-xs m-b-xs"><?=lang('owner')?></div> 
-				<small class="text-muted"><i class="fa fa-user"></i> 
-				<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></small>
+				<div class="h3 m-t-xs m-b-xs"><?=lang('client')?></div> 
+				<small class="text-muted">
+				<a class="text-info" href="<?=base_url()?>clients/view/details/<?=$project->client*1200?>">@<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></a></small>
 			</div>
 		</div>
 		<div class="panel wrapper panel-success">
@@ -38,18 +48,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="btn-group"> 
-		
-			<a class="btn btn-primary" href="<?=base_url()?>bugs/download">
-			<span class="text"> <i class="fa fa-cloud-download"></i> <?=lang('download_file')?></span> </a> 
-		
-		</div>
 
 		<div>
-			<small class="text-uc text-xs text-muted"><?=lang('project_title')?></small>
-			<p> <?=$project->project_title?></p>
-			<div class="line">
-			</div> 
+			
 			<div class="progress progress-xs progress-striped active">
 			<div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="<?=$project->progress?>%" style="width: <?=$project->progress?>%">
 			</div>
