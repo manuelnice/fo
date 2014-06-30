@@ -31,8 +31,9 @@
                                         					)); ?></span> <small class="text-muted"><?=lang('comments')?></small> </a>
 				</div>
 				<div class="col-xs-6"> <a href="#">
-					<span class="m-b-xs h4 block"><?=$this->user_profile->count_rows('project_activities',$array = array(
-                                        					'project' => $project->project_id
+					<span class="m-b-xs h4 block"><?=$this->user_profile->count_rows('activities',$array = array(
+															'module' => 'projects',
+                                        					'module_field_id' => $project->project_id
                                         					)); ?></span> <small class="text-muted"><?=lang('activities')?></small> </a>
 				</div>
 			</div>
@@ -132,7 +133,7 @@
 		<a href="#" class="thumb-sm pull-left m-r-sm"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($activity->user,'avatar')?>" class="img-circle"> </a>
 			<a href="#" class="clear"> <small class="pull-right"><?php
 								$today = time();
-								$activity_day = strtotime($activity->date_saved) ;
+								$activity_day = strtotime($activity->activity_date) ;
 								echo $this->user_profile->get_time_diff($today,$activity_day);
 							?> ago</small> <strong class="block"><?=ucfirst($this->user_profile->get_user_details($activity->user,'username'))?></strong> 
 							<small><?=$activity->activity?></small> </a> 

@@ -30,7 +30,8 @@ class Project_model extends CI_Model
 	}
 	function project_activities($project)
 	{
-		$query = $this->db->where('project',$project)->order_by('date_saved','desc')->get('project_activities');
+		$this->db->where('module','projects');
+		$query = $this->db->where('module_field_id',$project)->order_by('activity_date','desc')->get('activities');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
