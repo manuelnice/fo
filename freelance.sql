@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2014 at 07:23 PM
+-- Generation Time: Jul 02, 2014 at 07:32 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `fx_bugs` (
 --
 
 INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `attached_file`, `last_modified`) VALUES
-(1, 3445, 1, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
+(1, 3445, 2, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
 (2, 3447, 2, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-10 21:00:00', 2, '2014-05-11 17:27:54'),
-(3, 5467, 1, 12, 23, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
+(3, 5467, 2, 12, 23, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
 (5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-05-11 13:51:06', 4, '2014-05-11 16:51:06');
 
 -- --------------------------------------------------------
@@ -772,6 +772,7 @@ CREATE TABLE IF NOT EXISTS `fx_projects` (
   `description` text NOT NULL,
   `assign_to` int(11) NOT NULL DEFAULT '1',
   `status` enum('On Hold','Active','Done') NOT NULL DEFAULT 'Active',
+  `timer` enum('On','Off') NOT NULL DEFAULT 'Off',
   `proj_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
@@ -780,13 +781,13 @@ CREATE TABLE IF NOT EXISTS `fx_projects` (
 -- Dumping data for table `fx_projects`
 --
 
-INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hours_spent`, `hourly_rate`, `currency`, `progress`, `description`, `assign_to`, `status`, `proj_deleted`, `date_created`) VALUES
-(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/06/09', 32, 5, 'USD', 45, 'Description', 1, 'Active', 'No', '2014-05-09 19:15:07'),
-(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '2014/06/09', 56, 5, 'USD', 80, 'Description', 1, 'Active', 'No', '2014-05-09 19:15:07'),
-(3, 46483, 'Test Project', 2, '24-05-2014', '20-06-2014', 0, 5, 'USD', 56, 'Description', 1, 'Active', 'No', '2014-05-24 16:40:52'),
-(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 0, 5, 'EUR', 21, 'Description goes here', 1, 'Active', 'No', '2014-05-24 16:44:20'),
-(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 0, 5, 'USD', 59, 'Description db', 5, 'Active', 'No', '2014-05-24 16:44:56'),
-(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 0, 5, 'USD', 62, 'Project Description', 4, 'Active', 'No', '2014-05-26 16:19:56');
+INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hours_spent`, `hourly_rate`, `currency`, `progress`, `description`, `assign_to`, `status`, `timer`, `proj_deleted`, `date_created`) VALUES
+(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/06/09', 32, 5, 'USD', 45, 'Description', 1, 'Active', 'Off', 'No', '2014-05-09 19:15:07'),
+(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '2014/06/09', 56, 5, 'USD', 80, 'Description', 1, 'Active', 'Off', 'No', '2014-05-09 19:15:07'),
+(3, 46483, 'Test Project', 2, '24-05-2014', '20-06-2014', 0, 5, 'USD', 56, 'Description', 1, 'Active', 'Off', 'No', '2014-05-24 16:40:52'),
+(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 0, 5, 'EUR', 21, 'Description goes here', 1, 'Active', 'Off', 'No', '2014-05-24 16:44:20'),
+(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 0, 5, 'USD', 59, 'Description db', 5, 'Active', 'Off', 'No', '2014-05-24 16:44:56'),
+(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 0, 5, 'USD', 62, 'Project Description', 4, 'Active', 'Off', 'No', '2014-05-26 16:19:56');
 
 -- --------------------------------------------------------
 
@@ -800,7 +801,14 @@ CREATE TABLE IF NOT EXISTS `fx_project_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `fx_project_timer`
+--
+
+INSERT INTO `fx_project_timer` (`timer_id`, `project`, `start_time`, `end_time`, `date_timed`) VALUES
+(1, 2, '2014-05-26 19:19:56', '2014-05-27 19:19:56', '2014-07-02 15:48:06');
 
 -- --------------------------------------------------------
 
@@ -1171,7 +1179,7 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3a4e55b1646861811b5f641ef29f715c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404058124, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
+('73694973c4812ae1ff1823d79d186fe7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404320202, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
 ('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, '');
 
 -- --------------------------------------------------------
@@ -1204,7 +1212,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-06-29 15:57:19', '2014-02-26 14:18:04', '2014-06-29 12:57:19'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2014-07-02 18:05:07', '2014-02-26 14:18:04', '2014-07-02 15:05:07'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1575,7 +1583,7 @@ MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `fx_project_timer`
 --
 ALTER TABLE `fx_project_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `fx_ratings`
 --
