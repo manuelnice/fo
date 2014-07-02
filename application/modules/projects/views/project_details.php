@@ -62,112 +62,25 @@
 											<section class="panel panel-default">
 												<div class="panel-body">
 													<ul class="nav nav-tabs" id="stats">
-														<li class="active"><a href="#timeline" data-toggle="tab"> Timeline </a></li>
+														
 														<li><a href="<?=base_url()?>clients/view/clientinvoices/" data-target="#invoices" class="media_node active span" id="invoice_tab" data-toggle="tabajax" rel="tooltip"> Tasks </a></li>
 														<li><a href="<?=base_url()?>clients/view/clientprojects/" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> Files</a></li>
 														<li><a href="<?=base_url()?>clients/view/payments/" data-target="#payments" class="media_node span" id="payments_tab" data-toggle="tabajax" rel="tooltip">Feeds</a></li>
-														<li><a href="<?=base_url()?>clients/view/activities/" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip">Bugs</a></li>
+														<li><a href="<?=base_url()?>projects/tabs/bugs/<?=$project->project_id?>" data-target="#activities" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip">Bugs</a></li>
+														<li><a href="<?=base_url()?>projects/tabs/timeline/<?=$project->project_id?>" data-target="#timeline" class="media_node span" id="timeline_tab" data-toggle="tabajax" rel="tooltip">Timeline </a></li>
 													</ul>
 													<div class="tab-content">
-														<div class="tab-pane active" id="timeline">
-															<!-- Timeline START -->
-															<section class="panel panel-default">
-																<div class="panel-body">
-																	<div class="timeline">
-														<article class="timeline-item">
-																<div class="timeline-caption">
-																		<div class="panel panel-default">
-																					<div class="panel-body">
-																						<span class="arrow left"></span>
-																						<span class="timeline-icon">
-																						<i class="fa fa-phone time-icon bg-primary"></i>
-																						</span>
-																						<span class="timeline-date">31 Jun 2014 12:26
-																						</span> 
-																				<h5 class="small text-info"><a href="">Admin</a></h5>
-																					<p class="small">Added a new task named System Architecture</p>
-																					</div>
-																		</div>
-																</div>
-														</article> <article class="timeline-item alt">
-																			<div class="timeline-caption">
-																				<div class="panel panel-default">
-																					<div class="panel-body">
-																						<span class="arrow right">
-																						</span>
-																						<span class="timeline-icon"><i class="fa fa-male time-icon bg-success"></i>
-																						</span>
-																						<span class="timeline-date">10:00 am</span>
-																				 <h5 class="small text-info"><a href="">Wmandai</a></h5>
-																						<p class="small">Edited a task named System Design</p>
-																					</div>
-																				</div>
-																			</div> </article>
-														<article class="timeline-item">
-														<div class="timeline-caption">
-																				<div class="panel panel-default">
-																					<div class="panel-body">
-																						<span class="arrow left">
-																						</span>
-																						<span class="timeline-icon"><i class="fa fa-plane time-icon bg-dark"></i>
-																						</span>
-																						<span class="timeline-date">8:00 am
-																						</span> <h5 class="small"><a href="">Stella</a></h5>
-																						<p class="small">Posted a comment to the project</p>
-																					</div>
-																				</div>
-														</div> </article>
-														<article class="timeline-item alt">
-														<div class="timeline-caption">
-																	<div class="panel panel-default">
-																			<div class="panel-body">
-																					<span class="arrow right"></span>
-																						<span class="timeline-icon"><i class="fa fa-file-text time-icon bg-info"></i></span>
-																						<span class="timeline-date">9:30 am</span>
-																						<h5 class="small"><a href="">James</a></h5>
-																						<p class="small">Completed a Task (Git Deployment)</p>
-																			</div>
-																	</div>
-														</div> </article>
-														<article class="timeline-item">
-														<div class="timeline-caption">
-																	<div class="panel panel-default">
-																			<div class="panel-body">
-																					<span class="arrow left"></span>
-																						<span class="timeline-icon">
-																						<i class="fa fa-code time-icon bg-dark"></i>
-																						</span>
-																						<span class="timeline-date">9:00 am</span> 
-																						<h5 class="small"><a href="">James</a></h5>
-																						<p class="small">Uploaded a file to the project</p>
-																			</div>
-																	</div>
-														</div> </article>
-														<article class="timeline-item">
-														<div class="timeline-caption">
-																	<div class="panel panel-default">
-																			<div class="panel-body">
-																					<span class="arrow left"></span>
-																						<span class="timeline-icon">
-																						<i class="fa fa-code time-icon bg-dark"></i>
-																						</span>
-																						<span class="timeline-date">9:00 am</span> 
-																						<h5 class="small"><a href="">James</a></h5>
-																						<p class="small">Created this project</p>
-																			</div>
-																	</div>
-														</div> </article>
-																	<div class="timeline-footer"><a href="timeline.html#"><i class="fa fa-plus time-icon inline-block bg-dark"></i></a>
-																		</div>
-																	</div>
-																</div>
-															</section>
-															<!-- Timeline END -->
-														</div>
-														<div class="tab-pane" id="invoices"></div>
+
+													<div class="tab-pane" id="invoices"></div>
 														<div class="tab-pane" id="projects"></div>
 														<div class="tab-pane" id="payments"></div>
 														<div class="tab-pane  urlbox span8" id="activities"></div>
+
+														<div class="tab-pane" id="timeline">
+															
+															<!-- Timeline END -->
+														</div>
+														
 													</div>
 												</div>
 											</section>

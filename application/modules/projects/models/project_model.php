@@ -57,6 +57,14 @@ class Project_model extends CI_Model
 			return $query->result();
 		} 
 	}
+	function project_bugs($project)
+	{
+		$this->db->join('users','users.id = bugs.reporter');
+		$query = $this->db->where('project',$project)->order_by('reported_on','desc')->get('bugs');
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
+	}
 	function assign_to()
 	{
 		$query = $this->db->where('role_id !=',2)->get('users');

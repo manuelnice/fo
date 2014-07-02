@@ -34,6 +34,7 @@ $lang['blog'] = 'Blog';
 $lang['be_an_author'] = 'Be an Author';
 $lang['buy'] = 'Buy';
 $lang['bugs'] = 'Bugs';
+$lang['bug_no'] = 'Bug #';
 $lang['bug_reporter'] = 'Reporter';
 $lang['bug_tracking'] = 'Bug Tracking';
 $lang['bug_description'] = 'Bug Description';
