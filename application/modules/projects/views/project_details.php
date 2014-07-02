@@ -63,8 +63,9 @@
 												<div class="panel-body">
 													<ul class="nav nav-tabs" id="stats">
 														
-														<li><a href="<?=base_url()?>clients/view/clientinvoices/" data-target="#invoices" class="media_node active span" id="invoice_tab" data-toggle="tabajax" rel="tooltip"> Tasks </a></li>
-														<li><a href="<?=base_url()?>clients/view/clientprojects/" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> Files</a></li>
+														<li class="active"><a href="#tasks" id="tasks_tab" data-toggle="tab"> Tasks </a></li>
+
+														<li><a href="<?=base_url()?>projects/tabs/tasks/<?=$project->project_id?>" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> Files</a></li>
 														
 														<li><a href="<?=base_url()?>projects/tabs/timesheet/<?=$project->project_id?>" data-target="#timesheet" class="media_node span" id="timesheet_tab" data-toggle="tabajax" rel="tooltip">Timesheets</a></li>
 
@@ -73,7 +74,7 @@
 													</ul>
 													<div class="tab-content">
 
-													<div class="tab-pane" id="invoices"></div>
+													<div class="tab-pane active" id="tasks"><?php  echo modules::run('projects/tabs/tasks');?></div>
 														<div class="tab-pane" id="projects"></div>
 														<div class="tab-pane" id="timesheet"></div>
 														<div class="tab-pane" id="bugs"></div>

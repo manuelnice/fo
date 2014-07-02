@@ -34,12 +34,12 @@ class Tabs extends MX_Controller {
 	function timesheet()
 	{		
 		$data['timesheets'] = $this->project->timesheets($this->uri->segment(4));
-		$this->load->view('tabs/timesheet',isset($data) ? $data : NULL);
+		$this->load->view('tabs/timesheets',isset($data) ? $data : NULL);
 	}
-	function activities()
+	function tasks()
 	{		
-		$data['user_activities'] = $this->user->user_activities($this->uri->segment(4));
-		$this->load->view('client_activities',isset($data) ? $data : NULL);
+		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
+		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
 	}
 }
 
