@@ -31,10 +31,10 @@ class Tabs extends MX_Controller {
 		$data['bugs'] = $this->project->project_bugs($this->uri->segment(4));
 		$this->load->view('tabs/bugs',isset($data) ? $data : NULL);
 	}
-	function payments()
+	function timesheet()
 	{		
-		$data['user_payments'] = $this->user->user_payments($this->uri->segment(4));
-		$this->load->view('client_payments',isset($data) ? $data : NULL);
+		$data['timesheets'] = $this->project->timesheets($this->uri->segment(4));
+		$this->load->view('tabs/timesheet',isset($data) ? $data : NULL);
 	}
 	function activities()
 	{		

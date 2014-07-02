@@ -1,4 +1,4 @@
-<table class="table table-striped b-t b-light text-sm">
+<table class="table table-striped b-t b-light text-sm hover">
 			<thead>
 				<tr>
 					<th><?=lang('bug_no')?></th>
@@ -10,12 +10,13 @@
 				<?php
 								if (!empty($bugs)) {
 				foreach ($bugs as $key => $bug) { ?>
-				<tr>
-				<td><?=$bug->issue_ref?></a></td>
-				<td><?=ucfirst($bug->username)?></a></td>
-				<td><?=$bug->bug_status?></a></td>
-				<td><?=$bug->priority?></a></td>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", strtotime($bug->reported_on));?></td>
+				
+				<tr class="success">
+				<td><a class="text-info" href="<?=base_url()?>bugs/view/details/<?=$bug->bug_id?>"><?=$bug->issue_ref?></a></td>
+				<td><?=ucfirst($bug->username)?></td>
+				<td><?=$bug->bug_status?></td>
+				<td><?=$bug->priority?></td>
+				<td><?=strftime("%B %d, %Y", strtotime($bug->reported_on));?></td>
 				</tr>
 				<?php  }} else{ ?>
 				<tr>

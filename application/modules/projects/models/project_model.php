@@ -65,6 +65,13 @@ class Project_model extends CI_Model
 			return $query->result();
 		} 
 	}
+	function timesheets($project)
+	{
+		$query = $this->db->where('project',$project)->get('project_timer');
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
+	}
 	function assign_to()
 	{
 		$query = $this->db->where('role_id !=',2)->get('users');
