@@ -28,6 +28,13 @@ class Project_model extends CI_Model
 			return $query->result();
 		} 
 	}
+	function task_details($task)
+	{
+		$query = $this->db->where('t_id',$task)->get('tasks');
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
+	}
 	function project_activities($project)
 	{
 		$this->db->where('module','projects');

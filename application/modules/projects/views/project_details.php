@@ -4,7 +4,12 @@
 						if (!empty($project_details)) {
 		foreach ($project_details as $key => $project) { ?>
 		<header class="header bg-white b-b b-light">
-			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p> </header>
+			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
+
+
+<a href="<?=base_url()?>projects/tracking/<?=$project->project_id?>" class="btn btn-sm btn-success pull-right"> <i class="fa fa-spin fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
+
+			</header>
 			<section class="scrollable">
 				<section class="hbox stretch">
 					<aside class="aside-lg bg-light lter b-r">
@@ -61,6 +66,8 @@
 											<!-- Start Tabs -->
 											<section class="panel panel-default">
 												<div class="panel-body">
+												<?php  echo modules::run('sidebar/flash_msg');?>
+
 													<ul class="nav nav-tabs" id="stats">
 														
 														<li class="active"><a href="#tasks" id="tasks_tab" data-toggle="tab"> Tasks </a></li>
@@ -93,7 +100,7 @@
 								</section>
 							</aside>
 							<aside class="col-lg-4 b-l">
-								<?php  echo modules::run('sidebar/flash_msg');?>
+								<?php  //echo modules::run('sidebar/flash_msg');?>
 								<section class="vbox">
 									<section class="scrollable w-f">
 										<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
@@ -111,7 +118,7 @@
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
 																<a href="#"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
-																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-info m-l-xs"><?=lang('you')?></label> <?php } ?>
+																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
 																					$comment_day = strtotime($comment->date_posted) ;

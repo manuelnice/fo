@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 02, 2014 at 07:32 PM
+-- Generation Time: Jul 04, 2014 at 08:29 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `fx_activities` (
   `activity` varchar(255) NOT NULL,
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `fx_activities`
@@ -107,7 +107,8 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (13, 1, 'invoices', 7, 'Payment of USD 15 received by admin', '2014-06-29 15:15:35', 0),
 (14, 1, 'invoices', 7, 'Payment of USD 100 received and applied to INVOICE 884439', '2014-06-29 15:19:10', 0),
 (15, 1, 'invoices', 8, 'INVOICE #418115 created.', '2014-06-29 15:21:26', 0),
-(16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 0);
+(16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 0),
+(17, 1, 'projects', 2, 'Added a comment to Project #765546', '2014-07-04 16:43:23', 0);
 
 -- --------------------------------------------------------
 
@@ -225,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `fx_comments` (
   `message` text NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `fx_comments`
@@ -243,7 +244,8 @@ INSERT INTO `fx_comments` (`comment_id`, `project`, `posted_by`, `message`, `dat
 (11, 7, 1, 'I commented', '2014-05-26 16:24:55', 'No'),
 (12, 7, 1, 'How much will you charge?', '2014-06-07 07:17:03', 'No'),
 (13, 5, 1, 'Comment added here', '2014-06-12 16:03:53', 'No'),
-(14, 7, 1, 'Hey', '2014-06-16 13:25:05', 'No');
+(14, 7, 1, 'Hey', '2014-06-16 13:25:05', 'No'),
+(15, 2, 1, 'That was my awesome comment', '2014-07-04 16:43:23', 'No');
 
 -- --------------------------------------------------------
 
@@ -1126,25 +1128,25 @@ CREATE TABLE IF NOT EXISTS `fx_tasks` (
 `t_id` int(11) NOT NULL,
   `task_name` varchar(255) NOT NULL,
   `project` int(11) NOT NULL,
-  `status` enum('Open','Done') NOT NULL DEFAULT 'Open',
   `assigned_to` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `visible` enum('Yes','No') NOT NULL DEFAULT 'Yes',
-  `tracked_time` varchar(32) NOT NULL,
   `progress` int(11) NOT NULL DEFAULT '0',
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `added_by` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `fx_tasks`
 --
 
-INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `status`, `assigned_to`, `description`, `visible`, `tracked_time`, `progress`, `date_added`, `added_by`) VALUES
-(1, 'Top Menu', 1, 'Open', '["1","2","3"]', 'Task Description', 'Yes', '2', 40, '2014-05-09 05:09:48', 1),
-(2, 'Bug Fixes', 2, 'Open', '["1","2","3"]', 'Task Description', 'Yes', '3', 20, '2014-05-09 05:09:48', 1),
-(3, 'Footer Menu', 2, 'Done', '["1","2","3"]', 'Task Description', 'Yes', '3', 100, '2014-05-14 05:09:48', 3),
-(4, 'Logout Error fix', 2, 'Open', '["1","2","3"]', 'Task Description', 'Yes', '1', 60, '2014-05-15 05:24:48', 2);
+INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `description`, `visible`, `progress`, `date_added`, `added_by`) VALUES
+(1, 'Top Menu', 1, '["1","2","3"]', 'Task Description', 'Yes', 40, '2014-05-09 05:09:48', 1),
+(2, 'Bug Fixes', 2, '["1","2","3"]', 'Task Description', 'Yes', 20, '2014-05-09 05:09:48', 1),
+(3, 'Footer Menu', 2, '["1","2","3"]', 'Task Description', 'Yes', 100, '2014-05-14 05:09:48', 3),
+(4, 'Logout Error fix DB', 2, '23', 'Task Description DB', 'Yes', 30, '2014-05-15 05:24:48', 1),
+(5, 'Modal in Dashboard', 2, '23', 'Description', 'Yes', 80, '2014-07-04 18:03:54', 1),
+(6, 'Modal in Dashboard 2', 2, '5', 'Description', 'Yes', 50, '2014-07-04 18:06:08', 1);
 
 -- --------------------------------------------------------
 
@@ -1179,7 +1181,7 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('73694973c4812ae1ff1823d79d186fe7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404320202, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
+('62f0aba770a2bc6fdb8ccce06ad2494d', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404498297, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
 ('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, '');
 
 -- --------------------------------------------------------
@@ -1212,7 +1214,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2014-07-02 18:05:07', '2014-02-26 14:18:04', '2014-07-02 15:05:07'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-04 16:30:53', '2014-02-26 14:18:04', '2014-07-04 13:30:53'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1473,7 +1475,7 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
@@ -1493,7 +1495,7 @@ MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `fx_comments`
 --
 ALTER TABLE `fx_comments`
-MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `fx_comment_replies`
 --
@@ -1598,7 +1600,7 @@ MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `fx_tasks`
 --
 ALTER TABLE `fx_tasks`
-MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `fx_tasks_timer`
 --
