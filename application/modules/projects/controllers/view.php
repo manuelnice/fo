@@ -95,13 +95,15 @@ class View extends MX_Controller {
 		$this->form_validation->set_rules('start_date', 'Start Date', 'required');
 		$this->form_validation->set_rules('due_date', 'Due Date', 'required');
 		$this->form_validation->set_rules('assigned_to', 'Assigned To', 'required');
+		$project_id = $this->input->post('project_id');	
+		
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('projects/view_projects/all');
+				redirect('projects/view/details/'.$project_id);
 		}else{	
-		$project_id = $this->input->post('project_id');		
+			
 			$form_data = array(
 			                'project_title' => $this->input->post('project_title'),
 			                'client' => $this->input->post('client'),
@@ -109,15 +111,14 @@ class View extends MX_Controller {
 			                'due_date' => $this->input->post('due_date'),
 			                'progress' => $this->input->post('progress'),
 			                'assign_to' => $this->input->post('assigned_to'),
-			                'description' => $this->input->post('description'),
-			                'currency' => $this->input->post('currency')
+			                'description' => $this->input->post('description')
 			            );
 			$this->db->where('project_id',$project_id)->update('projects', $form_data);
 			$activity = ucfirst($this->tank_auth->get_username()).' edited a project #'.$this->input->post('project_code');
 			$this->_log_activity($project_id,$activity); //log activity
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_edited_successfully'));
-			redirect('projects/view_projects/all');
+			redirect('projects/view/details/'.$project_id);
 		}
 		}else{
 		$this->load->module('layouts');
@@ -133,10 +134,11 @@ class View extends MX_Controller {
 		}
 	}
 	function _log_activity($project_id,$activity){
-			$this->db->set('project', $project_id);
+			$this->db->set('module', 'projects');
+			$this->db->set('module_field_id', $project_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
-			$this->db->insert('project_activities'); 
+			$this->db->insert('activities'); 
 	}
 }
 

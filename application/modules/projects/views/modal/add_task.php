@@ -61,6 +61,14 @@
 				</select>
 				</div>
 				</div>
+
+				<div class="form-group">
+				<label class="col-lg-4 control-label"><?=lang('estimated_hours')?> </label>
+				<div class="col-lg-8">
+					<input type="text" class="form-control" placeholder="100" name="estimate">
+				</div>
+				</div>
+
 				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('description')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">

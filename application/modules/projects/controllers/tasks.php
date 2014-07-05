@@ -46,6 +46,7 @@ class Tasks extends MX_Controller {
 			                'visible' => $visible,
 			                'progress' => $this->input->post('progress'),
 			                'description' => $this->input->post('description'),
+			                'estimated_hours' => $this->input->post('estimate'),
 			                'added_by' => $this->tank_auth->get_user_id(),
 			            );
 			$this->db->where('t_id',$task_id)->update('tasks', $form_data); 
@@ -84,6 +85,7 @@ class Tasks extends MX_Controller {
 			                'visible' => $visible,
 			                'progress' => $this->input->post('progress'),
 			                'description' => $this->input->post('description'),
+			                'estimated_hours' => $this->input->post('estimate'),
 			                'added_by' => $this->tank_auth->get_user_id(),
 			            );
 			$this->db->insert('tasks', $form_data); 
@@ -97,6 +99,31 @@ class Tasks extends MX_Controller {
 		$this->load->view('modal/add_task',isset($data) ? $data : NULL);
 	}
 }
+	function tracking()
+	{
+		$action = ucfirst($this->uri->segment(4));
+		$project = $this->uri->segment(5);
+		$task = $this->uri->segment(6);
+		if ($action == 'Off') {			
+			$task_start =  $this->project->get_task_start($task); //task start time
+			$task_logged_time =  $this->project->get_task_logged_time($task); 
+			$time_logged = (time() - $task_start) + $task_logged_time; //time already logged
+
+			$this->db->set('timer_status', $action);
+			$this->db->set('logged_time', $time_logged);
+			$this->db->set('start_time', '');
+			$this->db->where('t_id',$task)->update('tasks');
+			$this->_log_timesheet($task,$task_start,time()); //log activity
+
+		}else{
+			$this->db->set('timer_status', $action);
+			$this->db->set('start_time', time());
+			$this->db->where('t_id',$task)->update('tasks');
+		}
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('operation_successful'));
+			redirect('projects/view/details/'.$project);
+	}
 	function timesheet()
 	{		
 		$data['timesheets'] = $this->project->timesheets($this->uri->segment(4));
@@ -106,6 +133,12 @@ class Tasks extends MX_Controller {
 	{		
 		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
 		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
+	}
+	function _log_timesheet($task,$start_time,$end_time){
+			$this->db->set('task', $task);
+			$this->db->set('start_time', $start_time);
+			$this->db->set('end_time', $end_time);
+			$this->db->insert('tasks_timer'); 
 	}
 }
 

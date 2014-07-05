@@ -6,7 +6,7 @@
 		<header class="header bg-white b-b b-light">
 			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
 			<p class="pull-right">
-			<a href="<?=base_url()?>projects/timesheet/add/<?=$project->project_id?>" class="btn btn-sm btn-default "> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
+			<a href="<?=base_url()?>projects/view/edit/<?=$project->project_id?>" class="btn btn-sm btn-default" title="<?=lang('edit_project')?>"> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
 <?php
 if ($project->timer == 'On') { ?>
 	<a href="<?=base_url()?>projects/tracking/off/<?=$project->project_id?>" class="btn btn-sm btn-danger "> <i class="fa fa-clock-o text-white"></i> <?=lang('stop_timer')?></a> 

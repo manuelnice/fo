@@ -137,6 +137,7 @@ $lang['end_date'] = 'End Date';
 $lang['estimates'] = 'Estimates';
 $lang['estimate'] = 'Estimate';
 $lang['estimate_date'] = 'Estimate Date';
+$lang['estimated_hours'] = 'Estimated Hours';
 $lang['expiry_date'] = 'Expiry Date';
 $lang['estimate_status'] = 'Estimate Status';
 $lang['estimate_history'] = 'Estimate History';

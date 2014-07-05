@@ -80,12 +80,6 @@
 				<textarea name="description" class="form-control"><?=$project->description?></textarea>
 				</div>
 				</div>
-				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('currency')?> </label>
-				<div class="col-lg-1">
-					<input type="text" class="form-control" value="<?=$project->currency?>" name="currency">
-				</div>
-				</div>
 				<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check"></i> <?=lang('save_changes')?></button>
 
 
