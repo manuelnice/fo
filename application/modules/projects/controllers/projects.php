@@ -77,6 +77,30 @@ class Projects extends MX_Controller {
 		redirect('projects/view_projects/all');
 		}
 	}
+	function tracking()
+	{
+		$action = ucfirst($this->uri->segment(3));
+		$project = $this->uri->segment(4);
+		if ($action == 'Off') {			
+			$project_start =  $this->project_model->get_project_start($project); //project start time
+			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
+			$time_logged = (time() - $project_start) + $project_logged_time; //time already logged
+
+			$this->db->set('timer', $action);
+			$this->db->set('time_logged', $time_logged);
+			$this->db->set('timer_start', '');
+			$this->db->where('project_id',$project)->update('projects');
+			$this->_log_timesheet($project,$project_start,time()); //log activity
+
+		}else{
+			$this->db->set('timer', $action);
+			$this->db->set('timer_start', time());
+			$this->db->where('project_id',$project)->update('projects');
+		}
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('operation_successful'));
+			redirect('projects/view/details/'.$project);
+	}
 	function delete()
 	{
 		if ($this->input->post()) {
@@ -115,6 +139,12 @@ class Projects extends MX_Controller {
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
 			$this->db->insert('activities'); 
+	}
+	function _log_timesheet($project,$start_time,$end_time){
+			$this->db->set('project', $project);
+			$this->db->set('start_time', $start_time);
+			$this->db->set('end_time', $end_time);
+			$this->db->insert('project_timer'); 
 	}
 }
 

@@ -39,9 +39,9 @@ class User_profile {
   			return 0;
   		}
 	}
-	public function task_by_status($status)
+	public function task_by_status($progress)
     	{
-    	$this->ci->db->where('status',$status);
+    	$this->ci->db->where('progress <',$progress);
 	$query = $this->ci->db->get('tasks');
 		if ($query->num_rows() > 0)
 			{

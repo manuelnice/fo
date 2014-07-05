@@ -10,9 +10,9 @@
 				foreach ($timesheets as $key => $t) { ?>
 				
 				<tr class="success">
-				<td><?=strftime("%B %d, %Y %H:%M:%S", strtotime($t->start_time))?></td>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", strtotime($t->end_time))?></td>
-				<td>30 Hours</td>
+				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->start_time)?></td>
+				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->end_time)?></td>
+				<td><?=round(($t->end_time - $t->start_time)/3600,2)?> <?=lang('hours')?></td>
 				</tr>
 				<?php  }} else{ ?>
 				<tr>

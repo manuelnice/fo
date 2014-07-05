@@ -85,7 +85,7 @@
 					</div> <footer class="panel-footer bg-white no-padder">
 					<div class="row text-center no-gutter">
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->task_by_status('Done')?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->task_by_status('100')?>
 							</span> <small class="text-muted m-b block"><?=lang('complete_tasks')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">

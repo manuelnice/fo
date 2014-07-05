@@ -5,9 +5,16 @@
 		foreach ($project_details as $key => $project) { ?>
 		<header class="header bg-white b-b b-light">
 			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
-
-
-<a href="<?=base_url()?>projects/tracking/<?=$project->project_id?>" class="btn btn-sm btn-success pull-right"> <i class="fa fa-spin fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
+			<p class="pull-right">
+			<a href="<?=base_url()?>projects/timesheet/add/<?=$project->project_id?>" class="btn btn-sm btn-default "> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
+<?php
+if ($project->timer == 'On') { ?>
+	<a href="<?=base_url()?>projects/tracking/off/<?=$project->project_id?>" class="btn btn-sm btn-danger "> <i class="fa fa-clock-o text-white"></i> <?=lang('stop_timer')?></a> 
+<?php }else{ ?>
+	<a href="<?=base_url()?>projects/tracking/on/<?=$project->project_id?>" class="btn btn-sm btn-success "> <i class="fa fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
+<?php } ?>
+<a href="<?=base_url()?>projects/timesheet/add/<?=$project->project_id?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
+</p>
 
 			</header>
 			<section class="scrollable">
@@ -57,6 +64,55 @@
 										</div>
 									</div>
 								</div>
+
+
+			<small class="text-muted"><?=lang('start_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->start_date))?></small><br>
+			<small class="text-muted"><strong><?=lang('due_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->due_date))?></strong></small><br>
+
+								<footer class="panel-footer bg-dark text-center">
+								<div class="row pull-out"> 
+
+									<div class="col-xs-4"> 
+
+									<div class="padder-v"> 
+
+									<span class="m-b-xs h4 block text-white">
+						<?php
+						$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$this->uri->segment(4)));
+						$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$this->uri->segment(4)));
+						$logged_time = ($task_time + $project_time)/3600;
+						echo round($logged_time, 1);
+									?>
+									</span> <small class="text-muted"><?=lang('hours')?></small> 
+									</div> 
+									</div> 
+
+									<div class="col-xs-4 dk"> 
+
+									<div class="padder-v"> 
+
+									<span class="m-b-xs h4 block text-white">
+									<?=$this->user_profile->count_rows('bugs',array('project' => $this->uri->segment(4)))?>
+									</span> <small class="text-muted"><?=lang('bugs')?></small> 
+									</div> 
+									</div> 
+
+									<div class="col-xs-4"> 
+
+									<div class="padder-v"> 
+
+									<span class="m-b-xs h4 block text-white"><?=$this->user_profile->count_rows('files',array('project' => $this->uri->segment(4)))?>
+									</span> <small class="text-muted"><?=lang('files')?></small> 
+									</div> 
+									</div> 
+								</div> </footer>
+
+								
+
+
+
+
+
 							</div> </div></section> </section> </aside>
 							<aside class="bg-white">
 								<section class="vbox">
@@ -66,6 +122,13 @@
 											<!-- Start Tabs -->
 											<section class="panel panel-default">
 												<div class="panel-body">
+												<?php
+												if ($this->session->flashdata('message') == FALSE AND strtotime($project->due_date) < time()) { ?>
+													<div class="alert alert-danger">
+													<button type="button" class="close" data-dismiss="alert">×</button>
+													<i class="fa fa-info-sign"></i>Project deadline reached.
+													</div>
+												<?php } ?>
 												<?php  echo modules::run('sidebar/flash_msg');?>
 
 													<ul class="nav nav-tabs" id="stats">

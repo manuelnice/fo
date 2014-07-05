@@ -93,6 +93,22 @@ class Project_model extends CI_Model
 			return $query->result();
 		} 
 	}
+	function get_project_start($project){
+	$query = $this->db->select('timer_start')->where('project_id',$project)->get('projects');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->timer_start;
+  		}
+	}
+	function get_project_logged_time($project){
+	$query = $this->db->select('time_logged')->where('project_id',$project)->get('projects');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->time_logged;
+  		}
+	}
 }
 
 /* End of file model.php */

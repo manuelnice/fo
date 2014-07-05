@@ -22,7 +22,13 @@
 							<?php if ($task->progress >= 100) { $bg = 'success'; }else{ $bg = 'danger'; } ?>
 			<div class="progress-bar progress-bar-<?=$bg?>" data-toggle="tooltip" data-original-title="<?=$task->progress?>%" style="width: <?=$task->progress?>%">
 			</div>
-			</div>  </a>							
+			</div>  </a>
+
+<div>Lorem ipsum dolor sit amet, consecteter adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
+</div> 
+
+<div class="comment-action m-t-sm"> <a href="widgets.html#" data-toggle="class" class="btn btn-default btn-xs active"> <i class="fa fa-star-o text-muted text"></i> <i class="fa fa-clock-o text-danger text-active"></i> Start Timer </a> <a href="widgets.html#comment-form" class="btn btn-default btn-xs"> 18 Hours </a> 
+</div> 						
 		</li> 
 		
 				<?php } } ?>
