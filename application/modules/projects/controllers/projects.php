@@ -133,6 +133,37 @@ class Projects extends MX_Controller {
 			$this->load->view('modal/delete_project',$data);
 		}
 	}
+	function timelog()
+	{		
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('logged_time', 'Logged Time', 'required');
+
+		$project = $this->input->post('project', TRUE);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('time_entered_failed'));
+				redirect('projects/view/details/'.$project);
+		}else{	
+			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
+			$time_logged = $project_logged_time + ($this->input->post('logged_time', TRUE) *3600); //time already logged
+
+			$this->db->set('time_logged', $time_logged);
+			$this->db->where('project_id',$project)->update('projects'); 
+		}
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('time_entered_success'));
+			redirect('projects/view/details/'.$project);
+	}else{
+		$data['logged_time'] =  $this->project_model->get_project_logged_time($this->uri->segment(3)/8600); 
+		$data['project_details'] = $this->project_model->project_details($this->uri->segment(3)/8600);
+		$this->load->view('modal/time_entry',isset($data) ? $data : NULL);
+		}
+	}
 	function _log_activity($project_id,$activity){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);

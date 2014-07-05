@@ -13,7 +13,7 @@ if ($project->timer == 'On') { ?>
 <?php }else{ ?>
 	<a href="<?=base_url()?>projects/tracking/on/<?=$project->project_id?>" class="btn btn-sm btn-success "> <i class="fa fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
 <?php } ?>
-<a href="<?=base_url()?>projects/timesheet/add/<?=$project->project_id?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
+<a href="<?=base_url()?>projects/timelog/<?=$project->project_id*8600?>"  data-toggle="ajaxModal" title="<?=lang('time_entry')?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
 </p>
 
 			</header>
