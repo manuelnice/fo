@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2014 at 08:29 PM
+-- Generation Time: Jul 05, 2014 at 05:32 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `fx_activities` (
   `activity` varchar(255) NOT NULL,
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `fx_activities`
@@ -108,7 +108,11 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (14, 1, 'invoices', 7, 'Payment of USD 100 received and applied to INVOICE 884439', '2014-06-29 15:19:10', 0),
 (15, 1, 'invoices', 8, 'INVOICE #418115 created.', '2014-06-29 15:21:26', 0),
 (16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 0),
-(17, 1, 'projects', 2, 'Added a comment to Project #765546', '2014-07-04 16:43:23', 0);
+(17, 1, 'projects', 2, 'Added a comment to Project #765546', '2014-07-04 16:43:23', 0),
+(18, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:56:44', 0),
+(19, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:59:02', 0),
+(20, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:47:55', 0),
+(21, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:48:31', 0);
 
 -- --------------------------------------------------------
 
@@ -136,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `fx_bugs` (
 
 INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `attached_file`, `last_modified`) VALUES
 (1, 3445, 2, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
-(2, 3447, 2, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-10 21:00:00', 2, '2014-05-11 17:27:54'),
+(2, 3447, 1, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-10 21:00:00', 2, '2014-05-11 17:27:54'),
 (3, 5467, 2, 12, 23, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
 (5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-05-11 13:51:06', 4, '2014-05-11 16:51:06');
 
@@ -322,6 +326,7 @@ INSERT INTO `fx_config` (`key`, `value`) VALUES
 ('smtp_pass', 'UYlINDMnpCq1JgVq+zAT1A3AyCPD9Cob/J82Cy1Duzjml/HOV+wkMizV3MMrT6ggbRj1KmXezZXPbaL8kILbsA=='),
 ('smtp_port', '25'),
 ('smtp_user', 'freelancer'),
+('task_progress_auto_calc', 'TRUE'),
 ('version', '1.1.0'),
 ('webmaster_email', 'info@bootstrapstore.net'),
 ('website_name', 'KabuPortal');
@@ -767,14 +772,14 @@ CREATE TABLE IF NOT EXISTS `fx_projects` (
   `client` int(11) NOT NULL,
   `start_date` varchar(32) NOT NULL,
   `due_date` varchar(40) NOT NULL,
-  `hours_spent` float NOT NULL,
   `hourly_rate` int(11) NOT NULL DEFAULT '5',
-  `currency` varchar(32) NOT NULL DEFAULT 'USD',
   `progress` int(11) NOT NULL,
   `description` text NOT NULL,
   `assign_to` int(11) NOT NULL DEFAULT '1',
   `status` enum('On Hold','Active','Done') NOT NULL DEFAULT 'Active',
   `timer` enum('On','Off') NOT NULL DEFAULT 'Off',
+  `timer_start` int(11) NOT NULL,
+  `time_logged` int(11) NOT NULL,
   `proj_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
@@ -783,13 +788,13 @@ CREATE TABLE IF NOT EXISTS `fx_projects` (
 -- Dumping data for table `fx_projects`
 --
 
-INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hours_spent`, `hourly_rate`, `currency`, `progress`, `description`, `assign_to`, `status`, `timer`, `proj_deleted`, `date_created`) VALUES
-(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/06/09', 32, 5, 'USD', 45, 'Description', 1, 'Active', 'Off', 'No', '2014-05-09 19:15:07'),
-(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '2014/06/09', 56, 5, 'USD', 80, 'Description', 1, 'Active', 'Off', 'No', '2014-05-09 19:15:07'),
-(3, 46483, 'Test Project', 2, '24-05-2014', '20-06-2014', 0, 5, 'USD', 56, 'Description', 1, 'Active', 'Off', 'No', '2014-05-24 16:40:52'),
-(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 0, 5, 'EUR', 21, 'Description goes here', 1, 'Active', 'Off', 'No', '2014-05-24 16:44:20'),
-(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 0, 5, 'USD', 59, 'Description db', 5, 'Active', 'Off', 'No', '2014-05-24 16:44:56'),
-(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 0, 5, 'USD', 62, 'Project Description', 4, 'Active', 'Off', 'No', '2014-05-26 16:19:56');
+INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hourly_rate`, `progress`, `description`, `assign_to`, `status`, `timer`, `timer_start`, `time_logged`, `proj_deleted`, `date_created`) VALUES
+(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/07/09', 5, 67, 'Description', 1, 'Active', 'On', 1404568778, 2108, 'No', '2014-05-09 19:15:07'),
+(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '17-07-2014', 5, 80, 'Description', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-09 19:15:07'),
+(3, 46483, 'Test Project', 2, '24-05-2014', '20-06-2014', 5, 56, 'Description', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:40:52'),
+(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 5, 21, 'Description goes here', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:44:20'),
+(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 5, 59, 'Description db', 5, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:44:56'),
+(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 62, 'Project Description', 4, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-26 16:19:56');
 
 -- --------------------------------------------------------
 
@@ -803,14 +808,19 @@ CREATE TABLE IF NOT EXISTS `fx_project_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `fx_project_timer`
 --
 
 INSERT INTO `fx_project_timer` (`timer_id`, `project`, `start_time`, `end_time`, `date_timed`) VALUES
-(1, 2, '2014-05-26 19:19:56', '2014-05-27 19:19:56', '2014-07-02 15:48:06');
+(1, 2, '1404563147', '1404563173', '2014-07-02 15:48:06'),
+(2, 1, '1404563147', '1404563173', '2014-07-05 12:26:13'),
+(3, 1, '1404564042', '1404564351', '2014-07-05 12:45:51'),
+(4, 1, '1404564765', '1404565179', '2014-07-05 12:59:39'),
+(5, 1, '1404565206', '1404566421', '2014-07-05 13:20:21'),
+(6, 1, '1404566469', '1404566563', '2014-07-05 13:22:43');
 
 -- --------------------------------------------------------
 
@@ -1132,21 +1142,26 @@ CREATE TABLE IF NOT EXISTS `fx_tasks` (
   `description` text NOT NULL,
   `visible` enum('Yes','No') NOT NULL DEFAULT 'Yes',
   `progress` int(11) NOT NULL DEFAULT '0',
+  `timer_status` enum('On','Off') NOT NULL DEFAULT 'Off',
+  `start_time` int(11) NOT NULL,
+  `estimated_hours` int(11) NOT NULL,
+  `logged_time` int(11) NOT NULL DEFAULT '0',
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `added_by` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `fx_tasks`
 --
 
-INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `description`, `visible`, `progress`, `date_added`, `added_by`) VALUES
-(1, 'Top Menu', 1, '["1","2","3"]', 'Task Description', 'Yes', 40, '2014-05-09 05:09:48', 1),
-(2, 'Bug Fixes', 2, '["1","2","3"]', 'Task Description', 'Yes', 20, '2014-05-09 05:09:48', 1),
-(3, 'Footer Menu', 2, '["1","2","3"]', 'Task Description', 'Yes', 100, '2014-05-14 05:09:48', 3),
-(4, 'Logout Error fix DB', 2, '23', 'Task Description DB', 'Yes', 30, '2014-05-15 05:24:48', 1),
-(5, 'Modal in Dashboard', 2, '23', 'Description', 'Yes', 80, '2014-07-04 18:03:54', 1),
-(6, 'Modal in Dashboard 2', 2, '5', 'Description', 'Yes', 50, '2014-07-04 18:06:08', 1);
+INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `description`, `visible`, `progress`, `timer_status`, `start_time`, `estimated_hours`, `logged_time`, `date_added`, `added_by`) VALUES
+(1, 'Top Menu', 1, '["1","2","3"]', 'Task Description', 'Yes', 40, 'Off', 1404469117, 45, 3600, '2014-05-09 05:09:48', 1),
+(2, 'Bug Fixes', 2, '["1","2","3"]', 'Task Description', 'Yes', 20, 'Off', 1404469117, 60, 216000, '2014-05-09 05:09:48', 1),
+(3, 'Footer Menu', 2, '["1","2","3"]', 'Task Description', 'Yes', 100, 'Off', 0, 35, 2117, '2014-05-14 05:09:48', 3),
+(4, 'Logout Error fix DB', 2, '23', 'Task Description DB', 'Yes', 30, 'Off', 1404469117, 30, 300, '2014-05-15 05:24:48', 1),
+(5, 'Modal in Dashboard', 2, '23', 'Add documentation to the proposed system.', 'Yes', 80, 'Off', 0, 40, 72115, '2014-07-04 18:03:54', 1),
+(6, 'Modal in Dashboard 2', 2, '5', 'Create a prototype with Twitter Bootstrap 3 ', 'Yes', 50, 'Off', 0, 82, 136, '2014-07-04 18:06:08', 1),
+(7, 'Sliding Homepage ', 2, '4', '<ul>\r\n<li>Create unlimited amount of tasks for your Projects!</li>\r\n<li>Tasks can be sorted by tags which allow you to organize your tasks in an efficient way.\r\n</li>\r\n</ul>', 'Yes', 10, 'On', 1404574110, 25, 0, '2014-07-05 15:25:29', 1);
 
 -- --------------------------------------------------------
 
@@ -1155,12 +1170,24 @@ INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `descript
 --
 
 CREATE TABLE IF NOT EXISTS `fx_tasks_timer` (
-`t_id` int(11) NOT NULL,
+`timer_id` int(11) NOT NULL,
   `task` int(11) NOT NULL,
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `fx_tasks_timer`
+--
+
+INSERT INTO `fx_tasks_timer` (`timer_id`, `task`, `start_time`, `end_time`, `date_timed`) VALUES
+(1, 6, '1404572653', '1404572757', '2014-07-05 15:05:57'),
+(2, 6, '1404572811', '1404572840', '2014-07-05 15:07:20'),
+(3, 6, '1404572996', '1404573015', '2014-07-05 15:10:15'),
+(4, 6, '1404573131', '1404573219', '2014-07-05 15:13:39'),
+(5, 5, '1404573126', '1404573241', '2014-07-05 15:14:01'),
+(6, 3, '1404573137', '1404573254', '2014-07-05 15:14:14');
 
 -- --------------------------------------------------------
 
@@ -1181,7 +1208,7 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('62f0aba770a2bc6fdb8ccce06ad2494d', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404498297, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
+('3e3a51fc10993801fcf1ac2328f762f9', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404574086, 'a:7:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";s:25:"flash:old:response_status";s:7:"success";s:17:"flash:old:message";s:32:"Operation completed successfully";}'),
 ('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, '');
 
 -- --------------------------------------------------------
@@ -1214,7 +1241,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-04 16:30:53', '2014-02-26 14:18:04', '2014-07-04 13:30:53'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-05 10:48:35', '2014-02-26 14:18:04', '2014-07-05 07:48:35'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1442,7 +1469,7 @@ ALTER TABLE `fx_tasks`
 -- Indexes for table `fx_tasks_timer`
 --
 ALTER TABLE `fx_tasks_timer`
- ADD PRIMARY KEY (`t_id`);
+ ADD PRIMARY KEY (`timer_id`);
 
 --
 -- Indexes for table `fx_un_sessions`
@@ -1475,7 +1502,7 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
@@ -1585,7 +1612,7 @@ MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `fx_project_timer`
 --
 ALTER TABLE `fx_project_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `fx_ratings`
 --
@@ -1600,12 +1627,12 @@ MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `fx_tasks`
 --
 ALTER TABLE `fx_tasks`
-MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `fx_tasks_timer`
 --
 ALTER TABLE `fx_tasks_timer`
-MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `fx_users`
 --
