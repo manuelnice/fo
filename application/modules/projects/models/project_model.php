@@ -23,75 +23,46 @@ class Project_model extends CI_Model
 	}
 	function project_details($project)
 	{
-		$query = $this->db->where('project_id',$project)->get('projects');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('project_id',$project)->get('projects')->result();
 	}
 	function task_details($task)
 	{
-		$query = $this->db->where('t_id',$task)->get('tasks');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('t_id',$task)->get('tasks')->result();
 	}
 	function project_activities($project)
 	{
 		$this->db->where('module','projects');
-		$query = $this->db->where('module_field_id',$project)->order_by('activity_date','desc')->get('activities');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('module_field_id',$project)->order_by('activity_date','desc')->get('activities')->result();
 	}
 	function project_comments($project)
 	{
-		$query = $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments')->result();
 	}
 	function project_tasks($project)
 	{
-		$query = $this->db->where('project',$project)->order_by('date_added','desc')->get('tasks');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('project',$project)->order_by('date_added','desc')->get('tasks')->result();
 	}
 	function project_files($project)
 	{
-		$query = $this->db->where('project',$project)->order_by('date_posted','desc')->get('files');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		$this->db->join('users','users.id = files.uploaded_by');
+		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('files')->result();
 	}
 	function project_bugs($project)
 	{
 		$this->db->join('users','users.id = bugs.reporter');
-		$query = $this->db->where('project',$project)->order_by('reported_on','desc')->get('bugs');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('project',$project)->order_by('reported_on','desc')->get('bugs')->result();
 	}
 	function timesheets($project)
 	{
-		$query = $this->db->where('project',$project)->get('project_timer');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('project',$project)->get('project_timer')->result();
 	}
 	function assign_to()
 	{
-		$query = $this->db->where('role_id !=',2)->get('users');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('role_id !=',2)->get('users')->result();
 	}
 	function clients()
 	{
-		$query = $this->db->where('role_id',2)->get('users');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('role_id',2)->get('users')->result();
 	}
 	function get_project_start($project){
 	$query = $this->db->select('timer_start')->where('project_id',$project)->get('projects');

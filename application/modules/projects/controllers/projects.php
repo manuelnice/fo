@@ -77,6 +77,36 @@ class Projects extends MX_Controller {
 		redirect('projects/view_projects/all');
 		}
 	}
+	function replies()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('message', 'Message', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('comment_failed'));
+				redirect('projects/view/details/'.$this->input->post('project',TRUE));
+		}else{		
+		$project_id = $this->input->post('project');	
+			$form_data = array(
+			                'parent_comment' => $this->input->post('comment', TRUE),
+			                'reply_msg' => $this->input->post('message'),
+			                'replied_by' => $this->tank_auth->get_user_id()
+			            );
+			$this->db->insert('comment_replies', $form_data); 
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('comment_replied_successful'));
+			redirect('projects/view/details/'.$this->input->post('project',TRUE));
+			}
+		}else{
+		$data['comment'] = $this->input->get('c', TRUE);
+		$data['project'] = $this->input->get('p', TRUE);
+		$this->load->view('modal/comment_reply',isset($data) ? $data : NULL);
+		}
+	}
 	function tracking()
 	{
 		$action = ucfirst($this->uri->segment(3));

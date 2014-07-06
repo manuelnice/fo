@@ -41,6 +41,11 @@ class Tabs extends MX_Controller {
 		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
 		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
 	}
+	function files()
+	{		
+		$data['project_files'] = $this->project->project_files($this->uri->segment(4));
+		$this->load->view('tabs/files',isset($data) ? $data : NULL);
+	}
 }
 
 /* End of file view.php */

@@ -126,26 +126,26 @@ if ($project->timer == 'On') { ?>
 												if ($this->session->flashdata('message') == FALSE AND strtotime($project->due_date) < time()) { ?>
 													<div class="alert alert-danger">
 													<button type="button" class="close" data-dismiss="alert">×</button>
-													<i class="fa fa-info-sign"></i>Project deadline reached.
+													<i class="fa fa-info-sign"></i><?=lang('project_deadline_reached')?>
 													</div>
 												<?php } ?>
 												<?php  echo modules::run('sidebar/flash_msg');?>
 
 													<ul class="nav nav-tabs" id="stats">
 														
-														<li class="active"><a href="#tasks" id="tasks_tab" data-toggle="tab"> Tasks </a></li>
+														<li class="active"><a href="#tasks" id="tasks_tab" data-toggle="tab"> <?=lang('tasks')?> </a></li>
 
-														<li><a href="<?=base_url()?>projects/tabs/tasks/<?=$project->project_id?>" data-target="#projects" class="media_node span" id="projects_tab" data-toggle="tabajax" rel="tooltip"> Files</a></li>
+														<li><a href="<?=base_url()?>projects/tabs/files/<?=$project->project_id?>" data-target="#files" class="media_node span" id="files_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('files')?></a></li>
 														
-														<li><a href="<?=base_url()?>projects/tabs/timesheet/<?=$project->project_id?>" data-target="#timesheet" class="media_node span" id="timesheet_tab" data-toggle="tabajax" rel="tooltip">Timesheets</a></li>
+														<li><a href="<?=base_url()?>projects/tabs/timesheet/<?=$project->project_id?>" data-target="#timesheet" class="media_node span" id="timesheet_tab" data-toggle="tabajax" rel="tooltip"><?=lang('timesheets')?></a></li>
 
-														<li><a href="<?=base_url()?>projects/tabs/bugs/<?=$project->project_id?>" data-target="#bugs" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip">Bugs</a></li>
-														<li><a href="<?=base_url()?>projects/tabs/timeline/<?=$project->project_id?>" data-target="#timeline" class="media_node span" id="timeline_tab" data-toggle="tabajax" rel="tooltip">Timeline </a></li>
+														<li><a href="<?=base_url()?>projects/tabs/bugs/<?=$project->project_id?>" data-target="#bugs" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('bugs')?></a></li>
+														<li><a href="<?=base_url()?>projects/tabs/timeline/<?=$project->project_id?>" data-target="#timeline" class="media_node span" id="timeline_tab" data-toggle="tabajax" rel="tooltip"><?=lang('timeline')?> </a></li>
 													</ul>
 													<div class="tab-content">
 
 													<div class="tab-pane active" id="tasks"><?php  echo modules::run('projects/tabs/tasks');?></div>
-														<div class="tab-pane" id="projects"></div>
+														<div class="tab-pane" id="files"></div>
 														<div class="tab-pane" id="timesheet"></div>
 														<div class="tab-pane" id="bugs"></div>
 
@@ -189,7 +189,17 @@ if ($project->timer == 'On') { ?>
 															?> ago </span> </header>
 															<div class="panel-body">
 																<div><small><?=$comment->message?></small></div>
+																<?php
+																if ($comment->posted_by != $this->tank_auth->get_user_id()) { ?>
+																<div class="comment-action m-t-sm">
+																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>
+																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+																</div>
+																<?php } ?>
 															</div>
+
+															
+
 														</section>
 													</article>
 													<?php } }else{ ?>
