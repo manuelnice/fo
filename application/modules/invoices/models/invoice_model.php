@@ -41,11 +41,8 @@ class Invoice_model extends CI_Model
 	}
 	function invoice_activities($invoice_id)
 	{
-		$this->db->join('invoices','invoices.inv_id = invoice_activities.invoice');
-		$query = $this->db->where('invoice',$invoice_id)->get('invoice_activities');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		$this->db->where('module', 'invoices');
+		return $this->db->where('module_field_id',$invoice_id)->get('activities')->result();
 	}
 	function invoice_items($invoice_id)
 	{
