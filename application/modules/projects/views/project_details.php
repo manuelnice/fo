@@ -67,7 +67,7 @@ if ($project->timer == 'On') { ?>
 
 
 			<small class="text-muted"><?=lang('start_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->start_date))?></small><br>
-			<small class="text-muted"><strong><?=lang('due_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->due_date))?></strong></small><br>
+			<small class="text-muted"><?=lang('due_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->due_date))?></small><br>
 
 								<footer class="panel-footer bg-dark text-center">
 								<div class="row pull-out"> 
@@ -180,7 +180,7 @@ if ($project->timer == 'On') { ?>
 														<span class="arrow left"></span>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
-																<a href="#"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
+																<a href="<?=base_url()?>clients/view/details/<?=$comment->posted_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
 																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
@@ -202,6 +202,25 @@ if ($project->timer == 'On') { ?>
 
 														</section>
 													</article>
+													<?php
+													$comment_replies = $this->project->comment_replies($comment->comment_id);
+															if (!empty($comment_replies)) {
+													foreach ($comment_replies as $key => $reply) { ?>
+											<article id="comment-id-2" class="comment-item comment-reply"> <a class="pull-left thumb-sm avatar"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($reply->replied_by,'avatar')?>" class="img-circle"> </a>
+													<span class="arrow left"></span>
+												<section class="comment-body panel panel-default text-sm">
+													<div class="panel-body">
+													<span class="text-muted m-l-sm pull-right"> 
+													<i class="fa fa-clock-o"></i> <?php
+																					$today = time();
+																					$reply_day = strtotime($reply->date_posted) ;
+																					echo $this->user_profile->get_time_diff($today,$reply_day);
+															?> ago</span> 
+													<a href="<?=base_url()?>clients/view/details/<?=$reply->replied_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($reply->replied_by,'fullname')?$this->user_profile->get_profile_details($reply->replied_by,'fullname'):$this->user_profile->get_user_details($reply->replied_by,'username'))?></a>
+													<?=$reply->reply_msg?></div>
+												 </section>
+											</article>
+											<?php } } ?>
 													<?php } }else{ ?>
 													<p><?=lang('no_comment_found')?></p>
 													<?php } ?>

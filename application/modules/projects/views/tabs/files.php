@@ -1,28 +1,36 @@
-<table class="table table-striped b-t b-light text-sm hover">
-			<thead>
-				<tr>
-					<th><?=lang('file_name')?></th>
-					<th><?=lang('uploaded_by')?></th>
-					<th><?=lang('date')?></th>
-					<th><?=lang('options')?></th>
-				</tr> </thead> <tbody>
-				<?php
+		<header class="header b-b b-light hidden-print">
+<a href="<?=base_url()?>projects/files/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('upload_file')?>" class="btn btn-sm btn-info pull-right"><?=lang('upload_file')?></a> 
+ </header>
+
+
+
+<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border"> 
+			<?php
 								if (!empty($project_files)) {
 				foreach ($project_files as $key => $f) { ?>
-				
-				<tr class="danger">
-				<td><?=$f->file_name?></td>
-				<td><?=$f->username?></td>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", strtotime($f->date_posted))?></td>
-				<td><a class="btn btn-xs btn-dark" href="">Download</a></td>
-				</tr>
-				<?php  }} else{ ?>
-				<tr>
-					<td></td><td><?=lang('nothing_to_display')?></td><td></td>
-				</tr>
-				<?php } ?>
-				
-				
-				
-			</tbody>
-		</table>
+		<li class="list-group-item"> 
+
+
+		<a href="#" class="thumb-sm pull-left m-r-sm"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($f->uploaded_by,'avatar')?>" class="img-circle"> </a>
+			<a href="#" class="clear"> <small class="pull-right"><?php
+								$today = time();
+								$activity_day = strtotime($f->date_posted) ;
+								echo $this->user_profile->get_time_diff($today,$activity_day);
+							?> ago</small> <strong class="block"><?=ucfirst($this->user_profile->get_user_details($f->uploaded_by,'username'))?></strong> 
+							<small><?=$f->file_name?></small>
+							 </a>
+
+<div><?=$f->description?>
+</div> 
+<div class="comment-action m-t-sm">
+<a href="<?=base_url()?>projects/files/download/<?=$f->file_id*1800?>/<?=$f->project*1200?>" class="btn btn-dark btn-xs active">
+<i class="fa fa-download text-white text-active"></i> <?=lang('download_file')?> </a>
+
+</div>
+
+ 						
+		</li> 
+		
+				<?php } } else{		echo lang('nothing_to_display');	}?>
+	 
+		</ul> 

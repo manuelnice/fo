@@ -96,6 +96,18 @@ class Project_model extends CI_Model
   		 return $row->logged_time;
   		}
 	}
+	function comment_replies($comment)
+	{
+		return $this->db->where('parent_comment',$comment)->get('comment_replies')->result();
+	}
+	function get_file($file_id)
+		{
+			return $this->db->select()
+					->from('files')
+					->where('file_id', $file_id)
+					->get()
+					->row();
+		}
 }
 
 /* End of file model.php */

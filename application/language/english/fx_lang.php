@@ -386,6 +386,7 @@ $lang['user_invoices'] = 'User Invoices';
 $lang['user_projects'] = 'User Projects';
 $lang['user_edited_successfully'] = 'User edited successfully';
 $lang['uploaded_by'] = 'Uploaded By';
+$lang['upload_file'] = 'Upload File';
 $lang['version'] = 'Version';
 $lang['verified'] = 'Verified';
 $lang['visible_to_client'] = 'Visible to Client';

@@ -46,7 +46,7 @@ class Projects extends MX_Controller {
 			'proj_deleted' => 'No'),$join_table = 'account_details',$join_criteria = 'account_details.user_id = projects.client','date_created');
 	$this->template
 	->set_layout('users')
-	->build('details2',isset($data) ? $data : NULL);
+	->build('projects',isset($data) ? $data : NULL);
 	}
 	function comment()
 	{
