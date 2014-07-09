@@ -21,31 +21,57 @@ class Files extends MX_Controller {
 		}
 		$this->load->model('project_model','project');
 	}
-	function tracking()
-	{
-		$action = ucfirst($this->uri->segment(4));
-		$project = $this->uri->segment(5);
-		$task = $this->uri->segment(6);
-		if ($action == 'Off') {			
-			$task_start =  $this->project->get_task_start($task); //task start time
-			$task_logged_time =  $this->project->get_task_logged_time($task); 
-			$time_logged = (time() - $task_start) + $task_logged_time; //time already logged
+	function add()
+	{		
+		if ($this->input->post()) {
+			$project = $this->input->post('project', TRUE);
+			$description = $this->input->post('description', TRUE);
+						$this->load->library('form_validation');
+						$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+						$this->form_validation->set_rules('description', 'Description', 'required');
 
-			$this->db->set('timer_status', $action);
-			$this->db->set('logged_time', $time_logged);
-			$this->db->set('start_time', '');
-			$this->db->where('t_id',$task)->update('tasks');
-			$this->_log_timesheet($task,$task_start,time()); //log activity
+						if ($this->form_validation->run() == FALSE)
+						{
+								$this->session->set_flashdata('response_status', 'error');
+								$this->session->set_flashdata('message', lang('error_in_form'));
+								redirect('projects/view/details/'.$project);
+						}else{
 
+								if ($this->config->item('demo_mode') == 'FALSE') {
+								$config['upload_path'] = './resource/project-files/';
+									$config['allowed_types'] = $this->config->item('allowed_files');
+									$config['max_size']	= $this->config->item('file_max_size');
+									$config['encrypt_name'] = $this->config->item('encrypt_file_name');
+
+									$this->load->library('upload', $config);
+
+									if ( ! $this->upload->do_upload())
+									{
+										$this->session->set_flashdata('response_status', 'error');
+										$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
+										redirect('projects/view/details/'.$project);
+									}
+									else
+									{
+										$data = $this->upload->data();
+										$file_id = $this->project->insert_file($data['file_name'],$project,$description);
+										//$this->_log_activity($this->lang->line('added_new_file'));
+
+										$this->session->set_flashdata('response_status', 'success');
+										$this->session->set_flashdata('message',$this->lang->line('file_uploaded_successfully'));
+										redirect('projects/view/details/'.$project);
+									}
+								} else {
+									$this->session->set_flashdata('response_status', 'error');
+									$this->session->set_flashdata('message',$this->lang->line('demo_warning'));
+										redirect('projects/view/details/'.$project);
+								}
+					}
 		}else{
-			$this->db->set('timer_status', $action);
-			$this->db->set('start_time', time());
-			$this->db->where('t_id',$task)->update('tasks');
-		}
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('operation_successful'));
-			redirect('projects/view/details/'.$project);
+		$data['project'] = $this->uri->segment(4)/1200;
+		$this->load->view('modal/add_file',isset($data) ? $data : NULL);
 	}
+}
 	function download()
 	{
 	$this->load->helper('download');

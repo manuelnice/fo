@@ -1,5 +1,5 @@
 		<header class="header b-b b-light hidden-print">
-<a href="<?=base_url()?>projects/files/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('upload_file')?>" class="btn btn-sm btn-info pull-right"><?=lang('upload_file')?></a> 
+<a href="<?=base_url()?>projects/files/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('upload_file')?>" class="btn btn-sm btn-primary pull-right"><?=lang('upload_file')?></a> 
  </header>
 
 

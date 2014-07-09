@@ -108,6 +108,17 @@ class Project_model extends CI_Model
 					->get()
 					->row();
 		}
+	function insert_file($filename,$project,$description)
+	{
+		$data = array(
+			'project'	=> $project,
+			'file_name'			=> $filename,
+			'description'			=> $description,
+			'uploaded_by'			=> $this->tank_auth->get_user_id(),
+		);
+		$this->db->insert('files', $data);
+		return $this->db->insert_id();
+	}
 }
 
 /* End of file model.php */
