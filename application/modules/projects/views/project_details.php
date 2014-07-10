@@ -189,13 +189,15 @@ if ($project->timer == 'On') { ?>
 															?> ago </span> </header>
 															<div class="panel-body">
 																<div><small><?=$comment->message?></small></div>
+																<div class="comment-action m-t-sm">
 																<?php
 																if ($comment->posted_by != $this->tank_auth->get_user_id()) { ?>
-																<div class="comment-action m-t-sm">
-																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>
-																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
-																</div>
+																
+																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>									
 																<?php } ?>
+																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+
+																</div>
 															</div>
 
 															

@@ -69,6 +69,9 @@ class Projects extends MX_Controller {
 			$this->db->insert('comments', $form_data); 
 			$activity = 'Added a comment to Project #'.$this->input->post('project_code');
 			$this->_log_activity($project_id,$activity); //log activity
+
+			$this->_comment_notification($project_id); //send notification to the administrator
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
 			redirect('projects/view/details/'.$this->input->get('project',TRUE));
@@ -96,6 +99,8 @@ class Projects extends MX_Controller {
 			                'replied_by' => $this->tank_auth->get_user_id()
 			            );
 			$this->db->insert('comment_replies', $form_data); 
+
+			$this->_comment_notification($project_id); //send notification to the administrator
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_replied_successful'));
@@ -144,16 +149,16 @@ class Projects extends MX_Controller {
 		}else{			
 			$this->db->delete('projects', array('project_id' => $this->input->post('project_id'))); 
 			$this->db->delete('comments', array('project' => $this->input->post('project_id'))); 
-			$this->db->delete('project_activities', array('project' => $this->input->post('project_id'))); 
+			$this->db->delete('activities', array('module' => 'projects','module_field_id' => $this->input->post('project_id'))); 
 			$this->db->delete('project_timer', array('project' => $this->input->post('project_id'))); 
 			$this->db->delete('tasks', array('project' => $this->input->post('project_id'))); 
 			$this->db->delete('bugs', array('project' => $this->input->post('project_id'))); 
+			// Delete project files
+
 			$this->db->delete('files', array('project' => $this->input->post('project_id'))); 
 			// Log Activity
 			$activity = 'Deleted Project #'.$this->input->post('project_id').' from the system';
 			$this->_log_activity($project_id,$activity); //log activity
-
-			//delete the files here
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_deleted_successfully'));
 			redirect('projects/view_projects/all');
@@ -194,6 +199,29 @@ class Projects extends MX_Controller {
 		$this->load->view('modal/time_entry',isset($data) ? $data : NULL);
 		}
 	}
+
+	function _comment_notification($project){
+			$project_details = $this->project_model->project_details($project);
+			foreach ($project_details as $key => $p) {
+				$project_title = $p->project_title;
+			}
+
+			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['project_title'] = $project_title;
+			$data['posted_by'] = $posted_by;
+			$data['project_id'] = $project;
+
+			$params['recipient'] = $this->config->item('company_email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
+			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+
+
 	function _log_activity($project_id,$activity){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);

@@ -116,6 +116,7 @@ $lang['delete_bug_warning'] = 'You are about to delete an Issue from the system.
 $lang['delete_project_warning'] = 'You are about to delete a project from the system.';
 $lang['delete_button'] = 'Relax, I know what am Doing';
 $lang['delete_failed'] = 'The operation failed. Please try again';
+$lang['delete_file'] = 'Delete File';
 $lang['demo'] = 'Demo';
 $lang['demo_mode'] = 'Demo Mode';
 $lang['details'] = 'Details';
