@@ -66,8 +66,8 @@ if ($project->timer == 'On') { ?>
 								</div>
 
 
-			<small class="text-muted"><?=lang('start_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->start_date))?></small><br>
-			<small class="text-muted"><?=lang('due_date')?>: <?=strftime("%B %d, %Y %H:%M:%S", strtotime($project->due_date))?></small><br>
+			<small class="text-muted"><?=lang('start_date')?>: <?=strftime("%B %d, %Y", strtotime($project->start_date))?></small><br>
+			<small class="text-muted"><?=lang('due_date')?>: <?=strftime("%B %d, %Y", strtotime($project->due_date))?></small><br>
 
 								<footer class="panel-footer bg-dark text-center">
 								<div class="row pull-out"> 

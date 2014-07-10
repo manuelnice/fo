@@ -79,7 +79,7 @@
 					 <?php
 				if(!$this->session->flashdata('message')){
 						if(strtotime($inv->due_date) < time()){ ?>
-						<div class="alert alert-danger"> 
+						<div class="alert alert-danger hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
 						<?=lang('invoice_overdue')?>
 						</div>
@@ -131,8 +131,8 @@
 					<tr>
 						<td><?=$item->item_desc?> </td>
 						<td><?=$item->quantity?></td> 						
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->unit_cost,2)?></td>
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->total_cost,2)?></td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->unit_cost,2)?></td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->total_cost,2)?></td>
 					</tr>
 					<?php } } ?>
 					<tr class="hidden-print">
@@ -152,20 +152,20 @@ echo form_open(base_url().'invoices/manage/item', $attributes); ?>
 					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
 					?>
 					<tr>
-						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($invoice_cost,2)?></td>
+						<td colspan="3" class="text-right no-border"><strong><?=lang('sub_total')?></strong></td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($invoice_cost,2)?></td>
 					</tr>
 					<tr>
 						<td colspan="3" class="text-right no-border"><strong><?=lang('tax')?></strong></td>
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($tax,2)?> </td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($tax,2)?> </td>
 					</tr>
 					<tr>
 						<td colspan="3" class="text-right no-border"><strong><?=lang('payment_made')?></strong></td>
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($payment_made,2)?> </td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($payment_made,2)?> </td>
 					</tr>
 					<tr>
 					<td colspan="3" class="text-right no-border"><strong><?=lang('total')?></strong></td>
-					<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format(($invoice_cost + $tax) - $payment_made,2)?></strong></td>
+					<td><?=$this->config->item('default_currency_symbol')?><?=number_format(($invoice_cost + $tax) - $payment_made,2)?></td>
 					</tr>
 					</tbody>
 					</table>

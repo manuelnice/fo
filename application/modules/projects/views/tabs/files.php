@@ -33,6 +33,6 @@
  						
 		</li> 
 		
-				<?php } } else{		echo lang('nothing_to_display');	}?>
+				<?php } } else{		echo lang('nothing_to_display');	} ?>
 	 
 		</ul> 

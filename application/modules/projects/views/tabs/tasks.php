@@ -45,6 +45,6 @@ if ($task->timer_status == 'On') { ?>
  						
 		</li> 
 		
-				<?php } } ?>
+				<?php } }else{		echo lang('nothing_to_display');	} ?>
 	 
 		</ul> 
