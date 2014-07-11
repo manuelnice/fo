@@ -23,7 +23,7 @@ class Tabs extends MX_Controller {
 	}
 	function timeline()
 	{		
-		$data['timelines'] = $this->project->project_activities($this->uri->segment(4));
+		$data['activities'] = $this->project->project_activities($this->uri->segment(4));
 		$this->load->view('tabs/timeline',isset($data) ? $data : NULL);
 	}
 	function bugs()

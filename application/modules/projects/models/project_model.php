@@ -31,6 +31,7 @@ class Project_model extends CI_Model
 	}
 	function project_activities($project)
 	{
+		$this->db->join('users','users.id = activities.user');
 		$this->db->where('module','projects');
 		return $this->db->where('module_field_id',$project)->order_by('activity_date','desc')->get('activities')->result();
 	}
