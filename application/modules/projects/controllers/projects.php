@@ -68,7 +68,7 @@ class Projects extends MX_Controller {
 			            );
 			$this->db->insert('comments', $form_data); 
 			$activity = 'Added a comment to Project #'.$this->input->post('project_code');
-			$this->_log_activity($project_id,$activity); //log activity
+			$this->_log_activity($project_id,$activity,$icon='fa-comment'); //log activity
 
 			$this->_comment_notification($project_id); //send notification to the administrator
 
@@ -158,7 +158,8 @@ class Projects extends MX_Controller {
 			$this->db->delete('files', array('project' => $this->input->post('project_id'))); 
 			// Log Activity
 			$activity = 'Deleted Project #'.$this->input->post('project_id').' from the system';
-			$this->_log_activity($project_id,$activity); //log activity
+			$this->_log_activity($project_id,$activity,$icon = 'fa-times'); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_deleted_successfully'));
 			redirect('projects/view_projects/all');
@@ -222,11 +223,12 @@ class Projects extends MX_Controller {
 	}
 
 
-	function _log_activity($project_id,$activity){
+	function _log_activity($project_id,$activity,$icon){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 	function _log_timesheet($project,$start_time,$end_time){

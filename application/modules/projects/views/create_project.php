@@ -80,12 +80,6 @@
 				<textarea name="description" class="form-control">Project Description</textarea>
 				</div>
 				</div>
-				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('currency')?> </label>
-				<div class="col-lg-1">
-					<input type="text" class="form-control" value="USD" name="currency">
-				</div>
-				</div>
 				<button type="submit" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> <?=lang('create_project')?></button>
 
 

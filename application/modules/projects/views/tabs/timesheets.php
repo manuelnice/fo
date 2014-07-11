@@ -12,7 +12,11 @@
 				<tr class="danger">
 				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->start_time)?></td>
 				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->end_time)?></td>
-				<td><?=round(($t->end_time - $t->start_time)/3600,2)?> <?=lang('hours')?></td>
+				<td><?php
+				if (($t->end_time - $t->start_time)/3600 < 1) {
+					echo round(($t->end_time - $t->start_time)/60,0).' '.lang('minutes');
+				}else{ ?>
+				<?=round(($t->end_time - $t->start_time)/3600,2)?> <?=lang('hours')?><?php } ?></td>
 				</tr>
 				<?php  }} else{ ?>
 				<tr>

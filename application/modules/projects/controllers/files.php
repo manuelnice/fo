@@ -57,7 +57,10 @@ class Files extends MX_Controller {
 									{
 										$data = $this->upload->data();
 										$file_id = $this->project->insert_file($data['file_name'],$project,$description);
-										//$this->_log_activity($this->lang->line('added_new_file'));
+										
+										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$data['file_name'];
+										$this->_log_activity($project,$activity,$icon='fa-file'); //log activity
+			
 
 										$this->_upload_notification($project);
 
@@ -124,7 +127,7 @@ class Files extends MX_Controller {
 			$this->db->delete('files', array('file_id' => $file_id)); 
 
 			$activity = ucfirst($this->tank_auth->get_username())." deleted a file ".$file->file_name;
-			$this->_log_activity($project_id,$activity); //log activity
+			$this->_log_activity($project_id,$activity,$icon='fa-times'); //log activity
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_deleted_successfully'));
@@ -156,11 +159,12 @@ class Files extends MX_Controller {
 
 			modules::run('fomailer/send_email',$params);
 	}
-	function _log_activity($project_id,$activity){
+	function _log_activity($project_id,$activity,$icon){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 }

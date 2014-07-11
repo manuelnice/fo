@@ -219,6 +219,7 @@ $lang['medium'] = 'Medium';
 $lang['messages'] = 'Messages';
 $lang['message'] = 'Message';
 $lang['member_since'] = 'Member Since';
+$lang['minutes'] = 'Minutes';
 $lang['my_account'] = 'My Account';
 $lang['my_profile'] = 'My Profile';
 $lang['month'] = 'Month';
