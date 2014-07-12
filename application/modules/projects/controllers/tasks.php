@@ -51,6 +51,12 @@ class Tasks extends MX_Controller {
 			            );
 			$this->db->where('t_id',$task_id)->update('tasks', $form_data); 
 
+			$this->_assigned_notification($project,$this->input->post('task_name'),$this->input->post('assigned_to')); 
+			//send notification to assigned user
+
+			$activity = 'Edited a task '.$this->input->post('task_name');
+			$this->_log_activity($project,$activity,$icon='fa-tasks'); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('task_update_success'));
 			redirect('projects/view/details/'.$project);
@@ -89,6 +95,12 @@ class Tasks extends MX_Controller {
 			                'added_by' => $this->tank_auth->get_user_id(),
 			            );
 			$this->db->insert('tasks', $form_data); 
+
+			$this->_assigned_notification($project,$this->input->post('task_name'),$this->input->post('assigned_to')); 
+			//send notification to assigned user
+
+			$activity = 'Added a task '.$this->input->post('task_name');
+			$this->_log_activity($project,$activity,$icon='fa-tasks'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('task_add_success'));
@@ -134,11 +146,58 @@ class Tasks extends MX_Controller {
 		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
 		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
 	}
+	function pilot(){
+		if ($this->uri->segment(4) == 'on') {
+			$status = 'TRUE';
+		}else{
+			$status = 'FALSE';
+		}
+			$task = $this->uri->segment(5);
+			$project = $this->uri->segment(6)/8600;
+
+			$this->db->set('auto_progress', $status);
+			$this->db->where('t_id',$task)->update('tasks');
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
+			redirect('projects/view/details/'.$project);
+	}
+
+	function _assigned_notification($project,$task_name,$assigned_to){
+			$project_details = $this->project->project_details($project);
+			foreach ($project_details as $key => $p) {
+				$project_title = $p->project_title;
+			}
+
+			$assigned_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['project_title'] = $project_title;
+			$data['assigned_by'] = $assigned_by;
+			$data['project_id'] = $project;
+			$data['task_name'] = $task_name;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New task assigned by '.$assigned_by;
+			$params['message'] = $this->load->view('emails/assigned_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
 	function _log_timesheet($task,$start_time,$end_time){
 			$this->db->set('task', $task);
 			$this->db->set('start_time', $start_time);
 			$this->db->set('end_time', $end_time);
 			$this->db->insert('tasks_timer'); 
+	}
+
+	function _log_activity($project,$activity,$icon){
+			$this->db->set('module', 'projects');
+			$this->db->set('module_field_id', $project);
+			$this->db->set('user', $this->tank_auth->get_user_id());
+			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
+			$this->db->insert('activities'); 
 	}
 }
 

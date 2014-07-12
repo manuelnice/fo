@@ -14,6 +14,12 @@ if ($project->timer == 'On') { ?>
 	<a href="<?=base_url()?>projects/tracking/on/<?=$project->project_id?>" class="btn btn-sm btn-success "> <i class="fa fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
 <?php } ?>
 <a href="<?=base_url()?>projects/timelog/<?=$project->project_id*8600?>"  data-toggle="ajaxModal" title="<?=lang('time_entry')?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
+<?php
+if ($project->auto_progress == 'FALSE') { ?>
+	<a href="<?=base_url()?>projects/pilot/on/<?=$project->project_id*8600?>" data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-rocket text-white"></i></a>
+<?php }else{ ?>
+<a href="<?=base_url()?>projects/pilot/off/<?=$project->project_id*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-power-off text-white"></i></a>
+<?php } ?>
 </p>
 
 			</header>
@@ -26,11 +32,20 @@ if ($project->timer == 'On') { ?>
 									<div class="wrapper">
 										<!-- Start -->
 										<section class="panel panel-default">
-										<header class="panel-heading">Task Status</header>
+										<header class="panel-heading"><?=lang('task_status')?></header>
 										<div class="panel-body text-center">
-											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']">60,40</div>
+										<?php
+										$total_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'t_id >'=>1));
+										$open_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress <'=>100));
+										$closed_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress'=>100));
+
+										$perc_closed_tasks = round(($closed_tasks/$total_tasks)*100,1);
+										$perc_open_tasks = round(($open_tasks/$total_tasks)*100,1);
+
+										?>
+											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
 											<div class="line pull-in"></div>
-											<div class="text-xs"> <i class="fa fa-circle text-success"></i> 60% Open <i class="fa fa-circle text-danger"></i> 40% Closed</div>
+											<div class="text-xs"> <i class="fa fa-circle text-success"></i> <?=$perc_open_tasks?>% <?=lang('open')?> <i class="fa fa-circle text-danger"></i> <?=$perc_closed_tasks?>% <?=lang('closed')?></div>
 										</div> </section>
 										<!-- end -->
 										<div class="clearfix m-b">
@@ -60,7 +75,20 @@ if ($project->timer == 'On') { ?>
 								<div>
 									
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="<?=$project->progress?>%" style="width: <?=$project->progress?>%">
+									<?php
+						$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$project->project_id));
+						$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$project->project_id));
+						$logged_time = ($task_time + $project_time)/3600;
+						$auto_calculated_progress = ($logged_time/$project->estimate_hours)*100;
+
+							if ($project->auto_progress == 'FALSE') {								
+								$progress = $project->progress;
+							}elseif($auto_calculated_progress >= 100){
+								$progress = 100;
+							}else{
+								$progress = round($auto_calculated_progress,2);
+							} ?>
+										<div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="<?=$progress?>%" style="width: <?=$progress?>%">
 										</div>
 									</div>
 								</div>

@@ -62,6 +62,7 @@
 					<input class="slider slider-horizontal form-control" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" name="progress" > 
 				</div>
 				</div> 
+
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('assigned_to')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-3">
@@ -74,6 +75,14 @@
 				</select>
 				</div>
 				</div>
+
+				<div class="form-group">
+				<label class="col-lg-2 control-label"><?=lang('estimated_hours')?></label>
+				<div class="col-lg-2">
+					<input type="text" class="form-control" value="3" name="estimate">
+				</div>
+				</div>
+
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('project_description')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">

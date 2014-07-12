@@ -61,6 +61,7 @@ class View extends MX_Controller {
 			                'due_date' => $this->input->post('due_date'),
 			                'progress' => $this->input->post('progress'),
 			                'description' => $this->input->post('description'),
+			                'estimate_hours' => $this->input->post('estimate'),
 			                'assign_to' => $this->input->post('assigned_to')
 			            );
 			$this->db->insert('projects', $form_data); 
@@ -112,6 +113,7 @@ class View extends MX_Controller {
 			                'due_date' => $this->input->post('due_date'),
 			                'progress' => $this->input->post('progress'),
 			                'assign_to' => $this->input->post('assigned_to'),
+			                'estimate_hours' => $this->input->post('estimate'),
 			                'description' => $this->input->post('description')
 			            );
 			$this->db->where('project_id',$project_id)->update('projects', $form_data);

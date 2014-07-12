@@ -222,6 +222,21 @@ class Projects extends MX_Controller {
 			modules::run('fomailer/send_email',$params);
 	}
 
+	function pilot(){
+		if ($this->uri->segment(3) == 'on') {
+			$status = 'TRUE';
+		}else{
+			$status = 'FALSE';
+		}
+			$project = $this->uri->segment(4)/8600;
+
+			$this->db->set('auto_progress', $status);
+			$this->db->where('project_id',$project)->update('projects');
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
+			redirect('projects/view/details/'.$project);
+	}
 
 	function _log_activity($project_id,$activity,$icon){
 			$this->db->set('module', 'projects');
