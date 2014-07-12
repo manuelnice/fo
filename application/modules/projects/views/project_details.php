@@ -35,12 +35,16 @@ if ($project->auto_progress == 'FALSE') { ?>
 										<header class="panel-heading"><?=lang('task_status')?></header>
 										<div class="panel-body text-center">
 										<?php
-										$total_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'t_id >'=>1));
-										$open_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress <'=>100));
-										$closed_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress'=>100));
-
+										$total_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id));
+										$open_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress <'=>'100'));
+										$closed_tasks = $this->user_profile->count_rows('tasks',array('project' => $project->project_id,'progress'=>'100'));
+										if ($closed_tasks > 0 OR $open_tasks >0) {
 										$perc_closed_tasks = round(($closed_tasks/$total_tasks)*100,1);
 										$perc_open_tasks = round(($open_tasks/$total_tasks)*100,1);
+										}else{
+											$perc_closed_tasks = 0;
+											$perc_open_tasks = 0;
+										}
 
 										?>
 											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
@@ -79,7 +83,12 @@ if ($project->auto_progress == 'FALSE') { ?>
 						$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$project->project_id));
 						$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$project->project_id));
 						$logged_time = ($task_time + $project_time)/3600;
-						$auto_calculated_progress = ($logged_time/$project->estimate_hours)*100;
+
+						if ($logged_time > 0 AND $project->estimate_hours > 0) {
+							$auto_calculated_progress = ($logged_time/$project->estimate_hours)*100;
+						}else{
+							$auto_calculated_progress = 0;
+						}
 
 							if ($project->auto_progress == 'FALSE') {								
 								$progress = $project->progress;
