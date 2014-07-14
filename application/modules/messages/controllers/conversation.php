@@ -9,7 +9,7 @@
 */
 
 
-class Messages extends MX_Controller {
+class Conversation extends MX_Controller {
 
 	function __construct()
 	{
@@ -18,19 +18,18 @@ class Messages extends MX_Controller {
 		$this->load->model('msg_model');
 	}
 
-	function index()
+	function view()
 	{
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->template->title(lang('messages').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('messages');
-	$data['messages'] = $this->msg_model->get_all_records($table = 'messages',
-		$array = array(
-			'user_to'=>$this->tank_auth->get_user_id(),'deleted' => 'No'),$join_table = 'users',$join_criteria = 'users.id = messages.user_from','date_received');
+	$user_from = $this->uri->segment(4)/1200;
+	$data['conversations'] = $this->msg_model->get_conversations($user_from);
 	$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
 	$this->template
 	->set_layout('users')
-	->build('messages',isset($data) ? $data : NULL);
+	->build('conversations',isset($data) ? $data : NULL);
 	}
 }
 

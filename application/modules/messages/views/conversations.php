@@ -41,24 +41,42 @@
 						</div> </header>
 						<section class="scrollable hover w-f">
 							<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
-								<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-alt list-group-lg">
-					<?php
-						if (!empty($messages)) {
-						foreach ($messages as $key => $msg) { ?>
-							<li class="list-group-item">
-					<a href="<?=base_url()?>clients/view/<?=$msg->user_from?>" class="thumb-xs pull-left m-r-sm">
-					<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
-					<a href="<?=base_url()?>messages/conversation/<?=$msg->user_from*1200?>" class="clear">
-					<small class="pull-right text-muted">
-					<?php $today = time(); $activity_day = strtotime($msg->date_received) ;
-						echo $this->user_profile->get_time_diff($today,$activity_day);
-					?> ago</small>
-					<strong><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></strong> 
-					<?php if($msg->status == 'Unread'){ ?><span class="label label-sm bg-success text-uc"><?=lang('unread')?></span><?php } ?>
-					
-					<span><?=$msg->subject?></span> </a> </li>
-									<?php }} ?>
-								</ul>
+
+
+					<div class="panel-body">
+						<!-- Comment Start -->
+						<section class="comment-list block">
+							<?php
+													if (!empty($conversations)) {
+							foreach ($conversations as $key => $msg) { ?>
+							<article id="comment-id-1" class="comment-item"> <a class="pull-left thumb-sm avatar">
+							<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
+							<span class="arrow left">
+							</span> <section class="comment-body panel panel-default">
+								<header class="panel-heading bg-white"> <a href="widgets.html#"><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></a>
+								<label class="label bg-info m-l-xs"><?=$msg->subject?></label>
+							<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> Just now </span> </header>
+							<div class="panel-body"><div><?=$msg->message?></div>
+							<div class="comment-action m-t-sm">
+								<a href="widgets.html#" data-toggle="class" class="btn btn-default btn-xs active"> <i class="fa fa-star-o text-muted text"></i><i class="fa fa-star text-danger text-active"></i> Delete </a>
+							</div>
+						</div> </section> </article>
+						<?php } } ?>
+						<!-- .comment-end -->
+						<!-- comment form -->
+						<article class="comment-item media" id="comment-form"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
+						<form action="widgets.html" class="m-b-none">
+							<div class="input-group">
+								<input class="form-control" placeholder="Input your comment here" type="text">
+								<span class="input-group-btn"> <button class="btn btn-primary" type="button">POST</button>
+								</span>
+							</div>
+						</form> </section> </article>
+					</section>
+					</div>
+
+
+
 							</div></section>
 			<footer class="footer b-t bg-white-only">
 				<form class="m-t-sm">

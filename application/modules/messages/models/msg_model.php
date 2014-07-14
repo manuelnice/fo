@@ -44,6 +44,13 @@ class Msg_model extends CI_Model
 			return NULL;
 		}
 	}
+	function get_conversations($user_from)
+	{
+		$this->db->join('users','users.id = messages.user_from');
+		$this->db->where('user_from', $user_from);
+		$this->db->or_where('user_to', $user_from);
+		return $this->db->order_by("date_received","desc")->get('messages')->result();
+	}
 	public function get_msg_subject($msg_id)
    	 {
 	$this->db->where('msg_id',$msg_id);
