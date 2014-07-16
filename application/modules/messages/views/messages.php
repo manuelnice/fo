@@ -48,7 +48,7 @@
 							<li class="list-group-item">
 					<a href="<?=base_url()?>clients/view/<?=$msg->user_from?>" class="thumb-xs pull-left m-r-sm">
 					<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
-					<a href="<?=base_url()?>messages/conversation/<?=$msg->user_from*1200?>" class="clear">
+					<a href="<?=base_url()?>messages/conversation/view/<?=$msg->user_from*1200?>" class="clear">
 					<small class="pull-right text-muted">
 					<?php $today = time(); $activity_day = strtotime($msg->date_received) ;
 						echo $this->user_profile->get_time_diff($today,$activity_day);

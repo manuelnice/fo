@@ -2,8 +2,7 @@
 	<section class="hbox stretch">
 		
 		<aside class="aside-md bg-white b-r" id="subNav">
-			<div class="wrapper b-b header"><?=lang('all_messages')?>
-			</div>
+			<div class="wrapper b-b header"><?=lang('all_messages')?></div>
 			<section class="vbox">
 				<section class="scrollable w-f">
 					<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
@@ -44,33 +43,55 @@
 
 
 					<div class="panel-body">
-						<!-- Comment Start -->
+						<?php  echo modules::run('sidebar/flash_msg');?>
+						
+						<!-- Conversation Start -->
 						<section class="comment-list block">
 							<?php
 													if (!empty($conversations)) {
 							foreach ($conversations as $key => $msg) { ?>
 							<article id="comment-id-1" class="comment-item"> <a class="pull-left thumb-sm avatar">
 							<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
-							<span class="arrow left">
-							</span> <section class="comment-body panel panel-default">
-								<header class="panel-heading bg-white"> <a href="widgets.html#"><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></a>
-								<label class="label bg-info m-l-xs"><?=$msg->subject?></label>
-							<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> Just now </span> </header>
-							<div class="panel-body"><div><?=$msg->message?></div>
-							<div class="comment-action m-t-sm">
-								<a href="widgets.html#" data-toggle="class" class="btn btn-default btn-xs active"> <i class="fa fa-star-o text-muted text"></i><i class="fa fa-star text-danger text-active"></i> Delete </a>
-							</div>
-						</div> </section> </article>
+							<span class="arrow left"></span>
+								<section class="comment-body panel panel-default">
+									<header class="panel-heading bg-white"> <a href="<?=base_url()?>clients/view/details/<?=$msg->user_from*1200?>"><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></a>
+
+								<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> 
+														<?php
+																$today = time();
+																$received = strtotime($msg->date_received) ;
+																echo $this->user_profile->get_time_diff($today,$received);
+																?> ago </span>
+									</header>
+								<div class="panel-body"><div><?=$msg->message?></div>
+								<div class="comment-action m-t-sm">
+								<?php
+								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
+									<a href="#" class="btn btn-default btn-xs active" data-toggle="ajaxModal"> 
+										<i class="fa fa-times text-danger text-active"></i> <?=lang('delete')?>
+									</a>
+									<?php } ?>
+								</div>
+								</div> 
+								</section>
+						</article>
 						<?php } } ?>
-						<!-- .comment-end -->
-						<!-- comment form -->
+						<!-- .message-end -->
+						<!-- message form -->
 						<article class="comment-item media" id="comment-form"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
-						<form action="widgets.html" class="m-b-none">
-							<div class="input-group">
-								<input class="form-control" placeholder="Input your comment here" type="text">
-								<span class="input-group-btn"> <button class="btn btn-primary" type="button">POST</button>
-								</span>
-							</div>
+						<?php
+							$attributes = array('class' => 'class="m-b-none"');
+								echo form_open(base_url().'messages/conversation/send/'.$this->uri->segment(4)/1200, $attributes); ?>
+								<input type="hidden" name="user_to" value="<?=$this->uri->segment(4)/1200?>">
+								<input type="hidden" name="r_url" value="<?=current_url()?>">
+								<section class="panel panel-default"> 
+									<textarea class="form-control no-border" rows="3" name="message" placeholder="Enter your message here"></textarea>
+									<footer class="panel-footer bg-light lter">
+									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('send_message')?></button> 
+									<ul class="nav nav-pills nav-sm"> 
+									<li><a href="#" class="btn btn-dark btn-xs" data-toggle="ajaxModal"><i class="fa fa-paperclip text-white"></i> <?=lang('attach')?></a></li>  
+									</ul> </footer> 
+								</section>
 						</form> </section> </article>
 					</section>
 					</div>
