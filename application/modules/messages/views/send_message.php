@@ -27,10 +27,7 @@
 							<div class="col-sm-8 m-b-xs">
 								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
 								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
-								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>messages/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
-									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
-								</div>
+								
 							</div>
 							<div class="col-sm-4 m-b-xs">
 								<div class="input-group">
@@ -41,34 +38,60 @@
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">
-							<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+						<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+								
+	<section class="panel panel-default">
+	<header class="panel-heading font-bold"><i class="fa fa-envelope"></i> <?=lang('message_notification')?></header>
+	<div class="panel-body">
+	  <?php
 
-							<?php  echo modules::run('sidebar/flash_msg');?>
-							<?php $this->load->helper('text'); ?>
+			$attributes = array('class' => 'bs-example form-horizontal');
+          echo form_open(base_url().'messages/conversation/send',$attributes); ?>
 
-								<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-alt list-group-lg">
-					<?php
-						if (!empty($messages)) {
-						foreach ($messages as $key => $msg) { ?>
-							<li class="list-group-item">
-					<a href="<?=base_url()?>clients/view/<?=$msg->user_from?>" class="thumb-xs pull-left m-r-sm">
-					<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
-					<a href="<?=base_url()?>messages/conversation/view/<?=$msg->user_from*1200?>" class="clear">
-					<small class="pull-right text-muted">
-					<?php $today = time(); $activity_day = strtotime($msg->date_received) ;
-						echo $this->user_profile->get_time_diff($today,$activity_day);
-					?> ago</small>
-					<strong><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></strong> 
-					<?php if($msg->status == 'Unread'){ ?><span class="label label-sm bg-success text-uc"><?=lang('unread')?></span><?php } ?>
-					
-					<span><?php
-					$longmsg = $msg->message;
-					$message = word_limiter($longmsg, 2);
-					echo $message;
-					?></span> </a> </li>
-									<?php }} ?>
-								</ul>
-							</div></section>
+          <input type="hidden" name="r_url" value="<?=base_url()?>messages">
+          
+          <div class="form-group">
+				<label class="col-lg-3 control-label"><?=lang('username')?></label>
+				<div class="col-lg-9">
+					<div class="m-b"> 
+					<select id="select2-option" style="width:260px" name="user_to" > 
+					<optgroup label="Clients"> 
+					<?php foreach ($clients as $client): ?>
+					<option value="<?=$client->id?>"><?=ucfirst($client->username)?></option>
+					<?php endforeach; ?>
+					</optgroup> 
+					<optgroup label="Admins"> 
+						<?php foreach ($admins as $admin): ?>
+						<option value="<?=$admin->id?>"><?=ucfirst($admin->username)?></option>
+						<?php endforeach; ?>
+					</optgroup> 
+					</select> 
+					</div> 
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-3 control-label"><?=lang('message')?> <span class="text-danger">*</span></label> 
+				<div class="col-lg-9">
+					<textarea name="message" class="form-control" ></textarea>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+				<button type="submit" class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> <?=lang('send_message')?></button>
+				</div>
+			</div>
+			
+		</form>
+	</div> </section>
+	</div>
+
+
+
+
+</section>
 			<footer class="footer b-t bg-white-only">
 				<form class="m-t-sm">
 					<div class="input-group">

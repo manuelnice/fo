@@ -216,6 +216,7 @@ $lang['messages'] = 'Messages';
 $lang['message'] = 'Message';
 $lang['message_sent'] = 'Message sent. An email has been sent to notify the recipient.';
 $lang['message_not_sent'] = 'Message not delivered. Please try again';
+$lang['message_notification'] = 'An email will be sent to notify the user';
 $lang['member_since'] = 'Member Since';
 $lang['minutes'] = 'Minutes';
 $lang['my_account'] = 'My Account';

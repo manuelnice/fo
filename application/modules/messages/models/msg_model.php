@@ -37,12 +37,7 @@ class Msg_model extends CI_Model
 	function group_messages_by_users($user)
 	{
 		$this->db->join('users','users.id = messages.user_from');
-		$query = $this->db->where('user_to',$user)->group_by("user_from")->order_by("date_received","desc")->get('messages');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} else{
-			return NULL;
-		}
+		return $this->db->where('user_to',$user)->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
 	}
 	function get_conversations($user_from)
 	{
@@ -52,22 +47,9 @@ class Msg_model extends CI_Model
 		//$this->db->where('user_to', $this->tank_auth->get_user_id());
 		return $this->db->order_by("date_received","desc")->get('messages')->result();
 	}
-	public function get_msg_subject($msg_id)
-   	 {
-	$this->db->where('msg_id',$msg_id);
-	$this->db->select('subject');
-	$query = $this->db->get('messages');
-		if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row->subject;
-  		}
-	}
 	public function get_msg_text($msg_id)
    	 {
-	$this->db->where('msg_id',$msg_id);
-	$this->db->select('message');
-	$query = $this->db->get('messages');
+		$query = $this->db->select('message')->where('msg_id',$msg_id)->get('messages');
 		if ($query->num_rows() > 0)
 		{
   		 $row = $query->row();
@@ -76,9 +58,7 @@ class Msg_model extends CI_Model
 	}
 	public function get_user_id($username)
    	 {
-	$this->db->where('username',$username);
-	$this->db->select('id');
-	$query = $this->db->get('users');
+	$query = $this->db->select('id')->where('username',$username)->get('users');
 		if ($query->num_rows() > 0)
 		{
   		 $row = $query->row();

@@ -58,7 +58,20 @@ class Conversation extends MX_Controller {
 			redirect($this->input->post('r_url'));
 			}
 		}else{
-			redirect('messages');
+				$this->load->module('layouts');
+				$this->load->library('template');
+				$this->template->title(lang('messages').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+				$data['page'] = lang('messages');
+				$data['clients'] = $this->msg_model->get_all_records($table = 'users',
+							$array = array(
+											'role_id'=> 2,'activated' => 1),$join_table = '',$join_criteria = '','created');
+				$data['admins'] = $this->msg_model->get_all_records($table = 'users',
+							$array = array(
+											'role_id !='=> 2,'activated' => 1),$join_table = '',$join_criteria = '','created');
+				$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
+				$this->template
+				->set_layout('users')
+				->build('send_message',isset($data) ? $data : NULL);
 		}
 	}
 	function _set_read($user_from){

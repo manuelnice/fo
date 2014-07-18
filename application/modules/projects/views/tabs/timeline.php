@@ -39,7 +39,7 @@
 		<?php } } else{ echo lang('nothing_to_display'); } ?>
 
 
-																	<div class="timeline-footer"><a href="timeline.html#"><i class="fa fa-plus time-icon inline-block bg-dark"></i></a>
+																	<div class="timeline-footer"><a href="#"><i class="fa fa-plus time-icon inline-block bg-dark"></i></a>
 																		</div>
 																	</div>
 																</div>

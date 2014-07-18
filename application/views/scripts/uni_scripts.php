@@ -3,7 +3,7 @@
 <script src="<?=JS_URL?>datepicker/bootstrap-datepicker.js" cache="false"></script>
 <?php } ?>
 <?php
-if ($this->uri->segment(2) == 'update') { ?>
+if ($this->uri->segment(2) == 'update' OR $this->uri->segment(1) == 'messages') { ?>
 <script src="<?=JS_URL?>select2/select2.min.js" cache="false"></script>
 <script src="<?=JS_URL?>file-input/bootstrap-filestyle.min.js" cache="false"></script>
 <script src="<?=JS_URL?>wysiwyg/jquery.hotkeys.js" cache="false"></script>

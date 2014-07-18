@@ -30,7 +30,7 @@
               <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>projects/view_projects/all" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
               <span><?=lang('projects')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-danger pull-right">3</b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
+              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
               <span><?=lang('messages')?> </span> </a> </li>
 
             <li class="<?php if($page == lang('invoices') OR $page == lang('estimates') OR $page == lang('payments') OR $page == lang('chart') OR $page == lang('add_invoice')){echo  "active"; }?>">

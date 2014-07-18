@@ -44,8 +44,9 @@ class Estimates_model extends CI_Model
 	}
 	function estimate_activities($est_id)
 	{
-		$this->db->join('estimates','estimates.est_id = estimate_activities.estimate');
-		$query = $this->db->where('estimate',$est_id)->get('estimate_activities');
+		$this->db->join('users','users.id = activities.user');
+		$this->db->where('module', 'estimates');
+		$query = $this->db->where('estimate',$est_id)->get('activities');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
