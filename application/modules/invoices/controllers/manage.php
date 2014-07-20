@@ -194,6 +194,55 @@ class Manage extends MX_Controller {
 			$this->load->view('modal/pay_invoice',$data);
 		}
 	}
+	function quickadd()
+	{
+		if ($this->input->post()) {
+			$invoice_id = $this->input->post('invoice_id');
+			$paid_amount = $this->input->post('amount');
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('amount', 'Amount', 'required|integer|greater_than[0]');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('payment_failed'));
+				redirect('invoices/manage/details/'.$invoice_id);
+		}else{			
+			$invoice_payable = $this->user_profile->invoice_payable($invoice_id);
+			$invoice_paid = $this->user_profile->invoice_payment($invoice_id);
+			$due = $invoice_payable - $invoice_paid;
+			if ($paid_amount > $due) {
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('overpaid_amount'));
+				redirect('invoices/manage/details/'.$invoice_id);
+			}
+			$form_data = array(
+			                'invoice' => $this->input->post('invoice_id'),
+			                'payment_method' => $this->input->post('payment_method'),
+			                'amount' => $this->input->post('amount'),
+			                'trans_id' => $this->input->post('trans_id'),
+			                'notes' => $this->input->post('notes'),
+			                'month_paid' => date('m'),
+			                'year_paid' => date('Y'),
+			            );
+			$this->db->insert('payments', $form_data); 
+			$activity = 'Payment of '.$this->config->item('default_currency').' '.$this->input->post('amount').' received and applied to INVOICE #'.$this->input->post('invoice_ref');
+
+			$this->_log_activity($invoice_id,$activity); //log activity
+
+			$this->_send_payment_email($invoice_id,$paid_amount); //send thank you email
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('payment_added_successfully'));
+			redirect('invoices/manage/details/'.$invoice_id);
+			}
+		}else{
+			$data['invoice'] = $this->uri->segment(4);
+			$data['items'] = $this->invoice->saved_items();
+			$this->load->view('modal/quickadd',$data);
+		}
+	}
 	function delete_item(){
 		if ($this->input->post() ){
 					$item_id = $this->input->post('item', TRUE);

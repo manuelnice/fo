@@ -34,6 +34,10 @@ class Invoice_model extends CI_Model
 	{
 			return $this->db->get('payment_methods')->result();
 	}
+	function saved_items()
+	{
+			return $this->db->get('items_saved')->result();
+	}
 	function invoice_details($invoice_id)
 	{
 		$this->db->join('users','users.id = invoices.client');

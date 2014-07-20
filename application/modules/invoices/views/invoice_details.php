@@ -36,7 +36,8 @@
 					if (!empty($invoice_details)) {
 			foreach ($invoice_details as $key => $inv) { ?>
 			<a href="#" class="btn btn-sm btn-default" onClick="window.print();"><i class="fa fa-print"></i></a> 
-			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" class="btn btn-sm btn-danger"><i class="fa fa-list-alt text-white"></i></a> 
+			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" class="btn btn-sm btn-danger" data-toggle="ajaxModal">
+			<i class="fa fa-list-alt text-white"></i></a> 
 
 						<a class="btn btn-sm btn-danger" href="<?=base_url()?>invoices/manage/add" title="<?=lang('new_invoice')?>"><i class="fa fa-plus"></i> <?=lang('new_invoice')?></a>
 						<?php

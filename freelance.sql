@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2014 at 05:32 PM
+-- Generation Time: Jul 20, 2014 at 04:45 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -84,35 +84,74 @@ CREATE TABLE IF NOT EXISTS `fx_activities` (
   `module_field_id` int(11) NOT NULL,
   `activity` varchar(255) NOT NULL,
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `icon` varchar(32) DEFAULT 'fa-coffee',
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `fx_activities`
 --
 
-INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`, `activity`, `activity_date`, `deleted`) VALUES
-(1, 1, 'bugs', 3, 'Logged in from 127.0.0.1', '2014-02-26 14:40:59', 0),
-(2, 1, 'invoices', 1, 'Uploaded a file to a <a class="text-info" href="projects/3">Project</a>', '2014-02-26 14:40:59', 0),
-(3, 2, 'projects', 4, 'Added a new <a class="text-info" href="tasks/3">Task</a>', '2014-03-31 06:23:51', 0),
-(4, 2, 'bugs', 3, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 0),
-(5, 2, 'estimates', 6, 'Admin created estimate #129464', '2014-03-31 06:53:41', 0),
-(6, 1, 'bugs', 3, 'Added an Issue #5644', '2014-05-12 17:42:05', 0),
-(7, 1, 'payments', 2, 'Edited a user information', '2014-05-12 17:43:03', 0),
-(8, 1, 'general', 3, 'Edited a user information', '2014-05-14 05:58:00', 0),
-(9, 1, 'invoices', 3, 'Edited a user information', '2014-05-14 05:59:02', 0),
-(10, 2, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-05-14 06:09:10', 0),
-(11, 1, 'bugs', 3, 'Marked Issue #5467 as Resolved', '2014-06-29 15:04:23', 0),
-(12, 1, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-06-29 15:08:53', 0),
-(13, 1, 'invoices', 7, 'Payment of USD 15 received by admin', '2014-06-29 15:15:35', 0),
-(14, 1, 'invoices', 7, 'Payment of USD 100 received and applied to INVOICE 884439', '2014-06-29 15:19:10', 0),
-(15, 1, 'invoices', 8, 'INVOICE #418115 created.', '2014-06-29 15:21:26', 0),
-(16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 0),
-(17, 1, 'projects', 2, 'Added a comment to Project #765546', '2014-07-04 16:43:23', 0),
-(18, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:56:44', 0),
-(19, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:59:02', 0),
-(20, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:47:55', 0),
-(21, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:48:31', 0);
+INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`, `activity`, `activity_date`, `icon`, `deleted`) VALUES
+(1, 1, 'bugs', 3, 'Logged in from 127.0.0.1', '2014-02-26 14:40:59', 'fa-coffee', 0),
+(2, 1, 'invoices', 1, 'Uploaded a file to a <a class="text-info" href="projects/3">Project</a>', '2014-02-26 14:40:59', 'fa-coffee', 0),
+(3, 2, 'projects', 5, 'Added a new <a class="text-info" href="tasks/3">Task</a>', '2014-03-31 06:23:51', 'fa-coffee', 0),
+(4, 2, 'bugs', 3, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 'fa-coffee', 0),
+(5, 2, 'estimates', 6, 'Admin created estimate #129464', '2014-03-31 06:53:41', 'fa-coffee', 0),
+(6, 1, 'bugs', 3, 'Added an Issue #5644', '2014-05-12 17:42:05', 'fa-coffee', 0),
+(7, 1, 'payments', 2, 'Edited a user information', '2014-05-12 17:43:03', 'fa-coffee', 0),
+(8, 1, 'general', 3, 'Edited a user information', '2014-05-14 05:58:00', 'fa-coffee', 0),
+(9, 1, 'invoices', 3, 'Edited a user information', '2014-05-14 05:59:02', 'fa-coffee', 0),
+(10, 2, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-05-14 06:09:10', 'fa-coffee', 0),
+(11, 1, 'bugs', 3, 'Marked Issue #5467 as Resolved', '2014-06-29 15:04:23', 'fa-coffee', 0),
+(12, 1, 'bugs', 3, 'Assigned Issue #5467 to a user and marked as In Progress', '2014-06-29 15:08:53', 'fa-coffee', 0),
+(13, 1, 'invoices', 7, 'Payment of USD 15 received by admin', '2014-06-29 15:15:35', 'fa-coffee', 0),
+(14, 1, 'invoices', 7, 'Payment of USD 100 received and applied to INVOICE 884439', '2014-06-29 15:19:10', 'fa-coffee', 0),
+(15, 1, 'invoices', 8, 'INVOICE #418115 created.', '2014-06-29 15:21:26', 'fa-coffee', 0),
+(16, 1, 'invoices', 8, 'INVOICE #418115marked as Sent', '2014-06-29 15:49:51', 'fa-coffee', 0),
+(17, 1, 'projects', 2, 'Added a comment to Project #765546', '2014-07-04 16:43:23', 'fa-coffee', 0),
+(18, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:56:44', 'fa-coffee', 0),
+(19, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:59:02', 'fa-coffee', 0),
+(20, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:47:55', 'fa-coffee', 0),
+(21, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:48:31', 'fa-coffee', 0),
+(22, 1, 'projects', 2, 'Replied to a comment', '2014-07-06 11:15:13', 'fa-coffee', 0),
+(23, 1, 'projects', 7, 'Added a comment to Project #84952', '2014-07-07 07:51:35', 'fa-coffee', 0),
+(24, 1, 'invoices', 1, 'Payment of USD 16 received and applied to INVOICE #923852', '2014-07-07 07:56:57', 'fa-coffee', 0),
+(25, 1, 'projects', 0, 'admin deleted a file ', '2014-07-10 15:33:13', 'fa-coffee', 0),
+(26, 1, 'projects', 0, 'admin deleted a file PRO-84952.png', '2014-07-10 15:34:49', 'fa-coffee', 0),
+(27, 1, 'projects', 0, 'admin deleted a file Freelancer-PROJECT-84952.png', '2014-07-10 15:36:35', 'fa-coffee', 0),
+(28, 1, 'projects', 7, 'admin deleted a file FREELANCER-PROJECT-849522.png', '2014-07-10 15:38:12', 'fa-coffee', 0),
+(29, 1, 'projects', 7, 'Admin deleted a file FREELANCER-PROJECT-84952_.png', '2014-07-10 15:39:31', 'fa-coffee', 0),
+(30, 1, 'projects', 7, 'Admin deleted a file FREELANCER-PROJECT-849521.png', '2014-07-10 15:40:27', 'fa-coffee', 0),
+(31, 1, 'projects', 1, 'Admin deleted a file register.png', '2014-07-10 16:18:44', 'fa-coffee', 0),
+(32, 1, 'projects', 1, 'Admin deleted a file manager2.png', '2014-07-10 16:18:53', 'fa-coffee', 0),
+(33, 1, 'projects', 2, 'Admin deleted a file 8-iPhone-app-designs-UI.jpg', '2014-07-10 16:23:22', 'fa-coffee', 0),
+(34, 1, 'projects', 2, 'Admin deleted a file login.png', '2014-07-10 16:23:30', 'fa-coffee', 0),
+(35, 1, 'projects', 2, 'Admin deleted a file clerk1.png', '2014-07-10 16:23:38', 'fa-coffee', 0),
+(36, 1, 'projects', 3, 'Added a comment to Project #46483', '2014-07-10 17:06:42', 'fa-coffee', 0),
+(37, 1, 'projects', 3, 'Admin edited a project #46483', '2014-07-10 17:11:32', 'fa-coffee', 0),
+(38, 1, 'projects', 3, 'Admin edited a project #46483', '2014-07-10 17:12:08', 'fa-coffee', 0),
+(39, 1, 'projects', 8, 'Admin created a project #66396', '2014-07-11 16:55:29', 'fa-coffee', 0),
+(40, 1, 'projects', 8, 'Added a comment to Project #66396', '2014-07-11 17:10:29', 'fa-comment', 0),
+(41, 1, 'projects', 8, 'Admin added a file FREELANCER-PROJECT-66396-0.jpg', '2014-07-11 17:15:17', 'fa-file', 0),
+(42, 1, 'projects', 8, 'Admin deleted a file FREELANCER-PROJECT-66396-0.jpg', '2014-07-11 17:15:59', 'fa-times', 0),
+(43, 1, 'projects', 8, 'Admin edited a project #66396', '2014-07-12 06:44:44', 'fa-coffee', 0),
+(44, 1, 'projects', 8, 'Added a task Fix Local Environment Bug', '2014-07-12 07:03:09', 'fa-tasks', 0),
+(45, 1, 'projects', 8, 'Edited a task Fix Local Environment Bug', '2014-07-12 07:03:57', 'fa-tasks', 0),
+(46, 1, 'projects', 8, 'Admin edited a project #66396', '2014-07-12 08:16:11', 'fa-coffee', 0),
+(47, 1, 'projects', 8, 'Admin edited a project #66396', '2014-07-12 08:25:39', 'fa-coffee', 0),
+(48, 1, 'projects', 8, 'Admin edited a project #66396', '2014-07-12 08:32:17', 'fa-coffee', 0),
+(49, 1, 'projects', 8, 'Admin added a file FREELANCER-PROJECT-66396-0.png', '2014-07-12 08:33:33', 'fa-file', 0),
+(50, 1, 'projects', 8, 'Edited a task Fix Local Environment Bug', '2014-07-12 08:35:12', 'fa-tasks', 0),
+(51, 1, 'projects', 8, 'Added a task Sliding Menu', '2014-07-12 08:57:13', 'fa-tasks', 0),
+(52, 1, 'projects', 8, 'Added a task Responsive Footer', '2014-07-12 08:57:59', 'fa-tasks', 0),
+(53, 1, 'projects', 1, 'Added a task Sticky Glowing Menu', '2014-07-12 11:30:45', 'fa-tasks', 0),
+(54, 1, 'projects', 4, 'Added a task Logout Error fix DB', '2014-07-12 14:29:00', 'fa-tasks', 0),
+(55, 1, 'projects', 5, 'Added a task Responsive Footer', '2014-07-12 14:30:14', 'fa-tasks', 0),
+(56, 1, 'projects', 5, 'Added a task Sticky Glowing Menu', '2014-07-12 14:30:31', 'fa-tasks', 0),
+(57, 1, 'projects', 7, 'Added a task Upload a sample project', '2014-07-18 16:07:03', 'fa-tasks', 0),
+(58, 1, 'projects', 7, 'Edited a task New Bootstrap 3 Template', '2014-07-18 16:10:26', 'fa-tasks', 0),
+(59, 1, 'projects', 7, 'Edited a task New Bootstrap 3 Template', '2014-07-18 16:10:43', 'fa-tasks', 0);
 
 -- --------------------------------------------------------
 
@@ -230,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `fx_comments` (
   `message` text NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `fx_comments`
@@ -249,7 +288,10 @@ INSERT INTO `fx_comments` (`comment_id`, `project`, `posted_by`, `message`, `dat
 (12, 7, 1, 'How much will you charge?', '2014-06-07 07:17:03', 'No'),
 (13, 5, 1, 'Comment added here', '2014-06-12 16:03:53', 'No'),
 (14, 7, 1, 'Hey', '2014-06-16 13:25:05', 'No'),
-(15, 2, 1, 'That was my awesome comment', '2014-07-04 16:43:23', 'No');
+(15, 2, 1, 'That was my awesome comment', '2014-07-04 16:43:23', 'No'),
+(16, 7, 1, 'Fix issue #2390', '2014-07-07 07:51:34', 'No'),
+(17, 3, 1, 'Lets check out this comment', '2014-07-10 17:06:42', 'No'),
+(18, 8, 1, 'First comment submitted', '2014-07-11 17:10:29', 'No');
 
 -- --------------------------------------------------------
 
@@ -264,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `fx_comment_replies` (
   `replied_by` int(11) NOT NULL,
   `del` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fx_comment_replies`
@@ -273,7 +315,9 @@ CREATE TABLE IF NOT EXISTS `fx_comment_replies` (
 INSERT INTO `fx_comment_replies` (`reply_id`, `parent_comment`, `reply_msg`, `replied_by`, `del`, `date_posted`) VALUES
 (1, 1, 'Hello buddy?', 1, 'No', '2014-01-02 11:46:55'),
 (2, 1, 'Thanks for the good work', 2, 'No', '2014-01-02 11:51:46'),
-(3, 7, 'That div is not allowed', 2, 'No', '2014-01-02 19:34:04');
+(3, 7, 'That div is not allowed', 2, 'No', '2014-01-02 19:34:04'),
+(4, 4, 'I replied to this comment ', 1, 'No', '2014-07-06 11:15:13'),
+(5, 16, 'This issue has been reported as a bug and will be fixed as soon as possible.', 1, 'No', '2014-07-10 16:16:47');
 
 -- --------------------------------------------------------
 
@@ -291,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `fx_config` (
 --
 
 INSERT INTO `fx_config` (`key`, `value`) VALUES
-('allowed_files', 'gif|jpg|png|pdf'),
+('allowed_files', 'gif|jpg|png|pdf|doc|txt|docx'),
 ('auth_author', 'William Mandai'),
 ('auth_installed_key', 'GHG23GJB'),
 ('auth_secret_key', 'fv23gshdjwejbb3c32h321'),
@@ -326,8 +370,7 @@ INSERT INTO `fx_config` (`key`, `value`) VALUES
 ('smtp_pass', 'UYlINDMnpCq1JgVq+zAT1A3AyCPD9Cob/J82Cy1Duzjml/HOV+wkMizV3MMrT6ggbRj1KmXezZXPbaL8kILbsA=='),
 ('smtp_port', '25'),
 ('smtp_user', 'freelancer'),
-('task_progress_auto_calc', 'TRUE'),
-('version', '1.1.0'),
+('version', '1.1'),
 ('webmaster_email', 'info@bootstrapstore.net'),
 ('website_name', 'KabuPortal');
 
@@ -475,19 +518,23 @@ CREATE TABLE IF NOT EXISTS `fx_files` (
 `file_id` int(11) NOT NULL,
   `project` int(11) NOT NULL,
   `file_name` text NOT NULL,
+  `description` text NOT NULL,
   `uploaded_by` int(11) NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `fx_files`
 --
 
-INSERT INTO `fx_files` (`file_id`, `project`, `file_name`, `uploaded_by`, `date_posted`) VALUES
-(3, 2, 'clerk1.png', 2, '2014-03-31 06:23:51'),
-(4, 2, 'login.png', 2, '2014-03-31 06:24:55'),
-(5, 1, 'manager2.png', 2, '2014-03-31 11:54:41'),
-(6, 1, 'register.png', 2, '2014-03-31 11:58:01');
+INSERT INTO `fx_files` (`file_id`, `project`, `file_name`, `description`, `uploaded_by`, `date_posted`) VALUES
+(13, 7, 'FREELANCER-PROJECT-84952_1.png', 'Description', 1, '2014-07-10 15:13:20'),
+(14, 7, 'FREELANCER-PROJECT-84952-0.png', 'Description', 1, '2014-07-10 15:14:17'),
+(15, 7, 'FREELANCER-PROJECT-84952-01.png', 'Description', 1, '2014-07-10 15:14:37'),
+(16, 1, 'FREELANCER-PROJECT-343253-0.png', 'Description', 1, '2014-07-10 16:19:34'),
+(17, 2, 'FREELANCER-PROJECT-765546-0.png', 'Description', 1, '2014-07-10 16:24:22'),
+(18, 3, 'FREELANCER-PROJECT-46483-0.jpg', 'Description', 1, '2014-07-10 16:52:41'),
+(20, 8, 'FREELANCER-PROJECT-66396-0.png', 'I adde the file here', 1, '2014-07-12 08:33:33');
 
 -- --------------------------------------------------------
 
@@ -540,7 +587,7 @@ CREATE TABLE IF NOT EXISTS `fx_items` (
   `quantity` int(11) NOT NULL,
   `total_cost` int(11) NOT NULL,
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `fx_items`
@@ -559,9 +606,11 @@ INSERT INTO `fx_items` (`item_id`, `invoice_id`, `item_desc`, `unit_cost`, `quan
 (10, 5, 'Wordpress Plugin', 240, 1, 240, '2014-06-12 15:59:34'),
 (11, 7, 'Bootstrap 3 Theme Dev', 750, 1, 750, '2014-06-22 10:13:25'),
 (12, 7, 'Codecanyon Wordpress Plugin', 450, 2, 900, '2014-06-22 10:13:45'),
-(13, 3, 'Sample Web System', 450, 1, 450, '2014-06-25 08:42:05'),
 (14, 8, 'Email Marketing', 50, 1, 50, '2014-06-29 15:21:50'),
-(15, 8, 'Mailchimp Wordpress Plugin', 350, 1, 350, '2014-06-29 15:22:12');
+(15, 8, 'Mailchimp Wordpress Plugin', 350, 1, 350, '2014-06-29 15:22:12'),
+(16, 1, 'Wordpress Plugin', 100, 1, 100, '2014-07-07 07:56:01'),
+(17, 1, 'Web Design http://sample.com', 3500, 1, 3500, '2014-07-10 17:17:27'),
+(18, 1, 'Server Configuration http://sample.com', 2500, 3, 7500, '2014-07-10 17:18:17');
 
 -- --------------------------------------------------------
 
@@ -576,7 +625,7 @@ CREATE TABLE IF NOT EXISTS `fx_items_saved` (
   `unit_cost` int(11) NOT NULL,
   `category` enum('hours','product','service') NOT NULL DEFAULT 'product',
   `deleted` enum('Yes','No') DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `fx_items_saved`
@@ -584,7 +633,8 @@ CREATE TABLE IF NOT EXISTS `fx_items_saved` (
 
 INSERT INTO `fx_items_saved` (`item_id`, `item`, `item_desc`, `unit_cost`, `category`, `deleted`) VALUES
 (1, 'Website', 'Web Development', 50, 'product', 'No'),
-(2, 'Theme Design', 'Joomla Theme', 200, 'product', 'No');
+(2, 'Theme Design', 'Joomla Theme', 200, 'product', 'No'),
+(3, 'Joomla Website', 'Develop and Installation', 290, 'service', 'No');
 
 -- --------------------------------------------------------
 
@@ -609,29 +659,43 @@ CREATE TABLE IF NOT EXISTS `fx_messages` (
 `msg_id` int(11) NOT NULL,
   `user_to` int(11) NOT NULL,
   `user_from` int(11) NOT NULL,
-  `subject` varchar(100) NOT NULL,
   `message` text NOT NULL,
   `status` enum('Read','Unread') NOT NULL DEFAULT 'Unread',
+  `attached_file` varchar(100) NOT NULL,
   `date_received` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `fx_messages`
 --
 
-INSERT INTO `fx_messages` (`msg_id`, `user_to`, `user_from`, `subject`, `message`, `status`, `date_received`, `deleted`) VALUES
-(1, 2, 1, 'Hi', '<p>Mr. Soe</p>\n		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n		<blockquote> <em>Morbi nec nunc condimentum, egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula. Nunc placerat purus quam, ac adipiscing arcu rutrum eu. Vestibulum adipiscing ut augue ut auctor. Vestibulum nec lorem imperdiet nibh mollis gravida ut a justo.\n			<br>\n			<br>Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis</em>\n		</blockquote>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n			<p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n			<p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend</p>\n		<p>Best Regards\n		<br>Mical</p>', 'Read', '2013-08-21 07:59:40', 'No'),
-(2, 2, 3, 'Submit Assignment before deadline', 'Please submit your assignments before the deadline', 'Read', '2014-03-15 15:13:02', 'No'),
-(3, 1, 4, 'Kabuportal has been upgraded', 'I just released some fixes to the Kabuportal ', 'Read', '2014-03-15 15:13:02', 'No'),
-(4, 1, 5, 'Late Assignment', 'Your assignment is late. You have 24 hours to submit', 'Unread', '2014-03-15 15:14:55', 'No'),
-(5, 4, 6, 'Research Project', 'All Y4S2 students meet me every Friday at Comp Lab.', 'Read', '2014-03-15 15:14:55', 'Yes'),
-(6, 1, 4, 'Research Project', 'I got that covered buddy :)', 'Unread', '2014-03-29 18:36:33', 'No'),
-(7, 1, 4, 'Research Project', 'Yieboo! It''s working mate :)', 'Unread', '2014-03-29 18:38:00', 'No'),
-(8, 1, 12, 'Research Project', 'All Y4S2 students meet me every Friday at Comp Lab.', 'Unread', '2014-03-29 19:09:31', 'No'),
-(9, 1, 10, 'Themeforest Theme', 'I replied to this mail :)', 'Read', '2014-03-29 19:18:13', 'No'),
-(10, 1, 2, 'Affiliates Network', '<p>Mr. Soe</p>\r\n  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n  <blockquote> <em>Morbi nec nunc condimentum, egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula. Nunc placerat purus quam, ac adipiscing arcu rutrum eu. Vestibulum adipiscing ut augue ut auctor. Vestibulum nec lorem imperdiet nibh mollis gravida ut a justo.\r\n   <br>\r\n   <br>Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis</em>\r\n  </blockquote>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n   <p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n   <p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend</p>\r\n  <p>Best Regards\r\n  <br>Mical</p>', 'Unread', '2014-03-29 19:18:27', 'No'),
-(11, 1, 14, 'Assignment Overdue', 'Please send me your assignment.\r\n', 'Unread', '2014-05-10 08:31:48', 'No');
+INSERT INTO `fx_messages` (`msg_id`, `user_to`, `user_from`, `message`, `status`, `attached_file`, `date_received`, `deleted`) VALUES
+(1, 2, 1, '<p>Mr. Soe</p>\n		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n		<blockquote> <em>Morbi nec nunc condimentum, egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula. Nunc placerat purus quam, ac adipiscing arcu rutrum eu. Vestibulum adipiscing ut augue ut auctor. Vestibulum nec lorem imperdiet nibh mollis gravida ut a justo.\n			<br>\n			<br>Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis</em>\n		</blockquote>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n			<p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\n			<p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\n			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend</p>\n		<p>Best Regards\n		<br>Mical</p>', 'Read', '', '2013-08-21 07:59:40', 'No'),
+(2, 2, 3, 'Please submit your assignments before the deadline', 'Read', '', '2014-03-15 15:13:02', 'No'),
+(3, 1, 4, 'I just released some fixes to the Kabuportal ', 'Read', '', '2014-03-15 15:13:02', 'No'),
+(4, 1, 5, 'Your assignment is late. You have 24 hours to submit', 'Read', '', '2014-03-15 15:14:55', 'No'),
+(5, 4, 6, 'All Y4S2 students meet me every Friday at Comp Lab.', 'Read', '', '2014-03-15 15:14:55', 'Yes'),
+(6, 1, 4, 'I got that covered buddy :)', 'Read', '', '2014-03-29 18:36:33', 'No'),
+(7, 1, 4, 'Yieboo! It''s working mate :)', 'Read', '', '2014-03-29 18:38:00', 'No'),
+(8, 1, 12, 'All Y4S2 students meet me every Friday at Comp Lab.', 'Read', '', '2014-03-29 19:09:31', 'No'),
+(9, 1, 10, 'I replied to this mail :)', 'Read', '', '2014-03-29 19:18:13', 'No'),
+(10, 4, 2, '<p>Mr. Soe</p>\r\n  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n  <blockquote> <em>Morbi nec nunc condimentum, egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula. Nunc placerat purus quam, ac adipiscing arcu rutrum eu. Vestibulum adipiscing ut augue ut auctor. Vestibulum nec lorem imperdiet nibh mollis gravida ut a justo.\r\n   <br>\r\n   <br>Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis</em>\r\n  </blockquote>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n   <p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>\r\n   <p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\r\n   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend</p>\r\n  <p>Best Regards\r\n  <br>Mical</p>', 'Read', '', '2014-03-29 19:18:27', 'No'),
+(11, 1, 14, 'Please send me your assignment.\r\n', 'Read', '', '2014-05-10 08:31:48', 'No'),
+(12, 14, 1, 'Testing this message', 'Unread', '', '2014-07-13 15:05:35', 'No'),
+(13, 14, 1, 'Checking this message', 'Unread', '', '2014-07-14 16:07:34', 'No'),
+(14, 14, 1, 'Now send the email', 'Unread', '', '2014-07-14 16:08:25', 'No'),
+(15, 24, 1, 'Was testing this message', 'Unread', '', '2014-07-18 17:23:22', 'No'),
+(16, 1, 24, 'Was testing this message too', 'Read', '', '2014-07-18 17:34:22', 'No'),
+(17, 24, 1, 'Thanks for getting back buddy', 'Unread', '', '2014-07-18 17:44:20', 'Yes'),
+(18, 14, 1, 'I sent this message', 'Unread', '', '2014-07-20 08:27:34', 'No'),
+(19, 20, 1, 'Hello Mr President i miss you', 'Unread', '', '2014-07-20 08:41:20', 'Yes'),
+(20, 1, 20, 'Miss you too bastard', 'Read', '', '2014-07-20 08:43:20', 'No'),
+(21, 14, 1, 'Hang on dude', 'Unread', '', '2014-07-20 08:44:35', 'No'),
+(22, 24, 1, 'Hey u', 'Unread', '', '2014-07-20 08:46:51', 'Yes'),
+(23, 24, 1, 'I got that sorted', 'Unread', '', '2014-07-20 08:47:38', 'Yes'),
+(24, 20, 1, 'Hello carnivore', 'Unread', '', '2014-07-20 08:59:05', 'Yes'),
+(25, 20, 1, 'Testing this hack', 'Unread', '', '2014-07-20 09:39:03', 'No');
 
 -- --------------------------------------------------------
 
@@ -677,7 +741,7 @@ CREATE TABLE IF NOT EXISTS `fx_payments` (
   `month_paid` varchar(32) NOT NULL,
   `year_paid` varchar(32) NOT NULL,
   `inv_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `fx_payments`
@@ -709,7 +773,8 @@ INSERT INTO `fx_payments` (`p_id`, `invoice`, `paid_by`, `payment_method`, `amou
 (23, 3, 3, '1', 98, '763777', '', '2014-06-21 05:29:43', '06', '2014', 'No'),
 (24, 3, 3, '1', 95, '625256', '', '2014-06-25 08:42:35', '06', '2014', 'No'),
 (25, 7, 0, '1', 15, '511952', '', '2014-06-29 15:15:35', '06', '2014', 'No'),
-(26, 7, 0, '1', 100, '462336', '', '2014-06-29 15:19:10', '06', '2014', 'No');
+(26, 7, 0, '1', 100, '462336', '', '2014-06-29 15:19:10', '06', '2014', 'No'),
+(27, 1, 0, '1', 16, '463312', '', '2014-07-07 07:56:57', '07', '2014', 'No');
 
 -- --------------------------------------------------------
 
@@ -781,20 +846,23 @@ CREATE TABLE IF NOT EXISTS `fx_projects` (
   `timer_start` int(11) NOT NULL,
   `time_logged` int(11) NOT NULL,
   `proj_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
+  `auto_progress` enum('TRUE','FALSE') NOT NULL DEFAULT 'FALSE',
+  `estimate_hours` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `fx_projects`
 --
 
-INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hourly_rate`, `progress`, `description`, `assign_to`, `status`, `timer`, `timer_start`, `time_logged`, `proj_deleted`, `date_created`) VALUES
-(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/07/09', 5, 67, 'Description', 1, 'Active', 'On', 1404568778, 2108, 'No', '2014-05-09 19:15:07'),
-(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '17-07-2014', 5, 80, 'Description', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-09 19:15:07'),
-(3, 46483, 'Test Project', 2, '24-05-2014', '20-06-2014', 5, 56, 'Description', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:40:52'),
-(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 5, 21, 'Description goes here', 1, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:44:20'),
-(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 5, 59, 'Description db', 5, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-24 16:44:56'),
-(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 62, 'Project Description', 4, 'Active', 'Off', 1404555517, 4500, 'No', '2014-05-26 16:19:56');
+INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `client`, `start_date`, `due_date`, `hourly_rate`, `progress`, `description`, `assign_to`, `status`, `timer`, `timer_start`, `time_logged`, `proj_deleted`, `auto_progress`, `estimate_hours`, `date_created`) VALUES
+(1, 343253, 'Codecanyon PHP Script', 2, '2014/05/09', '2014/07/09', 5, 67, 'Description', 1, 'Active', 'Off', 0, 99387, 'No', 'TRUE', 300, '2014-05-09 19:15:07'),
+(2, 765546, 'Themeforest Wordpress', 2, '2014/05/09', '17-07-2014', 5, 80, 'Description', 1, 'Active', 'Off', 0, 55809, 'No', 'FALSE', 0, '2014-05-09 19:15:07'),
+(3, 46483, 'Test Project', 2, '24-05-2014', '01-08-2014', 5, 63, 'Description', 1, 'Active', 'Off', 0, 57714, 'No', 'FALSE', 0, '2014-05-24 16:40:52'),
+(4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 5, 21, 'Description goes here', 1, 'Active', 'Off', 0, 316722, 'No', 'TRUE', 100, '2014-05-24 16:44:20'),
+(5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 5, 59, 'Description db', 5, 'Active', 'Off', 0, 84653, 'No', 'TRUE', 50, '2014-05-24 16:44:56'),
+(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 62, 'Project Description', 4, 'Active', 'Off', 0, 262842, 'No', 'FALSE', 0, '2014-05-26 16:19:56'),
+(8, 66396, 'Wordpress Plugin Development', 6, '11-07-2014', '20-08-2014', 5, 61, 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 1, 'Active', 'Off', 0, 47668, 'No', 'TRUE', 40, '2014-07-11 16:55:29');
 
 -- --------------------------------------------------------
 
@@ -808,7 +876,7 @@ CREATE TABLE IF NOT EXISTS `fx_project_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `fx_project_timer`
@@ -820,7 +888,18 @@ INSERT INTO `fx_project_timer` (`timer_id`, `project`, `start_time`, `end_time`,
 (3, 1, '1404564042', '1404564351', '2014-07-05 12:45:51'),
 (4, 1, '1404564765', '1404565179', '2014-07-05 12:59:39'),
 (5, 1, '1404565206', '1404566421', '2014-07-05 13:20:21'),
-(6, 1, '1404566469', '1404566563', '2014-07-05 13:22:43');
+(6, 1, '1404566469', '1404566563', '2014-07-05 13:22:43'),
+(7, 2, '1404579536', '1404581506', '2014-07-05 17:31:46'),
+(8, 7, '1404665858', '1404666031', '2014-07-06 17:00:31'),
+(9, 1, '1404568778', '1404666058', '2014-07-06 17:00:58'),
+(10, 7, '1404666093', '1404666577', '2014-07-06 17:09:37'),
+(11, 2, '1404666404', '1404719405', '2014-07-07 07:50:05'),
+(12, 3, '1404666339', '1404719553', '2014-07-07 07:52:33'),
+(13, 7, '1404666597', '1404919962', '2014-07-09 15:32:42'),
+(14, 5, '1405013904', '1405094057', '2014-07-11 15:54:17'),
+(15, 8, '1405098980', '1405098989', '2014-07-11 17:16:29'),
+(16, 8, '1405099781', '1405147440', '2014-07-12 06:44:00'),
+(17, 4, '1405175295', '1405487517', '2014-07-16 05:11:57');
 
 -- --------------------------------------------------------
 
@@ -1146,22 +1225,32 @@ CREATE TABLE IF NOT EXISTS `fx_tasks` (
   `start_time` int(11) NOT NULL,
   `estimated_hours` int(11) NOT NULL,
   `logged_time` int(11) NOT NULL DEFAULT '0',
+  `auto_progress` enum('TRUE','FALSE') NOT NULL DEFAULT 'FALSE',
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `added_by` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `fx_tasks`
 --
 
-INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `description`, `visible`, `progress`, `timer_status`, `start_time`, `estimated_hours`, `logged_time`, `date_added`, `added_by`) VALUES
-(1, 'Top Menu', 1, '["1","2","3"]', 'Task Description', 'Yes', 40, 'Off', 1404469117, 45, 3600, '2014-05-09 05:09:48', 1),
-(2, 'Bug Fixes', 2, '["1","2","3"]', 'Task Description', 'Yes', 20, 'Off', 1404469117, 60, 216000, '2014-05-09 05:09:48', 1),
-(3, 'Footer Menu', 2, '["1","2","3"]', 'Task Description', 'Yes', 100, 'Off', 0, 35, 2117, '2014-05-14 05:09:48', 3),
-(4, 'Logout Error fix DB', 2, '23', 'Task Description DB', 'Yes', 30, 'Off', 1404469117, 30, 300, '2014-05-15 05:24:48', 1),
-(5, 'Modal in Dashboard', 2, '23', 'Add documentation to the proposed system.', 'Yes', 80, 'Off', 0, 40, 72115, '2014-07-04 18:03:54', 1),
-(6, 'Modal in Dashboard 2', 2, '5', 'Create a prototype with Twitter Bootstrap 3 ', 'Yes', 50, 'Off', 0, 82, 136, '2014-07-04 18:06:08', 1),
-(7, 'Sliding Homepage ', 2, '4', '<ul>\r\n<li>Create unlimited amount of tasks for your Projects!</li>\r\n<li>Tasks can be sorted by tags which allow you to organize your tasks in an efficient way.\r\n</li>\r\n</ul>', 'Yes', 10, 'On', 1404574110, 25, 0, '2014-07-05 15:25:29', 1);
+INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `description`, `visible`, `progress`, `timer_status`, `start_time`, `estimated_hours`, `logged_time`, `auto_progress`, `date_added`, `added_by`) VALUES
+(1, 'Top Menu', 1, '["1","2","3"]', 'Task Description', 'Yes', 40, 'Off', 1404469117, 45, 3600, 'TRUE', '2014-05-09 05:09:48', 1),
+(2, 'Bug Fixes', 2, '["1","2","3"]', 'Task Description', 'Yes', 20, 'Off', 1404469117, 60, 216000, 'TRUE', '2014-05-09 05:09:48', 1),
+(3, 'Footer Menu', 2, '["1","2","3"]', 'Task Description', 'Yes', 100, 'Off', 0, 35, 2117, 'TRUE', '2014-05-14 05:09:48', 3),
+(4, 'Logout Error fix DB', 2, '23', 'Task Description DB', 'Yes', 30, 'Off', 1404469117, 30, 300, 'TRUE', '2014-05-15 05:24:48', 1),
+(5, 'Modal in Dashboard', 2, '23', 'Add documentation to the proposed system.', 'Yes', 80, 'Off', 0, 40, 72115, 'TRUE', '2014-07-04 18:03:54', 1),
+(6, 'Modal in Dashboard 2', 2, '5', 'Create a prototype with Twitter Bootstrap 3 ', 'Yes', 50, 'Off', 0, 82, 136, 'TRUE', '2014-07-04 18:06:08', 1),
+(7, 'Sliding Homepage ', 2, '4', '<ul>\r\n<li>Create unlimited amount of tasks for your Projects!</li>\r\n<li>Tasks can be sorted by tags which allow you to organize your tasks in an efficient way.\r\n</li>\r\n</ul>', 'Yes', 10, 'Off', 0, 20, 5329, 'TRUE', '2014-07-05 15:25:29', 1),
+(8, 'New Bootstrap 3 Template', 7, '5', 'Create a new web template for Clientopia. Base colors should be black and green', 'Yes', 90, 'Off', 0, 2, 780970, 'FALSE', '2014-07-05 17:53:51', 1),
+(9, 'Fix Local Environment Bug', 8, '4', 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 'Yes', 10, 'Off', 0, 1, 2108, 'TRUE', '2014-07-12 07:03:08', 1),
+(10, 'Sliding Menu', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 2, 0, 'FALSE', '2014-07-12 08:57:12', 1),
+(11, 'Responsive Footer', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 08:57:59', 1),
+(12, 'Sticky Glowing Menu', 1, '23', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 11:30:44', 1),
+(13, 'Logout Error fix DB', 4, '5', 'Description', 'Yes', 20, 'Off', 0, 2, 0, 'FALSE', '2014-07-12 14:28:58', 1),
+(14, 'Responsive Footer', 5, '23', 'Description', 'Yes', 50, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 14:30:13', 1),
+(15, 'Sticky Glowing Menu', 5, '5', 'Description', 'Yes', 100, 'On', 1405175555, 1, 0, 'TRUE', '2014-07-12 14:30:31', 1),
+(16, 'Upload a sample project', 7, '23', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-18 16:07:01', 1);
 
 -- --------------------------------------------------------
 
@@ -1175,7 +1264,7 @@ CREATE TABLE IF NOT EXISTS `fx_tasks_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `fx_tasks_timer`
@@ -1187,7 +1276,12 @@ INSERT INTO `fx_tasks_timer` (`timer_id`, `task`, `start_time`, `end_time`, `dat
 (3, 6, '1404572996', '1404573015', '2014-07-05 15:10:15'),
 (4, 6, '1404573131', '1404573219', '2014-07-05 15:13:39'),
 (5, 5, '1404573126', '1404573241', '2014-07-05 15:14:01'),
-(6, 3, '1404573137', '1404573254', '2014-07-05 15:14:14');
+(6, 3, '1404573137', '1404573254', '2014-07-05 15:14:14'),
+(7, 7, '1404574110', '1404579439', '2014-07-05 16:57:19'),
+(8, 8, '1404582839', '1404584219', '2014-07-05 18:16:59'),
+(9, 8, '1404719583', '1404719592', '2014-07-07 07:53:12'),
+(10, 9, '1405148676', '1405150784', '2014-07-12 07:39:44'),
+(11, 8, '1404920060', '1405699641', '2014-07-18 16:07:21');
 
 -- --------------------------------------------------------
 
@@ -1208,8 +1302,8 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3e3a51fc10993801fcf1ac2328f762f9', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1404574086, 'a:7:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";s:25:"flash:old:response_status";s:7:"success";s:17:"flash:old:message";s:32:"Operation completed successfully";}'),
-('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, '');
+('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, ''),
+('cd20a6811ab78d9ce1b3f9d0cc3203ea', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1405867355, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -1241,7 +1335,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-05 10:48:35', '2014-02-26 14:18:04', '2014-07-05 07:48:35'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-20 11:23:16', '2014-02-26 14:18:04', '2014-07-20 08:23:16'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1502,7 +1596,7 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
@@ -1522,12 +1616,12 @@ MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `fx_comments`
 --
 ALTER TABLE `fx_comments`
-MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `fx_comment_replies`
 --
 ALTER TABLE `fx_comment_replies`
-MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `fx_contacts`
 --
@@ -1557,7 +1651,7 @@ MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 -- AUTO_INCREMENT for table `fx_files`
 --
 ALTER TABLE `fx_files`
-MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `fx_invoices`
 --
@@ -1567,12 +1661,12 @@ MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `fx_items`
 --
 ALTER TABLE `fx_items`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `fx_items_saved`
 --
 ALTER TABLE `fx_items_saved`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `fx_login_attempts`
 --
@@ -1582,7 +1676,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `fx_messages`
 --
 ALTER TABLE `fx_messages`
-MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `fx_news`
 --
@@ -1592,7 +1686,7 @@ MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `fx_payments`
 --
 ALTER TABLE `fx_payments`
-MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `fx_payment_methods`
 --
@@ -1607,12 +1701,12 @@ MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `fx_projects`
 --
 ALTER TABLE `fx_projects`
-MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `fx_project_timer`
 --
 ALTER TABLE `fx_project_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `fx_ratings`
 --
@@ -1627,12 +1721,12 @@ MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `fx_tasks`
 --
 ALTER TABLE `fx_tasks`
-MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `fx_tasks_timer`
 --
 ALTER TABLE `fx_tasks_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `fx_users`
 --
