@@ -49,9 +49,9 @@
           echo form_open(base_url().'messages/conversation/send',$attributes); ?>
 
           <input type="hidden" name="r_url" value="<?=base_url()?>messages">
-          
+
           <div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('username')?></label>
+				<label class="col-lg-3 control-label"><?=lang('username')?> <span class="text-danger">*</span> </label>
 				<div class="col-lg-9">
 					<div class="m-b"> 
 					<select id="select2-option" style="width:260px" name="user_to" > 

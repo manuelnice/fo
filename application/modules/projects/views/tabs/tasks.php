@@ -17,14 +17,15 @@
 								$activity_day = strtotime($task->date_added) ;
 								echo $this->user_profile->get_time_diff($today,$activity_day);
 							?> ago</small> <strong class="block"><?=ucfirst($this->user_profile->get_user_details($task->added_by,'username'))?></strong> 
-							<small><?=$task->task_name?></small>
-							<div class="progress progress-xs progress-striped active">							
 							<?php
 							if ($task->auto_progress == 'FALSE') {
 								$progress = $task->progress;
 							}else{
 								$progress = round((($task->logged_time/3600)/$task->estimated_hours)*100,2);
 							} ?>
+							<small <?php if($progress == '100'){ ?>class="clear text-danger text-lt" id="todo-1" <?php } ?> ><?=$task->task_name?></small>
+							<div class="progress progress-xs progress-striped active">							
+							
 							<?php if ($progress >= 100) { $bg = 'success'; }else{ $bg = 'danger'; } ?>
 			<div class="progress-bar progress-bar-<?=$bg?>" data-toggle="tooltip" data-original-title="<?=$progress?>%" style="width: <?=$progress?>%">
 			</div>

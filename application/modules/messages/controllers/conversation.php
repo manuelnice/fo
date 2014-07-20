@@ -15,6 +15,10 @@ class Conversation extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth');
+		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'admin') {
+			$this->session->set_flashdata('message', lang('access_denied'));
+			redirect('');
+		}
 		$this->load->model('msg_model');
 	}
 
@@ -46,6 +50,9 @@ class Conversation extends MX_Controller {
 				$this->session->set_flashdata('message', lang('message_not_sent'));
 				redirect($this->input->post('r_url'));
 		}else{	
+			$message = $this->input->post('message', TRUE);
+			$user_to = $this->input->post('user_to', TRUE);
+
 			$form_data = array(
 			                'user_to' => $this->input->post('user_to', TRUE),
 			                'user_from' => $this->tank_auth->get_user_id(),
@@ -53,8 +60,11 @@ class Conversation extends MX_Controller {
 			            );
 			$this->db->insert('messages', $form_data);
 
+			$this->_message_notification($user_to,$message);
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message',lang('message_sent'));
+
 			redirect($this->input->post('r_url'));
 			}
 		}else{
@@ -74,10 +84,55 @@ class Conversation extends MX_Controller {
 				->build('send_message',isset($data) ? $data : NULL);
 		}
 	}
+	function delete()
+	{
+		if ($this->input->post()) {
+				$this->load->library('form_validation');
+				$this->form_validation->set_rules('msg_id', 'Msg ID', 'required');
+
+				$r_url = $this->input->post('r_url', TRUE);
+				$msg_id = $this->input->post('msg_id', TRUE);
+
+				if ($this->form_validation->run() == FALSE)
+				{
+						$this->session->set_flashdata('response_status', 'error');
+						$this->session->set_flashdata('message', lang('delete_failed'));
+						redirect('messages/conversation/view/'.$r_url);
+				}else{	
+					$this->db->set('deleted', 'Yes');
+					$this->db->where('msg_id',$msg_id)->update('messages');
+
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message', lang('message_deleted_successfully'));
+					redirect('messages/conversation/view/'.$r_url);
+					}
+		}else{
+			$data['msg_id'] = $this->uri->segment(4)/1200;
+			$data['r_url'] = $this->uri->segment(5);
+			$this->load->view('modal/delete_message',$data);
+		}
+	}
 	function _set_read($user_from){
 			$this->db->set('status', 'Read');
 			$this->db->where('user_to',$this->tank_auth->get_user_id());
 			$this->db->where('user_from',$user_from)->update('messages'); 
+	}
+
+	function _message_notification($user_to,$message){
+
+			$recipient_email = $this->user_profile->get_user_details($user_to,'email');
+			$data['recipient_username'] = $this->user_profile->get_user_details($user_to,'username');
+			$data['message'] = $message;
+
+			$params['recipient'] = $recipient_email;
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New Message Received';
+
+			$params['message'] = $this->load->view('emails/message_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
 	}
 }
 

@@ -68,9 +68,7 @@
 								<div class="comment-action m-t-sm">
 								<?php
 								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
-									<a href="#" class="btn btn-default btn-xs active" data-toggle="ajaxModal"> 
-										<i class="fa fa-times text-danger text-active"></i> <?=lang('delete')?>
-									</a>
+				<a href="<?=base_url()?>messages/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> <?=lang('delete')?> </a>
 									<?php } ?>
 								</div>
 								</div> 
@@ -85,12 +83,14 @@
 								echo form_open(base_url().'messages/conversation/send/'.$this->uri->segment(4)/1200, $attributes); ?>
 								<input type="hidden" name="user_to" value="<?=$this->uri->segment(4)/1200?>">
 								<input type="hidden" name="r_url" value="<?=current_url()?>">
+
 								<section class="panel panel-default"> 
 									<textarea class="form-control no-border" rows="3" name="message" placeholder="Enter your message here"></textarea>
 									<footer class="panel-footer bg-light lter">
 									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('send_message')?></button> 
 									<ul class="nav nav-pills nav-sm"> 
-									<li><a href="#" class="btn btn-dark btn-xs" data-toggle="ajaxModal"><i class="fa fa-paperclip text-white"></i> <?=lang('attach')?></a></li>  
+									<li><a href="<?=base_url()?>messages" class="btn btn-dark btn-xs">
+									<i class="fa fa-envelope text-white"></i> <?=lang('messages')?></a></li>  
 									</ul> </footer> 
 								</section>
 						</form> </section> </article>

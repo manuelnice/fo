@@ -35,8 +35,8 @@
 						<?php
 					if (!empty($invoice_details)) {
 			foreach ($invoice_details as $key => $inv) { ?>
-			<a href="#" class="btn btn-sm btn-default" onClick="window.print();">
-					<i class="fa fa-print"></i></a> 
+			<a href="#" class="btn btn-sm btn-default" onClick="window.print();"><i class="fa fa-print"></i></a> 
+			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" class="btn btn-sm btn-danger"><i class="fa fa-list-alt text-white"></i></a> 
 
 						<a class="btn btn-sm btn-danger" href="<?=base_url()?>invoices/manage/add" title="<?=lang('new_invoice')?>"><i class="fa fa-plus"></i> <?=lang('new_invoice')?></a>
 						<?php
@@ -67,9 +67,9 @@
 						</div>
 						<?php } ?>
 						</div>
-						<div class="col-sm-4 m-b-xs">
+						<div class="col-sm-4 m-b-xs pull-right">
 						<a href="<?=base_url()?>invoices/manage/invoicepdf/<?=$inv->inv_id?>" class="btn btn-sm btn-dark pull-right">
-					<i class="fa fa-download"></i> <?=lang('pdf')?></a> 
+					<i class="fa fa-download"></i> <?=lang('pdf')?></a>
 						</div>
 					</div> </header>
 					
@@ -132,7 +132,8 @@
 						<td><?=$item->item_desc?> </td>
 						<td><?=$item->quantity?></td> 						
 						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->unit_cost,2)?></td>
-						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->total_cost,2)?></td>
+						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->total_cost,2)?> 
+						<a class="hidden-print" href="<?=base_url()?>invoices/manage/delete_item/<?=$item->item_id?>/<?=$item->invoice_id?>" data-toggle="ajaxModal"><i class="fa fa-times text-danger"></i></a></td>
 					</tr>
 					<?php } } ?>
 					<tr class="hidden-print">
@@ -140,11 +141,12 @@
 $attributes = array('class' => 'bs-example form-horizontal');
 echo form_open(base_url().'invoices/manage/item', $attributes); ?>
 <input type="hidden" name="invoice_id" value="<?=$inv->inv_id?>">
-						<td><input type="text" name="item_desc" placeholder="Item Description" class="form-control"></td>
+						<td> <input type="text" name="item_desc" placeholder="Item Description" class="form-control"></td>
 						<td><input type="text" name="quantity" placeholder="1" class="form-control"></td> 					
 						<td><input type="text" name="unit_cost" placeholder="50" class="form-control"></td>
 						<td><button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check"></i> <?=lang('save')?></button></td>
 						</form>
+
 					</tr>
 					<?php
 					$invoice_cost = $this->user_profile->invoice_payable($inv->inv_id);

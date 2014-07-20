@@ -194,6 +194,22 @@ class Manage extends MX_Controller {
 			$this->load->view('modal/pay_invoice',$data);
 		}
 	}
+	function delete_item(){
+		if ($this->input->post() ){
+					$item_id = $this->input->post('item', TRUE);
+					$invoice = $this->input->post('invoice', TRUE);
+					$this->db->where('item_id',$item_id)->delete('items');
+
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message', lang('item_deleted_successfully'));
+					redirect('invoices/manage/details/'.$invoice);
+		}else{
+			$data['item_id'] = $this->uri->segment(4);
+			$data['invoice'] = $this->uri->segment(5);
+			$this->load->view('modal/delete_item',$data);
+		}
+		
+	}
 
 	function _send_payment_email($invoice_id,$paid_amount){
 			$client = $this->invoice->get_client($invoice_id);

@@ -45,7 +45,7 @@ class Msg_model extends CI_Model
 		$this->db->where('user_from', $user_from);
 		$this->db->or_where('user_to', $user_from);
 		//$this->db->where('user_to', $this->tank_auth->get_user_id());
-		return $this->db->order_by("date_received","desc")->get('messages')->result();
+		return $this->db->where('deleted','No')->order_by("date_received","desc")->get('messages')->result();
 	}
 	public function get_msg_text($msg_id)
    	 {
