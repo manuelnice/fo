@@ -14,11 +14,11 @@
 				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('task_name')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
-				<select name="task_id" class="form-control">
+				<select name="item" class="form-control">
 					<?php
 					if (!empty($items)) {
 					foreach ($items as $key => $item) { ?>
-						<option value="<?=$item->item_id?>"><?=$item->item?> - <?=$this->config->item('default_currency')?> <?=$item->unit_cost?></option>
+						<option value="<?=$item->item_id?>"><?=$item->item_desc?> - <?=$this->config->item('default_currency')?> <?=$item->unit_cost?></option>
 					<?php } } ?>					
 				</select>
 				</div>
@@ -26,18 +26,12 @@
 
 
 				<div class="form-group">
-				<label class="col-lg-4 control-label"><?=lang('quantity')?> </label>
+				<label class="col-lg-4 control-label"><?=lang('quantity')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
 					<input type="text" class="form-control" placeholder="2" name="quantity">
 				</div>
 				</div>
 
-				<div class="form-group">
-				<label class="col-lg-4 control-label"><?=lang('description')?> <span class="text-danger">*</span></label>
-				<div class="col-lg-8">
-				<textarea name="description" class="form-control"><?=lang('description')?></textarea>
-				</div>
-				</div>
 			
 		</div>
 		<div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a> 

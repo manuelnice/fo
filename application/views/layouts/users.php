@@ -22,7 +22,7 @@
 <?php } ?>
 
 <?php
-if ($this->uri->segment(2) == 'update' OR $this->uri->segment(1) == 'messages') { ?>
+if ($this->uri->segment(2) == 'update' OR $this->uri->segment(1) == 'messages' OR $this->uri->segment(3) == 'add' OR $this->uri->segment(3) == 'edit') { ?>
 <link rel="stylesheet" href="<?=JS_URL?>select2/select2.css" type="text/css" cache="false" />
 <link rel="stylesheet" href="<?=JS_URL?>select2/theme.css" type="text/css" cache="false" />
 <?php } ?>

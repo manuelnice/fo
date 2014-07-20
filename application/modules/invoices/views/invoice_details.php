@@ -35,8 +35,10 @@
 						<?php
 					if (!empty($invoice_details)) {
 			foreach ($invoice_details as $key => $inv) { ?>
-			<a href="#" class="btn btn-sm btn-default" onClick="window.print();"><i class="fa fa-print"></i></a> 
-			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" class="btn btn-sm btn-danger" data-toggle="ajaxModal">
+			<a href="#" class="btn btn-sm btn-default" onClick="window.print();"><i class="fa fa-print"></i></a>
+
+
+			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" title="<?=lang('item_quick_add')?>" class="btn btn-sm btn-danger" data-toggle="ajaxModal">
 			<i class="fa fa-list-alt text-white"></i></a> 
 
 						<a class="btn btn-sm btn-danger" href="<?=base_url()?>invoices/manage/add" title="<?=lang('new_invoice')?>"><i class="fa fa-plus"></i> <?=lang('new_invoice')?></a>
@@ -59,10 +61,9 @@
 	<li>
 	<a href="<?=base_url()?>invoices/manage/reminder/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal" title="<?=lang('send_reminder')?>"><?=lang('send_reminder')?></a>
 	</li>
-								<li><a href="buttons.html#"><?=lang('make_recurring')?></a></li>
-								<li><a href="buttons.html#"><?=lang('invoice_history')?></a></li>
+	<li><a href=""><?=lang('invoice_history')?></a></li>
 								<li class="divider"></li>
-								<li><a href="buttons.html#"><?=lang('edit')?></a></li>
+	<li><a href="<?=base_url()?>invoices/manage/edit/<?=$inv->inv_id?>"><?=lang('edit_invoice')?></a></li>
 								<li><a href="buttons.html#"><?=lang('delete')?></a></li>
 						</ul>
 						</div>

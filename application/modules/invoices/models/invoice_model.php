@@ -48,6 +48,10 @@ class Invoice_model extends CI_Model
 		$this->db->where('module', 'invoices');
 		return $this->db->where('module_field_id',$invoice_id)->get('activities')->result();
 	}
+	function saved_item_details($item)
+	{
+		return $this->db->where('item_id',$item)->get('items_saved')->result();
+	}
 	function invoice_items($invoice_id)
 	{
 		$this->db->join('invoices','invoices.inv_id = items.invoice_id');

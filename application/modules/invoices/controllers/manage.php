@@ -86,12 +86,72 @@ class Manage extends MX_Controller {
 	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('add_invoice');
 	$data['clients'] = $this->invoice->clients();
+	$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
+		$array = array(
+			'inv_deleted' => 'No',
+			),
+		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
 	$this->template
 	->set_layout('users')
 	->build('create_invoice',isset($data) ? $data : NULL);
 
 		}
 	}
+
+	function edit()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('reference_no', 'Reference No', 'required');
+		$this->form_validation->set_rules('client', 'Client', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('operation_failed'));
+				redirect('invoices/manage/by_status/all');
+		}else{			
+			$form_data = array(
+			                'client' => $this->input->post('client'),
+			                'due_date' => $this->input->post('due_date'),
+			                'notes' => $this->input->post('notes'),
+			                'allow_paypal' => $this->input->post('allow_paypal'),
+			                'recurring' => $this->input->post('recurring'),
+			                'r_freq' => $this->input->post('r_freq')
+			            );
+			$this->db->where('inv_id',$invoice)->update('invoices', $form_data);
+
+			$invoice_id = $this->db->insert_id();
+
+			$activity = ucfirst($this->tank_auth->get_username().' edited INVOICE #'.$this->input->post('reference_no'));
+			$this->_log_activity($invoice_id,$activity); //log activity
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('invoice_edited_successfully'));
+			redirect('invoices/manage/details/'.$invoice_id);
+		}
+
+		}else{
+
+
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('add_invoice');
+	$data['clients'] = $this->invoice->clients();
+	$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
+		$array = array(
+			'inv_deleted' => 'No',
+			),
+		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
+	$data['invoice_details'] =  $this->invoice->invoice_details($this->uri->segment(4));
+	$this->template
+	->set_layout('users')
+	->build('edit_invoice',isset($data) ? $data : NULL);
+
+		}
+	}
+
 	function item()
 	{
 		if ($this->input->post()) {
@@ -197,45 +257,40 @@ class Manage extends MX_Controller {
 	function quickadd()
 	{
 		if ($this->input->post()) {
-			$invoice_id = $this->input->post('invoice_id');
-			$paid_amount = $this->input->post('amount');
+			$invoice = $this->input->post('invoice');
+			$item = $this->input->post('item');
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('amount', 'Amount', 'required|integer|greater_than[0]');
+		$this->form_validation->set_rules('item', 'Item', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('payment_failed'));
-				redirect('invoices/manage/details/'.$invoice_id);
+				$this->session->set_flashdata('message', lang('operation_failed'));
+				redirect('invoices/manage/details/'.$invoice);
 		}else{			
-			$invoice_payable = $this->user_profile->invoice_payable($invoice_id);
-			$invoice_paid = $this->user_profile->invoice_payment($invoice_id);
-			$due = $invoice_payable - $invoice_paid;
-			if ($paid_amount > $due) {
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('overpaid_amount'));
-				redirect('invoices/manage/details/'.$invoice_id);
+			
+			$saved_item = $this->invoice->saved_item_details($item);
+			$quantity = $this->input->post('quantity');
+
+			foreach ($saved_item as $key => $i) {
+				$item_desc = $i->item_desc;
+				$unit_cost = $i->unit_cost;
+				$total_cost = $quantity * $i->unit_cost;
 			}
+
 			$form_data = array(
-			                'invoice' => $this->input->post('invoice_id'),
-			                'payment_method' => $this->input->post('payment_method'),
-			                'amount' => $this->input->post('amount'),
-			                'trans_id' => $this->input->post('trans_id'),
-			                'notes' => $this->input->post('notes'),
-			                'month_paid' => date('m'),
-			                'year_paid' => date('Y'),
+			                'invoice_id' => $invoice,
+			                'item_desc' => $item_desc,
+			                'unit_cost' => $unit_cost,
+			                'quantity' => $quantity,
+			                'total_cost' => $total_cost
 			            );
-			$this->db->insert('payments', $form_data); 
-			$activity = 'Payment of '.$this->config->item('default_currency').' '.$this->input->post('amount').' received and applied to INVOICE #'.$this->input->post('invoice_ref');
-
-			$this->_log_activity($invoice_id,$activity); //log activity
-
-			$this->_send_payment_email($invoice_id,$paid_amount); //send thank you email
+			$this->db->insert('items', $form_data); 
 
 			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('payment_added_successfully'));
-			redirect('invoices/manage/details/'.$invoice_id);
+			$this->session->set_flashdata('message', lang('item_added_successfully'));
+			redirect('invoices/manage/details/'.$invoice);
 			}
 		}else{
 			$data['invoice'] = $this->uri->segment(4);
@@ -315,10 +370,12 @@ class Manage extends MX_Controller {
 			$message = str_replace("{COMPANY}",$this->config->item('company_name'),$link);
 			$this->_email_invoice($invoice_id,$message,$subject);
 
-			$this->db->set('invoice', $invoice_id);
+			$this->db->set('module_field_id', $invoice_id);
+			$this->db->set('module', 'invoices');
+			$this->db->set('icon', 'fa-sales');
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', 'Sent Invoice Reminder to client');
-			$this->db->insert('invoice_activities'); 
+			$this->db->insert('activities'); 
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('reminder_sent_successfully'));

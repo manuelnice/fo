@@ -59,8 +59,12 @@
 					 <!-- Start create invoice -->
 <div class="col-sm-12">
 	<section class="panel panel-default">
-	<header class="panel-heading font-bold"><i class="fa fa-info-circle"></i> <?=lang('invoice_details')?></header>
+	<?php
+			if (!empty($invoice_details)) {
+			foreach ($invoice_details as $key => $i) { ?>
+	<header class="panel-heading font-bold"><i class="fa fa-info-circle"></i> <?=lang('invoice_details')?> - <?=$i->reference_no?></header>
 	<div class="panel-body">
+	
 
 <?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
@@ -69,8 +73,7 @@
           		<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('reference_no')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-3">
-				<?php $this->load->helper('string'); ?>
-					<input type="text" class="form-control" value="<?=random_string('nozero', 6);?>" name="reference_no" readonly>
+					<input type="text" class="form-control" value="<?=$i->reference_no?>" name="reference_no" readonly>
 				</div>
 				</div>
 
@@ -80,6 +83,7 @@
 					<div class="m-b"> 
 					<select id="select2-option" style="width:260px" name="client" > 
 					<optgroup label="Clients"> 
+					<option value="<?=$i->client?>"><?=ucfirst($this->user_profile->get_profile_details($i->client,'fullname')?$this->user_profile->get_profile_details($i->client,'fullname'):$i->username)?></option>
 					<?php 
 					if (!empty($clients)) {
 						foreach ($clients as $client): ?>
@@ -94,13 +98,14 @@
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('due_date')?></label> 
 				<div class="col-lg-8">
-				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=date('d-m-Y')?>" name="due_date" data-date-format="dd-mm-yyyy" >
+				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=$i->due_date?>" name="due_date" data-date-format="dd-mm-yyyy" >
 				</div> 
 				</div> 
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('allow_paypal')?></label>
 				<div class="col-lg-3">
-				<select name="allow_paypal" class="form-control">					
+				<select name="allow_paypal" class="form-control">	
+						<option value="<?=$i->allow_paypal?>">Current</option>				
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 				</select>
@@ -109,7 +114,8 @@
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('recurring')?> </label>
 				<div class="col-lg-3">
-				<select name="recurring" class="form-control">						
+				<select name="recurring" class="form-control">
+						<option value="<?=$i->recurring?>">Current</option>									
 						<option value="No">No</option>
 						<option value="Yes">Yes</option>
 				</select>
@@ -118,7 +124,8 @@
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('frequency')?> </label>
 				<div class="col-lg-3">
-				<select name="r_freq" class="form-control">					
+				<select name="r_freq" class="form-control">	
+						<option value="<?=$i->r_freq?>">Current</option>							
 						<option value="7">Weekly</option>
 						<option value="30">Monthly</option>
 						<option value="92">Quartely</option>
@@ -130,14 +137,15 @@
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('notes')?> </label>
 				<div class="col-lg-8">
-				<textarea name="notes" class="form-control">A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.</textarea>
+				<textarea name="notes" class="form-control"><?=$i->notes?></textarea>
 				</div>
 				</div>
-				<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> <?=lang('create_invoice')?></button>
+				<button type="submit" class="btn btn-sm btn-info"> <?=lang('save_changes')?></button>
 
 
 				
 		</form>
+		<?php } } ?>
 </div>
 </section>
 </div>

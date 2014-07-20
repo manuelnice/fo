@@ -49,7 +49,7 @@
 			
 		</div>
 		<div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal">Close</a> 
-		<button type="submit" class="btn btn-info"><?=lang('add_payment')?></button>
+		<button type="submit" class="btn btn-success"><?=lang('add_payment')?></button>
 		</form>
 		</div>
 	</div>
