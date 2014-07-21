@@ -51,7 +51,7 @@
 						if ($this->user_profile->invoice_payable($inv->inv_id) > 0) { ?>
 							<a class="btn btn-sm btn-success" href="<?=base_url()?>invoices/manage/pay/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal"
 						 title="<?=lang('add_payment')?>">
-						<i class="fa fa-money"></i> <?=lang('add_payment')?></a>						
+						<i class="fa fa-money"></i></a>						
 					
 						
 
