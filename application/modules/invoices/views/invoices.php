@@ -6,8 +6,12 @@
 	
 		<aside class="aside-md bg-white b-r" id="subNav">
 
-			<div class="wrapper b-b header"><?=lang('all_invoices')?>
-			</div>
+			<header class="dk header b-b">
+		<a href="<?=base_url()?>invoices/manage/add" data-original-title="<?=lang('new_invoice')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-default btn-sm pull-right"><i class="fa fa-plus"></i></a>
+		<p class="h4"><?=lang('all_invoices')?></p>
+		</header>
+
+
 			<section class="vbox">
 			 <section class="scrollable w-f">
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
@@ -39,8 +43,7 @@
 						<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
-						<a class="btn btn-sm btn-danger" href="<?=base_url()?>invoices/manage/add" title="<?=lang('new_invoice')?>" data-original-title="<?=lang('new_invoice')?>" data-toggle="tooltip" data-placement="bottom">
-						<i class="fa fa-plus"></i> <?=lang('new_invoice')?></a>
+						
 						</div>
 						<div class="col-sm-4 m-b-xs">
 						<?php  echo form_open(base_url().'invoices/manage/search'); ?>
@@ -53,6 +56,7 @@
 						</div>
 					</div> </header>
 					<section class="scrollable wrapper w-f">
+					<?php  echo modules::run('sidebar/flash_msg');?>
 					<!-- Start Display chart -->
 					
 					 <?php  echo modules::run('invoices/index');?>

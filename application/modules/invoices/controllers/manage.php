@@ -110,7 +110,9 @@ class Manage extends MX_Controller {
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('operation_failed'));
 				redirect('invoices/manage/by_status/all');
-		}else{			
+		}else{	
+		$invoice_id = $this->input->post('invoice', TRUE);	
+
 			$form_data = array(
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
@@ -119,9 +121,7 @@ class Manage extends MX_Controller {
 			                'recurring' => $this->input->post('recurring'),
 			                'r_freq' => $this->input->post('r_freq')
 			            );
-			$this->db->where('inv_id',$invoice)->update('invoices', $form_data);
-
-			$invoice_id = $this->db->insert_id();
+			$this->db->where('inv_id',$invoice_id)->update('invoices', $form_data);
 
 			$activity = ucfirst($this->tank_auth->get_username().' edited INVOICE #'.$this->input->post('reference_no'));
 			$this->_log_activity($invoice_id,$activity); //log activity
@@ -313,6 +313,34 @@ class Manage extends MX_Controller {
 			$this->load->view('modal/delete_item',$data);
 		}
 		
+	}
+	function delete()
+	{
+		if ($this->input->post()) {
+
+			$invoice = $this->input->post('invoice', TRUE);
+
+			$this->db->where('invoice_id',$invoice)->delete('items'); //delete invoice items
+
+			$this->db->set('inv_deleted', 'Yes');
+			$this->db->where('invoice',$invoice)->update('payments'); // mark invoice payments as deleted
+
+			$this->db->set('deleted', '1');
+			$this->db->where(array('module'=>'invoices', 'module_field_id' => $invoice))->update('activities'); //clear invoice activities
+
+			$this->db->set('inv_deleted', 'Yes');
+			$this->db->where('inv_id',$invoice)->update('invoices'); // mark invoice as deleted
+
+
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('invoice_deleted_successfully'));
+			redirect('invoices/manage/view/all');
+		}else{
+			$data['invoice'] = $this->uri->segment(4);
+			$this->load->view('modal/delete_invoice',$data);
+
+		}
 	}
 
 	function _send_payment_email($invoice_id,$paid_amount){

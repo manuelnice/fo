@@ -7,8 +7,14 @@
 	
 		<aside class="aside-md bg-white b-r hidden-print" id="subNav">
 
-			<div class="wrapper b-b header"><?=lang('all_invoices')?>
-			</div>
+
+
+		<header class="dk header b-b">
+		<a href="<?=base_url()?>invoices/manage/add" data-original-title="<?=lang('new_invoice')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-default btn-sm pull-right"><i class="fa fa-plus"></i></a>
+		<p class="h4"><?=lang('all_invoices')?></p>
+		</header>
+
+			
 			<section class="vbox">
 			 <section class="scrollable w-f">
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
@@ -40,8 +46,7 @@
 
 			<a href="<?=base_url()?>invoices/manage/quickadd/<?=$inv->inv_id?>" title="<?=lang('item_quick_add')?>" class="btn btn-sm btn-danger" data-toggle="ajaxModal">
 			<i class="fa fa-list-alt text-white"></i></a> 
-
-						<a class="btn btn-sm btn-danger" href="<?=base_url()?>invoices/manage/add" title="<?=lang('new_invoice')?>"><i class="fa fa-plus"></i> <?=lang('new_invoice')?></a>
+						
 						<?php
 						if ($this->user_profile->invoice_payable($inv->inv_id) > 0) { ?>
 							<a class="btn btn-sm btn-success" href="<?=base_url()?>invoices/manage/pay/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal"
@@ -62,16 +67,16 @@
 	<a href="<?=base_url()?>invoices/manage/reminder/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal" title="<?=lang('send_reminder')?>"><?=lang('send_reminder')?></a>
 	</li>
 	<li><a href=""><?=lang('invoice_history')?></a></li>
-								<li class="divider"></li>
+		<li class="divider"></li>
 	<li><a href="<?=base_url()?>invoices/manage/edit/<?=$inv->inv_id?>"><?=lang('edit_invoice')?></a></li>
-								<li><a href="buttons.html#"><?=lang('delete')?></a></li>
+	<li><a href="<?=base_url()?>invoices/manage/delete/<?=$inv->inv_id?>" data-toggle="ajaxModal"><?=lang('delete_invoice')?></a></li>
 						</ul>
 						</div>
 						<?php } ?>
 						</div>
 						<div class="col-sm-4 m-b-xs pull-right">
 						<a href="<?=base_url()?>invoices/manage/invoicepdf/<?=$inv->inv_id?>" class="btn btn-sm btn-dark pull-right">
-					<i class="fa fa-download"></i> <?=lang('pdf')?></a>
+					<i class="fa fa-file-pdf-o"></i> <?=lang('pdf')?></a>
 						</div>
 					</div> </header>
 					
@@ -113,7 +118,7 @@
 					}
 					?>
 					 
-					<?=lang('bill_to')?>: <strong><?=$this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username?></strong> </p> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username)?></strong> </p> 
 					<?=lang('invoice_status')?>: <span class="label bg-<?=$badge?>"><?=$invoice_status?> </span><br>
 						</div>
 					</div>
