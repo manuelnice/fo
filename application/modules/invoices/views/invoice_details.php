@@ -66,7 +66,7 @@
 	<li>
 	<a href="<?=base_url()?>invoices/manage/reminder/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal" title="<?=lang('send_reminder')?>"><?=lang('send_reminder')?></a>
 	</li>
-	<li><a href=""><?=lang('invoice_history')?></a></li>
+	<li><a href="<?=base_url()?>invoices/manage/timeline/<?=$inv->inv_id?>"><?=lang('invoice_history')?></a></li>
 		<li class="divider"></li>
 	<li><a href="<?=base_url()?>invoices/manage/edit/<?=$inv->inv_id?>"><?=lang('edit_invoice')?></a></li>
 	<li><a href="<?=base_url()?>invoices/manage/delete/<?=$inv->inv_id?>" data-toggle="ajaxModal"><?=lang('delete_invoice')?></a></li>

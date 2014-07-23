@@ -73,8 +73,8 @@ class Manage extends MX_Controller {
 			$invoice_id = $this->db->insert_id();
 
 			$activity = ucfirst('INVOICE #'.$this->input->post('reference_no').' created.');
-			$this->_log_activity($invoice_id,$activity); //log activity
-			
+			$this->_log_activity($invoice_id,$activity,$icon = 'fa-plus'); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_created_successfully'));
 			redirect('invoices/manage/details/'.$invoice_id);
@@ -126,7 +126,7 @@ class Manage extends MX_Controller {
 			$this->db->where('inv_id',$invoice_id)->update('invoices', $form_data);
 
 			$activity = ucfirst($this->tank_auth->get_username().' edited INVOICE #'.$this->input->post('reference_no'));
-			$this->_log_activity($invoice_id,$activity); //log activity
+			$this->_log_activity($invoice_id,$activity,$icon = 'fa-pencil'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_edited_successfully'));
@@ -196,7 +196,6 @@ class Manage extends MX_Controller {
 		$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 		$data['page'] = lang('invoices');
 		$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
-		$data['invoice_activities'] = $this->invoice->invoice_activities($this->uri->segment(4));
 		$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
 		$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',$array = array(
 			'inv_deleted' => 'No',
@@ -206,6 +205,21 @@ class Manage extends MX_Controller {
 		->set_layout('users')
 		->build('invoice_details',isset($data) ? $data : NULL);
 	}
+	function timeline()
+	{		
+		$this->load->module('layouts');
+		$this->load->library('template');
+		$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+		$data['page'] = lang('invoices');
+		$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
+		$data['activities'] = $this->invoice->invoice_activities($this->uri->segment(4));
+		$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',$array = array(
+			'inv_deleted' => 'No',
+			),$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
+		$this->template
+		->set_layout('users')
+		->build('timeline',isset($data) ? $data : NULL);
+	}
 	function pay()
 	{
 		if ($this->input->post()) {
@@ -214,7 +228,7 @@ class Manage extends MX_Controller {
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('amount', 'Amount', 'required|integer|greater_than[0]');
+		$this->form_validation->set_rules('amount', 'Amount', 'required|numeric|greater_than[0]');
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
@@ -241,7 +255,7 @@ class Manage extends MX_Controller {
 			$this->db->insert('payments', $form_data); 
 			$activity = 'Payment of '.$this->config->item('default_currency').' '.$this->input->post('amount').' received and applied to INVOICE #'.$this->input->post('invoice_ref');
 
-			$this->_log_activity($invoice_id,$activity); //log activity
+			$this->_log_activity($invoice_id,$activity,$icon = 'fa-usd'); //log activity
 
 			$this->_send_payment_email($invoice_id,$paid_amount); //send thank you email
 
@@ -378,7 +392,7 @@ class Manage extends MX_Controller {
 
 			$activity = 'INVOICE #'.$ref. ' marked as Sent';
 
-			$this->_log_activity($invoice_id,$activity); //log activity
+			$this->_log_activity($invoice_id,$activity,$icon = 'fa-envelope'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_sent_successfully'));
@@ -402,7 +416,7 @@ class Manage extends MX_Controller {
 
 			$this->db->set('module_field_id', $invoice_id);
 			$this->db->set('module', 'invoices');
-			$this->db->set('icon', 'fa-sales');
+			$this->db->set('icon', 'fa-shopping-cart');
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', 'Sent Invoice Reminder to client');
 			$this->db->insert('activities'); 
@@ -470,11 +484,12 @@ class Manage extends MX_Controller {
 		*/
 				
 	}
-	function _log_activity($invoice_id,$activity){
+	function _log_activity($invoice_id,$activity,$icon){
 			$this->db->set('module', 'invoices');
 			$this->db->set('module_field_id', $invoice_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 

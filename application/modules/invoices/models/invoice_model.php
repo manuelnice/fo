@@ -45,8 +45,9 @@ class Invoice_model extends CI_Model
 	}
 	function invoice_activities($invoice_id)
 	{
+		$this->db->join('users','users.id = activities.user');
 		$this->db->where('module', 'invoices');
-		return $this->db->where('module_field_id',$invoice_id)->get('activities')->result();
+		return $this->db->where('module_field_id',$invoice_id)->order_by('activity_date','desc')->get('activities')->result();
 	}
 	function saved_item_details($item)
 	{
