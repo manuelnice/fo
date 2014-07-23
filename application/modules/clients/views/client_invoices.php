@@ -11,7 +11,7 @@
 								if (!empty($user_invoices)) {
 				foreach ($user_invoices as $key => $invoice) { ?>
 				<tr>
-					<td><a class="text-info" href="<?=base_url()?>invoices/view/details/<?=$invoice->inv_id?>"><?=$invoice->reference_no?></a></td>
+					<td><a class="text-info" href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>"><?=$invoice->reference_no?></a></td>
 					<td><?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> </td>
 					<td><?=strftime("%B %d, %Y", strtotime($invoice->due_date));?> </td>
 					<td><small><?=$this->config->item('default_currency')?></small> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?> </td>
