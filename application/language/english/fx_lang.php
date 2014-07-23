@@ -407,6 +407,7 @@ $lang['user_projects'] = 'User Projects';
 $lang['user_edited_successfully'] = 'User edited successfully';
 $lang['uploaded_by'] = 'Uploaded By';
 $lang['upload_file'] = 'Upload File';
+$lang['view_details'] = 'View Details';
 $lang['version'] = 'Version';
 $lang['verified'] = 'Verified';
 $lang['visible_to_client'] = 'Visible to Client';

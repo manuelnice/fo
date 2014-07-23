@@ -41,8 +41,11 @@
 						<div class="col-sm-8 m-b-xs">
 							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
 							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							<?php
+			if (!empty($invoice_details)) {
+			foreach ($invoice_details as $key => $i) { ?>
 						<div class="btn-group">
-						
+						<a href="<?=base_url()?>invoices/manage/details/<?=$i->inv_id?>" data-original-title="<?=lang('view_details')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-dark btn-sm"><i class="fa fa-info-circle"></i> <?=lang('invoice_details')?></a>
 						</div>
 						
 						</div>
@@ -61,9 +64,7 @@
 					 <!-- Start create invoice -->
 <div class="col-sm-12">
 	<section class="panel panel-default">
-	<?php
-			if (!empty($invoice_details)) {
-			foreach ($invoice_details as $key => $i) { ?>
+	
 	<header class="panel-heading font-bold"><i class="fa fa-info-circle"></i> <?=lang('invoice_details')?> - <?=$i->reference_no?></header>
 	<div class="panel-body">
 	

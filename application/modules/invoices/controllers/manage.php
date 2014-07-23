@@ -71,8 +71,10 @@ class Manage extends MX_Controller {
 			            );
 			$this->db->insert('invoices', $form_data); 
 			$invoice_id = $this->db->insert_id();
+
 			$activity = ucfirst('INVOICE #'.$this->input->post('reference_no').' created.');
 			$this->_log_activity($invoice_id,$activity); //log activity
+			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('invoice_created_successfully'));
 			redirect('invoices/manage/details/'.$invoice_id);
