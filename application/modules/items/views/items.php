@@ -1,16 +1,15 @@
 <section id="content"> <section class="vbox"> <section class="scrollable padder">
 	<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
 		<li><a href="<?=base_url()?>"><i class="fa fa-home"></i> Home</a></li>
-		<li><a href="<?=base_url()?>profile">Account</a></li>
-		<li class="active">My Transactions</li>
+		<li class="active"><a href="<?=base_url()?>items"><?=lang('all_items')?></a></li>
 	</ul>
 	<?php  echo modules::run('sidebar/flash_msg');?>
 	<section class="panel panel-default">
-	<header class="panel-heading"> <i class="fa fa-suitcase"></i> <?=lang('all_items')?></header>
+	<header class="panel-heading"> <i class="fa fa-navicon"></i> <?=lang('all_items')?></header>
 	<div class="row text-sm wrapper">
 		<div class="col-sm-5 m-b-xs">
 			
-			<a href="<?=base_url()?>items/add" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> <?=lang('new_item')?></a>
+			<a href="<?=base_url()?>items/add" class="btn btn-sm btn-success" data-toggle="ajaxModal"><i class="fa fa-plus"></i> <?=lang('new_item')?></a>
 		</div>
 		<div class="col-sm-4 m-b-xs">
 			
@@ -27,7 +26,6 @@
 		<table class="table table-striped b-t b-light text-sm">
 			<thead>
 				<tr>
-					<th><?=lang('item')?></th>
 					<th><?=lang('item_description')?></th>
 					<th><?=lang('unit_price')?> </th>
 					<th><?=lang('options')?></th>
@@ -36,13 +34,12 @@
 								if (!empty($items)) {
 				foreach ($items as $key => $item) { ?>
 				<tr>
-					<td><?=$item->item?></td>
 					<td><?=$item->item_desc?></td>
-					<td><?=number_format($item->unit_cost,2)?></td>
+					<td><?=$this->config->item('default_currency')?> <?=number_format($item->unit_cost,2)?></td>
 					<td>
-					<a href="<?=base_url()?>items/update/<?=$item->item_id?>" class="btn btn-info btn-xs">
+					<a href="<?=base_url()?>items/edit/<?=$item->item_id?>" class="btn btn-default btn-xs" data-toggle="ajaxModal">
 					<i class="fa fa-pencil"></i> <?=lang('edit')?></a>
-					<a href="<?=base_url()?>items/delete/<?=$item->item_id?>" class="btn btn-danger btn-xs">
+					<a href="<?=base_url()?>items/delete/<?=$item->item_id?>" class="btn btn-default btn-xs" data-toggle="ajaxModal">
 					<i class="fa fa-times"></i> <?=lang('delete')?></a>
 					</td>
 				</tr>

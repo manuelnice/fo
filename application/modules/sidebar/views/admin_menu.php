@@ -46,13 +46,13 @@
                   <li class="<?php if($page == lang('estimates')){echo "active"; } ?>"> <a href="<?=base_url()?>estimates/manage/view/all" > <i class="fa fa-angle-right"></i>
                   <span><?=lang('estimates')?> </span> </a> </li>
                   
-                  <li class="<?php if($page == lang('payments')){echo "active"; } ?>"> <a href="<?=base_url()?>invoices/payments/all" > <i class="fa fa-angle-right"></i>
+                  <li class="<?php if($page == lang('payments')){echo "active"; } ?>"> <a href="<?=base_url()?>invoices/payments" > <i class="fa fa-angle-right"></i>
                   <span><?=lang('payments_received')?> </span> </a> </li>
                 </ul> </li>
 
               
 
-              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right">5</b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
+              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
               <span><?=lang('items')?> </span> </a> </li>
 
               <li class="<?php if($page == lang('general_settings') OR $page == lang('system_settings') OR $page == lang('email_settings')){echo  "active"; }?>">

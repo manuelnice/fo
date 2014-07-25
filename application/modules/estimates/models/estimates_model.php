@@ -46,10 +46,7 @@ class Estimates_model extends CI_Model
 	{
 		$this->db->join('users','users.id = activities.user');
 		$this->db->where('module', 'estimates');
-		$query = $this->db->where('estimate',$est_id)->get('activities');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('module_field_id',$est_id)->get('activities')->result();
 	}
 	function estimate_items($est_id)
 	{

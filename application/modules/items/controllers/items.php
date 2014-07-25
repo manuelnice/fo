@@ -35,43 +35,74 @@ class Items extends MX_Controller {
 	->set_layout('users')
 	->build('items',isset($data) ? $data : NULL);
 	}
-	function view()
-	{
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title('Welcome - Kabarak Portal');
-	$data['page'] = 'transcripts';
-	$data['r_details'] = $this->exam_model->get_all_records($table = 'results',
-		$array = array(
-			'r_id' => $this->uri->segment(3),'deleted' => 'No'),$join_table = 'units',$join_criteria = 'units.u_id = results.unit','date_posted');
-	$this->template
-	->set_layout('users')
-	->build('view_result',isset($data) ? $data : NULL);
-	}
-	function create_issue()
+	function add()
 	{
 		if ($this->input->post()) {
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('message', 'Message', 'required');
+		$this->form_validation->set_rules('item_name', 'Description', 'required');
+		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
-				$this->session->set_flashdata('message', 'Oops! Something failed. Your message was not delivered.');
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('operation_failed'));
 				redirect($this->input->post('r_url'));
 		}else{			
 			$form_data = array(
-			                'exam_id' => $this->input->post('exam_id'),
-			                'sent_by' => $this->tank_auth->get_user_id(),
-			                'message' => $this->input->post('message')
+			                'item_desc' => $this->input->post('item_name'),
+			                'unit_cost' => $this->input->post('unit_price'),
 			            );
-			$this->db->insert('exam_issues', $form_data); 
-			$this->session->set_flashdata('message', 'Your Issue has been submitted successfully!');
-			redirect($this->input->post('r_url'));
+			$this->db->insert('items_saved', $form_data); 
+
+			$this->session->set_flashdata('response_status', 'success');
+				$this->session->set_flashdata('message', lang('operation_successful'));
+				redirect($this->input->post('r_url'));
 		}
 		}else{
-		$data['exam_id'] = $this->uri->segment(3);
-		$this->load->view('modal/create_issue',$data);
+		$this->load->view('modal/add_item');
 		}
+	}
+	function edit()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('item_name', 'Description', 'required');
+		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('operation_failed'));
+				redirect($this->input->post('r_url'));
+		}else{			
+			$form_data = array(
+			                'item_desc' => $this->input->post('item_name'),
+			                'unit_cost' => $this->input->post('unit_price'),
+			            );
+			$this->db->where('item_id',$this->input->post('item_id'))->update('items_saved', $form_data); 
+
+			$this->session->set_flashdata('response_status', 'success');
+				$this->session->set_flashdata('message', lang('operation_successful'));
+				redirect($this->input->post('r_url'));
+		}
+		}else{
+		$data['item_details'] = $this->item_model->saved_item_details($this->uri->segment(3));
+		$this->load->view('modal/edit_item',$data);
+		}
+	}
+	function delete(){
+		if ($this->input->post() ){
+					$item_id = $this->input->post('item', TRUE);
+					$this->db->where('item_id',$item_id)->delete('items_saved');
+
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message', lang('item_deleted_successfully'));
+					redirect($this->input->post('r_url'));
+		}else{
+			$data['item_id'] = $this->uri->segment(3);
+			$this->load->view('modal/delete_item',$data);
+		}
+		
 	}
 }
 

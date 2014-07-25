@@ -22,18 +22,9 @@ class Item_model extends CI_Model
 		}
 	}
 	
-	function get_record_by($table,$where,$join_table,$join_criteria)
-    	{
-    		if ($join_table) {
-    			$this->db->join($join_table,$join_criteria);
-    		}	
-	$this->db->where($where);
-	$query = $this->db->get($table);
-	if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row;
-  		}
+	function saved_item_details($item)
+	{
+		return $this->db->where('item_id',$item)->get('items_saved')->result();
 	}
 	
 }
