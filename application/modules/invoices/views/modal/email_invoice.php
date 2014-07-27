@@ -11,6 +11,7 @@
 			<input type="hidden" name="ref" value="<?=$invoice->reference_no?>">
 			<input type="hidden" name="invoice_id" value="<?=$invoice->inv_id?>">
 			<input type="hidden" name="client_name" value="<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>">
+			
 			<input type="hidden" name="amount" value="<?=$this->user_profile->invoice_payable($invoice->inv_id)?>">
 			 
           				<div class="form-group">

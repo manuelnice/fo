@@ -25,25 +25,22 @@
               <span><?=lang('home')?></span> </a> </li>
 
               <li class="<?php if($page == lang('clients')){echo  "active"; }?>"> <a href="<?=base_url()?>clients" > <i class="fa fa-group icon"> <b class="bg-success"></b> </i>
-              <span><?=lang('clients')?> </span> </a> </li>
-              
-              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>projects/view_projects/all" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
-              <span><?=lang('projects')?> </span> </a> </li>
+              <span><?=lang('contacts')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
-              <span><?=lang('messages')?> </span> </a> </li>
+              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
+              <span><?=lang('items')?> </span> </a> </li>
 
-            <li class="<?php if($page == lang('invoices') OR $page == lang('estimates') OR $page == lang('payments') OR $page == lang('chart') OR $page == lang('add_invoice')){echo  "active"; }?>">
+               <li class="<?php if($page == lang('invoices') OR $page == lang('estimates') OR $page == lang('payments') OR $page == lang('chart') OR $page == lang('add_invoice')){echo  "active"; }?>">
                 <a href="#" >
                 <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> </i>
                 <span class="pull-right"> <i class="fa fa-angle-down text"></i> <i class="fa fa-angle-up text-active"></i>
                 </span>
                 <span><?=lang('sales')?> </span> </a>
                 <ul class="nav lt">
-                  <li class="<?php if($page == lang('invoices') OR $page == lang('chart')){echo "active"; } ?>"> <a href="<?=base_url()?>invoices/manage/view/all" > <i class="fa fa-angle-right"></i>
+                  <li class="<?php if($page == lang('invoices') OR $page == lang('chart') OR $page == lang('add_invoice')){echo "active"; } ?>"> <a href="<?=base_url()?>invoices/manage/view/all" > <i class="fa fa-angle-right"></i>
                   <span><?=lang('invoices')?></span> </a> </li>
 
-                  <li class="<?php if($page == lang('estimates')){echo "active"; } ?>"> <a href="<?=base_url()?>estimates/manage/view/all" > <i class="fa fa-angle-right"></i>
+                  <li class="<?php if($page == lang('estimates')){echo "active"; } ?>"> <a href="<?=base_url()?>estimates" > <i class="fa fa-angle-right"></i>
                   <span><?=lang('estimates')?> </span> </a> </li>
                   
                   <li class="<?php if($page == lang('payments')){echo "active"; } ?>"> <a href="<?=base_url()?>invoices/payments" > <i class="fa fa-angle-right"></i>
@@ -51,9 +48,17 @@
                 </ul> </li>
 
               
+              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>projects/view_projects/all" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
+              <span><?=lang('projects')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
-              <span><?=lang('items')?> </span> </a> </li>
+              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
+              <span><?=lang('messages')?> </span> </a> </li> 
+              
+
+              <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>bugs/view_by_status/all" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
+                <span><?=lang('bug_tracking')?> </span> </a> </li>              
+
+              
 
               <li class="<?php if($page == lang('general_settings') OR $page == lang('system_settings') OR $page == lang('email_settings')){echo  "active"; }?>">
                 <a href="#" >
@@ -72,8 +77,7 @@
                   <span><?=lang('email_settings')?> </span> </a> </li>
                 </ul> </li>
                 
-                <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>bugs/view_by_status/all" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
-                <span><?=lang('bug_tracking')?> </span> </a> </li>
+                
               </ul> </nav>
               <!-- / nav -->
             </div>

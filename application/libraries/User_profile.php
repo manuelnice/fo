@@ -111,6 +111,7 @@ class User_profile {
   		 return $row->total_cost;
   		}
 	}
+
 	public function client_invoices($client)
    	 {
 	return $this->ci->db->get_where('invoices',array('client' => $client))->result_array();

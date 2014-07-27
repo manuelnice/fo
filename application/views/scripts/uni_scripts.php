@@ -1,4 +1,4 @@
-<?php if ($page == lang('projects') OR $page == lang('add_invoice')) { ?>
+<?php if ($page == lang('projects') OR $page == lang('add_invoice') OR $this->uri->segment(3) == 'edit' OR $this->uri->segment(3) == 'add') { ?>
 <script src="<?=JS_URL?>slider/bootstrap-slider.js" cache="false"></script>
 <script src="<?=JS_URL?>datepicker/bootstrap-datepicker.js" cache="false"></script>
 <?php } ?>

@@ -6,19 +6,28 @@
 	
 		<aside class="aside-md bg-white b-r hidden-print" id="subNav">
 
-			<div class="wrapper b-b header"><?=lang('all_estimates')?>
-			</div>
+			<header class="dk header b-b">
+		<a href="<?=base_url()?>estimates/manage/add" data-original-title="<?=lang('create_estimate')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-default btn-sm pull-right"><i class="fa fa-plus"></i></a>
+		<p class="h4"><?=lang('all_estimates')?></p>
+		</header>
+
+
+
 			<section class="vbox">
 			 <section class="scrollable w-f">
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
-			<ul class="nav"><?php
-					if (!empty($estimates)) {
-			foreach ($estimates as $key => $est) { ?>
-				<li class="b-b b-light"><a href="<?=base_url()?>estimates/manage/details/<?=$est->est_id?>">
-				<?=ucfirst($this->user_profile->get_profile_details($est->client,'fullname')? $this->user_profile->get_profile_details($est->client,'fullname'):$est->username)?>
+			<ul class="nav">
+			<?php
+			if (!empty($estimates)) {
+			foreach ($estimates as $key => $estimate) { 
+				if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes') {
+					$est_status = 'SENT'; $label = 'info';	}else{	$est_status = 'DRAFT'; $label = 'default';	}
+				?>
+				<li class="b-b b-light <?php if($estimate->est_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>"><a href="<?=base_url()?>estimates/manage/details/<?=$estimate->est_id?>">
+				<?=ucfirst($this->user_profile->get_profile_details($estimate->client,'fullname')? $this->user_profile->get_profile_details($estimate->client,'fullname'):$estimate->username)?>
 				<div class="pull-right">
-				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($est->est_id),2)?></div> <br>
-				<small class="block text-muted">EST <?=$est->reference_no?> | <?=strftime("%B %d, %Y", strtotime($est->date_saved));?> </small>
+				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($estimate->est_id),2)?></div> <br>
+				<small class="block small text-muted">EST <?=$estimate->reference_no?> | <?=strftime("%b %d, %Y", strtotime($estimate->date_saved));?> <span class="label label-<?=$label?>"><?=$est_status?></span></small>
 
 				</a> </li>
 				<?php } } ?>
@@ -35,13 +44,12 @@
 						<?php
 					if (!empty($estimate_details)) {
 			foreach ($estimate_details as $key => $estimate) { ?>
-			<div class="btn-group">
-						<a class="btn btn-sm btn-default" href="<?=base_url()?>estimates/manage/add" title="<?=lang('create_estimate')?>"><i class="fa fa-plus"></i></a>						
-						</div>
-						<a href="#" class="btn btn-sm btn-info" onClick="window.print();">
-					<i class="fa fa-print"></i> Print</a> 
+			<a data-original-title="<?=lang('print_estimate')?>" data-toggle="tooltip" data-placement="bottom" href="#" class="btn btn-sm btn-info" onClick="window.print();">
+					<i class="fa fa-print"></i> </a> 
 
-						<a class="btn btn-sm btn-success" href="<?=base_url()?>estimates/manage/convert/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"
+						<a data-original-title="<?=lang('edit_estimate')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-dark" href="<?=base_url()?>estimates/manage/edit/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" title="<?=lang('edit_estimate')?>"><i class="fa fa-pencil"></i></a>
+
+						<a data-original-title="<?=lang('convert_to_invoice')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-success <?php if($estimate->invoiced == 'Yes'){ echo "disabled"; } ?>" href="<?=base_url()?>estimates/action/convert/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"
 						 title="<?=lang('convert_to_invoice')?>">
 						<?=lang('convert_to_invoice')?></a>				
 
@@ -50,19 +58,17 @@
 						<?=lang('more_actions')?>
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-								<li><a href="<?=base_url()?>estimates/action/emailestimate"><?=lang('email_estimate')?></a></li>
-								<li><a href="<?=base_url()?>estimates/action/marksent"><?=lang('mark_as_sent')?></a></li>
-								<li><a href="<?=base_url()?>estimates/manage/estimatehistory"><?=lang('estimate_history')?></a></li>
+								<li><a href="<?=base_url()?>estimates/action/emailestimate/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('email_estimate')?></a></li>
+								<li><a href="<?=base_url()?>estimates/manage/timeline/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('estimate_history')?></a></li>
 								<li class="divider"></li>
-								<li><a href="<?=base_url()?>estimates/action/edit"><?=lang('edit')?></a></li>
-								<li><a href="<?=base_url()?>estimates/action/delete"><?=lang('delete')?></a></li>
+								<li><a href="<?=base_url()?>estimates/action/delete/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('delete_estimate')?></a></li>
 						</ul>
 						</div>
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<a href="<?=base_url()?>estimates/action/generatepdf" class="btn btn-sm btn-dark pull-right">
-					<i class="fa fa-download"></i> <?=lang('pdf')?></a> 
+						<a href="<?=base_url()?>estimates/action/pdf/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" class="btn btn-sm btn-dark pull-right">
+					<i class="fa fa-file-pdf-o"></i> <?=lang('pdf')?></a> 
 					
 						</div>
 					</div> </header>
@@ -72,8 +78,8 @@
 					<?php  echo modules::run('sidebar/flash_msg');?>
 					 <?php
 				if(!$this->session->flashdata('message')){
-						if(strtotime($estimate->due_date) < time()){ ?>
-						<div class="alert alert-danger"> 
+						if(strtotime($estimate->due_date) < time() AND $estimate->invoiced == 'No'){ ?>
+						<div class="alert alert-danger hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
 						<?=lang('estimate_overdue')?>
 						</div>
@@ -83,6 +89,10 @@
 					<section class="scrollable wrapper">
 
 					<div class="row"> 
+					<?php
+					if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes') {
+					$est_status = 'SENT'; $label = 'info';	}else{	$est_status = 'DRAFT'; $label = 'dark';	}
+					?>
 
 					<div class="col-xs-6"> <h4><?=$this->config->item('company_name')?></h4>
 						<p><a href="<?=$this->config->item('company_domain')?>">
@@ -96,8 +106,8 @@
 						<p class="m-t m-b">
 					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->date_saved));?></strong><br>
 					<?=lang('expiry_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->due_date));?></strong><br> 
-					<?=lang('estimate_status')?>: <span class="label bg-success">Draft </span><br> 
-					<?=lang('bill_to')?>: <strong><?=$this->user_profile->get_fullname($estimate->id)?$this->user_profile->get_fullname($estimate->id) : $estimate->username?></strong> </p> 
+					<?=lang('estimate_status')?>: <span class="label bg-<?=$label?>"><?=$est_status?> </span><br> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($estimate->id)?$this->user_profile->get_fullname($estimate->id) : $estimate->username)?></strong> </p> 
 						</div>
 					</div>
 

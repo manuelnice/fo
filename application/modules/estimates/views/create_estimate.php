@@ -60,10 +60,68 @@
 						</div>
 					</div> </header>
 					<section class="scrollable wrapper w-f">
-					<!-- Start Display chart -->
-					<?php  echo modules::run('sidebar/flash_msg');?>
 
-					 <!-- End display chart -->
+
+
+					<!-- Start create estimate -->
+<div class="col-sm-12">
+	<section class="panel panel-default">
+	<header class="panel-heading font-bold"><i class="fa fa-info-circle"></i> <?=lang('estimate_details')?></header>
+	<div class="panel-body">
+
+<?php
+			 $attributes = array('class' => 'bs-example form-horizontal');
+          echo form_open(base_url().'estimates/manage/add',$attributes); ?>
+			 
+          		<div class="form-group">
+				<label class="col-lg-2 control-label"><?=lang('reference_no')?> <span class="text-danger">*</span></label>
+				<div class="col-lg-3">
+				<?php $this->load->helper('string'); ?>
+					<input type="text" class="form-control" value="<?=random_string('nozero', 6);?>" name="reference_no" readonly>
+				</div>
+				</div>
+
+				<div class="form-group">
+				<label class="col-lg-2 control-label"><?=lang('client')?> <span class="text-danger">*</span> </label>
+				<div class="col-lg-6">
+					<div class="m-b"> 
+					<select id="select2-option" style="width:260px" name="client" > 
+					<optgroup label="Clients"> 
+					<?php 
+					if (!empty($clients)) {
+						foreach ($clients as $client): ?>
+					<option value="<?=$client->id?>"><?=ucfirst($this->user_profile->get_profile_details($client->id,'fullname')?$this->user_profile->get_profile_details($client->id,'fullname'):$client->username)?></option>
+					<?php endforeach; } ?>
+					</optgroup> 
+					</select> 
+					</div> 
+				</div>
+			</div>
+
+				<div class="form-group">
+				<label class="col-lg-2 control-label"><?=lang('due_date')?></label> 
+				<div class="col-lg-8">
+				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=date('d-m-Y')?>" name="due_date" data-date-format="dd-mm-yyyy" >
+				</div> 
+				</div>		
+				
+				<div class="form-group">
+				<label class="col-lg-2 control-label"><?=lang('notes')?> </label>
+				<div class="col-lg-8">
+				<textarea name="notes" class="form-control">Looking forward to doing business with you.</textarea>
+				</div>
+				</div>
+				<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> <?=lang('create_estimate')?></button>
+
+
+				
+		</form>
+</div>
+</section>
+</div>
+
+
+<!-- End create estimate -->
 
 
 

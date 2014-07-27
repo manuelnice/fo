@@ -24,7 +24,18 @@ class Estimates extends MX_Controller {
 
 	function index()
 	{
-		
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('estimates').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('estimates');
+	$data['estimates'] = $this->estimate->get_all_records($table = 'estimates',
+		$array = array(
+			'est_deleted' => 'No'
+			),
+		$join_table = 'users',$join_criteria = 'users.id = estimates.client','date_saved');
+	$this->template
+	->set_layout('users')
+	->build('estimates',isset($data) ? $data : NULL);
 	}
 }
 

@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="<?=CSS_URL?>app.v2.css" type="text/css" /> 
 
 <link rel="stylesheet" href="<?=CSS_URL?>font.css" type="text/css" cache="false" /> 
-<?php if ($page == lang('projects') OR $page == lang('add_invoice')) { ?>
+<?php if ($page == lang('projects') OR $page == lang('add_invoice') OR $this->uri->segment(3) == 'edit' OR $this->uri->segment(3) == 'add') { ?>
   <link rel="stylesheet" href="<?=JS_URL?>slider/slider.css" type="text/css" cache="false" /> 
   <link rel="stylesheet" href="<?=JS_URL?>datepicker/datepicker.css" type="text/css" cache="false" />
 <?php } ?>
