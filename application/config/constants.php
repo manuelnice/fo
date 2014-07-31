@@ -21,14 +21,14 @@ define('DIR_WRITE_MODE', 0777);
 
 //Resources
 define('RES_DIR', 'resource');
-define('FA_URL', 'http://localhost/fo/resource/css/');
-define('AVATAR_URL', 'http://localhost/fo/resource/avatar/');
-define('ARTICLE_IMAGES', 'http://localhost/fo/resource/articles/');
-define('CSS_URL', 'http://localhost/fo/resource/css/');
-define('ASSETS_URL', 'http://localhost/fo/resource/assets/');
-define('IMG_URL', 'http://localhost/fo/resource/images/');
-define('JS_URL', 'http://localhost/fo/resource/js/');
-define('PROFILE_IMAGE_URL', 'http://localhost/fo/resource/profile_previews/');
+define('FA_URL', 'http://localhost/devfo/resource/css/');
+define('AVATAR_URL', 'http://localhost/devfo/resource/avatar/');
+define('ARTICLE_IMAGES', 'http://localhost/devfo/resource/articles/');
+define('CSS_URL', 'http://localhost/devfo/resource/css/');
+define('ASSETS_URL', 'http://localhost/devfo/resource/assets/');
+define('IMG_URL', 'http://localhost/devfo/resource/images/');
+define('JS_URL', 'http://localhost/devfo/resource/js/');
+define('PROFILE_IMAGE_URL', 'http://localhost/devfo/resource/profile_previews/');
 
 
 /*
