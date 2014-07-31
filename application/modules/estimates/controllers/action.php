@@ -100,6 +100,25 @@ class Action extends MX_Controller {
 			redirect('invoices/manage/details/'.$invoice_id);
 	}
 
+	function status(){
+		$estimate = $this->uri->segment(5);
+			if ($this->uri->segment(4) == 'accepted') {
+				$status = 'Accepted';
+			}else{
+				$status = 'Declined';
+			}
+			$this->db->set('status', $status);
+			$this->db->where('est_id',$estimate)->update('estimates'); 
+
+			$activity = 'EST #'.$this->uri->segment(6). ' marked as '.$this->uri->segment(4);
+
+			$this->_log_activity($estimate,$activity,$icon = 'fa-paperclip'); //log activity	 
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('estimate_'.$this->uri->segment(4).'_successfully'));
+			redirect('estimates/manage/details/'.$estimate);
+
+	}
 	function _email_estimate($est_id,$message,$subject){
 			$client = $this->estimate->get_client($est_id);
 

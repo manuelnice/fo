@@ -25,7 +25,7 @@
 					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
 					$invoice_due = ($invoice_cost + $tax) - $payment_made;
 				?>
-					<input type="text" class="form-control" value="<?=$invoice_due?>" name="amount">
+					<input type="text" class="form-control" value="<?=round($invoice_due,2)?>" name="amount">
 				</div>
 				</div>
 				<div class="form-group">

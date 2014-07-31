@@ -1,95 +1,66 @@
-<!-- Start -->
 
 
-<section id="content">
-	<section class="hbox stretch">
+
+
+
+
+
+
+
+<section id="content"> 
+<section class="vbox">
+
+	<header class="header bg-white b-b b-light">
+	<p>#<?=$bug->issue_ref?> <?=lang('issue_details')?></p> </header> 
+	<section class="scrollable"> 
+	<section class="hbox stretch"> 
+	<aside class="aside-lg bg-light lter b-r"> 
+	<section class="vbox"> 
+	<section class="scrollable w-f">
+	<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+	<div class="wrapper">
 	
-		<aside class="aside-md bg-white b-r" id="subNav">
-
-			<header class="dk header b-b">			
-			<div class="btn-group pull-right">
-				<button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Filter
-				<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">				
-				<li><a href="<?=base_url()?>bugs/view_by_status/unconfirmed">Unconfirmed</a></li>
-				<li><a href="<?=base_url()?>bugs/view_by_status/confirmed">Confirmed</a></li>
-				<li><a href="<?=base_url()?>bugs/view_by_status/progress">In Progress</a></li>
-				<li><a href="<?=base_url()?>bugs/view_by_status/resolved">Resolved</a></li>
-				<li class="divider"></li>
-				<li><a href="<?=base_url()?>bugs/view_by_status/verified">Verified</a></li>
-				</ul>
+		<div class="clearfix m-b">
+		<a href="#" class="pull-left thumb m-r"> 
+		<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($bug->reporter,'avatar')?>" class="img-circle"> </a>
+			<div class="clear">
+				<div class="h3 m-t-xs m-b-xs"><?=lang('bug_reporter')?></div> 
+				<small class="text-muted"><i class="fa fa-bug"></i> 
+				<?=ucfirst($this->user_profile->get_profile_details($bug->reporter,'fullname')?$this->user_profile->get_profile_details($bug->reporter,'fullname'):$this->user_profile->get_user_details($bug->reporter,'username'))?></small>
 			</div>
+		</div>
+		<div class="panel wrapper panel-success">
+			<div class="row">
+				<div class="col-xs-6"> <a href="#">
+					<span class="m-b-xs h4 block"><?=$this->user_profile->count_rows('bug_comments',$array = array(
+                                        					'bug_id' => $bug->bug_id
+                                        					)); ?></span> <small class="text-muted"><?=lang('comments')?></small> </a>
+				</div>
+				<div class="col-xs-6"> <a href="#">
+					<span class="m-b-xs h4 block">
+					<?=$this->user_profile
+							->count_rows('activities',$array = array( 'module' => 'bugs', 'module_field_id' => $bug->bug_id)); ?></span> <small class="text-muted"><?=lang('activities')?></small> </a>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group"> 
+		<?php
+		if ($bug->attached_file > 0) { ?>
+			<a class="btn btn-primary" href="<?=base_url()?>bugs/download?f=<?=$bug->attached_file?>">
+			<span class="text"> <i class="fa fa-cloud-download"></i> <?=lang('download_file')?></span> </a> 
+		<?php } ?>
+		<p><?=lang('project')?> : <a href="<?=base_url()?>projects/view/details/<?=$bug->project_id?>">#<?=$bug->project_code?></a></p>
+		</div>
 
-
-
-
-		<p class="h4"><?=lang('all_bugs')?></p>
-		</header>
-
-
-			<section class="vbox">
-			 <section class="scrollable w-f">
-			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
-			<ul class="nav">
-			<?php
-								if (!empty($bugs)) {
-				foreach ($bugs as $key => $bug) { 
-					if ($bug->bug_status == 'Verified') { $label = 'bg-success'; }elseif ($bug->bug_status == 'Resolved') {
-						$label = 'bg-primary'; }elseif ($bug->bug_status == 'In Progress') { $label = 'bg-dark'; }
-						elseif ($bug->bug_status == 'Confirmed') { $label = 'bg-info'; }else{ $label = 'bg-danger';
-					}
-					if ($bug->priority == 'Critical') { $priority = 'danger'; }elseif ($bug->priority == 'High') {
-						$priority = 'inverse'; }else{	$priority = 'dark';	}	?>
-
-				<li class="b-b b-light <?php if($bug->bug_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
-				<a href="<?=base_url()?>bugs/view/details/<?=$bug->bug_id?>">
-				<?=ucfirst($this->user_profile->get_profile_details($bug->reporter,'fullname')? $this->user_profile->get_profile_details($bug->reporter,'fullname'):$this->user_profile->get_user_details($bug->reporter,'username'))?>
-				<div class="pull-right">
-				BUG#<?=$bug->issue_ref?>
-				</div> <br>
-				<small class="block small text-muted">PRO#<?=$bug->project_code?> | <i class="fa fa-circle text-<?=$priority?> pull-right m-t-xs"></i> <span class="label <?=$label?>"><?=$bug->bug_status?></span></small>
-
-				</a> </li>
-				<?php } } ?>
-			</ul> 
-			</div></section>
-			</section>
-			</aside> 
-			
-			<aside>
-			<section class="vbox">
-				<header class="header bg-white b-b clearfix">
-					<div class="row m-t-sm">
-						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
-						<div class="btn-group">
-						<a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
-						</div>
-
-						
-						</div>
-						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'invoices/manage/search'); ?>
-							<div class="input-group">
-								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
-								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
-								</span>
-							</div>
-							</form>
-						</div>
-					</div> </header>
-					<section class="scrollable wrapper w-f">
-					<section class="hbox stretch"> 
-					
-					<?php  echo modules::run('sidebar/flash_msg');?>
-					<!-- Start bug details -->
-					<?php
-								if (!empty($bug_details)) {
-				foreach ($bug_details as $key => $bug) { ?>
-
-				<aside class="bg-white"> 
+		<div>
+			<small class="text-uc text-xs text-muted"><?=lang('bug_description')?></small>
+			<p> <?=$bug->bug_description?></p>
+			<div class="line">
+			</div> 
+		</div>
+	</div> </div></section> </section> </aside> 
+	<aside class="bg-white"> 
+	<section class="vbox">
 	<header class="header bg-light bg-gradient">
 		<ul class="nav nav-tabs nav-white">
 			<li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
@@ -119,9 +90,7 @@
 					<?php } ?>
 				</ul>
 			</div>
-		</div> </div></section>  </aside> 
-
-
+		</div> </div></section> </section> </aside> 
 		<aside class="col-lg-4 b-l"> 
 		<?php  echo modules::run('sidebar/flash_msg');?>
 		<section class="vbox"> 
@@ -181,39 +150,10 @@
 		</section> 
 		</section> 
 		</aside> 
+		<?php }} ?>
+		</section> 
+		</section> 
+		</section> 
+<a href="profile.html#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-				<?php } } ?>
-				</section>
-					 <!-- End bug details -->
-
-
-
-
-
-
-					</section>  
-
-
-
-
-		</section> </aside> </section> <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
-
-
-
-<!-- end -->
-
-
-
-
+</section>

@@ -19,12 +19,20 @@
 			 <section class="scrollable w-f">
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
 			<ul class="nav"><?php
-					if (!empty($invoices)) {
-			foreach ($invoices as $key => $invoice) { ?>
-				<li class="b-b b-light"><a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
-				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?><div class="pull-right">
-				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?></div> <br>
-				<small class="block text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> </small>
+			if (!empty($invoices)) {
+			foreach ($invoices as $key => $invoice) { 
+			if ($this->invoice->payment_status($invoice->inv_id) == 'Fully Paid'){ $invoice_status = "Fully Paid"; $label = "success"; }
+			elseif($invoice->emailed == 'Yes') { $invoice_status = "Sent"; $label = "info";	}
+			else{ $invoice_status = "Draft"; $label = "default"; }
+			?>
+
+				<li class="b-b b-light <?php if($invoice->inv_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
+				<a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
+				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>
+				<div class="pull-right">
+				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
+				</div> <br>
+				<small class="block small text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> <span class="label label-<?=$label?>"><?=$invoice_status?></span></small>
 
 				</a> </li>
 				<?php } } ?>

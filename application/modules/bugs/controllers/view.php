@@ -27,6 +27,7 @@ class View extends MX_Controller {
 		$this->load->library('template');
 		$this->template->title(lang('bug_tracking').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 		$data['page'] = lang('bug_tracking');
+		$data['bugs'] = $this->bugs_model->bugs();
 		$data['bug_details'] = $this->bugs_model->bug_details($this->uri->segment(4));
 		$data['bug_activities'] = $this->bugs_model->bug_activities($this->uri->segment(4));
 		$data['bug_comments'] = $this->bugs_model->bug_comments($this->uri->segment(4));

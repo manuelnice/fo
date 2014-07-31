@@ -18,10 +18,9 @@ class Bugs_model extends CI_Model
 	}
 	function bug_activities($bug_id)
 	{
-		$query = $this->db->where('bug_id',$bug_id)->order_by('date_saved','desc')->get('bug_activities');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where(array( 'module' => 'bugs', 'module_field_id' => $bug_id))
+		->order_by('activity_date','desc')->get('activities')
+		->result();
 	}
 	function bug_comments($bug_id)
 	{

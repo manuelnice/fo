@@ -194,6 +194,23 @@ class Manage extends MX_Controller {
 		->build('timeline',isset($data) ? $data : NULL);
 	}
 
+	function delete_item(){
+		if ($this->input->post() ){
+					$item_id = $this->input->post('item', TRUE);
+					$estimate = $this->input->post('estimate', TRUE);
+					$this->db->where('item_id',$item_id)->delete('estimate_items');
+
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message', lang('item_deleted_successfully'));
+					redirect('estimates/manage/details/'.$estimate);
+		}else{
+			$data['item_id'] = $this->uri->segment(4);
+			$data['estimate'] = $this->uri->segment(5);
+			$this->load->view('modal/delete_item',$data);
+		}
+		
+	}
+
 	function _log_activity($est_id,$activity,$icon){
 			$this->db->set('module', 'estimates');
 			$this->db->set('module_field_id', $est_id);

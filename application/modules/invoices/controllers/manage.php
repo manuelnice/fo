@@ -237,7 +237,8 @@ class Manage extends MX_Controller {
 		}else{			
 			$invoice_payable = $this->user_profile->invoice_payable($invoice_id);
 			$invoice_paid = $this->user_profile->invoice_payment($invoice_id);
-			$due = $invoice_payable - $invoice_paid;
+			$tax = ($this->config->item('default_tax')/100) * $invoice_payable;
+			$due = ($invoice_payable + $tax) - $invoice_paid;
 			if ($paid_amount > $due) {
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('overpaid_amount'));
@@ -245,6 +246,7 @@ class Manage extends MX_Controller {
 			}
 			$form_data = array(
 			                'invoice' => $this->input->post('invoice_id'),
+			                'paid_by' => $this->tank_auth->get_user_id(),
 			                'payment_method' => $this->input->post('payment_method'),
 			                'amount' => $this->input->post('amount'),
 			                'trans_id' => $this->input->post('trans_id'),

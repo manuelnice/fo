@@ -25,7 +25,7 @@ class Payments extends MX_Controller {
 	{
 	$this->load->module('layouts');
 	$this->load->library('template');
-	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$this->template->title(lang('payments').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('payments');
 	$status = $this->uri->segment(4);
 	$data['payments'] = $this->invoice->get_all_records($table = 'payments',
@@ -37,6 +37,24 @@ class Payments extends MX_Controller {
 	->set_layout('users')
 	->build('payments',isset($data) ? $data : NULL);
 	}
+
+	function details()
+	{		
+		$this->load->module('layouts');
+		$this->load->library('template');
+		$this->template->title(lang('payments').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+		$data['page'] = lang('payments');
+		$data['payment_details'] = $this->invoice->payment_details($this->uri->segment(4));
+		$data['payments'] = $this->invoice->get_all_records($table = 'payments',
+		$array = array(
+			'inv_deleted' => 'No'
+			),
+		$join_table = 'users',$join_criteria = 'users.id = payments.paid_by','created_date');
+		$this->template
+		->set_layout('users')
+		->build('payment_details',isset($data) ? $data : NULL);
+	}
+
 	public function invoicepdf(){
 
 			$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));

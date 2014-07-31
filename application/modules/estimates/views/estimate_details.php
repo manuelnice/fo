@@ -20,9 +20,11 @@
 			<?php
 			if (!empty($estimates)) {
 			foreach ($estimates as $key => $estimate) { 
-				if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes') {
-					$est_status = 'SENT'; $label = 'info';	}else{	$est_status = 'DRAFT'; $label = 'default';	}
-				?>
+
+					if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes' AND $estimate->status == 'Pending') {
+					$est_status = 'SENT'; $label = 'info';	}elseif ($estimate->status != 'Pending') { 
+						$est_status = strtoupper($estimate->status); $label = 'primary'; } else{	$est_status = 'DRAFT'; $label = 'default';	}
+					?>
 				<li class="b-b b-light <?php if($estimate->est_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>"><a href="<?=base_url()?>estimates/manage/details/<?=$estimate->est_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($estimate->client,'fullname')? $this->user_profile->get_profile_details($estimate->client,'fullname'):$estimate->username)?>
 				<div class="pull-right">
@@ -60,6 +62,11 @@
 						<ul class="dropdown-menu">
 								<li><a href="<?=base_url()?>estimates/action/emailestimate/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('email_estimate')?></a></li>
 								<li><a href="<?=base_url()?>estimates/manage/timeline/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('estimate_history')?></a></li>
+								<?php
+								if ($estimate->emailed == 'Yes' AND $estimate->invoiced == 'No') { ?>
+								<li><a href="<?=base_url()?>estimates/action/status/declined/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_declined')?></a></li>
+								<li><a href="<?=base_url()?>estimates/action/status/accepted/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_accepted')?></a></li>
+								<?php } ?>
 								<li class="divider"></li>
 								<li><a href="<?=base_url()?>estimates/action/delete/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('delete_estimate')?></a></li>
 						</ul>
@@ -90,8 +97,9 @@
 
 					<div class="row"> 
 					<?php
-					if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes') {
-					$est_status = 'SENT'; $label = 'info';	}else{	$est_status = 'DRAFT'; $label = 'dark';	}
+					if ($estimate->invoiced == 'Yes') {	$est_status = 'INVOICED'; $label = 'success'; }elseif ($estimate->emailed == 'Yes' AND $estimate->status == 'Pending') {
+					$est_status = 'SENT'; $label = 'info';	}elseif ($estimate->status != 'Pending') { 
+						$est_status = strtoupper($estimate->status); $label = 'primary'; } else{	$est_status = 'DRAFT'; $label = 'dark';	}
 					?>
 
 					<div class="col-xs-6"> <h4><?=$this->config->item('company_name')?></h4>
@@ -127,7 +135,8 @@
 						<td><?=$item->item_desc?> </td>
 						<td><?=$item->quantity?></td> 						
 						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->unit_cost,2)?></td>
-						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->total_cost,2)?></td>
+						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->total_cost,2)?>
+						<a class="hidden-print" href="<?=base_url()?>estimates/manage/delete_item/<?=$item->item_id?>/<?=$item->estimate_id?>" data-toggle="ajaxModal"><i class="fa fa-times text-danger"></i></a></td>
 					</tr>
 					<?php } } ?>
 					<tr class="hidden-print">

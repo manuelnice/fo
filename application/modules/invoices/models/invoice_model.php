@@ -43,6 +43,12 @@ class Invoice_model extends CI_Model
 		$this->db->join('users','users.id = invoices.client');
 		return $this->db->where('inv_id',$invoice_id)->get('invoices')->result();
 	}
+	function payment_details($p_id)
+	{
+		$this->db->join('payment_methods','payment_methods.method_id = payments.payment_method');
+		$this->db->join('users','users.id = payments.paid_by');
+		return $this->db->where('p_id',$p_id)->get('payments')->result();
+	}
 	function invoice_activities($invoice_id)
 	{
 		$this->db->join('users','users.id = activities.user');

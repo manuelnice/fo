@@ -21,7 +21,7 @@
       <?php
       if (!empty($payments)) {
       foreach ($payments as $key => $p) { ?>
-        <li class="b-b b-light">
+        <li class="b-b b-light <?php if($p->p_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
         <a href="<?=base_url()?>invoices/payments/details/<?=$p->p_id?>">
         <?=ucfirst($this->user_profile->get_profile_details($p->paid_by,'fullname')? $this->user_profile->get_profile_details($p->paid_by,'fullname'):$p->username)?>
         <div class="pull-right">
@@ -62,6 +62,9 @@
           <?php  echo modules::run('sidebar/flash_msg');?>
           <!-- Start Payment -->
           
+<?php
+      if (!empty($payment_details)) {
+      foreach ($payment_details as $key => $i) { ?>
 
 <div class="column content-column">
     <div class="details-page" style="margin:45px 25px 25px 8px">
@@ -81,50 +84,74 @@
               <div style="padding:35px 0 50px;text-align:center">
                 <span style="text-transform: uppercase; border-bottom:1px solid #eee;font-size:13pt;"><?=lang('payments_received')?></span>
               </div>
-
-              <?php
-      $total_receipts = $this->user_profile->get_sum('payments','amount',$array = array('inv_deleted' => 'No'));
-      $total_sales = $this->user_profile->get_sum('items','total_cost',$array = array('total_cost >' => '0'));
-      $outstanding = $total_sales - $total_receipts;
-      ?>
-
               <div style="width: 70%;float: left;">
                 <div style="width: 100%;padding: 11px 0;">
-                  <div style="color:#999;width:35%;float:left;"><?=lang('invoice_amount')?></div>
-                  <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;"><?=$this->config->item('default_currency')?> <?=number_format($total_sales,2)?></div>
+                  <div style="color:#999;width:35%;float:left;"><?=lang('payment_date')?></div>
+                  <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;"><?=strftime("%d %b %Y", strtotime($i->created_date));?></div>
                   <div style="clear:both;"></div>
                 </div><div style="width: 100%;padding: 10px 0;">
-                <div style="color:#999;width:35%;float:left;"><?=lang('payments_received')?></div>
-                <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;min-height:22px"><?=$this->config->item('default_currency')?> <?=number_format($total_receipts,2)?></div>
+                <div style="color:#999;width:35%;float:left;"><?=lang('transaction_id')?></div>
+                <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;min-height:22px"><?=$i->trans_id?></div>
                 <div style="clear:both;"></div>
               </div>
             </div>
-            <div style="text-align:center;color:white;float:right;background:#FC8174;width: 25%;
+            <div style="text-align:center;color:white;float:right;background:#78ae54;width: 25%;
               padding: 20px 5px;">
               <span> <?=lang('amount_received')?></span><br>
-              <span style="font-size:16pt;"><?=$this->config->item('default_currency')?> <?=number_format($total_receipts,2)?></span>
+              <span style="font-size:16pt;"><?=$this->config->item('default_currency')?> <?=number_format($i->amount,2)?></span>
               </div><div style="clear:both;"></div>
               <div style="padding-top:10px">
-                <div style="width:75%;border-bottom:1px solid #eee;float:right"><strong>
-                
-                <?php
-                $query = $this->db->get('payments');
-                if ($query->num_rows() > 0){
-                  $row = $query->last_row('array'); ?>
-                  <a href="<?=base_url()?>invoices/manage/details/<?=$row['invoice']?>">
-                  <?php echo 'INV-'.$this->user_profile->get_invoice_details($row['invoice'],'reference_no'); ?>
-                  </a>
-                  <?php }else{
-                    echo 'NULL';
-                  }
-                  ?></strong></div>
-                <div style="color:#999;width:25%"><?=lang('recent_invoice')?></div>
+                <div style="width:75%;border-bottom:1px solid #eee;float:right"><strong><a href="<?=base_url()?>clients/view/details/<?=$i->paid_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($i->paid_by,'fullname')? $this->user_profile->get_profile_details($i->paid_by,'fullname'):$i->username)?></a></strong></div>
+                <div style="color:#999;width:25%"><?=lang('received_from')?></div>
               </div>
               <div style="padding-top:25px">
-                <div style="width:75%;border-bottom:1px solid #eee;float:right"><?=$this->config->item('default_currency')?> <?=number_format($outstanding,2)?></div>
-                <div style="color:#999;width:25%"><?=lang('outstanding')?></div>
+                <div style="width:75%;border-bottom:1px solid #eee;float:right"><?=$i->method_name?></div>
+                <div style="color:#999;width:25%"><?=lang('payment_mode')?></div>
+              </div>
+              <div style="padding-top:25px">
+                <div style="width:75%;border-bottom:1px solid #eee;float:right"><?=$i->notes?></div>
+                <div style="color:#999;width:25%"><?=lang('notes')?></div>
+              </div>
+              
+              <div style="margin-top:100px">
+                <div style="width:100%">
+                  <div style="width:50%;float:left"><h4><?=lang('payment_for')?></h4></div>
+                  <div style="clear:both;"></div>
+                </div>
+                
+                <table style="width:100%;margin-bottom:35px;table-layout:fixed;" cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                    <tr style="height:40px;background:#f5f5f5">
+                      <td style="padding:5px 10px 5px 10px;word-wrap: break-word;">
+                        <?=lang('invoice_code')?>
+                      </td>
+                      <td style="padding:5px 10px 5px 5px;word-wrap: break-word;" align="right">
+                        <?=lang('invoice_date')?>
+                      </td>
+                      <td style="padding:5px 10px 5px 5px;word-wrap: break-word;" align="right">
+                        <?=lang('invoice_amount')?> 
+                      </td>
+                      <td style="padding:5px 10px 5px 5px;word-wrap: break-word;" align="right">
+                        <?=lang('paid_amount')?>
+                      </td>
 
-
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid #ededed">
+                      <td style="padding: 10px 0px 10px 10px;" valign="top">INV-<?=$this->user_profile->get_invoice_details($i->invoice,'reference_no')?></td>
+                      <td style="padding: 10px 10px 5px 10px;text-align:right;word-wrap: break-word;" valign="top">
+                        <?=strftime("%d %b %Y", strtotime($this->user_profile->get_invoice_details($i->invoice,'date_saved')))?>
+                      </td>
+                      <td style="padding: 10px 10px 5px 10px;text-align:right;word-wrap: break-word;" valign="top">
+                        <span><?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($i->invoice),2)?> (- Tax) </span>
+                      </td>
+                      <td style="text-align:right;padding: 10px 10px 10px 5px;word-wrap: break-word;" valign="top">
+                        <span><?=$this->config->item('default_currency')?> <?=number_format($i->amount,2)?></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -133,10 +160,7 @@
       
     </div>
 </div>
-
-
-
-
+<?php } } ?>
 
            <!-- End Payment -->
 

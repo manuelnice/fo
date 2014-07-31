@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2014 at 04:45 PM
+-- Generation Time: Jul 29, 2014 at 07:03 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `fx_activities` (
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `icon` varchar(32) DEFAULT 'fa-coffee',
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=123 ;
 
 --
 -- Dumping data for table `fx_activities`
@@ -96,8 +96,8 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (1, 1, 'bugs', 3, 'Logged in from 127.0.0.1', '2014-02-26 14:40:59', 'fa-coffee', 0),
 (2, 1, 'invoices', 1, 'Uploaded a file to a <a class="text-info" href="projects/3">Project</a>', '2014-02-26 14:40:59', 'fa-coffee', 0),
 (3, 2, 'projects', 5, 'Added a new <a class="text-info" href="tasks/3">Task</a>', '2014-03-31 06:23:51', 'fa-coffee', 0),
-(4, 2, 'bugs', 3, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 'fa-coffee', 0),
-(5, 2, 'estimates', 6, 'Admin created estimate #129464', '2014-03-31 06:53:41', 'fa-coffee', 0),
+(4, 2, 'bugs', 1, 'Sent you a <a class="text-info" href="messages/3">message</a>', '2014-03-31 06:24:55', 'fa-coffee', 0),
+(5, 2, 'estimates', 1, 'Admin created estimate #129464', '2014-03-31 06:53:41', 'fa-coffee', 0),
 (6, 1, 'bugs', 3, 'Added an Issue #5644', '2014-05-12 17:42:05', 'fa-coffee', 0),
 (7, 1, 'payments', 2, 'Edited a user information', '2014-05-12 17:43:03', 'fa-coffee', 0),
 (8, 1, 'general', 3, 'Edited a user information', '2014-05-14 05:58:00', 'fa-coffee', 0),
@@ -114,7 +114,7 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (19, 1, 'projects', 1, 'Admin edited a project #343253', '2014-07-05 13:59:02', 'fa-coffee', 0),
 (20, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:47:55', 'fa-coffee', 0),
 (21, 1, 'projects', 2, 'Admin edited a project #765546', '2014-07-05 14:48:31', 'fa-coffee', 0),
-(22, 1, 'projects', 2, 'Replied to a comment', '2014-07-06 11:15:13', 'fa-coffee', 0),
+(22, 3, 'projects', 2, 'Replied to a comment', '2014-07-06 11:15:13', 'fa-coffee', 0),
 (23, 1, 'projects', 7, 'Added a comment to Project #84952', '2014-07-07 07:51:35', 'fa-coffee', 0),
 (24, 1, 'invoices', 1, 'Payment of USD 16 received and applied to INVOICE #923852', '2014-07-07 07:56:57', 'fa-coffee', 0),
 (25, 1, 'projects', 0, 'admin deleted a file ', '2014-07-10 15:33:13', 'fa-coffee', 0),
@@ -151,7 +151,70 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (56, 1, 'projects', 5, 'Added a task Sticky Glowing Menu', '2014-07-12 14:30:31', 'fa-tasks', 0),
 (57, 1, 'projects', 7, 'Added a task Upload a sample project', '2014-07-18 16:07:03', 'fa-tasks', 0),
 (58, 1, 'projects', 7, 'Edited a task New Bootstrap 3 Template', '2014-07-18 16:10:26', 'fa-tasks', 0),
-(59, 1, 'projects', 7, 'Edited a task New Bootstrap 3 Template', '2014-07-18 16:10:43', 'fa-tasks', 0);
+(59, 1, 'projects', 7, 'Edited a task New Bootstrap 3 Template', '2014-07-18 16:10:43', 'fa-tasks', 0),
+(60, 1, 'invoices', 9, 'INVOICE #869575 created.', '2014-07-20 15:19:51', 'fa-coffee', 0),
+(61, 1, 'invoices', 9, 'Payment of USD 40 received and applied to INVOICE #869575', '2014-07-20 15:21:33', 'fa-coffee', 0),
+(62, 1, 'invoices', 10, 'INVOICE #848322 created.', '2014-07-20 15:26:21', 'fa-coffee', 1),
+(63, 1, 'invoices', 10, 'Payment of USD 60 received and applied to INVOICE #848322', '2014-07-20 15:33:50', 'fa-coffee', 1),
+(64, 1, 'invoices', 1, 'Sent Invoice Reminder to client', '2014-07-20 15:38:58', 'fa-sales', 0),
+(65, 1, 'invoices', 10, 'Admin edited INVOICE #848322', '2014-07-20 17:05:42', 'fa-coffee', 1),
+(66, 1, 'invoices', 10, 'Admin edited INVOICE #848322', '2014-07-20 17:06:26', 'fa-coffee', 1),
+(67, 1, 'invoices', 10, 'Admin edited INVOICE #848322', '2014-07-20 17:07:25', 'fa-coffee', 1),
+(68, 1, 'invoices', 4, 'Admin edited INVOICE #129464', '2014-07-20 17:47:55', 'fa-coffee', 0),
+(69, 1, 'invoices', 11, 'INVOICE #185387 created.', '2014-07-23 15:36:13', 'fa-plus', 0),
+(70, 1, 'invoices', 11, 'INVOICE #185387 marked as Sent', '2014-07-23 15:37:37', 'fa-envelope', 0),
+(71, 1, 'invoices', 11, 'Sent Invoice Reminder to client', '2014-07-23 15:37:52', 'fa-sales', 0),
+(72, 1, 'invoices', 11, 'Sent Invoice Reminder to client', '2014-07-23 15:39:27', 'fa-shopping-cart', 0),
+(73, 1, 'invoices', 11, 'Admin edited INVOICE #185387', '2014-07-23 15:39:54', 'fa-pencil', 0),
+(74, 1, 'invoices', 11, 'Payment of USD 52.5 received and applied to INVOICE #185387', '2014-07-23 15:42:57', 'fa-usd', 0),
+(75, 1, 'invoices', 12, 'INVOICE #356413 created.', '2014-07-23 15:53:47', 'fa-plus', 0),
+(76, 1, 'estimates', 4, 'Admin edited ESTIMATE #129464', '2014-07-26 15:08:56', 'fa-pencil', 1),
+(77, 1, 'estimates', 4, 'Admin edited ESTIMATE #129464', '2014-07-26 15:12:16', 'fa-pencil', 1),
+(78, 1, 'estimates', 4, 'ESTIMATE #129464 Sent', '2014-07-26 16:06:29', 'fa-envelope', 1),
+(79, 1, 'estimates', 4, 'ESTIMATE #129464 Sent', '2014-07-26 16:07:26', 'fa-envelope', 1),
+(80, 1, 'invoices', 11, 'INVOICE #185387 marked as Sent', '2014-07-26 16:11:42', 'fa-envelope', 0),
+(81, 1, 'estimates', 4, 'ESTIMATE #129464 marked as Sent', '2014-07-26 16:11:50', 'fa-envelope', 1),
+(82, 1, 'estimates', 6, 'Estimate #729633 created.', '2014-07-27 05:38:32', 'fa-plus', 0),
+(83, 1, 'estimates', 6, 'Admin edited ESTIMATE #729633', '2014-07-27 05:41:39', 'fa-pencil', 0),
+(84, 1, 'estimates', 1, 'Admin edited ESTIMATE #923852', '2014-07-27 06:04:56', 'fa-pencil', 0),
+(85, 1, 'estimates', 3, 'Admin edited ESTIMATE #673957', '2014-07-27 06:05:18', 'fa-pencil', 0),
+(86, 1, 'estimates', 3, 'Admin edited ESTIMATE #673957', '2014-07-27 06:05:58', 'fa-pencil', 0),
+(87, 1, 'estimates', 3, 'Admin edited ESTIMATE #673957', '2014-07-27 06:07:26', 'fa-pencil', 0),
+(88, 1, 'estimates', 7, 'Estimate #193461 created.', '2014-07-27 06:10:47', 'fa-plus', 0),
+(89, 1, 'estimates', 8, 'Estimate #754365 created.', '2014-07-27 06:15:05', 'fa-plus', 0),
+(90, 1, 'estimates', 8, 'ESTIMATE #754365 marked as Sent', '2014-07-27 06:17:18', 'fa-envelope', 0),
+(91, 1, 'estimates', 7, 'Converted EST #193461 to Invoice', '2014-07-27 06:46:47', 'fa-laptop', 0),
+(92, 1, 'estimates', 9, 'Estimate #191885 created.', '2014-07-27 06:47:35', 'fa-plus', 0),
+(93, 1, 'estimates', 9, 'Converted EST #191885 to Invoice', '2014-07-27 06:48:05', 'fa-laptop', 0),
+(94, 1, 'estimates', 9, 'ESTIMATE #191885 marked as Sent', '2014-07-27 06:48:37', 'fa-envelope', 0),
+(95, 1, 'estimates', 10, 'Estimate #665175 created.', '2014-07-27 06:51:39', 'fa-plus', 0),
+(96, 1, 'estimates', 10, 'ESTIMATE #665175 marked as Sent', '2014-07-27 06:51:59', 'fa-envelope', 0),
+(97, 1, 'estimates', 10, 'Converted EST #665175 to Invoice', '2014-07-27 06:52:12', 'fa-laptop', 0),
+(98, 1, 'invoices', 17, 'Converted EST #665175 to Invoice', '2014-07-27 06:52:12', 'fa-laptop', 0),
+(99, 1, 'estimates', 1, 'EST #923852 marked as declined', '2014-07-27 12:39:28', 'fa-paperclip', 0),
+(100, 1, 'estimates', 1, 'EST #923852 marked as accepted', '2014-07-27 12:40:07', 'fa-paperclip', 0),
+(101, 1, 'estimates', 1, 'EST #923852 marked as declined', '2014-07-27 12:40:18', 'fa-paperclip', 0),
+(102, 1, 'estimates', 1, 'Estimate #427174 created.', '2014-07-27 12:42:08', 'fa-plus', 0),
+(103, 1, 'estimates', 2, 'Estimate #734922 created.', '2014-07-27 12:42:53', 'fa-plus', 0),
+(104, 1, 'estimates', 3, 'Estimate #574873 created.', '2014-07-27 12:44:00', 'fa-plus', 0),
+(105, 1, 'estimates', 3, 'ESTIMATE #574873 marked as Sent', '2014-07-27 12:44:57', 'fa-envelope', 0),
+(106, 1, 'estimates', 4, 'Estimate #882252 created.', '2014-07-27 12:45:28', 'fa-plus', 0),
+(107, 1, 'estimates', 4, 'ESTIMATE #882252 marked as Sent', '2014-07-27 12:46:32', 'fa-envelope', 0),
+(108, 1, 'estimates', 4, 'EST #882252 marked as declined', '2014-07-27 12:49:49', 'fa-paperclip', 0),
+(109, 1, 'estimates', 4, 'EST #882252 marked as accepted', '2014-07-27 12:50:39', 'fa-paperclip', 0),
+(110, 1, 'estimates', 4, 'Converted EST #882252 to Invoice', '2014-07-27 12:51:16', 'fa-laptop', 0),
+(111, 1, 'invoices', 19, 'Converted EST #882252 to Invoice', '2014-07-27 12:51:16', 'fa-laptop', 0),
+(112, 1, 'estimates', 5, 'Estimate #993223 created.', '2014-07-27 12:58:52', 'fa-plus', 0),
+(113, 1, 'estimates', 1, 'ESTIMATE #427174 marked as Sent', '2014-07-27 12:59:57', 'fa-envelope', 0),
+(114, 1, 'estimates', 1, 'EST #427174 marked as accepted', '2014-07-27 13:00:14', 'fa-paperclip', 0),
+(115, 1, 'invoices', 19, 'Payment of USD 1003.16 received and applied to INVOICE #882252', '2014-07-28 15:57:53', 'fa-usd', 0),
+(116, 1, 'invoices', 17, 'Payment of USD 39.27 received and applied to INVOICE #665175', '2014-07-28 16:13:24', 'fa-usd', 0),
+(117, 1, 'invoices', 1, 'INVOICE #923852 marked as Sent', '2014-07-28 16:15:56', 'fa-envelope', 0),
+(118, 1, 'invoices', 1, 'Payment of USD 7216 received and applied to INVOICE #923852', '2014-07-28 16:16:11', 'fa-usd', 0),
+(119, 1, 'invoices', 10, 'Payment of USD 15 received and applied to INVOICE #848322', '2014-07-28 17:07:49', 'fa-usd', 0),
+(120, 1, 'invoices', 10, 'Payment of USD 500 received and applied to INVOICE #848322', '2014-07-28 17:08:06', 'fa-usd', 0),
+(121, 1, 'projects', 8, 'Edited a task Fix Local Environment Bug', '2014-07-28 17:14:19', 'fa-tasks', 0),
+(122, 1, 'bugs', 3, 'Marked Issue #5467 as Confirmed', '2014-07-28 17:19:33', 'fa-coffee', 0);
 
 -- --------------------------------------------------------
 
@@ -179,9 +242,9 @@ CREATE TABLE IF NOT EXISTS `fx_bugs` (
 
 INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `attached_file`, `last_modified`) VALUES
 (1, 3445, 2, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
-(2, 3447, 1, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-10 21:00:00', 2, '2014-05-11 17:27:54'),
-(3, 5467, 2, 12, 23, 'In Progress', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-11 13:51:06', 3, '2014-06-14 15:06:40'),
-(5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-05-11 13:51:06', 4, '2014-05-11 16:51:06');
+(2, 3447, 1, 17, 0, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-12 21:00:00', 2, '2014-05-11 17:27:54'),
+(3, 5467, 2, 12, 23, 'Confirmed', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-14 13:51:06', 3, '2014-06-14 15:06:40'),
+(5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-07-29 13:51:06', 4, '2014-05-11 16:51:06');
 
 -- --------------------------------------------------------
 
@@ -306,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `fx_comment_replies` (
   `replied_by` int(11) NOT NULL,
   `del` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `fx_comment_replies`
@@ -317,7 +380,8 @@ INSERT INTO `fx_comment_replies` (`reply_id`, `parent_comment`, `reply_msg`, `re
 (2, 1, 'Thanks for the good work', 2, 'No', '2014-01-02 11:51:46'),
 (3, 7, 'That div is not allowed', 2, 'No', '2014-01-02 19:34:04'),
 (4, 4, 'I replied to this comment ', 1, 'No', '2014-07-06 11:15:13'),
-(5, 16, 'This issue has been reported as a bug and will be fixed as soon as possible.', 1, 'No', '2014-07-10 16:16:47');
+(5, 16, 'This issue has been reported as a bug and will be fixed as soon as possible.', 1, 'No', '2014-07-10 16:16:47'),
+(6, 14, 'This is my reply', 1, 'No', '2014-07-21 10:36:11');
 
 -- --------------------------------------------------------
 
@@ -357,6 +421,7 @@ INSERT INTO `fx_config` (`key`, `value`) VALUES
 ('default_terms', 'Please pay your fees before the due date to avoid over charge. Thank you for choosing Kabarak University. '),
 ('demo_mode', 'FALSE'),
 ('developer', 'ig63Yd/+yuA8127gEyTz9TY4pnoeKq8dtocVP44+BJvtlRp8Vqcetwjk51dhSB6Rx8aVIKOPfUmNyKGWK7C/gg=='),
+('email_estimate_message', 'Hi {CLIENT}\r\n\r\nThanks for your business enquiry. \r\n\r\nThe estimate EST {REF} is attached with this email. \r\nEstimate Overview:\r\nEstimate # : EST {REF}\r\nAmount: {CURRENCY} {AMOUNT}\r\n \r\nYou can view the estimate online at:\r\n{LINK}\r\n\r\nBest Regards,\r\n{COMPANY}'),
 ('email_invoice_message', 'Hello {CLIENT}\r\nHere is the invoice of {CURRENCY} {AMOUNT}\r\nYou can view the invoice online at:\r\n\r\n{LINK}\r\n\r\n\r\nBest Regards,\r\n\r\n{COMPANY}'),
 ('file_max_size', '9000'),
 ('paypal_email', 'payments@bootstrapstore.net'),
@@ -423,23 +488,24 @@ CREATE TABLE IF NOT EXISTS `fx_estimates` (
   `client` varchar(64) NOT NULL,
   `due_date` varchar(40) NOT NULL,
   `notes` varchar(255) NOT NULL DEFAULT 'Looking forward for your business.',
-  `status` enum('Unpaid','Paid') NOT NULL DEFAULT 'Unpaid',
+  `status` enum('Accepted','Declined','Pending') NOT NULL DEFAULT 'Pending',
   `date_sent` varchar(64) NOT NULL,
   `est_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `emailed` enum('Yes','No') NOT NULL DEFAULT 'No'
+  `emailed` enum('Yes','No') NOT NULL DEFAULT 'No',
+  `invoiced` enum('Yes','No') DEFAULT 'No'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fx_estimates`
 --
 
-INSERT INTO `fx_estimates` (`est_id`, `reference_no`, `client`, `due_date`, `notes`, `status`, `date_sent`, `est_deleted`, `date_saved`, `emailed`) VALUES
-(1, '923852', '2', '31-05-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-05-31 12:28:25', 'No', '2014-05-31 09:28:25', 'No'),
-(2, '659386', '2', '14-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-05-31 12:28:25', 'No', '2014-05-31 09:30:53', 'No'),
-(3, '673957', '4', '17-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-06-01 12:28:25', 'No', '2014-05-31 09:31:53', 'No'),
-(4, '129464', '2', '05-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '2014-06-02 12:28:25', 'No', '2014-06-01 16:22:37', 'No'),
-(5, '423291', '3', '10-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Unpaid', '', 'No', '2014-06-02 14:28:49', 'No');
+INSERT INTO `fx_estimates` (`est_id`, `reference_no`, `client`, `due_date`, `notes`, `status`, `date_sent`, `est_deleted`, `date_saved`, `emailed`, `invoiced`) VALUES
+(1, '427174', '2', '13-08-2014', 'Looking forward to doing business with you.', 'Accepted', '2014-07-27 15:59:57', 'No', '2014-07-27 12:42:08', 'Yes', 'No'),
+(2, '734922', '3', '21-08-2014', 'Looking forward to doing business with you.', 'Pending', '', 'No', '2014-07-27 12:42:53', 'No', 'No'),
+(3, '574873', '12', '22-08-2014', 'Looking forward to doing business with you.', 'Pending', '2014-07-27 15:44:57', 'No', '2014-07-27 12:44:00', 'Yes', 'No'),
+(4, '882252', '2', '22-08-2014', 'Looking forward to doing business with you.', 'Accepted', '2014-07-27 15:46:32', 'No', '2014-07-27 12:45:28', 'Yes', 'Yes'),
+(5, '993223', '7', '23-08-2014', 'Looking forward to doing business with you.', 'Pending', '', 'No', '2014-07-27 12:58:52', 'No', 'No');
 
 -- --------------------------------------------------------
 
@@ -451,29 +517,28 @@ CREATE TABLE IF NOT EXISTS `fx_estimate_items` (
 `item_id` int(11) NOT NULL,
   `estimate_id` int(11) NOT NULL,
   `item_desc` varchar(200) NOT NULL,
-  `unit_cost` int(11) NOT NULL,
+  `unit_cost` float NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total_cost` int(11) NOT NULL,
+  `total_cost` float NOT NULL,
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `fx_estimate_items`
 --
 
 INSERT INTO `fx_estimate_items` (`item_id`, `estimate_id`, `item_desc`, `unit_cost`, `quantity`, `total_cost`, `date_saved`) VALUES
-(1, 1, 'Sample Item', 5, 100, 1500, '2014-06-10 02:00:00'),
-(2, 2, 'Sample Item 2', 2, 200, 200, '2014-06-11 04:19:00'),
-(3, 1, 'iPhone 5 32GB White & Silver (GSM) Unlocked ', 320, 2, 640, '2014-06-11 00:00:00'),
-(4, 1, 'iPad mini with Wi-Fi 32GB - White & Silver ', 200, 4, 800, '2014-06-11 01:00:00'),
-(5, 3, 'My description here', 60, 2, 120, '2014-06-07 13:14:29'),
-(6, 3, 'Sample web design project', 70, 3, 210, '2014-06-07 13:46:43'),
-(7, 3, 'Web Project', 350, 1, 350, '2014-06-07 14:31:53'),
-(8, 1, 'Testing Flash data', 20, 1, 20, '2014-06-07 15:05:51'),
-(9, 5, 'Joomla Theme', 25, 2, 50, '2014-06-07 15:15:26'),
-(10, 5, 'Wordpress Plugin', 240, 1, 240, '2014-06-12 15:59:34'),
-(11, 1, 'Subscription Form', 50, 2, 100, '2014-06-14 16:03:16'),
-(12, 5, 'Subscription Form', 50, 3, 150, '2014-06-14 16:04:23');
+(1, 1, 'Domain SSL Installation', 11.9, 3, 35.7, '2014-07-27 12:42:23'),
+(2, 1, 'Email Setup', 20.3, 2, 40.6, '2014-07-27 12:42:34'),
+(3, 2, 'Buy new domain', 11.9, 6, 71.4, '2014-07-27 12:43:06'),
+(4, 2, 'Email Setup', 20.3, 1, 20.3, '2014-07-27 12:43:17'),
+(5, 2, 'Email Marketing', 11.9, 3, 35.7, '2014-07-27 12:43:32'),
+(6, 3, 'Wordpress Newsletter plugin', 350, 3, 1050, '2014-07-27 12:44:11'),
+(7, 3, 'Domain SSL Installation', 60, 1, 60, '2014-07-27 12:44:25'),
+(8, 4, 'Email Setup', 320, 2, 640, '2014-07-27 12:45:41'),
+(9, 4, 'Domain SSL Installation', 60.98, 2, 121.96, '2014-07-27 12:46:00'),
+(10, 4, 'Wordpress Newsletter plugin', 350, 3, 1050, '2014-07-27 12:46:16'),
+(11, 5, 'Email Setup', 11.9, 6, 71.4, '2014-07-27 12:59:04');
 
 -- --------------------------------------------------------
 
@@ -548,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `fx_invoices` (
   `client` varchar(64) NOT NULL,
   `due_date` varchar(40) NOT NULL,
   `notes` varchar(255) NOT NULL DEFAULT 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.',
-  `allow_paypal` enum('Yes','No') NOT NULL,
+  `allow_paypal` enum('Yes','No') NOT NULL DEFAULT 'Yes',
   `recurring` enum('Yes','No') NOT NULL DEFAULT 'No',
   `r_freq` int(11) NOT NULL DEFAULT '31',
   `status` enum('Unpaid','Paid') NOT NULL DEFAULT 'Unpaid',
@@ -557,21 +622,29 @@ CREATE TABLE IF NOT EXISTS `fx_invoices` (
   `inv_deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `emailed` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `fx_invoices`
 --
 
 INSERT INTO `fx_invoices` (`inv_id`, `reference_no`, `client`, `due_date`, `notes`, `allow_paypal`, `recurring`, `r_freq`, `status`, `archived`, `date_sent`, `inv_deleted`, `date_saved`, `emailed`) VALUES
-(1, '923852', '2', '31-05-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '2014-05-31 12:28:25', 'No', '2014-05-31 09:28:25', 'No'),
+(1, '923852', '2', '31-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '2014-07-28 19:15:56', 'No', '2014-05-31 09:28:25', 'Yes'),
 (2, '659386', '2', '14-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-05-31 12:28:25', 'No', '2014-05-31 09:30:53', 'No'),
 (3, '673957', '3', '07-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-25 19:18:22', 'No', '2014-05-31 09:31:53', 'Yes'),
-(4, '129464', '4', '05-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '2014-06-02 12:28:25', 'No', '2014-06-01 16:22:37', 'No'),
+(4, '129464', '4', '28-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '2014-06-02 12:28:25', 'No', '2014-06-01 16:22:37', 'No'),
 (5, '423291', '3', '10-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-24 19:03:57', 'No', '2014-06-02 14:28:49', 'Yes'),
 (6, '222867', '22', '10-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '', 'No', '2014-06-22 10:11:12', 'No'),
 (7, '884439', '11', '25-06-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-24 19:22:29', 'No', '2014-06-22 10:12:57', 'Yes'),
-(8, '418115', '17', '24-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-29 18:49:51', 'No', '2014-06-29 15:21:26', 'Yes');
+(8, '418115', '17', '24-07-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', '', 0, 'Unpaid', 0, '2014-06-29 18:49:51', 'No', '2014-06-29 15:21:26', 'Yes'),
+(9, '869575', '9', '13-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 0, 'Unpaid', 0, '', 'No', '2014-07-20 15:19:51', 'No'),
+(10, '848322', '13', '16-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'No', 'Yes', 30, 'Unpaid', 0, '', 'No', '2014-07-20 15:26:21', 'No'),
+(11, '185387', '8', '09-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 7, 'Unpaid', 0, '2014-07-26 19:11:42', 'No', '2014-07-23 15:36:13', 'Yes'),
+(12, '356413', '13', '06-08-2014', 'A finance charge of 1.5% will be made on unpaid balances after due day.Thank you for your business.', 'Yes', 'No', 7, 'Unpaid', 0, '', 'No', '2014-07-23 15:53:47', 'No'),
+(15, '193461', '3', '22-08-2014', 'Looking forward to doing business with you.', 'Yes', 'No', 31, 'Unpaid', 0, '', 'No', '2014-07-27 06:46:47', 'No'),
+(16, '191885', '15', '28-08-2014', 'Looking forward to doing business with you.', 'Yes', 'No', 31, 'Unpaid', 0, '', 'No', '2014-07-27 06:48:05', 'No'),
+(17, '665175', '14', '22-08-2014', 'Looking forward to doing business with you.', 'Yes', 'No', 31, 'Unpaid', 0, '', 'No', '2014-07-27 06:52:12', 'No'),
+(19, '882252', '2', '22-08-2014', 'Looking forward to doing business with you.', 'Yes', 'No', 31, 'Unpaid', 0, '', 'No', '2014-07-27 12:51:16', 'No');
 
 -- --------------------------------------------------------
 
@@ -583,11 +656,11 @@ CREATE TABLE IF NOT EXISTS `fx_items` (
 `item_id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL,
   `item_desc` varchar(200) NOT NULL,
-  `unit_cost` int(11) NOT NULL,
+  `unit_cost` float NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total_cost` int(11) NOT NULL,
+  `total_cost` float NOT NULL,
   `date_saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
 
 --
 -- Dumping data for table `fx_items`
@@ -610,7 +683,32 @@ INSERT INTO `fx_items` (`item_id`, `invoice_id`, `item_desc`, `unit_cost`, `quan
 (15, 8, 'Mailchimp Wordpress Plugin', 350, 1, 350, '2014-06-29 15:22:12'),
 (16, 1, 'Wordpress Plugin', 100, 1, 100, '2014-07-07 07:56:01'),
 (17, 1, 'Web Design http://sample.com', 3500, 1, 3500, '2014-07-10 17:17:27'),
-(18, 1, 'Server Configuration http://sample.com', 2500, 3, 7500, '2014-07-10 17:18:17');
+(20, 5, 'Develop and Installation', 290, 1, 290, '2014-07-20 15:05:36'),
+(22, 9, 'Joomla Theme', 200, 2, 400, '2014-07-20 15:20:05'),
+(23, 9, 'Develop and Installation', 290, 2, 580, '2014-07-20 15:22:04'),
+(30, 4, 'Joomla Theme', 200, 3, 600, '2014-07-20 17:47:27'),
+(31, 9, 'Joomla Theme', 200, 2, 400, '2014-07-21 10:27:07'),
+(32, 9, 'Buy new domain', 10, 1, 10, '2014-07-21 10:27:29'),
+(33, 8, 'Web Development', 50, 1, 50, '2014-07-23 15:25:30'),
+(34, 11, 'Setup the Main Theme Menu', 25, 3, 75, '2014-07-23 15:36:41'),
+(35, 11, 'Wordpress Newsletter plugin', 350, 2, 700, '2014-07-23 15:37:10'),
+(36, 12, 'Develop and Installation', 290, 6, 1740, '2014-07-23 15:53:57'),
+(37, 10, 'Web Development', 50, 1, 50, '2014-07-23 15:57:05'),
+(38, 10, 'Joomla Theme', 200, 3, 600, '2014-07-23 15:57:17'),
+(39, 12, 'Footer Copyright', 45, 3, 135, '2014-07-25 16:28:29'),
+(40, 13, 'Email Setup', 90, 1, 90, '2014-07-27 06:43:59'),
+(41, 13, 'Domain SSL Installation', 100, 1, 100, '2014-07-27 06:43:59'),
+(42, 13, 'Buy new domain', 12, 1, 12, '2014-07-27 06:43:59'),
+(43, 13, 'Wordpress Newsletter plugin', 11.9, 1, 11.9, '2014-07-27 06:43:59'),
+(44, 15, 'Email Setup', 90, 1, 90, '2014-07-27 06:46:47'),
+(45, 15, 'Domain SSL Installation', 100, 1, 100, '2014-07-27 06:46:47'),
+(46, 15, 'Buy new domain', 12, 1, 12, '2014-07-27 06:46:47'),
+(47, 15, 'Wordpress Newsletter plugin', 11.9, 1, 11.9, '2014-07-27 06:46:47'),
+(48, 16, 'Wordpress Newsletter plugin', 560, 3, 1680, '2014-07-27 06:48:05'),
+(49, 17, 'Domain SSL Installation', 11.9, 3, 35.7, '2014-07-27 06:52:12'),
+(50, 19, 'Email Setup', 320, 2, 640, '2014-07-27 12:51:16'),
+(51, 19, 'Domain SSL Installation', 60.98, 2, 121.96, '2014-07-27 12:51:16'),
+(52, 19, 'Wordpress Newsletter plugin', 350, 3, 1050, '2014-07-27 12:51:16');
 
 -- --------------------------------------------------------
 
@@ -620,21 +718,21 @@ INSERT INTO `fx_items` (`item_id`, `invoice_id`, `item_desc`, `unit_cost`, `quan
 
 CREATE TABLE IF NOT EXISTS `fx_items_saved` (
 `item_id` int(11) NOT NULL,
-  `item` varchar(150) NOT NULL,
   `item_desc` varchar(200) NOT NULL,
   `unit_cost` int(11) NOT NULL,
-  `category` enum('hours','product','service') NOT NULL DEFAULT 'product',
   `deleted` enum('Yes','No') DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `fx_items_saved`
 --
 
-INSERT INTO `fx_items_saved` (`item_id`, `item`, `item_desc`, `unit_cost`, `category`, `deleted`) VALUES
-(1, 'Website', 'Web Development', 50, 'product', 'No'),
-(2, 'Theme Design', 'Joomla Theme', 200, 'product', 'No'),
-(3, 'Joomla Website', 'Develop and Installation', 290, 'service', 'No');
+INSERT INTO `fx_items_saved` (`item_id`, `item_desc`, `unit_cost`, `deleted`) VALUES
+(1, 'Web Development', 50, 'No'),
+(2, 'Joomla Theme', 200, 'No'),
+(3, 'Develop and Installation', 290, 'No'),
+(4, 'Footer Copyright', 50, 'No'),
+(7, 'Sliding Images', 130, 'No');
 
 -- --------------------------------------------------------
 
@@ -664,7 +762,7 @@ CREATE TABLE IF NOT EXISTS `fx_messages` (
   `attached_file` varchar(100) NOT NULL,
   `date_received` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `fx_messages`
@@ -684,18 +782,20 @@ INSERT INTO `fx_messages` (`msg_id`, `user_to`, `user_from`, `message`, `status`
 (11, 1, 14, 'Please send me your assignment.\r\n', 'Read', '', '2014-05-10 08:31:48', 'No'),
 (12, 14, 1, 'Testing this message', 'Unread', '', '2014-07-13 15:05:35', 'No'),
 (13, 14, 1, 'Checking this message', 'Unread', '', '2014-07-14 16:07:34', 'No'),
-(14, 14, 1, 'Now send the email', 'Unread', '', '2014-07-14 16:08:25', 'No'),
+(14, 14, 1, 'Now send the email', 'Unread', '', '2014-07-14 16:08:25', 'Yes'),
 (15, 24, 1, 'Was testing this message', 'Unread', '', '2014-07-18 17:23:22', 'No'),
 (16, 1, 24, 'Was testing this message too', 'Read', '', '2014-07-18 17:34:22', 'No'),
 (17, 24, 1, 'Thanks for getting back buddy', 'Unread', '', '2014-07-18 17:44:20', 'Yes'),
-(18, 14, 1, 'I sent this message', 'Unread', '', '2014-07-20 08:27:34', 'No'),
+(18, 14, 1, 'I sent this message', 'Unread', '', '2014-07-20 08:27:34', 'Yes'),
 (19, 20, 1, 'Hello Mr President i miss you', 'Unread', '', '2014-07-20 08:41:20', 'Yes'),
 (20, 1, 20, 'Miss you too bastard', 'Read', '', '2014-07-20 08:43:20', 'No'),
-(21, 14, 1, 'Hang on dude', 'Unread', '', '2014-07-20 08:44:35', 'No'),
+(21, 14, 1, 'Hang on dude', 'Unread', '', '2014-07-20 08:44:35', 'Yes'),
 (22, 24, 1, 'Hey u', 'Unread', '', '2014-07-20 08:46:51', 'Yes'),
 (23, 24, 1, 'I got that sorted', 'Unread', '', '2014-07-20 08:47:38', 'Yes'),
 (24, 20, 1, 'Hello carnivore', 'Unread', '', '2014-07-20 08:59:05', 'Yes'),
-(25, 20, 1, 'Testing this hack', 'Unread', '', '2014-07-20 09:39:03', 'No');
+(25, 20, 1, 'Testing this hack', 'Unread', '', '2014-07-20 09:39:03', 'No'),
+(26, 24, 1, 'Hey carnivore', 'Unread', '', '2014-07-21 10:32:42', 'No'),
+(27, 5, 1, 'Hello Max Leshan?', 'Unread', '', '2014-07-28 17:18:20', 'No');
 
 -- --------------------------------------------------------
 
@@ -741,40 +841,18 @@ CREATE TABLE IF NOT EXISTS `fx_payments` (
   `month_paid` varchar(32) NOT NULL,
   `year_paid` varchar(32) NOT NULL,
   `inv_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fx_payments`
 --
 
 INSERT INTO `fx_payments` (`p_id`, `invoice`, `paid_by`, `payment_method`, `amount`, `trans_id`, `notes`, `created_date`, `month_paid`, `year_paid`, `inv_deleted`) VALUES
-(1, 2, 3, '1', 130, '32423432', '', '2014-05-09 06:42:11', '05', '2013', 'No'),
-(2, 1, 2, '2', 500, '3243255', '', '2014-05-09 06:42:52', '04', '2014', 'No'),
-(3, 1, 2, '1', 100, '3243255', '', '2014-05-09 06:42:52', '04', '2012', 'No'),
-(4, 1, 3, '2', 50, '3243212', '', '2014-05-09 06:42:52', '05', '2014', 'No'),
-(5, 3, 4, '1', 50, '3243214', '', '2014-05-09 06:42:52', '06', '2014', 'No'),
-(6, 1, 3, '1', 200, '543442', 'Thanks', '2014-06-07 16:31:25', '06', '2014', 'No'),
-(7, 5, 4, '1', 19, '448296', 'Paid via Mastercard', '2014-06-20 15:16:53', '06', '2014', 'No'),
-(8, 5, 5, '1', 50, '661788', '', '2014-06-20 16:13:46', '06', '2014', 'No'),
-(9, 5, 3, '1', 20, '839886', '', '2014-06-20 16:15:58', '06', '2014', 'No'),
-(10, 5, 5, '1', 10, '256275', '', '2014-06-20 16:16:41', '06', '2014', 'No'),
-(11, 5, 3, '1', 1, '123281', '', '2014-06-20 16:17:35', '06', '2014', 'No'),
-(12, 5, 2, '1', 19, '567792', '', '2014-06-20 16:18:17', '06', '2014', 'No'),
-(13, 5, 3, '1', 20, '886348', '', '2014-06-20 16:23:35', '06', '2014', 'No'),
-(14, 5, 3, '1', 20, '819547', '', '2014-06-20 16:25:38', '06', '2014', 'No'),
-(15, 5, 3, '1', 20, '747288', '', '2014-06-20 16:29:14', '06', '2014', 'No'),
-(16, 5, 3, '1', 10, '515935', '', '2014-06-20 16:33:54', '06', '2014', 'No'),
-(17, 5, 3, '1', 10, '545787', '', '2014-06-20 16:34:25', '06', '2014', 'No'),
-(18, 5, 3, '1', 10, '655182', '', '2014-06-20 16:34:57', '06', '2014', 'No'),
-(19, 5, 3, '1', 10, '635385', '', '2014-06-20 16:42:22', '06', '2014', 'No'),
-(20, 5, 3, '1', 10, '742419', '', '2014-06-20 16:43:01', '06', '2014', 'No'),
-(21, 5, 3, '1', 10, '679727', '', '2014-06-20 17:45:19', '06', '2014', 'No'),
-(22, 5, 3, '1', 5, '861455', '', '2014-06-20 17:45:45', '06', '2014', 'No'),
-(23, 3, 3, '1', 98, '763777', '', '2014-06-21 05:29:43', '06', '2014', 'No'),
-(24, 3, 3, '1', 95, '625256', '', '2014-06-25 08:42:35', '06', '2014', 'No'),
-(25, 7, 0, '1', 15, '511952', '', '2014-06-29 15:15:35', '06', '2014', 'No'),
-(26, 7, 0, '1', 100, '462336', '', '2014-06-29 15:19:10', '06', '2014', 'No'),
-(27, 1, 0, '1', 16, '463312', '', '2014-07-07 07:56:57', '07', '2014', 'No');
+(1, 19, 1, '1', 1003.16, '872741', '', '2014-06-28 15:57:53', '06', '2014', 'No'),
+(2, 17, 1, '1', 39.27, '835818', '', '2014-07-28 16:13:24', '07', '2014', 'No'),
+(3, 1, 1, '1', 7216, '874533', '', '2014-07-28 16:16:11', '07', '2014', 'No'),
+(4, 10, 1, '2', 15, '729356', '', '2014-07-28 17:07:49', '07', '2014', 'No'),
+(5, 10, 1, '1', 500, '782294', '', '2014-07-28 17:08:06', '07', '2014', 'No');
 
 -- --------------------------------------------------------
 
@@ -862,7 +940,7 @@ INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `clien
 (4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 5, 21, 'Description goes here', 1, 'Active', 'Off', 0, 316722, 'No', 'TRUE', 100, '2014-05-24 16:44:20'),
 (5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 5, 59, 'Description db', 5, 'Active', 'Off', 0, 84653, 'No', 'TRUE', 50, '2014-05-24 16:44:56'),
 (7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 62, 'Project Description', 4, 'Active', 'Off', 0, 262842, 'No', 'FALSE', 0, '2014-05-26 16:19:56'),
-(8, 66396, 'Wordpress Plugin Development', 6, '11-07-2014', '20-08-2014', 5, 61, 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 1, 'Active', 'Off', 0, 47668, 'No', 'TRUE', 40, '2014-07-11 16:55:29');
+(8, 66396, 'Wordpress Plugin Development', 6, '11-07-2014', '20-08-2014', 5, 61, 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 1, 'Active', 'Off', 0, 677034, 'No', 'TRUE', 40, '2014-07-11 16:55:29');
 
 -- --------------------------------------------------------
 
@@ -876,7 +954,7 @@ CREATE TABLE IF NOT EXISTS `fx_project_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `fx_project_timer`
@@ -899,7 +977,9 @@ INSERT INTO `fx_project_timer` (`timer_id`, `project`, `start_time`, `end_time`,
 (14, 5, '1405013904', '1405094057', '2014-07-11 15:54:17'),
 (15, 8, '1405098980', '1405098989', '2014-07-11 17:16:29'),
 (16, 8, '1405099781', '1405147440', '2014-07-12 06:44:00'),
-(17, 4, '1405175295', '1405487517', '2014-07-16 05:11:57');
+(17, 4, '1405175295', '1405487517', '2014-07-16 05:11:57'),
+(18, 8, '1405938192', '1405938205', '2014-07-21 10:23:25'),
+(19, 8, '1405938214', '1406567567', '2014-07-28 17:12:47');
 
 -- --------------------------------------------------------
 
@@ -1243,9 +1323,9 @@ INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `descript
 (6, 'Modal in Dashboard 2', 2, '5', 'Create a prototype with Twitter Bootstrap 3 ', 'Yes', 50, 'Off', 0, 82, 136, 'TRUE', '2014-07-04 18:06:08', 1),
 (7, 'Sliding Homepage ', 2, '4', '<ul>\r\n<li>Create unlimited amount of tasks for your Projects!</li>\r\n<li>Tasks can be sorted by tags which allow you to organize your tasks in an efficient way.\r\n</li>\r\n</ul>', 'Yes', 10, 'Off', 0, 20, 5329, 'TRUE', '2014-07-05 15:25:29', 1),
 (8, 'New Bootstrap 3 Template', 7, '5', 'Create a new web template for Clientopia. Base colors should be black and green', 'Yes', 90, 'Off', 0, 2, 780970, 'FALSE', '2014-07-05 17:53:51', 1),
-(9, 'Fix Local Environment Bug', 8, '4', 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 'Yes', 10, 'Off', 0, 1, 2108, 'TRUE', '2014-07-12 07:03:08', 1),
+(9, 'Fix Local Environment Bug', 8, '4', 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 'Yes', 10, 'On', 1406567634, 5, 2108, 'TRUE', '2014-07-12 07:03:08', 1),
 (10, 'Sliding Menu', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 2, 0, 'FALSE', '2014-07-12 08:57:12', 1),
-(11, 'Responsive Footer', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 08:57:59', 1),
+(11, 'Responsive Footer', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 1, 27, 'FALSE', '2014-07-12 08:57:59', 1),
 (12, 'Sticky Glowing Menu', 1, '23', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 11:30:44', 1),
 (13, 'Logout Error fix DB', 4, '5', 'Description', 'Yes', 20, 'Off', 0, 2, 0, 'FALSE', '2014-07-12 14:28:58', 1),
 (14, 'Responsive Footer', 5, '23', 'Description', 'Yes', 50, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 14:30:13', 1),
@@ -1264,7 +1344,7 @@ CREATE TABLE IF NOT EXISTS `fx_tasks_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `fx_tasks_timer`
@@ -1281,7 +1361,8 @@ INSERT INTO `fx_tasks_timer` (`timer_id`, `task`, `start_time`, `end_time`, `dat
 (8, 8, '1404582839', '1404584219', '2014-07-05 18:16:59'),
 (9, 8, '1404719583', '1404719592', '2014-07-07 07:53:12'),
 (10, 9, '1405148676', '1405150784', '2014-07-12 07:39:44'),
-(11, 8, '1404920060', '1405699641', '2014-07-18 16:07:21');
+(11, 8, '1404920060', '1405699641', '2014-07-18 16:07:21'),
+(12, 11, '1406567600', '1406567627', '2014-07-28 17:13:47');
 
 -- --------------------------------------------------------
 
@@ -1303,7 +1384,7 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
 ('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, ''),
-('cd20a6811ab78d9ce1b3f9d0cc3203ea', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1405867355, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}');
+('e2a7114b8c21183565d2cf773841111c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406653018, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -1335,7 +1416,7 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-20 11:23:16', '2014-02-26 14:18:04', '2014-07-20 08:23:16'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-07-29 18:13:20', '2014-02-26 14:18:04', '2014-07-29 15:13:20'),
 (2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
 (4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
@@ -1596,7 +1677,7 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
@@ -1621,7 +1702,7 @@ MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 -- AUTO_INCREMENT for table `fx_comment_replies`
 --
 ALTER TABLE `fx_comment_replies`
-MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `fx_contacts`
 --
@@ -1641,7 +1722,7 @@ MODIFY `est_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `fx_estimate_items`
 --
 ALTER TABLE `fx_estimate_items`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `fx_faqs`
 --
@@ -1656,17 +1737,17 @@ MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `fx_invoices`
 --
 ALTER TABLE `fx_invoices`
-MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `fx_items`
 --
 ALTER TABLE `fx_items`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT for table `fx_items_saved`
 --
 ALTER TABLE `fx_items_saved`
-MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `fx_login_attempts`
 --
@@ -1676,7 +1757,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `fx_messages`
 --
 ALTER TABLE `fx_messages`
-MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `fx_news`
 --
@@ -1686,7 +1767,7 @@ MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `fx_payments`
 --
 ALTER TABLE `fx_payments`
-MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `fx_payment_methods`
 --
@@ -1706,7 +1787,7 @@ MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `fx_project_timer`
 --
 ALTER TABLE `fx_project_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `fx_ratings`
 --
@@ -1726,7 +1807,7 @@ MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `fx_tasks_timer`
 --
 ALTER TABLE `fx_tasks_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `fx_users`
 --
