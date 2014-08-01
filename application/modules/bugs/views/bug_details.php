@@ -80,134 +80,29 @@
 							</form>
 						</div>
 					</div> </header>
+					</section>
+					<?php
+								if (!empty($bug_details)) {
+				foreach ($bug_details as $key => $bug) { ?>
 					<section class="scrollable wrapper w-f">
 					<section class="hbox stretch"> 
 					
 					<?php  echo modules::run('sidebar/flash_msg');?>
 					<!-- Start bug details -->
-					<?php
-								if (!empty($bug_details)) {
-				foreach ($bug_details as $key => $bug) { ?>
-
-				<aside class="bg-white"> 
-	<header class="header bg-light bg-gradient">
-		<ul class="nav nav-tabs nav-white">
-			<li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-		</ul> </header> 
-		<section class="scrollable w-f">
-		<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
-		<div class="tab-content">
-			<div class="tab-pane active" id="activity">
-				<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
-					<?php
-					if (!empty($bug_activities)) {
-					foreach ($bug_activities as $key => $activity) { ?>
-					<li class="list-group-item"> 
-					<a href="#" class="thumb-sm pull-left m-r-sm"> 
-					<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($activity->user,'avatar')?>" class="img-circle"> </a> 
-					<a href="#" class="clear"> <small class="pull-right"><?php
-								$today = time();
-								$activity_day = strtotime($activity->activity_date) ;
-								echo $this->user_profile->get_time_diff($today,$activity_day);
-							?> ago</small> 
-					<strong class="block"><?=ucfirst($this->user_profile->get_profile_details($activity->user,'fullname')?$this->user_profile->get_profile_details($activity->user,'fullname'):$this->user_profile->get_user_details($activity->user,'username'))?></strong> <small><?=$activity->activity?></small> </a> 
-					</li>
-					<?php } }else{ ?>
-					<li class="list-group-item">
-						<p><?=lang('no_activity_found')?></p>
-					</li>
-					<?php } ?>
-				</ul>
-			</div>
-		</div> </div></section>  </aside> 
-
-
-		<aside class="col-lg-4 b-l"> 
-		<?php  echo modules::run('sidebar/flash_msg');?>
-		<section class="vbox"> 
-		<section class="scrollable w-f">
-		<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
-		<div class="col-lg-12"> 
-		<h4 class="font-thin padder"><?=lang('latest_comments')?></h4>
-			<!-- .comment-list --> 
-		<section class="comment-list block">
-			<?php
-					if (!empty($bug_comments)) {
-					foreach ($bug_comments as $key => $comment) { ?>
-		<article id="comment-id-1" class="comment-item">
-		<a class="pull-left thumb-sm avatar"> 
-		<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($comment->comment_by,'avatar')?>" class="img-circle"> </a> 
-		<span class="arrow left"></span> 
-		<section class="comment-body panel panel-default"> 
-			<header class="panel-heading bg-white">
-			<a href="#"><?=ucfirst($this->user_profile->get_profile_details($comment->comment_by,'fullname')?$this->user_profile->get_profile_details($comment->comment_by,'fullname'):$this->user_profile->get_user_details($comment->comment_by,'username'))?></a>
-			<?php if($comment->comment_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-info m-l-xs"><?=lang('you')?></label> <?php } ?>
-			<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
-								$today = time();
-								$comment_day = strtotime($comment->date_commented) ;
-								echo $this->user_profile->get_time_diff($today,$comment_day);
-							?> ago </span> </header>
-			<div class="panel-body">
-				<div><small><?=$comment->comment?></small></div>		
-			</div>
-			</section> 
-		</article> 
-		<?php } }else{ ?>
-				<p><?=lang('no_comment_found')?></p>
-				<?php } ?>
-
-			<!-- comment form --> 
-			<article class="comment-item media" id="comment-form"> 
-				<a class="pull-left thumb-sm avatar">
-				<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> 
-				<section class="media-body"> 
-				<?php     
-			$attributes = array('class' => 'm-b-none');
-			echo form_open(base_url().'bugs/comment?bug='.$bug->bug_id, $attributes); ?>
-			<input type="hidden" name="bug" value="<?=$bug->bug_id?>">
-					<div class="input-group"> 
-					<input type="text" name="comment" class="form-control" required placeholder="<?=lang('type_comment_here')?>">
-					<span class="input-group-btn">
-					<button class="btn btn-primary" type="submit"><?=lang('post')?></button>
-					</span> 
-					</div> 
-				</form> 
-				</section>
-			</article>
-		</section> 
-		</div>
-		</div>
-			<!-- / .comment-list --> 
-		</section> 
-		</section> 
-		</aside> 
 
 
 
 
 
 
-
-
-
-
-
-
-
-				<?php } } ?>
-				</section>
+					
 					 <!-- End bug details -->
-
-
-
-
-
 
 					</section>  
 
 
 
-
+<?php } } ?>
 		</section> </aside> </section> <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
 
 
