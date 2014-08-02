@@ -80,29 +80,150 @@
 							</form>
 						</div>
 					</div> </header>
-					</section>
-					<?php
-								if (!empty($bug_details)) {
-				foreach ($bug_details as $key => $bug) { ?>
 					<section class="scrollable wrapper w-f">
-					<section class="hbox stretch"> 
+					
+					<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
 					
 					<?php  echo modules::run('sidebar/flash_msg');?>
 					<!-- Start bug details -->
+					<?php
+								if (!empty($bug_details)) {
+				foreach ($bug_details as $key => $bug) { ?>
+
+				
+
+				<section class="panel ">
+
+
+<ul class="nav nav-tabs" id="stats"> 
+<li class="active"><a href="#comments" data-toggle="tab">Comments</a></li> 
+<li class="">
+<a href="<?=base_url()?>bugs/tabs/attachments/<?=$bug->bug_id?>" data-target="#attachments" data-toggle="tabajax" rel="tooltip">Attachments</a>
+</li> 
+<li class="">
+<a href="<?=base_url()?>bugs/tabs/activities/<?=$bug->bug_id?>" data-target="#activities" data-toggle="tabajax" rel="tooltip">Activities</a>
+</li> 
+<li class="">
+<a href="<?=base_url()?>bugs/tabs/details/<?=$bug->bug_id?>" data-target="#details" data-toggle="tabajax" rel="tooltip">Bug Details</a>
+</li> 
+</ul> 
+
+<div class="panel-body"> 
+
+<div class="tab-content"> 
+
+<div class="tab-pane active" id="comments">
+
+
+<!-- Start Comments -->
+
+									<section class="scrollable w-f">
+										
+											<div class="col-lg-12">
+												<!-- .comment-list -->
+												<section class="comment-list block">
+
+
+
+
+					<!-- comment form -->
+
+						<article class="comment-item media"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
+						<?php   
+															$attributes = array('class' => 'm-b-none');
+			echo form_open(base_url().'bugs/comment?bug='.$bug->bug_id, $attributes); ?>
+								<input type="hidden" name="project_id" value="<?=$bug->bug_id?>">
+
+								<section class="panel panel-default"> 
+									<textarea class="form-control no-border" rows="3" name="message" placeholder="Enter your message here"></textarea>
+									<footer class="panel-footer bg-light lter">
+									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('post_comment')?></button> 
+									<ul class="nav nav-pills nav-sm"> 
+									<li><a href="<?=base_url()?>bugs/send/attachment">
+									<i class="fa fa-paperclip text-dark"></i> <?=lang('attach')?></a></li>  
+									</ul> </footer> 
+								</section>
+						</form> </section> </article>
+
+
+
+						<!-- End Comment Form -->
+
+
+													<?php
+					if (!empty($bug_comments)) {
+					foreach ($bug_comments as $key => $comment) { ?>
+
+													<article id="comment-id-1" class="comment-item">
+														<a class="pull-left thumb-sm avatar">
+														<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($comment->comment_by,'avatar')?>" class="img-circle"> </a>
+														<span class="arrow left"></span>
+														<section class="comment-body panel panel-default">
+															<header class="panel-heading bg-white">
+																<a href="<?=base_url()?>clients/view/details/<?=$comment->comment_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->comment_by,'fullname')?$this->user_profile->get_profile_details($comment->comment_by,'fullname'):$this->user_profile->get_user_details($comment->comment_by,'username'))?></a>
+																<?php if($comment->comment_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
+																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
+																					$today = time();
+																					$comment_day = strtotime($comment->date_commented) ;
+																					echo $this->user_profile->get_time_diff($today,$comment_day);
+															?> ago </span> </header>
+															<div class="panel-body">
+																<div><small><?=$comment->comment?></small></div>
+																<div class="comment-action m-t-sm">
+																
+																</div>
+															</div>
+
+															
+
+														</section>
+													</article>
+													
+													<?php } }else{ ?>
+													<p><?=lang('no_comment_found')?></p>
+													<?php } ?>
+													
+
+
+
+													
+											</section>
+										</div>
+									
+									<!-- / .comment-list -->
+
+
+<!-- End Comments -->
+</div> 
+
+<div class="tab-pane" id="attachments"></div> 
+
+<div class="tab-pane " id="activities"></div> 
+
+<div class="tab-pane " id="details"></div>
+
+</div> 
+</div> </section>
 
 
 
 
 
 
-					
+
+				<?php } } ?>
+				</section>
 					 <!-- End bug details -->
 
-					</section>  
 
 
 
-<?php } } ?>
+
+</div>
+
+
+
+
 		</section> </aside> </section> <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
 
 

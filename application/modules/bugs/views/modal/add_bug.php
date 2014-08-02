@@ -11,7 +11,7 @@
 				<label class="col-lg-4 control-label"><?=lang('issue_ref')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
 				<?php $this->load->helper('string'); ?>
-					<input type="text" class="form-control" value="<?=random_string('nozero', 4);?>" name="issue_ref" readonly>
+					<input type="text" class="form-control" value="<?=random_string('nozero', 6);?>" name="issue_ref" readonly>
 				</div>
 				</div>
 				<div class="form-group">
@@ -33,11 +33,25 @@
 					<?php
 					if (!empty($users)) {
 					foreach ($users as $key => $user) { ?>
-						<option value="<?=$user->id?>"><?=$user->username?></option>
+						<option value="<?=$user->id?>"><?=ucfirst($user->username)?></option>
 					<?php } } ?>	
 				</select>
 				</div>
 				</div>
+
+				<div class="form-group">
+				<label class="col-lg-4 control-label"><?=lang('assigned_to')?> <span class="text-danger">*</span></label>
+				<div class="col-lg-8">
+				<select name="assigned_to" class="form-control">
+					<?php
+					if (!empty($admins)) {
+					foreach ($admins as $key => $admin) { ?>
+						<option value="<?=$admin->id?>"><?=ucfirst($admin->username)?></option>
+					<?php } } ?>	
+				</select>
+				</div>
+				</div>
+
 				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('priority')?> </label>
 				<div class="col-lg-8">

@@ -18,6 +18,7 @@ class Bugs_model extends CI_Model
 	}
 	function bug_activities($bug_id)
 	{
+		$this->db->join('users','users.id = activities.user');
 		return $this->db->where(array( 'module' => 'bugs', 'module_field_id' => $bug_id))
 		->order_by('activity_date','desc')->get('activities')
 		->result();
@@ -28,6 +29,10 @@ class Bugs_model extends CI_Model
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
+	}
+	function bug_files($bug_id)
+	{
+		return $this->db->where('bug',$bug_id)->order_by('date_posted','desc')->get('bug_files')->result();
 	}
 	function bugs()
 	{

@@ -54,7 +54,7 @@ class View extends MX_Controller {
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
 			                'reporter' => $this->input->post('reporter'),
-			                'assigned_to' => $this->input->post('message'),
+			                'assigned_to' => $this->input->post('assigned_to'),
 			                'bug_status' => 'Unconfirmed',
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
@@ -69,6 +69,7 @@ class View extends MX_Controller {
 			redirect('bugs/view_by_status/all');
 		}
 		}else{
+			$data['admins'] = $this->bugs_model->users('');
 			$data['users'] = $this->bugs_model->users('all');
 			$data['projects'] = $this->bugs_model->projects();
 		$this->load->view('modal/add_bug',$data);
