@@ -88,6 +88,25 @@ class Bugs_model extends CI_Model
   		 return $row->file_name;
   		}
 	}
+	function get_file($file_id)
+		{
+			return $this->db->select()
+					->from('bug_files')
+					->where('file_id', $file_id)
+					->get()
+					->row();
+		}
+	function insert_file($filename,$bug,$description)
+	{
+		$data = array(
+			'bug'	=> $bug,
+			'file_name'			=> $filename,
+			'description'			=> $description,
+			'uploaded_by'			=> $this->tank_auth->get_user_id(),
+		);
+		$this->db->insert('bug_files', $data);
+		return $this->db->insert_id();
+	}
 	
 	
 }

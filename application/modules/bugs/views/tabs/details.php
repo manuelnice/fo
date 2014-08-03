@@ -22,8 +22,20 @@
         <div style="clear:both;"></div>
       </div>
     </div>
-
-    <div style="text-align:center;color:white;float:right;background:#78ae54;width: 25%;
+<?php
+if ($bug->bug_status == 'Unconfirmed') {
+  $colorcode = '#FB6B5B';
+}elseif ($bug->bug_status == 'Confirmed') {
+  $colorcode = '#4CC0C1';
+}elseif ($bug->bug_status == 'Resolved') {
+  $colorcode = '#65BD77';
+}elseif ($bug->bug_status == 'In Progress') {
+  $colorcode = '#2E3E4E';
+}else{
+  $colorcode = '#78ae54';
+}
+?>
+    <div style="text-align:center;color:white;float:right;background:<?=$colorcode?>;width: 25%;
       padding: 20px 5px;">
       <span> <?=strtoupper(lang('bug_status'))?></span><br>
       <span style="font-size:16pt;"><?=$bug->bug_status?></span>

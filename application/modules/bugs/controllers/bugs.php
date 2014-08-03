@@ -88,7 +88,8 @@ class Bugs extends MX_Controller {
 			            );
 			$this->db->insert('bug_comments', $form_data); 
 			$activity = "Added a comment to a bug";
-			$this->_log_bug_activity($this->input->post('bug'),$activity); //log activity
+			$this->_log_bug_activity($this->input->post('bug'),$activity,$icon = 'fa-comment'); //log activity
+			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
 			redirect('bugs/view/details/'.$this->input->get('bug',TRUE));
@@ -115,7 +116,7 @@ class Bugs extends MX_Controller {
 			            );
 			$this->db->where('bug_id',$this->input->post('bug_id'))->update('bugs', $form_data); 
 			$activity = 'Assigned Issue #'.$this->input->post('issue_ref').' to a user and marked as In Progress';
-			$this->_log_bug_activity($this->input->post('bug_id'),$activity); //log activity
+			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-check'); //log activity
 			//send email to the assigned user
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('bug_assigned_successfully'));
@@ -130,31 +131,32 @@ class Bugs extends MX_Controller {
 	}
 	function mark_status()
 	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('bug_status', 'Bug Status', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('bugs/view_by_status/all');
-		}else{			
+		if ($this->input->get('b', TRUE)) {
+		$bug = $this->input->get('b');
+		$status = $this->input->get('s', TRUE);
+		if ($status == 'unconfirmed') {
+			$bug_status = 'Unconfirmed'; }elseif ($status == 'confirmed') {
+			$bug_status = 'Confirmed';	}elseif ($status == 'progress') {
+			$bug_status = 'In Progress'; }elseif ($status == 'resolved') {
+			$bug_status = 'Resolved';	}else{
+			$bug_status = 'Verified';
+		}
 			$form_data = array(
-			                'bug_status' => $this->input->post('bug_status')
+			                'bug_status' => $bug_status
 			            );
-			$this->db->where('bug_id',$this->input->post('bug_id'))->update('bugs', $form_data); 
-			$activity = 'Marked Issue #'.$this->input->post('issue_ref').' as '.$this->input->post('bug_status');
-			$this->_log_bug_activity($this->input->post('bug_id'),$activity); //log activity
+			$this->db->where('bug_id',$bug)->update('bugs', $form_data); 
+
+			$activity = 'Marked Issue #'.$this->input->get('ref').' as '.$bug_status;
+			$this->_log_bug_activity($bug,$activity,$icon = 'fa-info'); //log activity
 			//send email to the reporter
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_marked_successfully'));
+			redirect('bugs/view/details/'.$bug);
+			}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('operation_failed'));
 			redirect('bugs/view_by_status/all');
-			}
-		}else{
-			$data['bug_id'] = $this->uri->segment(3);
-			$data['issue_ref'] = $this->uri->segment(4);
-			$this->load->view('modal/mark_status',$data);
 		}
 	}
 	function download(){
@@ -178,7 +180,7 @@ class Bugs extends MX_Controller {
 			$this->db->delete('bugs', array('bug_id' => $this->input->post('bug_id'))); 
 			//delete the files here
 			$activity = $this->tank_auth->get_username()." deleted a bug";
-			$this->_log_bug_activity($this->input->post('bug_id'),$activity); //log activity
+			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-times'); //log activity
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_deleted_successfully'));
@@ -189,11 +191,12 @@ class Bugs extends MX_Controller {
 			$this->load->view('modal/delete',$data);
 		}
 	}
-	function _log_bug_activity($bug_id,$activity){
+	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 }

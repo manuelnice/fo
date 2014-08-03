@@ -59,13 +59,33 @@
 			
 			<aside>
 			<section class="vbox">
+
+			<?php
+								if (!empty($bug_details)) {
+				foreach ($bug_details as $key => $bug) { ?>
+
 				<header class="header bg-white b-b clearfix">
 					<div class="row m-t-sm">
 						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							
 						<div class="btn-group">
-						<a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
+						<a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
+						</div>
+
+						<a href="<?=base_url()?>bugs/view/edit" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
+
+						<div class="btn-group">
+						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+						<li><a href="<?=base_url()?>bugs/mark_status?b=<?=$bug->bug_id?>&s=unconfirmed&ref=<?=$bug->issue_ref?>">Unconfirmed</a></li>
+						<li><a href="<?=base_url()?>bugs/mark_status?b=<?=$bug->bug_id?>&s=confirmed&ref=<?=$bug->issue_ref?>">Confirmed</a></li>	
+						<li><a href="<?=base_url()?>bugs/mark_status?b=<?=$bug->bug_id?>&s=progress&ref=<?=$bug->issue_ref?>">In Progress</a></li>
+						<li><a href="<?=base_url()?>bugs/mark_status?b=<?=$bug->bug_id?>&s=resolved&ref=<?=$bug->issue_ref?>">Resolved</a></li>
+						<li class="divider"></li>
+						<li><a href="<?=base_url()?>bugs/mark_status?b=<?=$bug->bug_id?>&s=verified&ref=<?=$bug->issue_ref?>">Verified</a></li>
+						</ul>
 						</div>
 
 						
@@ -86,9 +106,7 @@
 					
 					<?php  echo modules::run('sidebar/flash_msg');?>
 					<!-- Start bug details -->
-					<?php
-								if (!empty($bug_details)) {
-				foreach ($bug_details as $key => $bug) { ?>
+					
 
 				
 
@@ -130,17 +148,17 @@
 
 						<article class="comment-item media"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
 						<?php   
-															$attributes = array('class' => 'm-b-none');
+			$attributes = array('class' => 'm-b-none');
 			echo form_open(base_url().'bugs/comment?bug='.$bug->bug_id, $attributes); ?>
-								<input type="hidden" name="project_id" value="<?=$bug->bug_id?>">
+								<input type="hidden" name="bug" value="<?=$bug->bug_id?>">
 
 								<section class="panel panel-default"> 
-									<textarea class="form-control no-border" rows="3" name="message" placeholder="Enter your message here"></textarea>
+									<textarea class="form-control no-border" rows="3" name="comment" placeholder="Enter your message here"></textarea>
 									<footer class="panel-footer bg-light lter">
 									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('post_comment')?></button> 
 									<ul class="nav nav-pills nav-sm"> 
-									<li><a href="<?=base_url()?>bugs/send/attachment">
-									<i class="fa fa-paperclip text-dark"></i> <?=lang('attach')?></a></li>  
+									<li><a href="<?=base_url()?>bugs/files/add/<?=$this->uri->segment(4)*1200?>" data-toggle="ajaxModal">
+									<i class="fa fa-paperclip text-dark"></i> <?=lang('attach_file')?></a></li>  
 									</ul> </footer> 
 								</section>
 						</form> </section> </article>

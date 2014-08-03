@@ -1,5 +1,5 @@
 		<header class="header b-b b-light hidden-print">
-<a href="<?=base_url()?>projects/files/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('upload_file')?>" class="btn btn-sm btn-primary pull-right"><?=lang('upload_file')?></a> 
+<a href="<?=base_url()?>bugs/files/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('attach_file')?>" class="btn btn-sm btn-primary pull-right"><?=lang('upload_file')?></a> 
  </header>
 
 
@@ -23,10 +23,10 @@
 <div><?=$f->description?>
 </div> 
 <div class="comment-action m-t-sm">
-<a href="<?=base_url()?>projects/files/download/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" class="btn btn-dark btn-xs active">
-<i class="fa fa-download text-white text-active"></i> <?=lang('download_file')?> </a>
-<a href="<?=base_url()?>projects/files/delete/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active">
-<i class="fa fa-times text-white text-active"></i> <?=lang('delete_file')?> </a>
+<a href="<?=base_url()?>bugs/files/download/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" class="btn btn-default btn-xs active">
+<i class="fa fa-download text-active"></i> <?=lang('download_file')?> </a>
+<a href="<?=base_url()?>bugs/files/delete/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" data-toggle="ajaxModal" class="btn btn-default btn-xs active">
+<i class="fa fa-times text-active"></i> <?=lang('delete_file')?> </a>
 
 </div>
 

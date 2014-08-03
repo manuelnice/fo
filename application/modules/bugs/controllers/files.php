@@ -19,13 +19,14 @@ class Files extends MX_Controller {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
-		$this->load->model('project_model','project');
+		$this->load->model('bugs_model','bug');
 	}
 	function add()
 	{		
 		if ($this->input->post()) {
-			$project = $this->input->post('project', TRUE);
+			$bug = $this->input->post('bug', TRUE);
 			$description = $this->input->post('description', TRUE);
+			$assigned_to = $this->input->post('assigned_to', TRUE);
 						$this->load->library('form_validation');
 						$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 						$this->form_validation->set_rules('description', 'Description', 'required');
@@ -34,16 +35,15 @@ class Files extends MX_Controller {
 						{
 								$this->session->set_flashdata('response_status', 'error');
 								$this->session->set_flashdata('message', lang('error_in_form'));
-								redirect('projects/view/details/'.$project);
+								redirect('bugs/view/details/'.$bug);
 						}else{
 
 								if ($this->config->item('demo_mode') == 'FALSE') {
-								$config['upload_path'] = './resource/project-files/';
+								$config['upload_path'] = './resource/bug-files/';
 									$config['allowed_types'] = $this->config->item('allowed_files');
 									$config['max_size']	= $this->config->item('file_max_size');
-									$config['file_name'] = strtoupper($this->config->item('company_name')).'-PROJECT-'.$this->input->post('project_code', TRUE).'-0';
+									$config['file_name'] = strtoupper($this->config->item('company_name')).'-BUG-'.$this->input->post('issue_ref', TRUE).'-0';
 									$config['overwrite'] = FALSE;
-									//$config['encrypt_name'] = $this->config->item('encrypt_file_name');
 
 									$this->load->library('upload', $config);
 
@@ -51,37 +51,39 @@ class Files extends MX_Controller {
 									{
 										$this->session->set_flashdata('response_status', 'error');
 										$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-										redirect('projects/view/details/'.$project);
+										redirect('bugs/view/details/'.$bug);
 									}
 									else
 									{
 										$data = $this->upload->data();
-										$file_id = $this->project->insert_file($data['file_name'],$project,$description);
+										$file_id = $this->bug->insert_file($data['file_name'],$bug,$description);
 										
 										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$data['file_name'];
-										$this->_log_activity($project,$activity,$icon='fa-file'); //log activity
+										$this->_log_activity($bug,$activity,$icon='fa-file'); //log activity
 			
 
-										$this->_upload_notification($project);
+										$this->_upload_notification($bug,$assigned_to);
 
 										$this->session->set_flashdata('response_status', 'success');
 										$this->session->set_flashdata('message',$this->lang->line('file_uploaded_successfully'));
-										redirect('projects/view/details/'.$project);
+										redirect('bugs/view/details/'.$bug);
 									}
 								} else {
 									$this->session->set_flashdata('response_status', 'error');
 									$this->session->set_flashdata('message',$this->lang->line('demo_warning'));
-										redirect('projects/view/details/'.$project);
+										redirect('bugs/view/details/'.$bug);
 								}
 					}
 		}else{
-			$project = $this->uri->segment(4)/1200;
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_code = $p->project_code;
+			$bug = $this->uri->segment(4)/1200;
+			$bug_details = $this->bug->bug_details($bug);
+			foreach ($bug_details as $key => $p) {
+				$issue_ref = $p->issue_ref;
+				$assigned_to = $p->assigned_to;
 			}
-		$data['project_code'] = $project_code;
-		$data['project'] = $project;
+		$data['issue_ref'] = $issue_ref;
+		$data['bug'] = $bug;
+		$data['assigned_to'] = $assigned_to;
 		$this->load->view('modal/add_file',isset($data) ? $data : NULL);
 	}
 }
@@ -89,22 +91,22 @@ class Files extends MX_Controller {
 	{
 	$this->load->helper('download');
 	$file_id = $this->uri->segment(4)/1800;
-	$project_id = $this->uri->segment(5)/1200;
-		if ($this->project->get_file($file_id))
+	$bug = $this->uri->segment(5)/1200;
+		if ($this->bug->get_file($file_id))
 			{
-			$file = $this->project->get_file($file_id);
-			if(file_exists('./resource/project-files/'.$file->file_name)){
-			$data = file_get_contents('./resource/project-files/'.$file->file_name); // Read the file's contents
+			$file = $this->bug->get_file($file_id);
+			if(file_exists('./resource/bug-files/'.$file->file_name)){
+			$data = file_get_contents('./resource/bug-files/'.$file->file_name); // Read the file's contents
 			force_download($file->file_name, $data);
 		}else{
 			$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-				redirect('projects/view/details/'.$project_id);
+				redirect('bugs/view/details/'.$bug);
 			}
 		}
 		else
 		{
 			$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-				redirect('projects/view/details/'.$project_id);
+				redirect('bugs/view/details/'.$bug);
 		}
 	}
 	function delete()
@@ -112,45 +114,47 @@ class Files extends MX_Controller {
 		if ($this->input->post()) {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('file', 'File ID', 'required');
-		$this->form_validation->set_rules('project', 'Project ID', 'required');
-		$project_id = $this->input->post('project', TRUE);
+		$this->form_validation->set_rules('bug', 'Bug ID', 'required');
+
+		$bug = $this->input->post('bug', TRUE);
 		$file_id = $this->input->post('file', TRUE);
 
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('delete_failed'));
-				redirect('projects/view/details/'.$project_id);
+				redirect('bugs/view/details/'.$bug);
 		}else{			
-			$file = $this->project->get_file($file_id);
-			unlink('./resource/project-files/'.$file->file_name);
-			$this->db->delete('files', array('file_id' => $file_id)); 
+			$file = $this->bug->get_file($file_id);
+			unlink('./resource/bug-files/'.$file->file_name);
+			$this->db->delete('bug_files', array('file_id' => $file_id)); 
 
 			$activity = ucfirst($this->tank_auth->get_username())." deleted a file ".$file->file_name;
-			$this->_log_activity($project_id,$activity,$icon='fa-times'); //log activity
+			$this->_log_activity($bug,$activity,$icon='fa-times'); //log activity
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('file_deleted'));
-			redirect('projects/view/details/'.$project_id);
+			redirect('bugs/view/details/'.$bug);
 			}
 		}else{
 			$data['file_id'] = $this->uri->segment(4)/1800;
-			$data['project_id'] = $this->uri->segment(5)/1200;
+			$data['bug'] = $this->uri->segment(5)/1200;
 			$this->load->view('modal/delete_file',$data);
 		}
 	}
-	function _upload_notification($project){
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
+	function _upload_notification($bug,$assigned_to){
+
+			$bug_details = $this->bug->bug_details($bug);
+			foreach ($bug_details as $key => $p) {
+				$issue_ref = $p->issue_ref;
 			}
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
-			$data['project_title'] = $project_title;
 			$data['upload_user'] = $upload_user;
-			$data['project_id'] = $project;
+			$data['bug'] = $bug;
+			$data['issue_ref'] = $issue_ref;
 
-			$params['recipient'] = $this->config->item('company_email');
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New File Uploaded';
 			$params['message'] = $this->load->view('emails/upload_notification',$data,TRUE);
@@ -159,9 +163,9 @@ class Files extends MX_Controller {
 
 			modules::run('fomailer/send_email',$params);
 	}
-	function _log_activity($project_id,$activity,$icon){
-			$this->db->set('module', 'projects');
-			$this->db->set('module_field_id', $project_id);
+	function _log_activity($bug,$activity,$icon){
+			$this->db->set('module', 'bugs');
+			$this->db->set('module_field_id', $bug);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
 			$this->db->set('icon', $icon);
