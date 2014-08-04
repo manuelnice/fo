@@ -54,8 +54,10 @@ if ($this->uri->segment(2) == 'help') { ?>
 <?php
 if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'admin') {
       echo modules::run('sidebar/admin_menu');
-    }elseif ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'client') {
-      echo modules::run('sidebar/finance_menu');
+    }elseif ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'collaborator') {
+      echo modules::run('sidebar/collaborator_menu');
+    }else{
+      echo modules::run('sidebar/client_menu');
     }
 ?>
 <!--main content start-->

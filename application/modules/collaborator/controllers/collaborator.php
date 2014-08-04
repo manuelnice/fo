@@ -9,7 +9,7 @@
 */
 
 
-class Welcome extends MX_Controller {
+class Collaborator extends MX_Controller {
 
 	function __construct()
 	{
@@ -18,8 +18,8 @@ class Welcome extends MX_Controller {
 			$this->session->set_flashdata('message',lang('login_required'));
 			redirect('auth/login');
 		}
-		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'collaborator') {
-			redirect('collaborator');
+		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'admin') {
+			redirect('welcome');
 		}
 		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'client') {
 			redirect('client');
@@ -29,7 +29,7 @@ class Welcome extends MX_Controller {
 	function index()
 	{
 		$graph_data = $this->_data();
-	$this->load->model('home_model');
+	$this->load->model('c_model','home_model');
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->load->library('highcharts');
@@ -60,7 +60,7 @@ class Welcome extends MX_Controller {
 	$data['charts'] = $this->highcharts->set_serie($serie,'Amount Rec.')->render();
 	$this->template
 	->set_layout('users')
-	->build('user_home',isset($data) ? $data : NULL);
+	->build('welcome',isset($data) ? $data : NULL);
 	}
 	function _data()
 	{
