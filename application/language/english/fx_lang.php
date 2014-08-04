@@ -26,6 +26,7 @@ $lang['assigned_to'] = 'Assigned to';
 $lang['assign_bug'] = 'Assign Bug';
 $lang['assign_bug_warning'] = 'An email will be sent to notify the user.';
 $lang['attach'] = 'Attach';
+$lang['attachments'] = 'Attachments';
 $lang['attach_file'] = 'Attach File';
 $lang['avatar_image'] = 'Avatar Image';
 $lang['average_payments'] = 'Average Payments';

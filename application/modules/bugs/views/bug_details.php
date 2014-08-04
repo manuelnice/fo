@@ -114,15 +114,17 @@
 
 
 <ul class="nav nav-tabs" id="stats"> 
-<li class="active"><a href="#comments" data-toggle="tab">Comments</a></li> 
+<li class="active"><a href="#comments" data-toggle="tab"><?=strtoupper(lang('comments'))?></a></li> 
 <li class="">
-<a href="<?=base_url()?>bugs/tabs/attachments/<?=$bug->bug_id?>" data-target="#attachments" data-toggle="tabajax" rel="tooltip">Attachments</a>
+<a href="<?=base_url()?>bugs/tabs/attachments/<?=$bug->bug_id?>" data-target="#attachments" data-toggle="tabajax" rel="tooltip">
+<?=strtoupper(lang('attachments'))?></a>
 </li> 
 <li class="">
-<a href="<?=base_url()?>bugs/tabs/activities/<?=$bug->bug_id?>" data-target="#activities" data-toggle="tabajax" rel="tooltip">Activities</a>
+<a href="<?=base_url()?>bugs/tabs/activities/<?=$bug->bug_id?>" data-target="#activities" data-toggle="tabajax" rel="tooltip">
+<?=strtoupper(lang('activities'))?></a>
 </li> 
 <li class="">
-<a href="<?=base_url()?>bugs/tabs/details/<?=$bug->bug_id?>" data-target="#details" data-toggle="tabajax" rel="tooltip">Bug Details</a>
+<a href="<?=base_url()?>bugs/tabs/details/<?=$bug->bug_id?>" data-target="#details" data-toggle="tabajax" rel="tooltip"><?=lang('bug_details')?></a>
 </li> 
 </ul> 
 
