@@ -29,7 +29,7 @@ class Collaborator extends MX_Controller {
 	function index()
 	{
 		$graph_data = $this->_data();
-	$this->load->model('c_model','home_model');
+	$this->load->model('welcome','home_model');
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->load->library('highcharts');

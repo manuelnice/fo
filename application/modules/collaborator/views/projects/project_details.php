@@ -4,7 +4,7 @@
 						if (!empty($project_details)) {
 		foreach ($project_details as $key => $project) { ?>
 		<header class="header bg-white b-b b-light">
-			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
+			<p><a href="<?=base_url()?>collaborator/projects/" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
 			<p class="pull-right">
 			<a href="<?=base_url()?>projects/view/edit/<?=$project->project_id?>" class="btn btn-sm btn-default" title="<?=lang('edit_project')?>"> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
 <?php
