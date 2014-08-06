@@ -73,7 +73,7 @@ class C_model extends CI_Model
 	}
 	function project_tasks($project)
 	{
-		return $this->db->where('project',$project)->order_by('date_added','desc')->get('tasks')->result();
+		return $this->db->where(array('assigned_to' => $this->tank_auth->get_user_id(),'project'=>$project))->order_by('date_added','desc')->get('tasks')->result();
 	}
 	function project_files($project)
 	{

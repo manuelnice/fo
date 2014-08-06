@@ -19,7 +19,7 @@ class Projects extends MX_Controller {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
-		$this->load->model('c_model','project_model');
+		$this->load->model('projects/c_model','project_model');
 	}
 
 	function index()
@@ -34,7 +34,7 @@ class Projects extends MX_Controller {
 			'proj_deleted' => 'No'),$join_table = 'account_details',$join_criteria = 'account_details.user_id = projects.client','date_created');
 	$this->template
 	->set_layout('users')
-	->build('projects',isset($data) ? $data : NULL);
+	->build('projects/projects',isset($data) ? $data : NULL);
 	}
 	function details()
 	{		
@@ -49,7 +49,7 @@ class Projects extends MX_Controller {
 		$data['project_files'] = $this->project_model->project_files($this->uri->segment(4));
 		$this->template
 		->set_layout('users')
-		->build('project_details',isset($data) ? $data : NULL);
+		->build('projects/project_details',isset($data) ? $data : NULL);
 	}
 	function comment()
 	{

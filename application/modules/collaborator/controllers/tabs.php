@@ -16,7 +16,7 @@ class Tabs extends MX_Controller {
 		parent::__construct();
 		$this->load->library('tank_auth');
 		
-		$this->load->model('c_model','project');
+		$this->load->model('projects/c_model','project');
 	}
 	function timeline()
 	{		
