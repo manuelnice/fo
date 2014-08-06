@@ -15,11 +15,8 @@ class Tabs extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth');
-		if ($this->tank_auth->user_role($this->tank_auth->get_role_id())) {
-			$this->session->set_flashdata('message', lang('access_denied'));
-			redirect('');
-		}
-		$this->load->model('project_model','project');
+		
+		$this->load->model('c_model','project');
 	}
 	function timeline()
 	{		

@@ -7,6 +7,20 @@
  */
 class C_model extends CI_Model
 {
+	function get_all_records($table,$where,$join_table,$join_criteria,$order)
+	{
+		$this->db->where($where);
+		if($join_table){
+		$this->db->join($join_table,$join_criteria);
+		}
+		$query = $this->db->order_by($order,'desc')->get($table);
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} else{
+			return NULL;
+		}
+	}
+
 	function dashboard_events($limit)
 	{
 		
@@ -39,38 +53,45 @@ class C_model extends CI_Model
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
-	}
-	function complete_assignments($user)
+	}function project_details($project)
 	{
-		$this->db->where('student',$user);
-		$query = $this->db->get('assign_records');
-		if ($query->num_rows() > 0){
-			return $query->num_rows();
-		} else{
-			return 0;
-		}
+		return $this->db->where('project_id',$project)->get('projects')->result();
 	}
-	function complete_units($user)
+	function task_details($task)
 	{
-		$this->db->where('student',$user);
-		$query = $this->db->get('results');
-		if ($query->num_rows() > 0){
-			return $query->num_rows();
-		} else{
-			return 0;
-		}
+		return $this->db->where('t_id',$task)->get('tasks')->result();
 	}
-
-	function _get_study_details($user,$field) {
-	$this->db->where('user_id',$user);
-	$this->db->where($field. ' !=',0);
-	$this->db->select($field);
-	$query = $this->db->get('account_details');
-		if ($query->num_rows() > 0)
-			{
-  		 $row = $query->row();
-  		 return $row->$field;
-  		}
+	function project_activities($project)
+	{
+		$this->db->join('users','users.id = activities.user');
+		$this->db->where('module','projects');
+		return $this->db->where('module_field_id',$project)->order_by('activity_date','desc')->get('activities')->result();
+	}
+	function project_comments($project)
+	{
+		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments')->result();
+	}
+	function project_tasks($project)
+	{
+		return $this->db->where('project',$project)->order_by('date_added','desc')->get('tasks')->result();
+	}
+	function project_files($project)
+	{
+		$this->db->join('users','users.id = files.uploaded_by');
+		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('files')->result();
+	}
+	function project_bugs($project)
+	{
+		$this->db->join('users','users.id = bugs.reporter');
+		return $this->db->where('project',$project)->order_by('reported_on','desc')->get('bugs')->result();
+	}
+	function timesheets($project)
+	{
+		return $this->db->where('project',$project)->get('project_timer')->result();
+	}
+	function comment_replies($comment)
+	{
+		return $this->db->where('parent_comment',$comment)->get('comment_replies')->result();
 	}
 	
 }
