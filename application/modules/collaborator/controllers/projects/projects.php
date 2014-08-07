@@ -117,8 +117,8 @@ class Projects extends MX_Controller {
 	}
 	function tracking()
 	{
-		$action = ucfirst($this->uri->segment(3));
-		$project = $this->uri->segment(4);
+		$action = ucfirst($this->uri->segment(4));
+		$project = $this->uri->segment(5);
 		if ($action == 'Off') {			
 			$project_start =  $this->project_model->get_project_start($project); //project start time
 			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
@@ -137,7 +137,7 @@ class Projects extends MX_Controller {
 		}
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('operation_successful'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 	}
 
 	function edit()
