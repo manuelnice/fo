@@ -41,7 +41,7 @@
 				<header class="panel-heading font-bold"> <?=lang('projects')?> <?=lang('tasks')?></header>
 				<div class="panel-body">
 					<header class="panel-heading">
-						<span class="label bg-danger pull-right">4 Completed Tasks
+						<span class="label bg-danger pull-right">4 Completed Tasks 
 					</span> <?=lang('recent_tasks')?> </header>
 					<table class="table table-striped m-b-none text-sm">
 						<thead>

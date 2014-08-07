@@ -15,7 +15,7 @@ class Tabs extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth');
-		if ($this->tank_auth->user_role($this->tank_auth->get_role_id())) {
+		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'admin') {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}

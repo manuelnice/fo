@@ -6,19 +6,19 @@
 		<header class="header bg-white b-b b-light">
 			<p><a href="<?=base_url()?>collaborator/projects/" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
 			<p class="pull-right">
-			<a href="<?=base_url()?>projects/view/edit/<?=$project->project_id?>" class="btn btn-sm btn-default" title="<?=lang('edit_project')?>"> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
+			<a href="<?=base_url()?>collaborator/projects/edit/<?=$project->project_id?>" class="btn btn-sm btn-default" title="<?=lang('edit_project')?>"> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
 <?php
 if ($project->timer == 'On') { ?>
-	<a href="<?=base_url()?>projects/tracking/off/<?=$project->project_id?>" class="btn btn-sm btn-danger "> <i class="fa fa-clock-o text-white"></i> <?=lang('stop_timer')?></a> 
+	<a href="<?=base_url()?>collaborator/projects/tracking/off/<?=$project->project_id?>" class="btn btn-sm btn-danger "> <i class="fa fa-clock-o text-white"></i> <?=lang('stop_timer')?></a> 
 <?php }else{ ?>
-	<a href="<?=base_url()?>projects/tracking/on/<?=$project->project_id?>" class="btn btn-sm btn-success "> <i class="fa fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
+	<a href="<?=base_url()?>collaborator/projects/tracking/on/<?=$project->project_id?>" class="btn btn-sm btn-success "> <i class="fa fa-clock-o text-white"></i> <?=lang('start_timer')?></a> 
 <?php } ?>
-<a href="<?=base_url()?>projects/timelog/<?=$project->project_id*8600?>"  data-toggle="ajaxModal" title="<?=lang('time_entry')?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
+<a href="<?=base_url()?>collaborator/projects/timelog/<?=$project->project_id*8600?>"  data-toggle="ajaxModal" title="<?=lang('time_entry')?>" class="btn btn-sm btn-dark "> <i class="fa fa-calendar text-white"></i> <?=lang('time_entry')?></a>
 <?php
 if ($project->auto_progress == 'FALSE') { ?>
-	<a href="<?=base_url()?>projects/pilot/on/<?=$project->project_id*8600?>" data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-rocket text-white"></i></a>
+	<a href="<?=base_url()?>collaborator/projects/pilot/on/<?=$project->project_id*8600?>" data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-rocket text-white"></i></a>
 <?php }else{ ?>
-<a href="<?=base_url()?>projects/pilot/off/<?=$project->project_id*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-power-off text-white"></i></a>
+<a href="<?=base_url()?>collaborator/projects/pilot/off/<?=$project->project_id*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left"> <i class="fa fa-power-off text-white"></i></a>
 <?php } ?>
 </p>
 

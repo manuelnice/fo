@@ -93,6 +93,46 @@ class C_model extends CI_Model
 	{
 		return $this->db->where('parent_comment',$comment)->get('comment_replies')->result();
 	}
+	function assign_to()
+	{
+		return $this->db->where('role_id !=',2)->get('users')->result();
+	}
+	function clients()
+	{
+		return $this->db->where('role_id',2)->get('users')->result();
+	}
+	function get_project_start($project){
+	$query = $this->db->select('timer_start')->where('project_id',$project)->get('projects');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->timer_start;
+  		}
+	}
+	function get_task_start($task){
+	$query = $this->db->select('start_time')->where('t_id',$task)->get('tasks');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->start_time;
+  		}
+	}
+	function get_project_logged_time($project){
+	$query = $this->db->select('time_logged')->where('project_id',$project)->get('projects');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->time_logged;
+  		}
+	}
+	function get_task_logged_time($task){
+	$query = $this->db->select('logged_time')->where('t_id',$task)->get('tasks');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->logged_time;
+  		}
+	}
 	
 }
 

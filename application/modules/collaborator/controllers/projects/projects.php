@@ -139,6 +139,51 @@ class Projects extends MX_Controller {
 			$this->session->set_flashdata('message', lang('operation_successful'));
 			redirect('projects/view/details/'.$project);
 	}
+
+	function edit()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
+		$this->form_validation->set_rules('progress', 'Progress', 'required');
+		$project_id = $this->input->post('project_id');	
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('operation_failed'));
+				redirect('collaborator/projects/details/'.$project_id);
+		}else{	
+			
+			$form_data = array(
+			                'progress' => $this->input->post('progress'),
+			                'estimate_hours' => $this->input->post('estimate'),
+			                'description' => $this->input->post('description')
+			            );
+			$this->db->where('project_id',$project_id)->update('projects', $form_data);
+
+			$activity = ucfirst($this->tank_auth->get_username()).' edited a project #'.$this->input->post('project_code');
+			$this->_log_activity($project_id,$activity,$icon = 'fa-pencil'); //log activity
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('project_edited_successfully'));
+			redirect('collaborator/projects/details/'.$project_id);
+		}
+		}else{
+		$this->load->module('layouts');
+		$this->load->library('template');
+		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+		$data['page'] = lang('projects');
+		$data['assign_to'] = $this->project_model->assign_to();
+		$data['clients'] = $this->project_model->clients();
+		$data['project_details'] = $this->project_model->project_details($this->uri->segment(4));
+		$this->template
+		->set_layout('users')
+		->build('projects/edit_project',isset($data) ? $data : NULL);
+		}
+	}
+
+
 	function delete()
 	{
 		if ($this->input->post()) {
