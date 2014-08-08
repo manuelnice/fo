@@ -58,7 +58,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 											<div class="clear">
 												<div class="h3 m-t-xs m-b-xs"><?=lang('client')?></div>
 												<small class="text-muted">
-												<a class="text-info" href="<?=base_url()?>clients/view/details/<?=$project->client*1200?>">@<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></a></small>
+												<a class="text-info" href="#">@<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></a></small>
 											</div>
 										</div>
 										<div class="panel wrapper panel-success">
@@ -201,7 +201,6 @@ if ($project->auto_progress == 'FALSE') { ?>
 								</section>
 							</aside>
 							<aside class="col-lg-4 b-l">
-								<?php  //echo modules::run('sidebar/flash_msg');?>
 								<section class="vbox">
 									<section class="scrollable w-f">
 										<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
@@ -218,7 +217,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 														<span class="arrow left"></span>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
-																<a href="<?=base_url()?>clients/view/details/<?=$comment->posted_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
+																<a href="#"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
 																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
@@ -233,7 +232,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 																
 																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>									
 																<?php } ?>
-																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+																<a href="<?=base_url()?>collaborator/projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
 
 																</div>
 															</div>
