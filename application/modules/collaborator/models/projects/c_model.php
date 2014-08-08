@@ -133,6 +133,26 @@ class C_model extends CI_Model
   		 return $row->logged_time;
   		}
 	}
+	function get_file($file_id)
+		{
+			return $this->db->select()
+					->from('files')
+					->where('file_id', $file_id)
+					->get()
+					->row();
+		}
+		
+	function insert_file($filename,$project,$description)
+	{
+		$data = array(
+			'project'	=> $project,
+			'file_name'			=> $filename,
+			'description'			=> $description,
+			'uploaded_by'			=> $this->tank_auth->get_user_id(),
+		);
+		$this->db->insert('files', $data);
+		return $this->db->insert_id();
+	}
 	
 }
 
