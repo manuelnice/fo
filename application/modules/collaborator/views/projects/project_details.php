@@ -255,7 +255,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 																					$reply_day = strtotime($reply->date_posted) ;
 																					echo $this->user_profile->get_time_diff($today,$reply_day);
 															?> ago</span> 
-													<a href="<?=base_url()?>clients/view/details/<?=$reply->replied_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($reply->replied_by,'fullname')?$this->user_profile->get_profile_details($reply->replied_by,'fullname'):$this->user_profile->get_user_details($reply->replied_by,'username'))?></a>
+													<a href="#"><?=ucfirst($this->user_profile->get_profile_details($reply->replied_by,'fullname')?$this->user_profile->get_profile_details($reply->replied_by,'fullname'):$this->user_profile->get_user_details($reply->replied_by,'username'))?></a>
 													<?=$reply->reply_msg?></div>
 												 </section>
 											</article>
@@ -270,7 +270,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 														<section class="media-body">
 															<?php
 															$attributes = array('class' => 'class="m-b-none"');
-															echo form_open(base_url().'projects/comment?project='.$project->project_id, $attributes); ?>
+															echo form_open(base_url().'collaborator/projects/comment?project='.$project->project_id, $attributes); ?>
 															<input type="hidden" name="project_id" value="<?=$project->project_id?>">
 															<input type="hidden" name="project_code" value="<?=$project->project_code?>">
 															<div class="input-group">
