@@ -1,5 +1,5 @@
 <header class="header b-b b-light hidden-print">
-<a href="<?=base_url()?>projects/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('add_task')?></a> 
+<a href="<?=base_url()?>collaborator/projects/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('add_task')?></a> 
  </header>
 
 

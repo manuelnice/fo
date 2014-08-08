@@ -241,10 +241,10 @@ class Projects extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('time_entered_success'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 	}else{
-		$data['logged_time'] =  $this->project_model->get_project_logged_time($this->uri->segment(3)/8600); 
-		$data['project_details'] = $this->project_model->project_details($this->uri->segment(3)/8600);
+		$data['logged_time'] =  $this->project_model->get_project_logged_time($this->uri->segment(4)/8600); 
+		$data['project_details'] = $this->project_model->project_details($this->uri->segment(4)/8600);
 		$this->load->view('modal/time_entry',isset($data) ? $data : NULL);
 		}
 	}
@@ -271,19 +271,19 @@ class Projects extends MX_Controller {
 	}
 
 	function pilot(){
-		if ($this->uri->segment(3) == 'on') {
+		if ($this->uri->segment(4) == 'on') {
 			$status = 'TRUE';
 		}else{
 			$status = 'FALSE';
 		}
-			$project = $this->uri->segment(4)/8600;
+			$project = $this->uri->segment(5)/8600;
 
 			$this->db->set('auto_progress', $status);
 			$this->db->where('project_id',$project)->update('projects');
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 	}
 
 	function _log_activity($project_id,$activity,$icon){

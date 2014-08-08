@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 02, 2014 at 07:05 PM
+-- Generation Time: Aug 08, 2014 at 09:20 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `fx_activities` (
   `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `icon` varchar(32) DEFAULT 'fa-coffee',
   `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=128 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=159 ;
 
 --
 -- Dumping data for table `fx_activities`
@@ -219,7 +219,38 @@ INSERT INTO `fx_activities` (`activity_id`, `user`, `module`, `module_field_id`,
 (124, 1, 'projects', 8, 'Edited a task Sliding Menu', '2014-07-30 17:01:20', 'fa-tasks', 0),
 (125, 1, 'projects', 3, 'Added a task Responsive Footer', '2014-07-31 07:01:29', 'fa-tasks', 0),
 (126, 1, 'bugs', 6, 'Created an Issue #6822', '2014-08-02 16:02:33', 'fa-coffee', 0),
-(127, 1, 'bugs', 7, 'Created an Issue #819554', '2014-08-02 16:14:27', 'fa-coffee', 0);
+(127, 1, 'bugs', 7, 'Created an Issue #819554', '2014-08-02 16:14:27', 'fa-coffee', 0),
+(128, 1, 'bugs', 7, 'Added a comment to a bug', '2014-08-03 09:43:10', 'fa-comment', 0),
+(129, 1, 'bugs', 7, 'Added a comment to a bug', '2014-08-03 09:43:31', 'fa-comment', 0),
+(130, 1, 'bugs', 7, 'Admin added a file FREELANCER-BUG-819554-0.jpg', '2014-08-03 11:16:31', 'fa-file', 0),
+(131, 1, 'bugs', 7, 'Admin added a file FREELANCER-BUG-819554-01.jpg', '2014-08-03 11:19:13', 'fa-file', 0),
+(132, 1, 'bugs', 6, 'Admin added a file FREELANCER-BUG-6822-0.jpg', '2014-08-03 12:04:10', 'fa-file', 0),
+(133, 1, 'bugs', 6, 'Admin deleted a file FREELANCER-BUG-6822-0.jpg', '2014-08-03 12:17:13', 'fa-times', 0),
+(134, 1, 'bugs', 5, 'Admin added a file FREELANCER-BUG-5468-0.jpg', '2014-08-03 12:19:02', 'fa-file', 0),
+(135, 1, 'bugs', 8, 'Created an Issue #326188', '2014-08-03 12:22:01', 'fa-coffee', 0),
+(136, 1, 'bugs', 7, 'Marked Issue #819554 as In Progress', '2014-08-03 13:31:28', 'fa-info', 0),
+(137, 1, 'bugs', 7, 'Marked Issue #819554 as Confirmed', '2014-08-03 13:31:48', 'fa-info', 0),
+(138, 1, 'bugs', 7, 'Marked Issue #819554 as Resolved', '2014-08-03 13:42:54', 'fa-info', 0),
+(139, 1, 'bugs', 8, 'Admin deleted a file FREELANCER-PROJECT-66396-0.png', '2014-08-03 15:52:09', 'fa-times', 0),
+(140, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-BUG-819554-01.jpg', '2014-08-03 15:52:33', 'fa-times', 0),
+(141, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-BUG-819554-0.jpg', '2014-08-03 15:52:41', 'fa-times', 0),
+(142, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-PROJECT-84952-01.png', '2014-08-03 15:55:28', 'fa-times', 0),
+(143, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-PROJECT-84952-0.png', '2014-08-03 15:55:35', 'fa-times', 0),
+(144, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-PROJECT-84952_1.png', '2014-08-03 15:55:41', 'fa-times', 0),
+(145, 1, 'bugs', 7, 'Admin added a file FREELANCER-BUG-819554-0.jpg', '2014-08-03 15:56:17', 'fa-file', 0),
+(146, 1, 'bugs', 5, 'Admin deleted a file FREELANCER-BUG-5468-0.jpg', '2014-08-03 15:56:47', 'fa-times', 0),
+(147, 1, 'bugs', 7, 'Admin deleted a file FREELANCER-BUG-819554-0.jpg', '2014-08-03 15:59:06', 'fa-times', 0),
+(148, 1, 'projects', 8, 'Admin deleted a file FREELANCER-PROJECT-66396-0.png', '2014-08-03 15:59:34', 'fa-times', 0),
+(149, 1, 'projects', 7, 'Admin deleted a file FREELANCER-PROJECT-84952-01.png', '2014-08-03 15:59:51', 'fa-times', 0),
+(150, 1, 'projects', 7, 'Admin deleted a file FREELANCER-PROJECT-84952-0.png', '2014-08-03 15:59:58', 'fa-times', 0),
+(151, 1, 'projects', 7, 'Admin deleted a file FREELANCER-PROJECT-84952_1.png', '2014-08-03 16:00:10', 'fa-times', 0),
+(152, 1, 'projects', 3, 'Admin deleted a file FREELANCER-PROJECT-46483-0.jpg', '2014-08-03 16:00:38', 'fa-times', 0),
+(153, 1, 'bugs', 8, 'Marked Issue #326188 as Confirmed', '2014-08-04 15:11:30', 'fa-info', 0),
+(154, 1, 'bugs', 8, 'Marked Issue #326188 as In Progress', '2014-08-04 15:11:44', 'fa-info', 0),
+(155, 1, 'bugs', 8, 'Marked Issue #326188 as Resolved', '2014-08-04 15:11:52', 'fa-info', 0),
+(156, 1, 'bugs', 8, 'Marked Issue #326188 as Verified', '2014-08-04 15:12:00', 'fa-info', 0),
+(157, 4, 'projects', 7, 'Daves edited a project #84952', '2014-08-07 17:39:51', NULL, 0),
+(158, 4, 'projects', 7, 'Daves edited a project #84952', '2014-08-07 17:45:57', 'fa-pencil', 0);
 
 -- --------------------------------------------------------
 
@@ -237,21 +268,21 @@ CREATE TABLE IF NOT EXISTS `fx_bugs` (
   `priority` varchar(100) NOT NULL,
   `bug_description` text NOT NULL,
   `reported_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `attached_file` int(11) NOT NULL DEFAULT '0',
   `last_modified` varchar(64) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `fx_bugs`
 --
 
-INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `attached_file`, `last_modified`) VALUES
-(1, 3445, 2, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', 1, '2014-05-14 00:00:00'),
-(2, 3447, 1, 17, 4, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-12 21:00:00', 2, '2014-05-11 17:27:54'),
-(3, 5467, 2, 12, 23, 'Confirmed', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-14 13:51:06', 3, '2014-06-14 15:06:40'),
-(5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-07-29 13:51:06', 4, '2014-05-11 16:51:06'),
-(6, 6822, 8, 1, 0, 'Unconfirmed', 'High', 'Hi,\r\n\r\nI like to have quote for a new feature which I need on my website. Please contact me as soon as possible in order to discuss the details.\r\n\r\nKind Regards ', '2014-08-02 16:02:33', 0, '2014-08-02 19:02:33'),
-(7, 819554, 1, 13, 4, 'Unconfirmed', 'Medium', 'Hi,\r\n\r\nI like to have quote for a new feature which I need on my website. Please contact me as soon as possible in order to discuss the details.\r\n\r\nKind Regards ', '2014-08-02 16:14:27', 0, '2014-08-02 19:14:27');
+INSERT INTO `fx_bugs` (`bug_id`, `issue_ref`, `project`, `reporter`, `assigned_to`, `bug_status`, `priority`, `bug_description`, `reported_on`, `last_modified`) VALUES
+(1, 3445, 2, 2, 1, 'In Progress', 'High', 'I can''t see anything when i click the menu bar.', '2014-05-10 21:00:00', '2014-05-14 00:00:00'),
+(2, 3447, 1, 17, 4, 'In Progress', 'Critical', 'The tax calculation is incorrect', '2014-05-12 21:00:00', '2014-05-11 17:27:54'),
+(3, 5467, 2, 12, 23, 'Confirmed', 'Medium', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable Daisy', '2014-05-14 13:51:06', '2014-06-14 15:06:40'),
+(5, 5468, 2, 14, 23, 'In Progress', 'Medium', 'Issue Description', '2014-07-29 13:51:06', '2014-05-11 16:51:06'),
+(6, 6822, 8, 1, 5, 'Unconfirmed', 'High', 'Hi,\r\n\r\nI like to have quote for a new feature which I need on my website. Please contact me as soon as possible in order to discuss the details.\r\n\r\nKind Regards ', '2014-08-02 16:02:33', '2014-08-02 19:02:33'),
+(7, 819554, 1, 13, 4, 'Resolved', 'Medium', 'Hi,\r\n\r\nI like to have quote for a new feature which I need on my website. Please contact me as soon as possible in order to discuss the details.\r\n\r\nKind Regards ', '2014-08-02 16:14:27', '2014-08-02 19:14:27'),
+(8, 326188, 3, 7, 4, 'Verified', 'Medium', 'Hi,\r\n\r\nI need to have a newsletter form for the front end and a backend plugin so I can manage the newsletters lists.\r\n\r\nThanks ', '2014-08-03 12:22:01', '2014-08-03 15:22:01');
 
 -- --------------------------------------------------------
 
@@ -265,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `fx_bug_comments` (
   `comment_by` int(11) NOT NULL,
   `comment` text NOT NULL,
   `date_commented` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `fx_bug_comments`
@@ -278,7 +309,9 @@ INSERT INTO `fx_bug_comments` (`c_id`, `bug_id`, `comment_by`, `comment`, `date_
 (4, 1, 5, 'I can''t see anything when i click the menu bar.', '2014-05-12 06:30:33'),
 (5, 1, 1, 'There are a few easy ways to quickly get started with Bootstrap, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.', '2014-05-12 07:01:08'),
 (6, 3, 1, 'I am a comment', '2014-05-12 07:02:46'),
-(7, 4, 1, 'I am a comment', '2014-05-25 17:43:06');
+(7, 4, 1, 'I am a comment', '2014-05-25 17:43:06'),
+(8, 7, 1, 'Am testing the comments functionality', '2014-08-03 09:43:10'),
+(9, 7, 1, 'And yet another comment', '2014-08-03 09:43:31');
 
 -- --------------------------------------------------------
 
@@ -293,20 +326,16 @@ CREATE TABLE IF NOT EXISTS `fx_bug_files` (
   `description` text NOT NULL,
   `uploaded_by` int(11) NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `fx_bug_files`
 --
 
 INSERT INTO `fx_bug_files` (`file_id`, `bug`, `file_name`, `description`, `uploaded_by`, `date_posted`) VALUES
-(13, 7, 'FREELANCER-PROJECT-84952_1.png', 'Description', 1, '2014-07-10 15:13:20'),
-(14, 7, 'FREELANCER-PROJECT-84952-0.png', 'Description', 1, '2014-07-10 15:14:17'),
-(15, 7, 'FREELANCER-PROJECT-84952-01.png', 'Description', 1, '2014-07-10 15:14:37'),
 (16, 1, 'FREELANCER-PROJECT-343253-0.png', 'Description', 1, '2014-07-10 16:19:34'),
 (17, 2, 'FREELANCER-PROJECT-765546-0.png', 'Description', 1, '2014-07-10 16:24:22'),
-(18, 3, 'FREELANCER-PROJECT-46483-0.jpg', 'Description', 1, '2014-07-10 16:52:41'),
-(20, 8, 'FREELANCER-PROJECT-66396-0.png', 'I adde the file here', 1, '2014-07-12 08:33:33');
+(18, 3, 'FREELANCER-PROJECT-46483-0.jpg', 'Description', 1, '2014-07-10 16:52:41');
 
 -- --------------------------------------------------------
 
@@ -597,20 +626,15 @@ CREATE TABLE IF NOT EXISTS `fx_files` (
   `description` text NOT NULL,
   `uploaded_by` int(11) NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `fx_files`
 --
 
 INSERT INTO `fx_files` (`file_id`, `project`, `file_name`, `description`, `uploaded_by`, `date_posted`) VALUES
-(13, 7, 'FREELANCER-PROJECT-84952_1.png', 'Description', 1, '2014-07-10 15:13:20'),
-(14, 7, 'FREELANCER-PROJECT-84952-0.png', 'Description', 1, '2014-07-10 15:14:17'),
-(15, 7, 'FREELANCER-PROJECT-84952-01.png', 'Description', 1, '2014-07-10 15:14:37'),
 (16, 1, 'FREELANCER-PROJECT-343253-0.png', 'Description', 1, '2014-07-10 16:19:34'),
-(17, 2, 'FREELANCER-PROJECT-765546-0.png', 'Description', 1, '2014-07-10 16:24:22'),
-(18, 3, 'FREELANCER-PROJECT-46483-0.jpg', 'Description', 1, '2014-07-10 16:52:41'),
-(20, 8, 'FREELANCER-PROJECT-66396-0.png', 'I adde the file here', 1, '2014-07-12 08:33:33');
+(17, 2, 'FREELANCER-PROJECT-765546-0.png', 'Description', 1, '2014-07-10 16:24:22');
 
 -- --------------------------------------------------------
 
@@ -756,7 +780,7 @@ CREATE TABLE IF NOT EXISTS `fx_login_attempts` (
   `ip_address` varchar(40) COLLATE utf8_bin NOT NULL,
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -950,7 +974,7 @@ INSERT INTO `fx_projects` (`project_id`, `project_code`, `project_title`, `clien
 (3, 46483, 'Test Project', 2, '24-05-2014', '01-08-2014', 5, 63, 'Description', 1, 'Active', 'Off', 0, 57714, 'No', 'FALSE', 0, '2014-05-24 16:40:52'),
 (4, 21735, 'Themeforest Bootstrap Theme db', 9, '24-05-2014', '06-06-2014', 5, 21, 'Description goes here', 1, 'Active', 'Off', 0, 316722, 'No', 'TRUE', 100, '2014-05-24 16:44:20'),
 (5, 98946, 'Test Project 2', 2, '24-05-2014', '15-05-2014', 5, 59, 'Description db', 5, 'Active', 'Off', 0, 84653, 'No', 'TRUE', 50, '2014-05-24 16:44:56'),
-(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 62, 'Project Description', 4, 'Active', 'Off', 0, 262842, 'No', 'FALSE', 0, '2014-05-26 16:19:56'),
+(7, 84952, 'Codecanyon Script', 14, '26-05-2014', '18-06-2014', 5, 44, 'Project Description', 4, 'Active', 'Off', 0, 307868, 'No', 'FALSE', 0, '2014-05-26 16:19:56'),
 (8, 66396, 'Wordpress Plugin Development', 6, '11-07-2014', '20-08-2014', 5, 61, 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 1, 'Active', 'Off', 0, 677034, 'No', 'TRUE', 40, '2014-07-11 16:55:29');
 
 -- --------------------------------------------------------
@@ -965,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `fx_project_timer` (
   `start_time` varchar(64) NOT NULL,
   `end_time` varchar(64) NOT NULL,
   `date_timed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `fx_project_timer`
@@ -990,7 +1014,8 @@ INSERT INTO `fx_project_timer` (`timer_id`, `project`, `start_time`, `end_time`,
 (16, 8, '1405099781', '1405147440', '2014-07-12 06:44:00'),
 (17, 4, '1405175295', '1405487517', '2014-07-16 05:11:57'),
 (18, 8, '1405938192', '1405938205', '2014-07-21 10:23:25'),
-(19, 8, '1405938214', '1406567567', '2014-07-28 17:12:47');
+(19, 8, '1405938214', '1406567567', '2014-07-28 17:12:47'),
+(20, 7, '1407436839', '1407481865', '2014-08-08 07:11:05');
 
 -- --------------------------------------------------------
 
@@ -1287,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS `fx_roles` (
 `r_id` int(11) NOT NULL,
   `role` varchar(64) NOT NULL,
   `default` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `fx_roles`
@@ -1296,7 +1321,7 @@ CREATE TABLE IF NOT EXISTS `fx_roles` (
 INSERT INTO `fx_roles` (`r_id`, `role`, `default`) VALUES
 (1, 'admin', 1),
 (2, 'client', 2),
-(6, 'collaborator', 6);
+(3, 'collaborator', 3);
 
 -- --------------------------------------------------------
 
@@ -1334,7 +1359,7 @@ INSERT INTO `fx_tasks` (`t_id`, `task_name`, `project`, `assigned_to`, `descript
 (6, 'Modal in Dashboard 2', 2, '5', 'Create a prototype with Twitter Bootstrap 3 ', 'Yes', 50, 'Off', 0, 82, 136, 'TRUE', '2014-07-04 18:06:08', 1),
 (7, 'Sliding Homepage ', 2, '4', '<ul>\r\n<li>Create unlimited amount of tasks for your Projects!</li>\r\n<li>Tasks can be sorted by tags which allow you to organize your tasks in an efficient way.\r\n</li>\r\n</ul>', 'Yes', 10, 'Off', 0, 20, 5329, 'TRUE', '2014-07-05 15:25:29', 1),
 (8, 'New Bootstrap 3 Template', 7, '5', 'Create a new web template for Clientopia. Base colors should be black and green', 'Yes', 90, 'Off', 0, 2, 780970, 'FALSE', '2014-07-05 17:53:51', 1),
-(9, 'Fix Local Environment Bug', 8, '4', 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 'Yes', 100, 'Off', 0, 5, 174093, 'FALSE', '2014-07-12 07:03:08', 1),
+(9, 'Fix Local Environment Bug', 7, '4', 'CodeIgniter is an Application Development Framework - a toolkit - for people who build web sites using PHP.', 'Yes', 100, 'Off', 0, 5, 174093, 'FALSE', '2014-07-12 07:03:08', 1),
 (10, 'Sliding Menu', 8, '5', 'Description', 'Yes', 10, 'Off', 0, 2, 0, 'FALSE', '2014-07-12 08:57:12', 1),
 (11, 'Responsive Footer', 8, '5', 'Description', 'Yes', 100, 'Off', 0, 1, 27, 'FALSE', '2014-07-12 08:57:59', 1),
 (12, 'Sticky Glowing Menu', 1, '23', 'Description', 'Yes', 100, 'Off', 0, 1, 0, 'FALSE', '2014-07-12 11:30:44', 1),
@@ -1396,9 +1421,10 @@ CREATE TABLE IF NOT EXISTS `fx_un_sessions` (
 --
 
 INSERT INTO `fx_un_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('474c4d60370119c9cb8c5c1e88e498b4', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406994852, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}'),
+('248ee695bd5040f6406522db629b3f4a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1407436738, 'a:7:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"4";s:8:"username";s:5:"daves";s:7:"role_id";s:1:"3";s:6:"status";s:1:"1";s:25:"flash:old:response_status";s:7:"success";s:17:"flash:old:message";s:32:"Operation completed successfully";}'),
+('651fbeba9377648a8313998d188464a7', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1407481712, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"4";s:8:"username";s:5:"daves";s:7:"role_id";s:1:"3";s:6:"status";s:1:"1";}'),
 ('c0677dbeeef60a92f56e0feeead102b8', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', 1424335780, ''),
-('d3a006d8b4629c1201c8db030c6480b1', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406996067, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}');
+('f938758bb1a21e1a2573c5acf9322297', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36', 1407433570, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"1";s:8:"username";s:5:"admin";s:7:"role_id";s:1:"1";s:6:"status";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -1430,10 +1456,10 @@ CREATE TABLE IF NOT EXISTS `fx_users` (
 --
 
 INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-08-02 18:54:32', '2014-02-26 14:18:04', '2014-08-02 15:54:32'),
-(2, 'client', '$P$BqXoFhHwflCgnLZ/qSZG42gNwIGFvE1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 07:42:04', '2014-01-15 08:09:28', '2014-05-12 10:38:35'),
+(1, 'admin', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandai.willy@gmail.com', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-08-07 19:39:11', '2014-02-26 14:18:04', '2014-08-07 16:39:11'),
+(2, 'client', '$P$BjiONJAUmQ0v1Q/1pv20J1Jtl6IXew1', 'mandaiwilly@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-08-04 19:11:39', '2014-01-15 08:09:28', '2014-08-04 16:11:39'),
 (3, 'rodney', '$P$BBPwAlyFBXkzCiOo1LQXSvuBEOB//7.', 'bs@bootstrapstore.net', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-31 22:38:06', '2014-01-08 08:10:10', '2014-05-12 10:38:45'),
-(4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-05-14 09:06:26', '2014-02-28 08:10:37', '2014-05-14 06:06:26'),
+(4, 'daves', '$P$BQpoH/4gsohSQ6MFzg7ueyvLyIaj3r.', 'wm@bootstrapstore.net', 3, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-08-08 10:10:52', '2014-02-28 08:10:37', '2014-08-08 07:10:52'),
 (5, 'snider', '$P$BrZZ17II5HdRVKkiqpmqpkbQNRCJCy.', 'info@bootstrapstore.net', 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-04-01 09:32:25', '2014-02-28 08:11:11', '2014-05-09 12:43:30'),
 (6, 'joshujay', '$P$Bnjdy7HR8LKhtTu3CBoKz8SMFe.AyL1', 'joashyegon@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-02-28 10:50:14', '2014-02-28 10:49:37', '2014-05-09 12:43:16'),
 (7, 'jack', '$P$BiVgifm6xZQpePhmPPlBOekZceuVEH/', 'willykrw08@gmail.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '2014-03-08 18:36:17', '2014-03-08 18:34:46', '2014-05-09 12:43:20'),
@@ -1452,7 +1478,7 @@ INSERT INTO `fx_users` (`id`, `username`, `password`, `email`, `role_id`, `activ
 (20, 'obama', '$P$B3owJCh7HmJLe8tlD.md3oUQ74sKzT/', 'oobama@me.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-05-12 13:33:19', '2014-05-12 10:33:19'),
 (21, 'bush', '$P$B/VPhTcshYpxsc57IpnOFnfJWBJ5NX.', 'bush@me.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-05-12 13:36:32', '2014-05-12 10:36:32'),
 (22, 'kony', '$P$B1TnACEsolMvLw15GmxliMeWFo4ZXX1', 'kony@me.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-05-12 14:27:35', '2014-05-14 06:09:10'),
-(23, 'bernard', '$P$B0Ke81CPAq/L5wR641HgD6n4FVS08A.', 'ben@me.com.au', 6, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-05-12 15:05:05', '2014-05-14 05:59:02'),
+(23, 'bernard', '$P$B0Ke81CPAq/L5wR641HgD6n4FVS08A.', 'ben@me.com.au', 3, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-05-12 15:05:05', '2014-08-04 15:26:17'),
 (24, 'suarez', '$P$BieWRuiPcmicCHswgkkLvzaXA2bdQt/', 'suarez@me.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-06-25 19:49:21', '2014-06-25 16:49:21'),
 (25, 'ones', '$P$BjxNeLjG9dM0Dkz4QbPD5Ftqxrl4.5/', 'ones@me.com', 2, 1, 0, NULL, NULL, NULL, NULL, NULL, '::1', '0000-00-00 00:00:00', '2014-06-27 10:10:42', '2014-06-27 07:10:42');
 
@@ -1691,22 +1717,22 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `fx_activities`
 --
 ALTER TABLE `fx_activities`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=128;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=159;
 --
 -- AUTO_INCREMENT for table `fx_bugs`
 --
 ALTER TABLE `fx_bugs`
-MODIFY `bug_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `bug_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `fx_bug_comments`
 --
 ALTER TABLE `fx_bug_comments`
-MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `fx_bug_files`
 --
 ALTER TABLE `fx_bug_files`
-MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `fx_comments`
 --
@@ -1746,7 +1772,7 @@ MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 -- AUTO_INCREMENT for table `fx_files`
 --
 ALTER TABLE `fx_files`
-MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `fx_invoices`
 --
@@ -1766,7 +1792,7 @@ MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `fx_login_attempts`
 --
 ALTER TABLE `fx_login_attempts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `fx_messages`
 --
@@ -1801,7 +1827,7 @@ MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `fx_project_timer`
 --
 ALTER TABLE `fx_project_timer`
-MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `timer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `fx_ratings`
 --
@@ -1811,7 +1837,7 @@ MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `fx_roles`
 --
 ALTER TABLE `fx_roles`
-MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `fx_tasks`
 --
