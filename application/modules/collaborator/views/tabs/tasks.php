@@ -1,5 +1,5 @@
 <header class="header b-b b-light hidden-print">
-<a href="<?=base_url()?>collaborator/projects/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('add_task')?></a> 
+<a href="<?=base_url()?>collaborator/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('add_task')?></a> 
  </header>
 
 
@@ -12,7 +12,7 @@
 
 
 		<a href="#" class="thumb-sm pull-left m-r-sm"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($task->added_by,'avatar')?>" class="img-circle"> </a>
-			<a href="<?=base_url()?>projects/tasks/edit/<?=$task->t_id?>" data-toggle="ajaxModal" title="<?=lang('edit_task')?>" class="clear"> <small class="pull-right"><?php
+			<a href="<?=base_url()?>collaborator/tasks/edit/<?=$task->t_id?>" data-toggle="ajaxModal" title="<?=lang('edit_task')?>" class="clear"> <small class="pull-right"><?php
 								$today = time();
 								$activity_day = strtotime($task->date_added) ;
 								echo $this->user_profile->get_time_diff($today,$activity_day);

@@ -19,7 +19,7 @@ class Tasks extends MX_Controller {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
-		$this->load->model('c_model','project');
+		$this->load->model('projects/c_model','project');
 	}
 	function edit()
 	{		
@@ -36,13 +36,13 @@ class Tasks extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('task_update_failed'));
-				redirect('projects/view/details/'.$project);
+				redirect('collaborator/projects/details/'.$project);
 		}else{
 		if ($this->input->post('visible') == 'on') { $visible = 'Yes'; } else { $visible = 'No'; }	
 			$form_data = array(
 			                'task_name' => $this->input->post('task_name'),
 			                'project' => $this->input->post('project'),
-			                'assigned_to' => $this->input->post('assigned_to'),
+			                'assigned_to' => $this->tank_auth->get_user_id(),
 			                'visible' => $visible,
 			                'progress' => $this->input->post('progress'),
 			                'description' => $this->input->post('description'),
@@ -51,7 +51,7 @@ class Tasks extends MX_Controller {
 			            );
 			$this->db->where('t_id',$task_id)->update('tasks', $form_data); 
 
-			$this->_assigned_notification($project,$this->input->post('task_name'),$this->input->post('assigned_to')); 
+			$this->_assigned_notification($project,$this->input->post('task_name'),$this->tank_auth->get_user_id()); 
 			//send notification to assigned user
 
 			$activity = 'Edited a task '.$this->input->post('task_name');
@@ -59,10 +59,9 @@ class Tasks extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('task_update_success'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 		}
 	}else{
-		$data['assign_to'] = $this->project->assign_to();
 		$data['task_details'] = $this->project->task_details($this->uri->segment(4));
 		$this->load->view('modal/edit_task',isset($data) ? $data : NULL);
 	}
@@ -81,13 +80,13 @@ class Tasks extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('task_add_failed'));
-				redirect('projects/view/details/'.$project);
+				redirect('collaborator/projects/details/'.$project);
 		}else{
 		if ($this->input->post('visible') == 'on') { $visible = 'Yes'; } else { $visible = 'No'; }	
 			$form_data = array(
 			                'task_name' => $this->input->post('task_name'),
 			                'project' => $this->input->post('project'),
-			                'assigned_to' => $this->input->post('assigned_to'),
+			                'assigned_to' => $this->tank_auth->get_user_id(),
 			                'visible' => $visible,
 			                'progress' => $this->input->post('progress'),
 			                'description' => $this->input->post('description'),
@@ -96,18 +95,17 @@ class Tasks extends MX_Controller {
 			            );
 			$this->db->insert('tasks', $form_data); 
 
-			$this->_assigned_notification($project,$this->input->post('task_name'),$this->input->post('assigned_to')); 
+			$this->_assigned_notification($project,$this->input->post('task_name'),$this->tank_auth->get_user_id()); 
 			//send notification to assigned user
 
 			$activity = 'Added a task '.$this->input->post('task_name');
-			$this->_log_activity($project,$activity,$icon='fa-tasks'); //log activity
+			$this->_log_activity($project,$activity,$icon = 'fa-tasks'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('task_add_success'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 		}
 	}else{
-		$data['assign_to'] = $this->project->assign_to();
 		$this->load->view('modal/add_task',isset($data) ? $data : NULL);
 	}
 }
@@ -177,7 +175,7 @@ class Tasks extends MX_Controller {
 
 			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
 
-			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New task assigned by '.$assigned_by;
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New task assigned to you by '.$assigned_by;
 			$params['message'] = $this->load->view('emails/assigned_notification',$data,TRUE);
 
 			$params['attached_file'] = '';
