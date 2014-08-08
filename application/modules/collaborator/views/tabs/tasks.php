@@ -41,18 +41,18 @@
 <?php
 if ($task->auto_progress == 'FALSE') { ?>
 
-	<a href="<?=base_url()?>projects/tasks/pilot/on/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="right"> <i class="fa fa-rocket text-white"></i></a>
+	<a href="<?=base_url()?>collaborator/tasks/pilot/on/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="right"> <i class="fa fa-rocket text-white"></i></a>
 <?php }else{ ?>
-<a href="<?=base_url()?>projects/tasks/pilot/off/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-xs btn-dark" data-toggle="tooltip" data-placement="right"> <i class="fa fa-power-off text-white"></i></a>
+<a href="<?=base_url()?>collaborator/tasks/pilot/off/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-xs btn-dark" data-toggle="tooltip" data-placement="right"> <i class="fa fa-power-off text-white"></i></a>
 <?php } ?> 
 
 <?php
 if ($task->timer_status == 'On') { ?>
- <a href="<?=base_url()?>projects/tasks/tracking/off/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-danger btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('stop_timer')?> </a> 
+ <a href="<?=base_url()?>collaborator/tasks/tracking/off/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-danger btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('stop_timer')?> </a> 
  <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
 
 <?php }else{ ?>
- <a href="<?=base_url()?>projects/tasks/tracking/on/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-success btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('start_timer')?> </a> <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
+ <a href="<?=base_url()?>collaborator/tasks/tracking/on/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-success btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('start_timer')?> </a> <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
 
 <?php } ?>
 </div>

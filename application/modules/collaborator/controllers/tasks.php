@@ -132,7 +132,7 @@ class Tasks extends MX_Controller {
 		}
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('operation_successful'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 	}
 	function timesheet()
 	{		
@@ -158,7 +158,7 @@ class Tasks extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
-			redirect('projects/view/details/'.$project);
+			redirect('collaborator/projects/details/'.$project);
 	}
 
 	function _assigned_notification($project,$task_name,$assigned_to){
