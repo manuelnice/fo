@@ -15,7 +15,7 @@ class Invoices extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth');
-		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'admin') {
+		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'collaborator') {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
@@ -25,7 +25,7 @@ class Invoices extends MX_Controller {
 
 	function index()
 	{
-	$graph_data = $this->_data();
+		$graph_data = $this->_data();
 	$data['page'] = lang('chart');
 
 	$this->highcharts->set_title('YEARLY OVERVIEW', 'Invoice Payments'); // set chart title: title, subtitle(optional)

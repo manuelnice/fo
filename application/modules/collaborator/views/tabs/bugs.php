@@ -12,7 +12,7 @@
 				foreach ($bugs as $key => $bug) { ?>
 				
 				<tr class="success">
-				<td><a class="text-info" href="<?=base_url()?>bugs/view/details/<?=$bug->bug_id?>"><?=$bug->issue_ref?></a></td>
+				<td><a class="text-info" href="<?=base_url()?>collaborator/bug_view/details/<?=$bug->bug_id?>"><?=$bug->issue_ref?></a></td>
 				<td><?=ucfirst($bug->username)?></td>
 				<td><?=$bug->bug_status?></td>
 				<td><?=$bug->priority?></td>
