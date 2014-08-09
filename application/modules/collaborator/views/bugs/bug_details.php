@@ -72,7 +72,7 @@
 						<a href="<?=base_url()?>collaborator/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>
 
-						<a href="<?=base_url()?>collaborator/bug_view/edit" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
+						<a href="<?=base_url()?>collaborator/bug_view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
 
 						<div class="btn-group">
 						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>

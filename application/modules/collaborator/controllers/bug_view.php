@@ -42,19 +42,18 @@ class Bug_view extends MX_Controller {
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('issue_ref', 'Issue Ref', 'required');
 		$this->form_validation->set_rules('project', 'Project', 'required');
-		$this->form_validation->set_rules('reporter', 'Reporter', 'required');
 		$this->form_validation->set_rules('description', 'Description', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('issue_not_submitted'));
-				redirect('bugs');
+				redirect('collaborator/bugs');
 		}else{			
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
-			                'reporter' => $this->input->post('reporter'),
-			                'assigned_to' => $this->input->post('assigned_to'),
+			                'reporter' => $this->tank_auth->get_user_id(),
+			                'assigned_to' => $this->tank_auth->get_user_id(),
 			                'bug_status' => 'Unconfirmed',
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
@@ -63,17 +62,15 @@ class Bug_view extends MX_Controller {
 			$this->db->insert('bugs', $form_data); 
 			$bug_id = $this->db->insert_id();
 			$activity = 'Created an Issue #'.$this->input->post('issue_ref');
-			$this->_log_bug_activity($bug_id,$activity); //log activity
+			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-plus'); //log activity
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));
-			redirect('bugs/view_by_status/all');
+			redirect('collaborator/bugs');
 		}
 		}else{
-			$data['admins'] = $this->bugs_model->users('');
-			$data['users'] = $this->bugs_model->users('all');
 			$data['projects'] = $this->bugs_model->projects();
-		$this->load->view('modal/add_bug',$data);
+		$this->load->view('bugs/add_bug',$data);
 		}
 	}
 	function edit()
@@ -83,43 +80,41 @@ class Bug_view extends MX_Controller {
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('issue_ref', 'Issue Ref', 'required');
 		$this->form_validation->set_rules('project', 'Project', 'required');
-		$this->form_validation->set_rules('reporter', 'Reporter', 'required');
 		$this->form_validation->set_rules('description', 'Description', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('issue_not_edited'));
-				redirect('bugs');
+				redirect('collaborator/bugs');
 		}else{	
 		$bug_id	 =  $this->input->post('bug_id');
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
-			                'reporter' => $this->input->post('reporter'),
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
 			                'last_modified' => date("Y-m-d H:i:s"),
 			            );
 			$this->db->where('bug_id',$bug_id)->update('bugs', $form_data); 
 			$activity = 'Edited an Issue #'.$this->input->post('issue_ref');
-			$this->_log_bug_activity($bug_id,$activity); //log activity
+			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-edit'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
-			redirect('bugs/view_by_status/all');
+			redirect('collaborator/bug_view/details/'.$bug_id);
 		}
 		}else{
-		$data['users'] = $this->bugs_model->users('all');
 		$data['projects'] = $this->bugs_model->projects();
 		$data['bug_details'] = $this->bugs_model->bug_details($this->uri->segment(4));
-		$this->load->view('modal/edit_bug',$data);
+		$this->load->view('bugs/edit_bug',$data);
 		}
 	}
-	function _log_bug_activity($bug_id,$activity){
+	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 }

@@ -62,20 +62,9 @@ class Bugs_model extends CI_Model
 			return $query->result();
 		} 
 	}
-	function users($criteria)
-	{
-		if ($criteria == 'all') {
-			$query = $this->db->get('users');
-		}else{
-			$query = $this->db->where('role_id !=',2)->get('users');
-		}		
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
-	}
 	function projects()
 	{
-		$query = $this->db->get('projects');
+		$query = $this->db->where('assign_to',$this->tank_auth->get_user_id())->get('projects');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
