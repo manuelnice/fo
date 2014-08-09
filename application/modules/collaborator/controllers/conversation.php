@@ -19,7 +19,7 @@ class Conversation extends MX_Controller {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
-		$this->load->model('msg_model');
+		$this->load->model('messages/msg_model');
 	}
 
 	function view()
@@ -35,7 +35,7 @@ class Conversation extends MX_Controller {
 	$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
 	$this->template
 	->set_layout('users')
-	->build('conversations',isset($data) ? $data : NULL);
+	->build('messages/conversations',isset($data) ? $data : NULL);
 	}
 	
 	function send()
@@ -82,9 +82,10 @@ class Conversation extends MX_Controller {
 				$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
 				$this->template
 				->set_layout('users')
-				->build('send_message',isset($data) ? $data : NULL);
+				->build('messages/send_message',isset($data) ? $data : NULL);
 		}
 	}
+
 	function delete()
 	{
 		if ($this->input->post()) {
