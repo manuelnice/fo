@@ -38,148 +38,7 @@ class Inv_manage extends MX_Controller {
 	->build('invoices/welcome',isset($data) ? $data : NULL);
 	}
 
-	function add()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('reference_no', 'Reference No', 'required');
-		$this->form_validation->set_rules('client', 'Client', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('invoices/manage/by_status/all');
-		}else{			
-			$form_data = array(
-			                'reference_no' => $this->input->post('reference_no'),
-			                'client' => $this->input->post('client'),
-			                'due_date' => $this->input->post('due_date'),
-			                'notes' => $this->input->post('notes'),
-			                'allow_paypal' => $this->input->post('allow_paypal'),
-			                'recurring' => $this->input->post('recurring'),
-			                'r_freq' => $this->input->post('r_freq')
-			            );
-			$this->db->insert('invoices', $form_data); 
-			$invoice_id = $this->db->insert_id();
-
-			$activity = ucfirst('INVOICE #'.$this->input->post('reference_no').' created.');
-			$this->_log_activity($invoice_id,$activity,$icon = 'fa-plus'); //log activity
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('invoice_created_successfully'));
-			redirect('invoices/manage/details/'.$invoice_id);
-		}
-
-		}else{
-
-
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
-	$data['page'] = lang('add_invoice');
-	$data['clients'] = $this->invoice->clients();
-	$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
-		$array = array(
-			'inv_deleted' => 'No',
-			),
-		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
-	$this->template
-	->set_layout('users')
-	->build('create_invoice',isset($data) ? $data : NULL);
-
-		}
-	}
-
-	function edit()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('reference_no', 'Reference No', 'required');
-		$this->form_validation->set_rules('client', 'Client', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('invoices/manage/by_status/all');
-		}else{	
-		$invoice_id = $this->input->post('invoice', TRUE);	
-
-			$form_data = array(
-			                'client' => $this->input->post('client'),
-			                'due_date' => $this->input->post('due_date'),
-			                'notes' => $this->input->post('notes'),
-			                'allow_paypal' => $this->input->post('allow_paypal'),
-			                'recurring' => $this->input->post('recurring'),
-			                'r_freq' => $this->input->post('r_freq')
-			            );
-			$this->db->where('inv_id',$invoice_id)->update('invoices', $form_data);
-
-			$activity = ucfirst($this->tank_auth->get_username().' edited INVOICE #'.$this->input->post('reference_no'));
-			$this->_log_activity($invoice_id,$activity,$icon = 'fa-pencil'); //log activity
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('invoice_edited_successfully'));
-			redirect('invoices/manage/details/'.$invoice_id);
-		}
-
-		}else{
-
-
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
-	$data['page'] = lang('add_invoice');
-	$data['clients'] = $this->invoice->clients();
-	$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
-		$array = array(
-			'inv_deleted' => 'No',
-			),
-		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
-	$data['invoice_details'] =  $this->invoice->invoice_details($this->uri->segment(4));
-	$this->template
-	->set_layout('users')
-	->build('edit_invoice',isset($data) ? $data : NULL);
-
-		}
-	}
-
-	function item()
-	{
-		if ($this->input->post()) {
-		$invoice_id = $this->input->post('invoice_id');
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('quantity', 'Quantity', 'required');
-		$this->form_validation->set_rules('unit_cost', 'Unit Cost', 'required');
-		$this->form_validation->set_rules('item_desc', 'Item Description', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('invoices/manage/details/'.$invoice_id);
-		}else{			
-			$form_data = array(
-			                'invoice_id' => $this->input->post('invoice_id'),
-			                'item_desc' => $this->input->post('item_desc'),
-			                'unit_cost' => $this->input->post('unit_cost'),
-			                'quantity' => $this->input->post('quantity'),
-			                'total_cost' => $this->input->post('unit_cost') * $this->input->post('quantity')
-			            );
-			$this->db->insert('items', $form_data); 
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('item_added_successfully'));
-			redirect('invoices/manage/details/'.$invoice_id);
-		}
-
-		}else{
-
-	redirect('invoices/manage/view/all');
-
-		}
-	}
+	
 	function details()
 	{		
 		$this->load->module('layouts');
@@ -189,12 +48,13 @@ class Inv_manage extends MX_Controller {
 		$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
 		$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
 		$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',$array = array(
+			'client' => $this->tank_auth->get_user_id(),
 			'inv_deleted' => 'No',
 			),$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
 		$data['payment_status'] = $this->invoice->payment_status($this->uri->segment(4));
 		$this->template
 		->set_layout('users')
-		->build('invoice_details',isset($data) ? $data : NULL);
+		->build('invoices/invoice_details',isset($data) ? $data : NULL);
 	}
 	function timeline()
 	{		

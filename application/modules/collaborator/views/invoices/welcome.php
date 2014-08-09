@@ -7,7 +7,7 @@
 		<aside class="aside-md bg-white b-r" id="subNav">
 
 			<header class="dk header b-b">
-		<a href="<?=base_url()?>invoices/manage/add" data-original-title="<?=lang('new_invoice')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-default btn-sm pull-right"><i class="fa fa-plus"></i></a>
+		
 		<p class="h4"><?=lang('all_invoices')?></p>
 		</header>
 
@@ -25,7 +25,7 @@
 			?>
 
 				<li class="b-b b-light">
-				<a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
+				<a href="<?=base_url()?>collaborator/inv_manage/details/<?=$invoice->inv_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
@@ -44,8 +44,7 @@
 				<header class="header bg-white b-b clearfix">
 					<div class="row m-t-sm">
 						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							
 						<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
