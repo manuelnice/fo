@@ -1,5 +1,3 @@
-# README #
-
 Freelance Office is a web based client portal application that you can use to manage your clients in one click.
 
 ### Who can use it? ###
