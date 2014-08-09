@@ -21,30 +21,21 @@ class Inv_manage extends MX_Controller {
 		}
 		$this->load->model('invoices/invoice_model','invoice');
 	}
-	function view()
+	function index()
 	{
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('invoices');
-	$status = $this->uri->segment(4);
-	if ($status != 'all') {
-		$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
-		$array = array(
-			'inv_deleted' => 'No',
-			'status' => $status
-			),
-		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
-	}else{
 	$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',
 		$array = array(
+			'client' => $this->tank_auth->get_user_id(),
 			'inv_deleted' => 'No'
 			),
 		$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
-		}
 	$this->template
 	->set_layout('users')
-	->build('invoices',isset($data) ? $data : NULL);
+	->build('invoices/welcome',isset($data) ? $data : NULL);
 	}
 
 	function add()

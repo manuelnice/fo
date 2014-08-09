@@ -1,6 +1,8 @@
 	<?php
-			$total_receipts = $this->user_profile->get_sum('payments','amount',$array = array('inv_deleted' => 'No'));
-			$total_sales = $this->user_profile->get_sum('items','total_cost',$array = array('total_cost >' => '0'));
+			$total_receipts = $this->user_profile->get_sum('payments','amount',$array = array(
+				'paid_by'=>$this->tank_auth->get_user_id(),
+				'inv_deleted' => 'No'));
+			$total_sales = $this->user_profile->client_payable($this->tank_auth->get_user_id());
 			$outstanding = $total_sales - $total_receipts;
 			?>
 <div class="progress progress-xs progress-striped active">

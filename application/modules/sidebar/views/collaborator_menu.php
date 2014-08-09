@@ -35,7 +35,9 @@
               <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>collaborator/bugs" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
                 <span><?=lang('bug_tracking')?> </span> </a> </li>   
 
-                <li class="<?php if($page == lang('invoices')){echo  "active"; }?>"> <a href="<?=base_url()?>collaborator/invoices" > <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> </i>
+                <li class="<?php if($page == lang('invoices')){echo  "active"; }?>">
+                <a href="<?=base_url()?>collaborator/inv_manage" > <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> 
+                </i>
                 <span><?=lang('invoices')?> </span> </a> </li>            
 
               

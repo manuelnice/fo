@@ -26,7 +26,6 @@ class Invoices extends MX_Controller {
 	function index()
 	{
 		$graph_data = $this->_data();
-	$data['page'] = lang('chart');
 
 	$this->highcharts->set_title('YEARLY OVERVIEW', 'Invoice Payments'); // set chart title: title, subtitle(optional)
 	$this->highcharts->set_axis_titles('Month', 'Amount Received'); // axis titles: x axis,  y axis
@@ -45,7 +44,7 @@ class Invoices extends MX_Controller {
 	$this->_monthly_data('12')
 	);
 	$this->highcharts->set_xAxis($graph_data['axis']); // pushing categories for x axis labels
-	$data['charts'] = $this->highcharts->set_serie($serie,'Amount Collected ('.$this->config->item('default_currency').')')->render();
+	$data['charts'] = $this->highcharts->set_serie($serie,'Amount Paid ('.$this->config->item('default_currency').')')->render();
 	$this->load->view('invoices/invoice_chart',isset($data) ? $data : NULL);
 	}
 
@@ -57,6 +56,7 @@ class Invoices extends MX_Controller {
 	function _monthly_data($month)
 	{
 		$this->db->select_sum('amount');
+		$this->db->where('paid_by', $this->tank_auth->get_user_id()); 
 		$this->db->where('month_paid', $month); 
 		$this->db->where('year_paid', date('Y')); 
 		$query = $this->db->get('payments');
