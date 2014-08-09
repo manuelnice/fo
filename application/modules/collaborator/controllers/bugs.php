@@ -39,17 +39,17 @@ class Bugs extends MX_Controller {
 	$this->load->library('template');
 	$this->template->title(lang('bug_tracking').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('bug_tracking');
-		if ($this->uri->segment(3) == 'unconfirmed') { 
-		$status = 'Unconfirmed'; }elseif ($this->uri->segment(3) == 'confirmed') {
-		$status = 'Confirmed';  }elseif ($this->uri->segment(3) == 'progress') { 
-		$status = 'In Progress'; }elseif ($this->uri->segment(3) == 'resolved') {
-		$status = 'Resolved'; }elseif ($this->uri->segment(3) == 'verified') { 
+		if ($this->uri->segment(4) == 'unconfirmed') { 
+		$status = 'Unconfirmed'; }elseif ($this->uri->segment(4) == 'confirmed') {
+		$status = 'Confirmed';  }elseif ($this->uri->segment(4) == 'progress') { 
+		$status = 'In Progress'; }elseif ($this->uri->segment(4) == 'resolved') {
+		$status = 'Resolved'; }elseif ($this->uri->segment(4) == 'verified') { 
 		$status = 'Verified';  }else{ $status = 'all'; }
 
-	$data['bugs'] = $this->bugs_model->bugs_by_status($status,25,$this->uri->segment(4));
+	$data['bugs'] = $this->bugs_model->bugs_by_status($status,25,$this->uri->segment(5));
 	$this->template
 	->set_layout('users')
-	->build('bugs',isset($data) ? $data : NULL);
+	->build('bugs/welcome',isset($data) ? $data : NULL);
 	}
 	function search()
 	{
@@ -96,37 +96,6 @@ class Bugs extends MX_Controller {
 			}
 		}else{
 		redirect('collaborator/bugs');
-		}
-	}
-	function assign_to()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('assigned_to', 'Assigned To', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('failed_to_assign_bug'));
-				redirect('bugs/view_by_status/all');
-		}else{			
-			$form_data = array(
-			                'assigned_to' => $this->input->post('assigned_to'),
-			                'bug_status' => 'In Progress',
-			            );
-			$this->db->where('bug_id',$this->input->post('bug_id'))->update('bugs', $form_data); 
-			$activity = 'Assigned Issue #'.$this->input->post('issue_ref').' to a user and marked as In Progress';
-			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-check'); //log activity
-			//send email to the assigned user
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('bug_assigned_successfully'));
-			redirect('bugs/view_by_status/all');
-			}
-		}else{
-			$data['bug_id'] = $this->uri->segment(3);
-			$data['issue_ref'] = $this->uri->segment(4);
-			$data['users'] = $this->bugs_model->users('not_user');
-			$this->load->view('modal/assign_bug',$data);
 		}
 	}
 	function mark_status()

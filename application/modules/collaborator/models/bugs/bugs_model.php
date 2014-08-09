@@ -45,6 +45,7 @@ class Bugs_model extends CI_Model
 	function bugs_by_status($status,$limit,$offset)
 	{
 		$this->db->join('projects','projects.project_id = bugs.project');
+		$this->db->where('assigned_to',$this->tank_auth->get_user_id());
 		if ($status == 'all') { 
 			$query = $this->db->order_by('reported_on','desc')->get('bugs',$limit,$offset);
 		}else{
