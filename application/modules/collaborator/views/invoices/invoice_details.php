@@ -56,7 +56,7 @@
 						
 						<?php
 						if ($this->user_profile->invoice_payable($inv->inv_id) > 0) { ?>
-							<a class="btn btn-sm btn-success" href="<?=base_url()?>collaborator/inv_manage/pay/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal"
+							<a class="btn btn-sm btn-success" href="<?=base_url()?>paypal/pay/<?=$inv->inv_id?>/<?=$inv->reference_no?>" data-toggle="ajaxModal"
 						 title="<?=lang('pay_invoice')?>">
 						<i class="fa fa-credit-card"></i> <?=lang('pay_invoice')?></a>						
 					

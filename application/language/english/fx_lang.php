@@ -295,6 +295,7 @@ $lang['payment_date'] = 'Payment Date';
 $lang['payment_for_invoice'] = 'Payment for Invoice';
 $lang['payments_received'] = 'Payments Received';
 $lang['paypal_live'] = 'Paypal Live';
+$lang['paypal_redirection_alert'] = 'Your payment will be processed via Paypal';
 $lang['pay_invoice'] = 'Pay Invoice';
 $lang['pdf'] = 'PDF';
 $lang['phone'] = 'Phone';
