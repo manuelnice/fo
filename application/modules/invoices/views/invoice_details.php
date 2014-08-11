@@ -83,7 +83,7 @@
 						<?php } ?>
 						</div>
 						<div class="col-sm-4 m-b-xs pull-right">
-						<a href="<?=base_url()?>invoices/manage/invoicepdf/<?=$inv->inv_id?>" class="btn btn-sm btn-dark pull-right">
+						<a href="<?=base_url()?>pdfconverter/invoice/<?=$inv->inv_id?>/<?=$inv->reference_no?>" class="btn btn-sm btn-dark pull-right">
 					<i class="fa fa-file-pdf-o"></i> <?=lang('pdf')?></a>
 						</div>
 					</div> </header>
