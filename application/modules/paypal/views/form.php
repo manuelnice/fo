@@ -13,9 +13,9 @@
 					<input name="currency_code" value="<?=$this->config->item('default_currency')?>" type="hidden">
 					<input name="quantity" value="1" type="hidden">
 					<input name="business" value="<?=$this->config->item('paypal_email')?>" type="hidden">
-					<input name="return" value="<?=$this->config->item('paypal_success_url')?>" type="hidden">
-					<input name="cancel_return" value="<?=$this->config->item('paypal_cancel_url')?>" type="hidden">
-					<input name="notify_url" value="<?=$this->config->item('paypal_ipn_url')?>" type="hidden">
+					<input name="return" value="<?=base_url()?><?=$this->config->item('paypal_success_url')?>" type="hidden">
+					<input name="cancel_return" value="<?=base_url()?><?=$this->config->item('paypal_cancel_url')?>" type="hidden">
+					<input name="notify_url" value="<?=base_url()?><?=$this->config->item('paypal_ipn_url')?>" type="hidden">
 					<input name="custom" value="<?=$this->tank_auth->get_user_id()?>" type="hidden">
 					<input name="item_name" value="<?=$invoice_info['item_name']?>" type="hidden">
 					<input name="item_number" value="<?=$invoice_info['item_number']?>" type="hidden">
