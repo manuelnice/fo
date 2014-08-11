@@ -69,12 +69,12 @@
     'italic' => DOMPDF_FONT_DIR . 'Courier-Oblique',
     'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
   ),
-  'dejavu sans' => 
+  'open sans' => 
   array (
-    'bold' => DOMPDF_FONT_DIR . 'DejaVuSans-Bold',
-    'bold_italic' => DOMPDF_FONT_DIR . 'DejaVuSans-BoldOblique',
-    'italic' => DOMPDF_FONT_DIR . 'DejaVuSans-Oblique',
-    'normal' => DOMPDF_FONT_DIR . 'DejaVuSans',
+    'bold' => DOMPDF_DIR . '/lib/fonts/OpenSans-Bold',
+    'bold_italic' => DOMPDF_DIR . '/lib/fonts/OpenSans-BoldItalic',
+    'italic' => DOMPDF_DIR . '/lib/fonts/OpenSans-Italic',
+    'normal' => DOMPDF_DIR . '/lib/fonts/OpenSans',
   ),
   'dejavu sans light' => 
   array (
