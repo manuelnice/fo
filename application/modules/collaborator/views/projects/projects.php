@@ -39,13 +39,10 @@
 				<header class="header bg-white b-b clearfix">
 					<div class="row m-t-sm">
 						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							
 						<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
-						<a class="btn btn-sm btn-danger" href="<?=base_url()?>projects/view/add" title="<?=lang('new_project')?>" data-original-title="<?=lang('new_project')?>" data-toggle="tooltip" data-placement="bottom">
-						<i class="fa fa-plus"></i> <?=lang('new_project')?></a>
 						</div>
 						<div class="col-sm-4 m-b-xs">
 						<?php  echo form_open(base_url().'projects/manage/search'); ?>
