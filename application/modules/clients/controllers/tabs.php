@@ -18,11 +18,6 @@ class Tabs extends MX_Controller {
 		
 		$this->load->model('projects/c_model','project');
 	}
-	function timeline()
-	{		
-		$data['activities'] = $this->project->project_activities($this->uri->segment(4));
-		$this->load->view('tabs/timeline',isset($data) ? $data : NULL);
-	}
 	function bugs()
 	{	
 		$data['bugs'] = $this->project->project_bugs($this->uri->segment(4));

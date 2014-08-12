@@ -6,8 +6,8 @@
 		<header class="header bg-white b-b b-light">
 			<p><a href="<?=base_url()?>clients/projects/" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
 			<p class="pull-right">
-	<a href="<?=base_url()?>clients/bug_view/add" class="btn btn-sm btn-dark "> <i class="fa fa-bug text-white"></i> <?=lang('new_bug')?></a> 
-	<a href="<?=base_url()?>clients/files/add/<?=$project->project_id * 1200?>" class="btn btn-sm btn-dark "> <i class="fa fa-upload text-white"></i> <?=lang('upload_file')?></a> 
+	<a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" class="btn btn-sm btn-dark "> <i class="fa fa-bug text-white"></i> <?=lang('new_bug')?></a> 
+	<a href="<?=base_url()?>clients/files/add/<?=$project->project_id * 1200?>" data-toggle="ajaxModal" class="btn btn-sm btn-dark "> <i class="fa fa-upload text-white"></i> <?=lang('upload_file')?></a> 
 </p>
 
 			</header>
@@ -152,25 +152,21 @@
 														
 														<li class="active"><a href="#tasks" id="tasks_tab" data-toggle="tab"> <?=lang('tasks')?> </a></li>
 
-														<li><a href="<?=base_url()?>collaborator/tabs/files/<?=$project->project_id?>" data-target="#files" class="media_node span" id="files_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('files')?></a></li>
+														<li><a href="<?=base_url()?>clients/tabs/files/<?=$project->project_id?>" data-target="#files" class="media_node span" id="files_tab" data-toggle="tabajax" rel="tooltip"> <?=lang('files')?></a></li>
 														
-														<li><a href="<?=base_url()?>collaborator/tabs/timesheet/<?=$project->project_id?>" data-target="#timesheet" class="media_node span" id="timesheet_tab" data-toggle="tabajax" rel="tooltip"><?=lang('timesheets')?></a></li>
+														<li><a href="<?=base_url()?>clients/tabs/timesheet/<?=$project->project_id?>" data-target="#timesheet" class="media_node span" id="timesheet_tab" data-toggle="tabajax" rel="tooltip"><?=lang('timesheets')?></a></li>
 
-														<li><a href="<?=base_url()?>collaborator/tabs/bugs/<?=$project->project_id?>" data-target="#bugs" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('bugs')?></a></li>
-														<li><a href="<?=base_url()?>collaborator/tabs/timeline/<?=$project->project_id?>" data-target="#timeline" class="media_node span" id="timeline_tab" data-toggle="tabajax" rel="tooltip"><?=lang('timeline')?> </a></li>
+														<li><a href="<?=base_url()?>clients/tabs/bugs/<?=$project->project_id?>" data-target="#bugs" class="media_node span" id="activities_tab" data-toggle="tabajax" rel="tooltip"><?=lang('bugs')?></a></li>
+														
 													</ul>
 													<div class="tab-content">
 
 													<div class="tab-pane active" id="tasks">
-													<?php echo modules::run('collaborator/tabs/tasks');?></div>
+													<?php echo modules::run('clients/tabs/tasks');?></div>
 														<div class="tab-pane" id="files"></div>
 														<div class="tab-pane" id="timesheet"></div>
 														<div class="tab-pane" id="bugs"></div>
 
-														<div class="tab-pane" id="timeline">
-															
-															<!-- Timeline END -->
-														</div>
 														
 													</div>
 												</div>
@@ -212,7 +208,7 @@
 																
 																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>									
 																<?php } ?>
-																<a href="<?=base_url()?>collaborator/projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+																<a href="<?=base_url()?>clients/projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
 
 																</div>
 															</div>
@@ -250,7 +246,7 @@
 														<section class="media-body">
 															<?php
 															$attributes = array('class' => 'class="m-b-none"');
-															echo form_open(base_url().'collaborator/projects/comment?project='.$project->project_id, $attributes); ?>
+															echo form_open(base_url().'clients/projects/comment?project='.$project->project_id, $attributes); ?>
 															<input type="hidden" name="project_id" value="<?=$project->project_id?>">
 															<input type="hidden" name="project_code" value="<?=$project->project_code?>">
 															<div class="input-group">

@@ -21,51 +21,6 @@ class Tasks extends MX_Controller {
 		}
 		$this->load->model('projects/c_model','project');
 	}
-	function edit()
-	{		
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('task_name', 'Task Name', 'required');
-		$this->form_validation->set_rules('project', 'Project', 'required');
-		$this->form_validation->set_rules('progress', 'progress', 'required');
-
-		$project = $this->input->post('project', TRUE);
-		$task_id = $this->input->post('task_id', TRUE);
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('task_update_failed'));
-				redirect('collaborator/projects/details/'.$project);
-		}else{
-		if ($this->input->post('visible') == 'on') { $visible = 'Yes'; } else { $visible = 'No'; }	
-			$form_data = array(
-			                'task_name' => $this->input->post('task_name'),
-			                'project' => $this->input->post('project'),
-			                'assigned_to' => $this->tank_auth->get_user_id(),
-			                'visible' => $visible,
-			                'progress' => $this->input->post('progress'),
-			                'description' => $this->input->post('description'),
-			                'estimated_hours' => $this->input->post('estimate'),
-			                'added_by' => $this->tank_auth->get_user_id(),
-			            );
-			$this->db->where('t_id',$task_id)->update('tasks', $form_data); 
-
-			$this->_assigned_notification($project,$this->input->post('task_name'),$this->tank_auth->get_user_id()); 
-			//send notification to assigned user
-
-			$activity = 'Edited a task '.$this->input->post('task_name');
-			$this->_log_activity($project,$activity,$icon='fa-tasks'); //log activity
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('task_update_success'));
-			redirect('collaborator/projects/details/'.$project);
-		}
-	}else{
-		$data['task_details'] = $this->project->task_details($this->uri->segment(4));
-		$this->load->view('modal/edit_task',isset($data) ? $data : NULL);
-	}
-}
 	function add()
 	{		
 		if ($this->input->post()) {
@@ -73,22 +28,22 @@ class Tasks extends MX_Controller {
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('task_name', 'Task Name', 'required');
 		$this->form_validation->set_rules('project', 'Project', 'required');
-		$this->form_validation->set_rules('progress', 'progress', 'required');
 
 		$project = $this->input->post('project', TRUE);
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('task_add_failed'));
-				redirect('collaborator/projects/details/'.$project);
-		}else{
-		if ($this->input->post('visible') == 'on') { $visible = 'Yes'; } else { $visible = 'No'; }	
+				redirect('clients/projects/details/'.$project);
+		}else{	
+			$assigned_to = $this->user_profile->get_project_details($project,'assign_to');
+
 			$form_data = array(
 			                'task_name' => $this->input->post('task_name'),
 			                'project' => $this->input->post('project'),
-			                'assigned_to' => $this->tank_auth->get_user_id(),
-			                'visible' => $visible,
-			                'progress' => $this->input->post('progress'),
+			                'assigned_to' => $assigned_to,
+			                'visible' => 'Yes',
+			                'progress' => '0',
 			                'description' => $this->input->post('description'),
 			                'estimated_hours' => $this->input->post('estimate'),
 			                'added_by' => $this->tank_auth->get_user_id(),
@@ -103,37 +58,12 @@ class Tasks extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('task_add_success'));
-			redirect('collaborator/projects/details/'.$project);
+			redirect('clients/projects/details/'.$project);
 		}
 	}else{
 		$this->load->view('modal/add_task',isset($data) ? $data : NULL);
 	}
 }
-	function tracking()
-	{
-		$action = ucfirst($this->uri->segment(4));
-		$project = $this->uri->segment(5);
-		$task = $this->uri->segment(6);
-		if ($action == 'Off') {			
-			$task_start =  $this->project->get_task_start($task); //task start time
-			$task_logged_time =  $this->project->get_task_logged_time($task); 
-			$time_logged = (time() - $task_start) + $task_logged_time; //time already logged
-
-			$this->db->set('timer_status', $action);
-			$this->db->set('logged_time', $time_logged);
-			$this->db->set('start_time', '');
-			$this->db->where('t_id',$task)->update('tasks');
-			$this->_log_timesheet($task,$task_start,time()); //log activity
-
-		}else{
-			$this->db->set('timer_status', $action);
-			$this->db->set('start_time', time());
-			$this->db->where('t_id',$task)->update('tasks');
-		}
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('operation_successful'));
-			redirect('collaborator/projects/details/'.$project);
-	}
 	function timesheet()
 	{		
 		$data['timesheets'] = $this->project->timesheets($this->uri->segment(4));
@@ -143,22 +73,6 @@ class Tasks extends MX_Controller {
 	{		
 		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
 		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
-	}
-	function pilot(){
-		if ($this->uri->segment(4) == 'on') {
-			$status = 'TRUE';
-		}else{
-			$status = 'FALSE';
-		}
-			$task = $this->uri->segment(5);
-			$project = $this->uri->segment(6)/8600;
-
-			$this->db->set('auto_progress', $status);
-			$this->db->where('t_id',$task)->update('tasks');
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
-			redirect('collaborator/projects/details/'.$project);
 	}
 
 	function _assigned_notification($project,$task_name,$assigned_to){

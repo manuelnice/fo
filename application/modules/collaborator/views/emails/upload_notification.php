@@ -2,12 +2,12 @@
 <html><head><title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
-    <p>Hello Admin</p>
+    <p>Hello</p>
     <p>A new file has been uploaded by <?=$upload_user?> to project <?=$project_title?>. </p>
-    <p>You can view the Project using the link below.</p>
+    <p>You can view the Project by logging in to your Dashboard.</p>
         --------------------------
         <br>
-        <?=base_url()?>projects/view/details/<?=$project_id?>
+        <?=base_url()?>auth/login
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

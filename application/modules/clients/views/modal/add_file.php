@@ -6,7 +6,7 @@
 		
 					<?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open_multipart(base_url().'collaborator/files/add',$attributes); ?>
+          echo form_open_multipart(base_url().'clients/files/add',$attributes); ?>
           <input type="hidden" name="project" value="<?=$project?>">
           <input type="hidden" name="project_code" value="<?=$project_code?>">
 		<div class="modal-body">

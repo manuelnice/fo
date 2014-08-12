@@ -5,7 +5,7 @@
 		</div>
 					<?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'collaborator/projects/replies',$attributes); ?>
+          echo form_open(base_url().'clients/projects/replies',$attributes); ?>
 		<div class="modal-body">
 			<p><?=lang('comment_email_notification')?></p>
 			 <input type="hidden" name="project" value="<?=$project?>">

@@ -9,7 +9,7 @@
 								if (!empty($timesheets)) {
 				foreach ($timesheets as $key => $t) { ?>
 				
-				<tr class="danger">
+				<tr class="success">
 				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->start_time)?></td>
 				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->end_time)?></td>
 				<td><?php

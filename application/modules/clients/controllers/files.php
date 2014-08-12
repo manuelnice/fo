@@ -34,7 +34,7 @@ class Files extends MX_Controller {
 						{
 								$this->session->set_flashdata('response_status', 'error');
 								$this->session->set_flashdata('message', lang('error_in_form'));
-								redirect('collaborator/projects/details/'.$project);
+								redirect('clients/projects/details/'.$project);
 						}else{
 
 								if ($this->config->item('demo_mode') == 'FALSE') {
@@ -50,7 +50,7 @@ class Files extends MX_Controller {
 									{
 										$this->session->set_flashdata('response_status', 'error');
 										$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-										redirect('collaborator/projects/details/'.$project);
+										redirect('clients/projects/details/'.$project);
 									}
 									else
 									{
@@ -65,12 +65,12 @@ class Files extends MX_Controller {
 
 										$this->session->set_flashdata('response_status', 'success');
 										$this->session->set_flashdata('message',$this->lang->line('file_uploaded_successfully'));
-										redirect('collaborator/projects/details/'.$project);
+										redirect('clients/projects/details/'.$project);
 									}
 								} else {
 									$this->session->set_flashdata('response_status', 'error');
 									$this->session->set_flashdata('message',$this->lang->line('demo_warning'));
-										redirect('collaborator/projects/details/'.$project);
+										redirect('clients/projects/details/'.$project);
 								}
 					}
 		}else{
@@ -97,13 +97,13 @@ class Files extends MX_Controller {
 			force_download($file->file_name, $data);
 		}else{
 			$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-				redirect('projects/view/details/'.$project_id);
+				redirect('clients/projects/details/'.$project_id);
 			}
 		}
 		else
 		{
 			$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-				redirect('projects/view/details/'.$project_id);
+				redirect('clients/projects/details/'.$project_id);
 		}
 	}
 	function delete()
@@ -119,7 +119,7 @@ class Files extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('delete_failed'));
-				redirect('collaborator/projects/details/'.$project_id);
+				redirect('clients/projects/details/'.$project_id);
 		}else{			
 			$file = $this->project->get_file($file_id);
 			unlink('./resource/project-files/'.$file->file_name);
@@ -130,7 +130,7 @@ class Files extends MX_Controller {
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('file_deleted'));
-			redirect('collaborator/projects/details/'.$project_id);
+			redirect('clients/projects/details/'.$project_id);
 			}
 		}else{
 			$data['file_id'] = $this->uri->segment(4)/1800;
@@ -149,7 +149,9 @@ class Files extends MX_Controller {
 			$data['upload_user'] = $upload_user;
 			$data['project_id'] = $project;
 
-			$params['recipient'] = $this->config->item('company_email');
+			$project_manager = $this->user_profile->get_project_details($project,'assign_to');
+
+			$params['recipient'] = $this->user_profile->get_user_details($project_manager,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New File Uploaded';
 			$params['message'] = $this->load->view('emails/upload_notification',$data,TRUE);

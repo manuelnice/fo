@@ -61,7 +61,7 @@ class Projects extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('comment_failed'));
-				redirect('collaborator/projects/details/'.$this->input->get('project',TRUE));
+				redirect('clients/projects/details/'.$this->input->get('project',TRUE));
 		}else{		
 		$project_id = $this->input->post('project_id');	
 			$form_data = array(
@@ -77,10 +77,10 @@ class Projects extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
-			redirect('collaborator/projects/details/'.$this->input->get('project',TRUE));
+			redirect('clients/projects/details/'.$this->input->get('project',TRUE));
 			}
 		}else{
-		redirect('collaborator/projects');
+		redirect('clients/projects');
 		}
 	}
 	function replies()
@@ -93,7 +93,7 @@ class Projects extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('comment_failed'));
-				redirect('collaborator/projects/details/'.$this->input->post('project',TRUE));
+				redirect('clients/projects/details/'.$this->input->post('project',TRUE));
 		}else{		
 		$project_id = $this->input->post('project');	
 			$form_data = array(
@@ -107,7 +107,7 @@ class Projects extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_replied_successful'));
-			redirect('collaborator/projects/details/'.$this->input->post('project',TRUE));
+			redirect('clients/projects/details/'.$this->input->post('project',TRUE));
 			}
 		}else{
 		$data['comment'] = $this->input->get('c', TRUE);

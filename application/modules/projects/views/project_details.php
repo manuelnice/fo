@@ -58,7 +58,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 											<div class="clear">
 												<div class="h3 m-t-xs m-b-xs"><?=lang('client')?></div>
 												<small class="text-muted">
-												<a class="text-info" href="<?=base_url()?>clients/view/details/<?=$project->client*1200?>">@<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></a></small>
+												<a class="text-info" href="<?=base_url()?>contacts/view/details/<?=$project->client*1200?>">@<?=ucfirst($this->user_profile->get_profile_details($project->client,'fullname')?$this->user_profile->get_profile_details($project->client,'fullname'):$this->user_profile->get_user_details($project->client,'username'))?></a></small>
 											</div>
 										</div>
 										<div class="panel wrapper panel-success">
@@ -217,7 +217,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 														<span class="arrow left"></span>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
-																<a href="<?=base_url()?>clients/view/details/<?=$comment->posted_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
+																<a href="<?=base_url()?>contacts/view/details/<?=$comment->posted_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
 																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
@@ -255,7 +255,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 																					$reply_day = strtotime($reply->date_posted) ;
 																					echo $this->user_profile->get_time_diff($today,$reply_day);
 															?> ago</span> 
-													<a href="<?=base_url()?>clients/view/details/<?=$reply->replied_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($reply->replied_by,'fullname')?$this->user_profile->get_profile_details($reply->replied_by,'fullname'):$this->user_profile->get_user_details($reply->replied_by,'username'))?></a>
+													<a href="<?=base_url()?>contacts/view/details/<?=$reply->replied_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($reply->replied_by,'fullname')?$this->user_profile->get_profile_details($reply->replied_by,'fullname'):$this->user_profile->get_user_details($reply->replied_by,'username'))?></a>
 													<?=$reply->reply_msg?></div>
 												 </section>
 											</article>

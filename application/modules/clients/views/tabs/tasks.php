@@ -1,5 +1,5 @@
 <header class="header b-b b-light hidden-print">
-<a href="<?=base_url()?>collaborator/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('add_task')?></a> 
+<a href="<?=base_url()?>clients/tasks/add/<?=$this->uri->segment(4)*1200?>"  data-toggle="ajaxModal" title="<?=lang('add_task')?>" class="btn btn-sm btn-info pull-right"><?=lang('request_task')?></a> 
  </header>
 
 
@@ -12,7 +12,7 @@
 
 
 		<a href="#" class="thumb-sm pull-left m-r-sm"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($task->added_by,'avatar')?>" class="img-circle"> </a>
-			<a href="<?=base_url()?>collaborator/tasks/edit/<?=$task->t_id?>" data-toggle="ajaxModal" title="<?=lang('edit_task')?>" class="clear"> <small class="pull-right"><?php
+			<a href="#" class="clear"> <small class="pull-right"><?php
 								$today = time();
 								$activity_day = strtotime($task->date_added) ;
 								echo $this->user_profile->get_time_diff($today,$activity_day);
@@ -33,26 +33,19 @@
 
 <div><?=$task->description?>
 </div> 
-<small class="pull-right"><?=lang('estimate')?>: <?=$task->estimated_hours?> <?=lang('hours')?></small>
+<small class="pull-right"><?=lang('logged_hours')?>: <?=round($task->logged_time/3600,2)?> <?=lang('hours')?></small>
 
 
 
 <div class="comment-action m-t-sm">
-<?php
-if ($task->auto_progress == 'FALSE') { ?>
-
-	<a href="<?=base_url()?>collaborator/tasks/pilot/on/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_on')?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="right"> <i class="fa fa-rocket text-white"></i></a>
-<?php }else{ ?>
-<a href="<?=base_url()?>collaborator/tasks/pilot/off/<?=$task->t_id?>/<?=$task->project*8600?>"  data-original-title="<?=lang('auto_progress_off')?>" class="btn btn-xs btn-dark" data-toggle="tooltip" data-placement="right"> <i class="fa fa-power-off text-white"></i></a>
-<?php } ?> 
-
+<?=lang('time_status')?> : 
 <?php
 if ($task->timer_status == 'On') { ?>
- <a href="<?=base_url()?>collaborator/tasks/tracking/off/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-danger btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('stop_timer')?> </a> 
- <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
+ 
+ <label class="label bg-danger"> <i class="fa fa-clock-o fa-spin text-white"></i> <?=lang('timer_started')?> </label>
 
-<?php }else{ ?>
- <a href="<?=base_url()?>collaborator/tasks/tracking/on/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-success btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('start_timer')?> </a> <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
+<?php }else{ ?> 
+ <i class="fa fa-clock-o text-muted text"></i> <?=lang('timer_off')?>
 
 <?php } ?>
 </div>
