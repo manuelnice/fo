@@ -344,6 +344,7 @@ $lang['post_reply'] = 'Post Reply';
 $lang['portal_status'] = 'Portal Status';
 $lang['qty'] = 'Qty';
 $lang['quantity'] = 'Quantity';
+$lang['quick_links'] = 'Quick Links';
 $lang['recurring'] = 'Recurring';
 $lang['recent_activities'] = 'Recent Activities';
 $lang['recent_payments'] = 'Recent Payments';

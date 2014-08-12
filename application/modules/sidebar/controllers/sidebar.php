@@ -15,7 +15,7 @@ function __construct()
 	}
 	public function client_menu()
 	{
-		$this->load->view('student_menu',isset($data) ? $data : NULL);
+		$this->load->view('user_menu',isset($data) ? $data : NULL);
 	}
 	public function top_header()
 	{

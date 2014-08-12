@@ -9,9 +9,9 @@
           <span class="caret">
           </span> </button>
           <ul class="dropdown-menu text-left">
-            <li><a href="<?=base_url()?>collaborator/conversation/send"><?=lang('send_message')?></a></li>
-            <li><a href="<?=base_url()?>collaborator/bug_view/add" data-toggle="ajaxModal"><?=lang('new_bug')?></a></li>
-            <li><a href="<?=base_url()?>collaborator/profile"><?=lang('my_profile')?></a></li>
+            <li><a href="<?=base_url()?>clients/conversation/send"><?=lang('send_message')?></a></li>
+            <li><a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal"><?=lang('new_bug')?></a></li>
+            <li><a href="<?=base_url()?>clients/profile"><?=lang('my_profile')?></a></li>
           </ul>
         </div>
       </div> </header>
@@ -21,22 +21,22 @@
           <nav class="nav-primary hidden-xs">
             <ul class="nav">
               <li class="<?php if($page == lang('home')){echo  "active"; }?>">
-                <a href="<?=base_url()?>collaborator"> <i class="fa fa-dashboard icon"> <b class="bg-info"></b> </i>
+                <a href="<?=base_url()?>clients"> <i class="fa fa-dashboard icon"> <b class="bg-info"></b> </i>
               <span><?=lang('home')?></span> </a> </li>
 
               
-              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>collaborator/projects" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
+              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>clients/projects" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
               <span><?=lang('projects')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>collaborator/messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
+              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>clients/messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
               <span><?=lang('messages')?> </span> </a> </li> 
               
               <li class="<?php if($page == lang('invoices')){echo  "active"; }?>">
-                <a href="<?=base_url()?>collaborator/inv_manage" > <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> 
+                <a href="<?=base_url()?>clients/inv_manage" > <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> 
                 </i>
                 <span><?=lang('invoices')?> </span> </a> </li>  
 
-              <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>collaborator/bugs" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
+              <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>clients/bugs" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
                 <span><?=lang('bug_tracking')?> </span> </a> </li>   
 
                           

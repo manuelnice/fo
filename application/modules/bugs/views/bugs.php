@@ -62,8 +62,7 @@
 				<header class="header bg-white b-b clearfix">
 					<div class="row m-t-sm">
 						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							
 						<div class="btn-group">
 						<a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>

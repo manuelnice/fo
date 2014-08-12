@@ -22,7 +22,7 @@ class Welcome extends MX_Controller {
 			redirect('collaborator');
 		}
 		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'client') {
-			redirect('client');
+			redirect('clients');
 		}
 	}
 

@@ -39,7 +39,7 @@ $config['chart_template'] = array(
 		'text' => 'Template from config file'
      ),
      'legend' => array(
-     	'enabled' => false
+     	'enabled' => true
      ),
     'yAxis' => array(
 		'title' => array(

@@ -24,7 +24,7 @@
                 <a href="<?=base_url()?>"> <i class="fa fa-dashboard icon"> <b class="bg-info"></b> </i>
               <span><?=lang('home')?></span> </a> </li>
 
-              <li class="<?php if($page == lang('clients')){echo  "active"; }?>"> <a href="<?=base_url()?>clients" > <i class="fa fa-group icon"> <b class="bg-success"></b> </i>
+              <li class="<?php if($page == lang('clients')){echo  "active"; }?>"> <a href="<?=base_url()?>contacts" > <i class="fa fa-group icon"> <b class="bg-success"></b> </i>
               <span><?=lang('contacts')?> </span> </a> </li>
 
               <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
