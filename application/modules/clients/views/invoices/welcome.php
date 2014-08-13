@@ -25,7 +25,7 @@
 			?>
 
 				<li class="b-b b-light">
-				<a href="<?=base_url()?>collaborator/inv_manage/details/<?=$invoice->inv_id?>">
+				<a href="<?=base_url()?>clients/inv_manage/details/<?=$invoice->inv_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
@@ -61,10 +61,11 @@
 						</div>
 					</div> </header>
 					<section class="scrollable wrapper w-f">
+					
 					<?php  echo modules::run('sidebar/flash_msg');?>
 					<!-- Start Display chart -->
 					
-					 <?php  echo modules::run('collaborator/invoices/index');?>
+					 <?php  echo modules::run('clients/invoices/index');?>
 
 
 					 <!-- End display chart -->

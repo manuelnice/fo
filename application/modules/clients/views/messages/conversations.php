@@ -11,7 +11,7 @@
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
 							<li class="b-b b-light">
-								<a href="<?=base_url()?>collaborator/conversation/view/<?=$user->id*1200?>">
+								<a href="<?=base_url()?>clients/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
 						</ul>
@@ -24,10 +24,9 @@
 					<header class="header bg-white b-b clearfix">
 						<div class="row m-t-sm">
 							<div class="col-sm-8 m-b-xs">
-								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+								
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>collaborator/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
+									<a class="btn btn-sm btn-primary" href="<?=base_url()?>clients/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
 								</div>
 							</div>
@@ -68,7 +67,7 @@
 								<div class="comment-action m-t-sm">
 								<?php
 								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
-				<a href="<?=base_url()?>collaborator/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> 
+				<a href="<?=base_url()?>clients/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> 
 				<?=lang('delete')?> </a>
 									<?php } ?>
 								</div>
@@ -81,7 +80,7 @@
 						<article class="comment-item media" id="comment-form"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
 						<?php
 							$attributes = array('class' => 'class="m-b-none"');
-								echo form_open(base_url().'collaborator/conversation/send/'.$this->uri->segment(4)/1200, $attributes); ?>
+								echo form_open(base_url().'clients/conversation/send/'.$this->uri->segment(4)/1200, $attributes); ?>
 								<input type="hidden" name="user_to" value="<?=$this->uri->segment(4)/1200?>">
 								<input type="hidden" name="r_url" value="<?=current_url()?>">
 
@@ -90,7 +89,7 @@
 									<footer class="panel-footer bg-light lter">
 									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('send_message')?></button> 
 									<ul class="nav nav-pills nav-sm"> 
-									<li><a href="<?=base_url()?>collaborator/messages" class="btn btn-dark btn-xs">
+									<li><a href="<?=base_url()?>clients/messages" class="btn btn-dark btn-xs">
 									<i class="fa fa-envelope text-white"></i> <?=lang('messages')?></a></li>  
 									</ul> </footer> 
 								</section>

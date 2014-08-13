@@ -3,7 +3,8 @@
 		<div class="modal-header"> <button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?=lang('new_bug')?></h4>
 		</div><?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'collaborator/bug_view/add',$attributes); ?>
+          echo form_open(base_url().'clients/bug_view/add',$attributes); ?>
+          <input type="hidden" name="assign_to" value="<?=$assign_to?>">
 		<div class="modal-body">
 			<p><?=lang('report_bug_message')?></p>
 			 

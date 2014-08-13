@@ -6,7 +6,7 @@
 		<header class="header bg-white b-b b-light">
 			<p><a href="<?=base_url()?>clients/projects/" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
 			<p class="pull-right">
-	<a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" class="btn btn-sm btn-dark "> <i class="fa fa-bug text-white"></i> <?=lang('new_bug')?></a> 
+	<a href="<?=base_url()?>clients/bug_view/add/<?=$project->assign_to?>" data-toggle="ajaxModal" class="btn btn-sm btn-dark "> <i class="fa fa-bug text-white"></i> <?=lang('new_bug')?></a> 
 	<a href="<?=base_url()?>clients/files/add/<?=$project->project_id * 1200?>" data-toggle="ajaxModal" class="btn btn-sm btn-dark "> <i class="fa fa-upload text-white"></i> <?=lang('upload_file')?></a> 
 </p>
 

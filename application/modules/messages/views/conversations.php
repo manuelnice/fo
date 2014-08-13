@@ -55,7 +55,7 @@
 							<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
 							<span class="arrow left"></span>
 								<section class="comment-body panel panel-default">
-									<header class="panel-heading bg-white"> <a href="<?=base_url()?>clients/view/details/<?=$msg->user_from*1200?>"><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></a>
+									<header class="panel-heading bg-white"> <a href="<?=base_url()?>contacts/view/details/<?=$msg->user_from*1200?>"><?=ucfirst($this->user_profile->get_profile_details($msg->user_from,'fullname')?$this->user_profile->get_profile_details($msg->user_from,'fullname'):$msg->username)?></a>
 
 								<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> 
 														<?php

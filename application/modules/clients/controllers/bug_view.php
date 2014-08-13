@@ -48,12 +48,13 @@ class Bug_view extends MX_Controller {
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('issue_not_submitted'));
 				redirect('collaborator/bugs');
-		}else{			
+		}else{		
+
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
 			                'reporter' => $this->tank_auth->get_user_id(),
-			                'assigned_to' => $this->tank_auth->get_user_id(),
+			                'assigned_to' => $this->input->post('assign_to'),
 			                'bug_status' => 'Unconfirmed',
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
@@ -66,9 +67,10 @@ class Bug_view extends MX_Controller {
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));
-			redirect('collaborator/bugs');
+			redirect('clients/bugs');
 		}
 		}else{
+			$data['assign_to'] = $this->uri->segment(4);
 			$data['projects'] = $this->bugs_model->projects();
 		$this->load->view('bugs/add_bug',$data);
 		}

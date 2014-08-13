@@ -27,7 +27,7 @@
 			?>
 
 				<li class="b-b b-light <?php if($invoice->inv_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
-				<a href="<?=base_url()?>collaborator/inv_manage/details/<?=$invoice->inv_id?>">
+				<a href="<?=base_url()?>clients/inv_manage/details/<?=$invoice->inv_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
@@ -77,7 +77,7 @@
 						if(strtotime($inv->due_date) < time()){ ?>
 						<div class="alert alert-danger hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
-						<?=lang('invoice_overdue')?>
+						<?=lang('client_invoice_overdue')?>
 						</div>
 
     <?php } } ?> 

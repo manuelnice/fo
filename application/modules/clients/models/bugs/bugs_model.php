@@ -65,7 +65,7 @@ class Bugs_model extends CI_Model
 	}
 	function projects()
 	{
-		$query = $this->db->where('assign_to',$this->tank_auth->get_user_id())->get('projects');
+		$query = $this->db->where('client',$this->tank_auth->get_user_id())->get('projects');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

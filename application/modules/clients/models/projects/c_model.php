@@ -89,6 +89,10 @@ class C_model extends CI_Model
 	{
 		return $this->db->where('project',$project)->get('project_timer')->result();
 	}
+	function task_timer($project)
+	{
+		return $this->db->where('pro_id',$project)->get('tasks_timer')->result();
+	}
 	function comment_replies($comment)
 	{
 		return $this->db->where('parent_comment',$comment)->get('comment_replies')->result();

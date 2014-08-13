@@ -54,6 +54,7 @@ $lang['chart'] = 'Chart';
 $lang['city'] = 'City';
 $lang['client'] = 'Client';
 $lang['clients'] = 'Clients';
+$lang['client_invoice_overdue'] = 'Your Invoice is Overdue. Please pay it';
 $lang['clients_registration'] = 'Clients Registrations';
 $lang['client_registration_failed'] = 'Registration failed. Ensure you fill all required fields and choose a unique username';
 $lang['clients_registered'] = 'Clients Registered';

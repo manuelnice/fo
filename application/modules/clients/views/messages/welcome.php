@@ -12,7 +12,7 @@
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
 							<li class="b-b b-light">
-								<a href="<?=base_url()?>collaborator/conversation/view/<?=$user->id*1200?>">
+								<a href="<?=base_url()?>clients/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
 						</ul>
@@ -28,7 +28,7 @@
 								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
 								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>collaborator/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
+									<a class="btn btn-sm btn-primary" href="<?=base_url()?>clients/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
 								</div>
 							</div>
@@ -53,7 +53,7 @@
 							<li class="list-group-item">
 					<a href="#" class="thumb-xs pull-left m-r-sm">
 					<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($msg->user_from,'avatar')?>" class="img-circle"> </a>
-					<a href="<?=base_url()?>collaborator/conversation/view/<?=$msg->user_from*1200?>" class="clear">
+					<a href="<?=base_url()?>clients/conversation/view/<?=$msg->user_from*1200?>" class="clear">
 					<small class="pull-right text-muted">
 					<?php $today = time(); $activity_day = strtotime($msg->date_received) ;
 						echo $this->user_profile->get_time_diff($today,$activity_day);

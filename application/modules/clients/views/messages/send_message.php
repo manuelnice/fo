@@ -12,7 +12,7 @@
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
 							<li class="b-b b-light">
-								<a href="<?=base_url()?>collaborator/conversation/view/<?=$user->id*1200?>">
+								<a href="<?=base_url()?>clients/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
 						</ul>
@@ -25,8 +25,7 @@
 					<header class="header bg-white b-b clearfix">
 						<div class="row m-t-sm">
 							<div class="col-sm-8 m-b-xs">
-								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+								
 								
 							</div>
 							<div class="col-sm-4 m-b-xs">
@@ -46,9 +45,9 @@
 	  <?php
 
 			$attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'collaborator/conversation/send',$attributes); ?>
+          echo form_open(base_url().'clients/conversation/send',$attributes); ?>
 
-          <input type="hidden" name="r_url" value="<?=base_url()?>collaborator/messages">
+          <input type="hidden" name="r_url" value="<?=base_url()?>clients/messages">
 
           <div class="form-group">
 				<label class="col-lg-3 control-label"><?=lang('username')?> <span class="text-danger">*</span> </label>
