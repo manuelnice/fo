@@ -25,8 +25,7 @@
 					<header class="header bg-white b-b clearfix">
 						<div class="row m-t-sm">
 							<div class="col-sm-8 m-b-xs">
-								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+								
 								<div class="btn-group">
 									<a class="btn btn-sm btn-primary" href="<?=base_url()?>clients/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
