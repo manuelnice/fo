@@ -12,12 +12,12 @@
 				<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">				
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/unconfirmed">Unconfirmed</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/confirmed">Confirmed</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/progress">In Progress</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/resolved">Resolved</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/unconfirmed">Unconfirmed</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/confirmed">Confirmed</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/progress">In Progress</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/resolved">Resolved</a></li>
 				<li class="divider"></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/verified">Verified</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/verified">Verified</a></li>
 				</ul>
 			</div>
 
@@ -43,7 +43,7 @@
 						$priority = 'inverse'; }else{	$priority = 'dark';	}	?>
 
 				<li class="b-b b-light">
-				<a href="<?=base_url()?>collaborator/bug_view/details/<?=$bug->bug_id?>">
+				<a href="<?=base_url()?>clients/bug_view/details/<?=$bug->bug_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($bug->reporter,'fullname')? $this->user_profile->get_profile_details($bug->reporter,'fullname'):$this->user_profile->get_user_details($bug->reporter,'username'))?>
 				<div class="pull-right">
 				BUG#<?=$bug->issue_ref?>
@@ -64,7 +64,7 @@
 						<div class="col-sm-8 m-b-xs">
 							
 						<div class="btn-group">
-						<a href="<?=base_url()?>collaborator/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
+						<a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>
 
 						

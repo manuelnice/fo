@@ -12,12 +12,12 @@
 				<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">				
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/unconfirmed">Unconfirmed</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/confirmed">Confirmed</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/progress">In Progress</a></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/resolved">Resolved</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/unconfirmed">Unconfirmed</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/confirmed">Confirmed</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/progress">In Progress</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/resolved">Resolved</a></li>
 				<li class="divider"></li>
-				<li><a href="<?=base_url()?>collaborator/bugs/view_by_status/verified">Verified</a></li>
+				<li><a href="<?=base_url()?>clients/bugs/view_by_status/verified">Verified</a></li>
 				</ul>
 			</div>
 
@@ -43,7 +43,7 @@
 						$priority = 'inverse'; }else{	$priority = 'dark';	}	?>
 
 				<li class="b-b b-light <?php if($bug->bug_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
-				<a href="<?=base_url()?>collaborator/bug_view/details/<?=$bug->bug_id?>">
+				<a href="<?=base_url()?>clients/bug_view/details/<?=$bug->bug_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($bug->reporter,'fullname')? $this->user_profile->get_profile_details($bug->reporter,'fullname'):$this->user_profile->get_user_details($bug->reporter,'username'))?>
 				<div class="pull-right">
 				BUG#<?=$bug->issue_ref?>
@@ -69,22 +69,22 @@
 						<div class="col-sm-8 m-b-xs">
 							
 						<div class="btn-group">
-						<a href="<?=base_url()?>collaborator/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
+						<a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>
 
-						<a href="<?=base_url()?>collaborator/bug_view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
+						<a href="<?=base_url()?>clients/bug_view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
 
 						<div class="btn-group">
 						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>
 						<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-						<li><a href="<?=base_url()?>collaborator/bugs/mark_status?b=<?=$bug->bug_id?>&s=unconfirmed&ref=<?=$bug->issue_ref?>">Unconfirmed</a></li>
-						<li><a href="<?=base_url()?>collaborator/bugs/mark_status?b=<?=$bug->bug_id?>&s=confirmed&ref=<?=$bug->issue_ref?>">Confirmed</a></li>	
-						<li><a href="<?=base_url()?>collaborator/bugs/mark_status?b=<?=$bug->bug_id?>&s=progress&ref=<?=$bug->issue_ref?>">In Progress</a></li>
-						<li><a href="<?=base_url()?>collaborator/bugs/mark_status?b=<?=$bug->bug_id?>&s=resolved&ref=<?=$bug->issue_ref?>">Resolved</a></li>
+						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=unconfirmed&ref=<?=$bug->issue_ref?>">Unconfirmed</a></li>
+						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=confirmed&ref=<?=$bug->issue_ref?>">Confirmed</a></li>	
+						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=progress&ref=<?=$bug->issue_ref?>">In Progress</a></li>
+						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=resolved&ref=<?=$bug->issue_ref?>">Resolved</a></li>
 						<li class="divider"></li>
-						<li><a href="<?=base_url()?>collaborator/bugs/mark_status?b=<?=$bug->bug_id?>&s=verified&ref=<?=$bug->issue_ref?>">Verified</a></li>
+						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=verified&ref=<?=$bug->issue_ref?>">Verified</a></li>
 						</ul>
 						</div>
 
@@ -116,15 +116,15 @@
 <ul class="nav nav-tabs" id="stats"> 
 <li class="active"><a href="#comments" data-toggle="tab"><?=strtoupper(lang('comments'))?></a></li> 
 <li class="">
-<a href="<?=base_url()?>collaborator/bug_tabs/attachments/<?=$bug->bug_id?>" data-target="#attachments" data-toggle="tabajax" rel="tooltip">
+<a href="<?=base_url()?>clients/bug_tabs/attachments/<?=$bug->bug_id?>" data-target="#attachments" data-toggle="tabajax" rel="tooltip">
 <?=strtoupper(lang('attachments'))?></a>
 </li> 
 <li class="">
-<a href="<?=base_url()?>collaborator/bug_tabs/activities/<?=$bug->bug_id?>" data-target="#activities" data-toggle="tabajax" rel="tooltip">
+<a href="<?=base_url()?>clients/bug_tabs/activities/<?=$bug->bug_id?>" data-target="#activities" data-toggle="tabajax" rel="tooltip">
 <?=strtoupper(lang('activities'))?></a>
 </li> 
 <li class="">
-<a href="<?=base_url()?>collaborator/bug_tabs/details/<?=$bug->bug_id?>" data-target="#details" data-toggle="tabajax" rel="tooltip"><?=lang('bug_details')?></a>
+<a href="<?=base_url()?>clients/bug_tabs/details/<?=$bug->bug_id?>" data-target="#details" data-toggle="tabajax" rel="tooltip"><?=lang('bug_details')?></a>
 </li> 
 </ul> 
 
@@ -151,7 +151,7 @@
 						<article class="comment-item media"> <a class="pull-left thumb-sm avatar"><img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"></a> <section class="media-body">
 						<?php   
 			$attributes = array('class' => 'm-b-none');
-			echo form_open(base_url().'collaborator/bugs/comment?bug='.$bug->bug_id, $attributes); ?>
+			echo form_open(base_url().'clients/bugs/comment?bug='.$bug->bug_id, $attributes); ?>
 								<input type="hidden" name="bug" value="<?=$bug->bug_id?>">
 
 								<section class="panel panel-default"> 
@@ -159,7 +159,7 @@
 									<footer class="panel-footer bg-light lter">
 									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('post_comment')?></button> 
 									<ul class="nav nav-pills nav-sm"> 
-									<li><a href="<?=base_url()?>collaborator/bug_files/add/<?=$this->uri->segment(4)*1200?>" data-toggle="ajaxModal">
+									<li><a href="<?=base_url()?>clients/bug_files/add/<?=$this->uri->segment(4)*1200?>" data-toggle="ajaxModal">
 									<i class="fa fa-paperclip text-dark"></i> <?=lang('attach_file')?></a></li>  
 									</ul> </footer> 
 								</section>
@@ -180,7 +180,7 @@
 														<span class="arrow left"></span>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
-																<a href="<?=base_url()?>clients/view/details/<?=$comment->comment_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->comment_by,'fullname')?$this->user_profile->get_profile_details($comment->comment_by,'fullname'):$this->user_profile->get_user_details($comment->comment_by,'username'))?></a>
+																<a href="#>"><?=ucfirst($this->user_profile->get_profile_details($comment->comment_by,'fullname')?$this->user_profile->get_profile_details($comment->comment_by,'fullname'):$this->user_profile->get_user_details($comment->comment_by,'username'))?></a>
 																<?php if($comment->comment_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();

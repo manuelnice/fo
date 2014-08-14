@@ -36,8 +36,9 @@ class Bugs_model extends CI_Model
 	}
 	function bugs()
 	{
+
 		$this->db->join('projects','projects.project_id = bugs.project');
-		$query = $this->db->where('assigned_to',$this->tank_auth->get_user_id())->order_by('reported_on','desc')->get('bugs');
+		$query = $this->db->where('client',$this->tank_auth->get_user_id())->order_by('reported_on','desc')->get('bugs');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 
@@ -45,7 +46,7 @@ class Bugs_model extends CI_Model
 	function bugs_by_status($status,$limit,$offset)
 	{
 		$this->db->join('projects','projects.project_id = bugs.project');
-		$this->db->where('assigned_to',$this->tank_auth->get_user_id());
+		$this->db->where('client',$this->tank_auth->get_user_id());
 		if ($status == 'all') { 
 			$query = $this->db->order_by('reported_on','desc')->get('bugs',$limit,$offset);
 		}else{
