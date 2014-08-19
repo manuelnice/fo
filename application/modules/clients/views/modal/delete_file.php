@@ -8,7 +8,7 @@
 			<p><?=lang('delete_project_warning')?></p>
 			
 			<input type="hidden" name="file" value="<?=$file_id?>">
-			<input type="hidden" name="project" value="<?=$project_id?>">
+			<input type="hidden" name="bug" value="<?=$bug_id?>">
 
 		</div>
 		<div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>

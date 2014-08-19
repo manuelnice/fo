@@ -71,23 +71,10 @@
 						<div class="btn-group">
 						<a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>
-
+						<?php
+						if ($bug->reporter == $this->tank_auth->get_user_id()) { ?>
 						<a href="<?=base_url()?>clients/bug_view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
-
-						<div class="btn-group">
-						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>
-						<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=unconfirmed&ref=<?=$bug->issue_ref?>">Unconfirmed</a></li>
-						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=confirmed&ref=<?=$bug->issue_ref?>">Confirmed</a></li>	
-						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=progress&ref=<?=$bug->issue_ref?>">In Progress</a></li>
-						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=resolved&ref=<?=$bug->issue_ref?>">Resolved</a></li>
-						<li class="divider"></li>
-						<li><a href="<?=base_url()?>clients/bugs/mark_status?b=<?=$bug->bug_id?>&s=verified&ref=<?=$bug->issue_ref?>">Verified</a></li>
-						</ul>
-						</div>
-
+						<?php } ?>
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">

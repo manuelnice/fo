@@ -4,7 +4,6 @@
 		</div><?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
           echo form_open(base_url().'clients/bug_view/add',$attributes); ?>
-          <input type="hidden" name="assign_to" value="<?=$assign_to?>">
 		<div class="modal-body">
 			<p><?=lang('report_bug_message')?></p>
 			 

@@ -6,7 +6,7 @@
 		
 					<?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open_multipart(base_url().'collaborator/bug_files/add',$attributes); ?>
+          echo form_open_multipart(base_url().'clients/bug_files/add',$attributes); ?>
           <input type="hidden" name="bug" value="<?=$bug?>">
           <input type="hidden" name="issue_ref" value="<?=$issue_ref?>">
           <input type="hidden" name="assigned_to" value="<?=$assigned_to?>">

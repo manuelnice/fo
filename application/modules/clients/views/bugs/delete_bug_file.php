@@ -3,7 +3,7 @@
 		<div class="modal-header"> <button type="button" class="close" data-dismiss="modal">&times;</button> 
 		<h4 class="modal-title"><?=lang('delete_file')?></h4>
 		</div><?php
-			echo form_open(base_url().'collaborator/bug_files/delete'); ?>
+			echo form_open(base_url().'clients/bug_files/delete'); ?>
 		<div class="modal-body">
 			<p><?=lang('delete_file_warning')?></p>
 			

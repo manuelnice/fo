@@ -35,7 +35,7 @@ class Bug_files extends MX_Controller {
 						{
 								$this->session->set_flashdata('response_status', 'error');
 								$this->session->set_flashdata('message', lang('error_in_form'));
-								redirect('collaborator/bug_view/details/'.$bug);
+								redirect('clients/bug_view/details/'.$bug);
 						}else{
 
 								if ($this->config->item('demo_mode') == 'FALSE') {
@@ -51,7 +51,7 @@ class Bug_files extends MX_Controller {
 									{
 										$this->session->set_flashdata('response_status', 'error');
 										$this->session->set_flashdata('message',$this->lang->line('operation_failed'));
-										redirect('collaborator/bug_view/details/'.$bug);
+										redirect('clients/bug_view/details/'.$bug);
 									}
 									else
 									{
@@ -66,12 +66,12 @@ class Bug_files extends MX_Controller {
 
 										$this->session->set_flashdata('response_status', 'success');
 										$this->session->set_flashdata('message',$this->lang->line('file_uploaded_successfully'));
-										redirect('collaborator/bug_view/details/'.$bug);
+										redirect('clients/bug_view/details/'.$bug);
 									}
 								} else {
 									$this->session->set_flashdata('response_status', 'error');
 									$this->session->set_flashdata('message',$this->lang->line('demo_warning'));
-										redirect('collaborator/bug_view/details/'.$bug);
+										redirect('clients/bug_view/details/'.$bug);
 								}
 					}
 		}else{
@@ -123,7 +123,7 @@ class Bug_files extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('delete_failed'));
-				redirect('collaborator/bug_view/details/'.$bug);
+				redirect('clients/bug_view/details/'.$bug);
 		}else{			
 			$file = $this->bug->get_file($file_id);
 			unlink('./resource/bug-files/'.$file->file_name);
@@ -134,7 +134,7 @@ class Bug_files extends MX_Controller {
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('file_deleted'));
-			redirect('collaborator/bug_view/details/'.$bug);
+			redirect('clients/bug_view/details/'.$bug);
 			}
 		}else{
 			$data['file_id'] = $this->uri->segment(4)/1800;

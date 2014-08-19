@@ -98,36 +98,7 @@ class Bugs extends MX_Controller {
 		redirect('collaborator/bugs');
 		}
 	}
-	function mark_status()
-	{
-		if ($this->input->get('b', TRUE)) {
-		$bug = $this->input->get('b');
-		$status = $this->input->get('s', TRUE);
-		if ($status == 'unconfirmed') {
-			$bug_status = 'Unconfirmed'; }elseif ($status == 'confirmed') {
-			$bug_status = 'Confirmed';	}elseif ($status == 'progress') {
-			$bug_status = 'In Progress'; }elseif ($status == 'resolved') {
-			$bug_status = 'Resolved';	}else{
-			$bug_status = 'Verified';
-		}
-			$form_data = array(
-			                'bug_status' => $bug_status
-			            );
-			$this->db->where('bug_id',$bug)->update('bugs', $form_data); 
-
-			$activity = 'Marked Issue #'.$this->input->get('ref').' as '.$bug_status;
-			$this->_log_bug_activity($bug,$activity,$icon = 'fa-info'); //log activity
-			//send email to the reporter
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('issue_marked_successfully'));
-			redirect('collaborator/bug_view/details/'.$bug);
-			}else{
-			$this->session->set_flashdata('response_status', 'error');
-			$this->session->set_flashdata('message', lang('operation_failed'));
-			redirect('collaborator/bugs');
-		}
-	}
+	
 	function download(){
 		$file_id = $this->input->get('f',TRUE);
 		$this->load->helper('download');

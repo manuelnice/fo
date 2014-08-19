@@ -49,12 +49,12 @@ class Bug_view extends MX_Controller {
 				$this->session->set_flashdata('message', lang('issue_not_submitted'));
 				redirect('collaborator/bugs');
 		}else{		
-
+			$assigned_to = $this->user_profile->get_project_details($this->input->post('project'),'assign_to');
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
 			                'reporter' => $this->tank_auth->get_user_id(),
-			                'assigned_to' => $this->input->post('assign_to'),
+			                'assigned_to' => $assigned_to,
 			                'bug_status' => 'Unconfirmed',
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
@@ -64,13 +64,14 @@ class Bug_view extends MX_Controller {
 			$bug_id = $this->db->insert_id();
 			$activity = 'Created an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-plus'); //log activity
+
+			$this->_bug_notification($assigned_to);
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));
 			redirect('clients/bugs');
 		}
 		}else{
-			$data['assign_to'] = $this->uri->segment(4);
 			$data['projects'] = $this->bugs_model->projects();
 		$this->load->view('bugs/add_bug',$data);
 		}
@@ -118,6 +119,21 @@ class Bug_view extends MX_Controller {
 			$this->db->set('activity', $activity);
 			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
+	}
+	function _bug_notification($assigned_to){
+			
+			$added_by = $this->tank_auth->get_username();
+			$data['project_manager'] = $this->user_profile->get_user_details($assigned_to,'username');
+			$data['added_by'] = $added_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New Bug Reported';
+			$params['message'] = $this->load->view('emails/bug_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
 	}
 }
 
