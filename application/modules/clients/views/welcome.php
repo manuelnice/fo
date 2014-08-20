@@ -86,19 +86,19 @@
 					</div> <footer class="panel-footer bg-white no-padder">
 					<div class="row text-center no-gutter">
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->task_by_status('100')?>
-							</span> <small class="text-muted m-b block"><?=lang('complete_tasks')?></small>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('bugs',array('reporter'=>$this->tank_auth->get_user_id()))?>
+							</span> <small class="text-muted m-b block"><?=lang('reported_bugs')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->project_by_status('100')?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('projects',array('progress >='=>'100'))?>
 							</span> <small class="text-muted m-b block"><?=lang('complete_projects')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->received_messages($this->tank_auth->get_user_id())?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id()))?>
 							</span> <small class="text-muted m-b block"><?=lang('received_messages')?></small>
 						</div>
 						<div class="col-xs-3">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_table_rows('comments')?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('comments',array('posted_by'=>$this->tank_auth->get_user_id()))?>
 							</span> <small class="text-muted m-b block"><?=lang('project_comments')?></small>
 						</div>
 					</div> </footer>

@@ -50,7 +50,7 @@ class User_profile {
   			return 0;
   		}
 	}
-	public function project_by_status($progress)
+	/* public function project_by_status($progress)
     	{
     	$this->ci->db->where('progress',$progress);
 	$query = $this->ci->db->get('projects');
@@ -61,6 +61,7 @@ class User_profile {
   			return 0;
   		}
 	}
+	*/
 	public function received_messages($user)
     	{
     	$this->ci->db->where('user_to',$user);

@@ -370,6 +370,7 @@ $lang['report_bug_message'] = 'Please note that an email will be sent to the rep
 $lang['report_issue'] = 'Report Issue';
 $lang['reported_on'] = 'Reported On';
 $lang['reported'] = 'Reported';
+$lang['reported_bugs'] = 'Reported Bugs';
 $lang['results'] = 'Results';
 $lang['resolved'] = 'Resolved';
 $lang['request_task'] = 'Request Task';

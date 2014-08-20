@@ -99,14 +99,14 @@ class Conversation extends MX_Controller {
 				{
 						$this->session->set_flashdata('response_status', 'error');
 						$this->session->set_flashdata('message', lang('delete_failed'));
-						redirect('messages/conversation/view/'.$r_url);
+						redirect('clients/conversation/view/'.$r_url);
 				}else{	
 					$this->db->set('deleted', 'Yes');
 					$this->db->where('msg_id',$msg_id)->update('messages');
 
 					$this->session->set_flashdata('response_status', 'success');
 					$this->session->set_flashdata('message', lang('message_deleted_successfully'));
-					redirect('messages/conversation/view/'.$r_url);
+					redirect('clients/conversation/view/'.$r_url);
 					}
 		}else{
 			$data['msg_id'] = $this->uri->segment(4)/1200;
