@@ -38,6 +38,26 @@ class Inv_manage extends MX_Controller {
 	->build('invoices/welcome',isset($data) ? $data : NULL);
 	}
 
+	function search()
+	{
+		if ($this->input->post()) {
+				$this->load->module('layouts');
+				$this->load->library('template');
+				$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+				$data['page'] = lang('invoices');
+				$keyword = $this->input->post('keyword', TRUE);
+				$data['invoices'] = $this->invoice->search_invoice($keyword);
+				$this->template
+				->set_layout('users')
+				->build('invoices/welcome',isset($data) ? $data : NULL);
+			
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('enter_search_keyword'));
+			redirect('clients/inv_manage');
+		}
+	
+	}
 	
 	function details()
 	{		

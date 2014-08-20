@@ -61,6 +61,14 @@ class C_model extends CI_Model
 	{
 		return $this->db->where('t_id',$task)->get('tasks')->result();
 	}
+	function search_project($keyword)
+	{
+		$this->db->where('client', $this->tank_auth->get_user_id());
+		$array = array('project_title' => $keyword, 'project_code' => $keyword);
+		$this->db->or_like($array); 
+		return $this->db->order_by('date_created','desc')
+						->get('projects')->result();
+	}
 	function project_activities($project)
 	{
 		$this->db->join('users','users.id = activities.user');

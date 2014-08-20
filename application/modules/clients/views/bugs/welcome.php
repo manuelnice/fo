@@ -70,7 +70,7 @@
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'invoices/manage/search'); ?>
+						<?php  echo form_open(base_url().'clients/bugs/search'); ?>
 							<div class="input-group">
 								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
 								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>

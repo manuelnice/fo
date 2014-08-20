@@ -55,6 +55,12 @@ class Invoice_model extends CI_Model
 		$this->db->where('module', 'invoices');
 		return $this->db->where('module_field_id',$invoice_id)->order_by('activity_date','desc')->get('activities')->result();
 	}
+	function search_invoice($keyword)
+	{
+		$this->db->join('users','users.id = invoices.client');
+		$this->db->where('client', $this->tank_auth->get_user_id());
+		return $this->db->like('reference_no', $keyword)->order_by("date_saved","desc")->get('invoices')->result();
+	}
 	function saved_item_details($item)
 	{
 		return $this->db->where('item_id',$item)->get('items_saved')->result();

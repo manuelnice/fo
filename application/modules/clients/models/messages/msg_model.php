@@ -21,18 +21,11 @@ class Msg_model extends CI_Model
 			return NULL;
 		}
 	}
-	function get_record_by($table,$where,$join_table,$join_criteria)
-    	{
-    		if ($join_table) {
-    			$this->db->join($join_table,$join_criteria);
-    		}	
-	$this->db->where($where);
-	$query = $this->db->get($table);
-	if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row;
-  		}
+	function search_messsages($keyword)
+	{
+		$this->db->join('users','users.id = messages.user_from');
+		$this->db->where('user_to', $this->tank_auth->get_user_id());
+		return $this->db->like('message', $keyword)->order_by("date_received","desc")->get('messages')->result();
 	}
 	function group_messages_by_users($user)
 	{

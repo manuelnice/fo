@@ -13,7 +13,8 @@
 							foreach ($users as $key => $user) { ?>
 							<li class="b-b b-light">
 								<a href="<?=base_url()?>clients/conversation/view/<?=$user->id*1200?>">
-							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
+							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i>
+							<?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
 						</ul>
 					</div></section>
@@ -32,11 +33,13 @@
 								</div>
 							</div>
 							<div class="col-sm-4 m-b-xs">
+							<?php echo form_open(base_url().'clients/messages/search/'); ?>
 								<div class="input-group">
-									<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+									<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 									</span>
 								</div>
+								</form>
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">
@@ -65,7 +68,9 @@
 					$message = word_limiter($longmsg, 2);
 					echo $message;
 					?></span> </a> </li>
-									<?php }} ?>
+									<?php }}else{
+										echo lang('nothing_to_display');
+										} ?>
 								</ul>
 							</div></section>
 			<footer class="footer b-t bg-white-only">

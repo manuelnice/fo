@@ -2,9 +2,10 @@
 	<div class="navbar-header aside-md"> <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav"> <i class="fa fa-bars"></i> </a> <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="<?=IMG_URL?>logo.png" class="m-r-sm"><?=$this->config->item('company_name')?></a> <small>v <?=$this->config->item('version')?></small> <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"> <i class="fa fa-cog"></i> </a>
 	</div>
 	<ul class="nav navbar-nav hidden-xs">
-		<li class="dropdown"> <a href="index.html#" class="dropdown-toggle dker" data-toggle="dropdown"> <i class="fa fa-building-o"></i>
-			<span class="font-bold">Activity
-			</span> </a> <section class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle dker" data-toggle="dropdown"> <i class="fa fa-building-o"></i>
+			<span class="font-bold"></span>
+		</a> <section class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
 				<div class="wrapper lter m-t-n-xs"> <a href="#" class="thumb pull-left m-r"> <img src="<?=IMG_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"> </a>
 					<div class="clear"> 
 					<a href="<?=base_url()?>profile">
@@ -67,11 +68,14 @@
 							<a href="<?=base_url()?>profile/notifications" data-toggle="class:show animated fadeInRight">See all the notifications</a> </footer>
 						</section> </section> </li>
 						<li class="dropdown hidden-xs"> <a href="#" class="dropdown-toggle dker" data-toggle="dropdown"><i class="fa fa-fw fa-search"></i></a> <section class="dropdown-menu aside-xl animated fadeInUp"> <section class="panel bg-white">
-							<form role="search">
+							<?php 
+							$attributes = array('role' => 'search');
+							echo form_open(base_url().'clients/inv_manage/search',$attributes); ?>
 								<div class="form-group wrapper m-b-none">
 									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Search">
-										<span class="input-group-btn"> <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+										<input type="text" class="form-control" name="keyword" placeholder="<?=lang('search')?>">
+										<span class="input-group-btn"> 
+										<button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
 										</span>
 									</div>
 								</div>

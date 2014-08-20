@@ -10,7 +10,7 @@
 							<?php
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
-							<li class="b-b b-light <?php if($user->user_from == $this->uri->segment(4)/1200){ echo "bg-light dk"; } ?>"">
+							<li class="b-b b-light <?php if($user->user_from == $this->uri->segment(4)/1200){ echo "bg-light dk"; } ?>">
 								<a href="<?=base_url()?>clients/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
@@ -26,7 +26,7 @@
 							<div class="col-sm-8 m-b-xs">
 								
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>clients/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
+									<a class="btn btn-sm btn-dark" href="<?=base_url()?>clients/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
 								</div>
 							</div>
@@ -61,16 +61,15 @@
 																$today = time();
 																$received = strtotime($msg->date_received) ;
 																echo $this->user_profile->get_time_diff($today,$received);
-																?> ago </span>
+																?> ago 
+								<?php 
+								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
+				<a href="<?=base_url()?>clients/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-default btn-xs active"><i class="fa fa-trash-o text-active"></i> 
+				<?=lang('delete')?> </a><?php } ?>
+								</span>
 									</header>
 								<div class="panel-body"><div><?=$msg->message?></div>
-								<div class="comment-action m-t-sm">
-								<?php
-								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
-				<a href="<?=base_url()?>clients/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> 
-				<?=lang('delete')?> </a>
-									<?php } ?>
-								</div>
+								
 								</div> 
 								</section>
 						</article>
@@ -87,10 +86,10 @@
 								<section class="panel panel-default"> 
 									<textarea class="form-control no-border" rows="3" name="message" placeholder="Enter your message here"></textarea>
 									<footer class="panel-footer bg-light lter">
-									<button class="btn btn-success pull-right btn-sm" type="submit"><?=lang('send_message')?></button> 
+									<button class="btn btn-dark pull-right btn-sm" type="submit"><?=lang('send_message')?></button> 
 									<ul class="nav nav-pills nav-sm"> 
-									<li><a href="<?=base_url()?>clients/messages" class="btn btn-dark btn-xs">
-									<i class="fa fa-envelope text-white"></i> <?=lang('messages')?></a></li>  
+									<li><a href="<?=base_url()?>clients/messages" class="btn btn-default btn-xs">
+									<i class="fa fa-envelope"></i></a></li>  
 									</ul> </footer> 
 								</section>
 						</form> </section> </article>
@@ -101,9 +100,10 @@
 
 							</div></section>
 			<footer class="footer b-t bg-white-only">
-				<form class="m-t-sm">
+				<?php $attributes = array('class' => 'm-t-sm');
+								echo form_open(base_url().'clients/messages/search/', $attributes); ?>
 					<div class="input-group">
-						<input class="input-sm form-control input-s-sm" placeholder="<?=lang('search')?>" type="text">
+						<input class="input-sm form-control input-s-sm" placeholder="<?=lang('search')?>" name="keyword" type="text">
 							<div class="input-group-btn"> <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
 								</div>
 					</div>

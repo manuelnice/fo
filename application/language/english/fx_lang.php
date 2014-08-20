@@ -233,6 +233,7 @@ $lang['issue_details'] = 'Issue Details';
 $lang['item_details'] = 'Item Details';
 $lang['item_quick_add'] = 'Item Templates';
 $lang['item_name'] = 'Item Name';
+$lang['keyword'] = 'Keyword';
 $lang['latest_comments'] = 'Latest Comments';
 $lang['layouts'] = 'Layouts';
 $lang['last_login'] = 'Last Login';

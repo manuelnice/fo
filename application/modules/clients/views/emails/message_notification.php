@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
     <p>Hello <?=$recipient_username?></p>
-    <p>You have received one message from <?=$this->tank_auth->get_username()?>. </p>
+    <p>You have received a message from <?=$this->tank_auth->get_username()?>. </p>
         --------------------------
         <br>
         <?=$message?>

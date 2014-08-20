@@ -31,10 +31,31 @@ class Projects extends MX_Controller {
 	$data['projects'] = $this->project_model->get_all_records($table = 'projects',
 		$array = array(
 			'client' => $this->tank_auth->get_user_id(),
-			'proj_deleted' => 'No'),$join_table = 'account_details',$join_criteria = 'account_details.user_id = projects.client','date_created');
+			'proj_deleted' => 'No'),$join_table = '',$join_criteria = '','date_created');
 	$this->template
 	->set_layout('users')
 	->build('projects/projects',isset($data) ? $data : NULL);
+	}
+
+	function search()
+	{
+		if ($this->input->post()) {
+				$this->load->module('layouts');
+				$this->load->library('template');
+				$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+				$data['page'] = lang('projects');
+				$keyword = $this->input->post('keyword', TRUE);
+				$data['projects'] = $this->project_model->search_project($keyword);
+				$this->template
+				->set_layout('users')
+				->build('projects/projects',isset($data) ? $data : NULL);
+			
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('enter_search_keyword'));
+			redirect('clients/projects');
+		}
+	
 	}
 	function details()
 	{		
@@ -115,139 +136,7 @@ class Projects extends MX_Controller {
 		$this->load->view('modal/comment_reply',isset($data) ? $data : NULL);
 		}
 	}
-	function tracking()
-	{
-		$action = ucfirst($this->uri->segment(4));
-		$project = $this->uri->segment(5);
-		if ($action == 'Off') {			
-			$project_start =  $this->project_model->get_project_start($project); //project start time
-			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
-			$time_logged = (time() - $project_start) + $project_logged_time; //time already logged
-
-			$this->db->set('timer', $action);
-			$this->db->set('time_logged', $time_logged);
-			$this->db->set('timer_start', '');
-			$this->db->where('project_id',$project)->update('projects');
-			$this->_log_timesheet($project,$project_start,time()); //log activity
-
-		}else{
-			$this->db->set('timer', $action);
-			$this->db->set('timer_start', time());
-			$this->db->where('project_id',$project)->update('projects');
-		}
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('operation_successful'));
-			redirect('collaborator/projects/details/'.$project);
-	}
-
-	function edit()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('progress', 'Progress', 'required');
-		$project_id = $this->input->post('project_id');	
-		
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('collaborator/projects/details/'.$project_id);
-		}else{	
-			
-			$form_data = array(
-			                'progress' => $this->input->post('progress'),
-			                'estimate_hours' => $this->input->post('estimate'),
-			                'description' => $this->input->post('description')
-			            );
-			$this->db->where('project_id',$project_id)->update('projects', $form_data);
-
-			$activity = ucfirst($this->tank_auth->get_username()).' edited a project #'.$this->input->post('project_code');
-			$this->_log_activity($project_id,$activity,$icon = 'fa-pencil'); //log activity
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('project_edited_successfully'));
-			redirect('collaborator/projects/details/'.$project_id);
-		}
-		}else{
-		$this->load->module('layouts');
-		$this->load->library('template');
-		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
-		$data['page'] = lang('projects');
-		$data['assign_to'] = $this->project_model->assign_to();
-		$data['clients'] = $this->project_model->clients();
-		$data['project_details'] = $this->project_model->project_details($this->uri->segment(4));
-		$this->template
-		->set_layout('users')
-		->build('projects/edit_project',isset($data) ? $data : NULL);
-		}
-	}
-
-
-	function delete()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('project_id', 'Project ID', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('delete_failed'));
-				redirect('projects/view_projects/all');
-		}else{			
-			$this->db->delete('projects', array('project_id' => $this->input->post('project_id'))); 
-			$this->db->delete('comments', array('project' => $this->input->post('project_id'))); 
-			$this->db->delete('activities', array('module' => 'projects','module_field_id' => $this->input->post('project_id'))); 
-			$this->db->delete('project_timer', array('project' => $this->input->post('project_id'))); 
-			$this->db->delete('tasks', array('project' => $this->input->post('project_id'))); 
-			$this->db->delete('bugs', array('project' => $this->input->post('project_id'))); 
-			// Delete project files
-
-			$this->db->delete('files', array('project' => $this->input->post('project_id'))); 
-			// Log Activity
-			$activity = 'Deleted Project #'.$this->input->post('project_id').' from the system';
-			$this->_log_activity($project_id,$activity,$icon = 'fa-times'); //log activity
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('project_deleted_successfully'));
-			redirect('projects/view_projects/all');
-		}
-		}else{
-			$data['project_id'] = $this->uri->segment(3);
-			$this->load->view('modal/delete_project',$data);
-		}
-	}
-	function timelog()
-	{		
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('logged_time', 'Logged Time', 'required');
-
-		$project = $this->input->post('project', TRUE);
-
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('time_entered_failed'));
-				redirect('projects/view/details/'.$project);
-		}else{	
-			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
-			$time_logged = $project_logged_time + ($this->input->post('logged_time', TRUE) *3600); //time already logged
-
-			$this->db->set('time_logged', $time_logged);
-			$this->db->where('project_id',$project)->update('projects'); 
-		}
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('time_entered_success'));
-			redirect('collaborator/projects/details/'.$project);
-	}else{
-		$data['logged_time'] =  $this->project_model->get_project_logged_time($this->uri->segment(4)/8600); 
-		$data['project_details'] = $this->project_model->project_details($this->uri->segment(4)/8600);
-		$this->load->view('modal/time_entry',isset($data) ? $data : NULL);
-		}
-	}
+	
 
 	function _comment_notification($project){
 			$project_details = $this->project_model->project_details($project);
@@ -270,22 +159,6 @@ class Projects extends MX_Controller {
 			modules::run('fomailer/send_email',$params);
 	}
 
-	function pilot(){
-		if ($this->uri->segment(4) == 'on') {
-			$status = 'TRUE';
-		}else{
-			$status = 'FALSE';
-		}
-			$project = $this->uri->segment(5)/8600;
-
-			$this->db->set('auto_progress', $status);
-			$this->db->where('project_id',$project)->update('projects');
-
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
-			redirect('collaborator/projects/details/'.$project);
-	}
-
 	function _log_activity($project_id,$activity,$icon){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);
@@ -293,12 +166,6 @@ class Projects extends MX_Controller {
 			$this->db->set('activity', $activity);
 			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
-	}
-	function _log_timesheet($project,$start_time,$end_time){
-			$this->db->set('project', $project);
-			$this->db->set('start_time', $start_time);
-			$this->db->set('end_time', $end_time);
-			$this->db->insert('project_timer'); 
 	}
 }
 
