@@ -35,10 +35,8 @@ class Clients extends MX_Controller {
 	$this->load->library('highcharts');
 	$this->template->title('Welcome - '.$this->config->item('company_name'));
 	$data['page'] = lang('home');
-	$data['events'] = $this->home_model->dashboard_events($limit = 5);
-	$data['messages'] = $this->home_model->recent_messages($this->tank_auth->get_user_id(),$limit = 5);
-	$data['tasks'] = $this->home_model->recent_tasks($this->tank_auth->get_user_id(),$limit = 5);
-	$data['activities'] = $this->home_model->recent_activities($limit = 6);
+	$data['projects'] = $this->home_model->recent_projects($this->tank_auth->get_user_id(),$limit = 5);
+	$data['activities'] = $this->home_model->recent_activities($this->tank_auth->get_user_id(),$limit = 6);
 
 	$this->highcharts->set_title('MONTHLY STATISTICS', 'Monthly Payments'); // set chart title: title, subtitle(optional)
 	$this->highcharts->set_axis_titles('Month', 'Amount Received'); // axis titles: x axis,  y axis
@@ -57,7 +55,7 @@ class Clients extends MX_Controller {
 	$this->_monthly_data('12')
 	);
 	$this->highcharts->set_xAxis($graph_data['axis']); // pushing categories for x axis labels
-	$data['charts'] = $this->highcharts->set_serie($serie,'Amount Rec.')->render();
+	$data['charts'] = $this->highcharts->set_serie($serie,'Paid '.$this->config->item('default_currency'))->render();
 	$this->template
 	->set_layout('users')
 	->build('welcome',isset($data) ? $data : NULL);
@@ -70,7 +68,9 @@ class Clients extends MX_Controller {
 	function _monthly_data($month)
 	{
 		$this->db->select_sum('amount');
+		$this->db->where('paid_by', $this->tank_auth->get_user_id());
 		$this->db->where('month_paid', $month); 
+		$this->db->where('year_paid', date('Y')); 
 		$query = $this->db->get('payments');
 		foreach ($query->result() as $row)
 			{

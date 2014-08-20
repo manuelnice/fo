@@ -350,6 +350,7 @@ $lang['quick_links'] = 'Quick Links';
 $lang['recurring'] = 'Recurring';
 $lang['recent_activities'] = 'Recent Activities';
 $lang['recent_payments'] = 'Recent Payments';
+$lang['recent_projects'] = 'Recent Projects';
 $lang['recent_tasks'] = 'Recent Tasks';
 $lang['recent_sellers'] = 'Recent Sellers';
 $lang['recent_invoice'] = 'Recent Invoice';
