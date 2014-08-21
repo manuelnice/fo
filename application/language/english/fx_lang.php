@@ -1,6 +1,6 @@
 <?php
 
-$lang['access_denied'] = 'Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance';
+$lang['access_denied'] = 'Hey, you are not allowed to access this page. Please contact the system admin for assistance';
 $lang['activities'] = 'Activities';
 $lang['address'] = 'Address';
 $lang['add_invoice'] = 'Add Invoice';
@@ -192,7 +192,7 @@ $lang['frequency'] = 'Frequency';
 $lang['full_name'] = 'Full Name';
 $lang['get_started'] = 'Get Started';
 $lang['general_settings'] = 'General Settings';
-$lang['help_topics'] = 'Help Topics';
+$lang['help'] = 'Help';
 $lang['home'] = 'Home';
 $lang['homepage_preview'] = 'Homepage Preview';
 $lang['high'] = 'High';
@@ -238,12 +238,11 @@ $lang['latest_comments'] = 'Latest Comments';
 $lang['layouts'] = 'Layouts';
 $lang['last_login'] = 'Last Login';
 $lang['links'] = 'Links';
-$lang['live_preview'] = 'Live Preview';
-$lang['login_here'] = 'Login Here';
 $lang['login_required'] = 'You are not logged in. Please login to proceed.';
 $lang['login'] = 'Login';
 $lang['log_time_manually'] = 'Use this form to log time manually.';
 $lang['logged_hours'] = 'Logged Hours';
+$lang['logout'] = 'Log Out';
 $lang['low'] = 'Low';
 $lang['manage_profile'] = 'Manage Profile';
 $lang['make_recurring'] = 'Make Recurring';

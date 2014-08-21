@@ -12,7 +12,7 @@
 						<span class="text-white font-bold">@<?php
 						echo $this->user_profile->get_fullname($this->tank_auth->get_user_id())  ? $this->user_profile->get_fullname($this->tank_auth->get_user_id()) : $this->tank_auth->get_username()?>
 						</a>
-						</span> <small class="block">User Role: <?=$this->tank_auth->user_role($this->tank_auth->get_role_id())?></small> <a href="<?=base_url()?>profile" class="btn btn-xs btn-success m-t-xs">My Account</a>
+						</span> <small class="block"><?=lang('role')?>: <?=$this->tank_auth->user_role($this->tank_auth->get_role_id())?></small> <a href="<?=base_url()?>profile" class="btn btn-xs btn-success m-t-xs">My Account</a>
 					</div>
 				</div>
 				<div class="row m-l-none m-r-none m-b-n-xs text-center">
@@ -92,12 +92,12 @@
 							</span>
 							<li> <a href="<?=base_url()?>profile/settings">Settings</a> </li>
 							<li> <a href="<?=base_url()?>profile">Profile</a> </li>
-							<li> <a href="<?=base_url()?>profile/notifications">
+							<li> <a href="<?=base_url()?>profile/activities">
 								<span class="badge bg-danger pull-right">3
-							</span> Notifications </a> </li>
-							<li> <a href="<?=base_url()?>profile/help">Help</a> </li>
+							</span> <?=lang('activities')?> </a> </li>
+							<li> <a href="<?=base_url()?>profile/help"><?=lang('help')?></a> </li>
 							<li class="divider"></li>
-							<li> <a href="<?=base_url()?>auth/logout" >Logout</a> </li>
+							<li> <a href="<?=base_url()?>auth/logout" ><?=lang('logout')?></a> </li>
 						</ul> </li>
 					</ul>
 				</header>

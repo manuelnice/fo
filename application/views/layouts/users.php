@@ -4,8 +4,8 @@
 <head> 
     <meta charset="utf-8" /> 
     <meta name="description" content="">
-    <meta name="author" content="William Mandai">
-    <meta name="keyword" content="Kabarak University Student portal developed and maintained by William Mandai">
+    <meta name="author" content="<?=$this->config->item('site_author')?>">
+    <meta name="keyword" content="<?=$this->config->item('site_desc')?>">
     <link rel="shortcut icon" href="<?=IMG_URL?>favicon.ico">
 
     <title><?php  echo $template['title'];?></title>
@@ -30,7 +30,6 @@ if ($this->uri->segment(2) == 'update' OR $this->uri->segment(1) == 'messages' O
 if ($this->uri->segment(2) == 'help') { ?>
  <link rel="stylesheet" href="<?=JS_URL?>intro/introjs.css" type="text/css" cache="false" /> 
 <?php }  ?>
-<link rel="stylesheet" href="<?=JS_URL?>calendar/bootstrap_calendar.css" type="text/css" cache="false" /> 
 <!--[if lt IE 9]> 
 <script src="js/ie/html5shiv.js" cache="false">
 </script> 
