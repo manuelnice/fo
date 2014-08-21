@@ -10,7 +10,7 @@
 					<div class="clear"> 
 					<a href="<?=base_url()?>profile">
 						<span class="text-white font-bold">@<?php
-						echo $this->user_profile->get_fullname($this->tank_auth->get_user_id())  ? $this->user_profile->get_fullname($this->tank_auth->get_user_id()) : $this->tank_auth->get_username()?>
+						echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname'): $this->tank_auth->get_username()?>
 						</a>
 						</span> <small class="block"><?=lang('role')?>: <?=$this->tank_auth->user_role($this->tank_auth->get_role_id())?></small> <a href="<?=base_url()?>profile" class="btn btn-xs btn-success m-t-xs">My Account</a>
 					</div>
@@ -84,9 +84,9 @@
 					</section> </li>
 					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="thumb-sm avatar pull-left"> 
-						<img src="<?=IMG_URL?><?=$this->user_profile->get_avatar($this->tank_auth->get_user_id()) ?>">
+						<img src="<?=IMG_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar') ?>">
 						</span> <?php 
-	echo $this->user_profile->get_fullname($this->tank_auth->get_user_id())  ? $this->user_profile->get_fullname($this->tank_auth->get_user_id()) : $this->tank_auth->get_username()?> <b class="caret"></b> </a>
+	echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') : $this->tank_auth->get_username()?> <b class="caret"></b> </a>
 						<ul class="dropdown-menu animated fadeInRight">
 							<span class="arrow top">
 							</span>

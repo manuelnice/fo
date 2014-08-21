@@ -140,6 +140,17 @@ class User_profile {
   		 $row = $query->row();
   		 return $row->role;
   		}
+	}	
+
+	function get_user_details($user,$field) {
+	$this->ci->db->where('id',$user);
+	$this->ci->db->select($field);
+	$query = $this->ci->db->get('users');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->$field;
+  		}
 	}
 	function get_profile_details($user,$field) {
 	$this->ci->db->where('user_id',$user);
@@ -167,17 +178,6 @@ class User_profile {
 	$this->ci->db->where('project_id',$project);
 	$this->ci->db->select($field);
 	$query = $this->ci->db->get('projects');
-		if ($query->num_rows() > 0)
-			{
-  		 $row = $query->row();
-  		 return $row->$field;
-  		}
-	}
-
-	function get_user_details($user,$field) {
-	$this->ci->db->where('id',$user);
-	$this->ci->db->select($field);
-	$query = $this->ci->db->get('users');
 		if ($query->num_rows() > 0)
 			{
   		 $row = $query->row();

@@ -6,7 +6,7 @@
 	<?php  echo modules::run('sidebar/flash_msg');?>
 	<div class="m-b-md"> <h3 class="m-b-none"><?=lang('dashboard')?></h3>
 		<small><?=lang('welcome_back')?> , <?php
-		echo $this->user_profile->get_fullname($this->tank_auth->get_user_id())  ? $this->user_profile->get_fullname($this->tank_auth->get_user_id()) : $this->tank_auth->get_username()?> </small>
+		echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') : $this->tank_auth->get_username()?> </small>
 	</div>
 	<section class="panel panel-default">
 		<div class="row m-l-none m-r-none bg-light lter">

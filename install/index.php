@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Fuse Installation</title>
+		<title>Freelancer Office Installation</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="Freelancer Office is a web based PHP Application for freelancers">
+		<meta name="author" content="William M">
 
 		<!-- Le styles -->
 		<link href="../resource/css/app.v2.css" rel="stylesheet">
