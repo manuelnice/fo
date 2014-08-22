@@ -48,7 +48,6 @@
 							<span class="arrow top">
 							</span>
 							<li> <a href="<?=base_url()?>profile/settings">Settings</a> </li>
-							<li> <a href="<?=base_url()?>profile">Profile</a> </li>
 							<li> <a href="<?=base_url()?>profile/activities">
 								<span class="badge bg-danger pull-right">3
 							</span> <?=lang('activities')?> </a> </li>

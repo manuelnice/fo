@@ -265,7 +265,7 @@ $config['sess_time_to_update']	= 300;
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix']	= "_uni_";
+$config['cookie_prefix']	= "_fo_";
 $config['cookie_domain']	= "";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
@@ -294,8 +294,8 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'csrf_uni_name';
-$config['csrf_cookie_name'] = 'csrf_kb_name';
+$config['csrf_token_name'] = 'csrf_fo_name';
+$config['csrf_cookie_name'] = 'csrf_wm_name';
 $config['csrf_expire'] = 7200;
 
 /*

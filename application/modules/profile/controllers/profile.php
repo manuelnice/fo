@@ -22,18 +22,6 @@ class Profile extends MX_Controller {
 		$this->load->model('profile_model');
 	}
 
-	function index()
-	{
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title('Welcome - Kabarak Portal');
-	$data['page'] = 'profile';
-	$data['activities'] = $this->profile_model->get_activities($user = FALSE,$limit='20');
-	$data['updates'] = $this->profile_model->get_activities($this->tank_auth->get_user_id(),$limit='20');
-	$this->template
-	->set_layout('users')
-	->build('profile',isset($data) ? $data : NULL);
-	}
 	function timeline()
 	{
 	$this->load->module('layouts');
@@ -44,7 +32,7 @@ class Profile extends MX_Controller {
 	->set_layout('users')
 	->build('timeline',isset($data) ? $data : NULL);
 	}
-	function edit()
+	function settings()
 	{
 		if($_POST){
 		$this->load->library('form_validation');
@@ -76,13 +64,11 @@ class Profile extends MX_Controller {
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->template->title('Welcome - Kabarak Portal');
-	$data['page'] = 'profile';
+	$data['page'] = lang('home');
 	$data['profile'] = $this->profile_model->get_all_records($table = 'account_details',
 		$array = array('user_id' =>$this->tank_auth->get_user_id()),
 				$join_table = '',$join_criteria = '');
 	$data['countries'] = $this->profile_model->get_all($table = 'countries');
-	$data['programs'] = $this->profile_model->get_all($table = 'programs');
-	$data['posts'] = $this->profile_model->get_activities($user = FALSE,$limit=10);
 	$this->template
 	->set_layout('users')
 	->build('edit_profile',isset($data) ? $data : NULL);
