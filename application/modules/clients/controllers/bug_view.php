@@ -47,7 +47,7 @@ class Bug_view extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('issue_not_submitted'));
-				redirect('collaborator/bugs');
+				redirect('clients/bugs');
 		}else{		
 			$assigned_to = $this->user_profile->get_project_details($this->input->post('project'),'assign_to');
 			$form_data = array(

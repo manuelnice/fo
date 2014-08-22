@@ -7,8 +7,8 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Kabarak Portal';
-$config['webmaster_email'] = 'wm@kabuportal.com';
+$config['website_name'] = 'Freelancer Office';
+$config['webmaster_email'] = 'wm@gitbench.com';
 
 /*
 |--------------------------------------------------------------------------
