@@ -8,7 +8,7 @@
 
 			<header class="dk header b-b">
 		
-		<p class="h4"><?=lang('all_invoices')?></p>
+		<p class="h4"><?=lang('all_estimates')?></p>
 		</header>
 
 

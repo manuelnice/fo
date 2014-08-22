@@ -63,61 +63,59 @@ class Estimates extends MX_Controller {
 	{		
 		$this->load->module('layouts');
 		$this->load->library('template');
-		$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
-		$data['page'] = lang('invoices');
-		$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
-		$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
-		$data['invoices'] = $this->invoice->get_all_records($table = 'invoices',$array = array(
+		$this->template->title(lang('estimates').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+		$data['page'] = lang('estimates');
+		$data['estimate_details'] = $this->estimate->estimate_details($this->uri->segment(4));
+		$data['estimate_items'] = $this->estimate->estimate_items($this->uri->segment(4));
+		$data['estimates'] = $this->estimate->get_all_records($table = 'estimates',
+		$array = array(
 			'client' => $this->tank_auth->get_user_id(),
-			'inv_deleted' => 'No',
-			),$join_table = 'users',$join_criteria = 'users.id = invoices.client','date_saved');
-		$data['payment_status'] = $this->invoice->payment_status($this->uri->segment(4));
+			'est_deleted' => 'No'
+			),
+		$join_table = 'users',$join_criteria = 'users.id = estimates.client','date_saved');
 		$this->template
 		->set_layout('users')
-		->build('invoices/invoice_details',isset($data) ? $data : NULL);
+		->build('estimates/estimate_details',isset($data) ? $data : NULL);
 	}
 
-	function _send_payment_email($invoice_id,$paid_amount){
-			$client = $this->invoice->get_client($invoice_id);
+	function status(){
+		$estimate = $this->uri->segment(5);
+		$ref_no = $this->uri->segment(6);
+			if ($this->uri->segment(4) == 'accepted') {
+				$status = 'Accepted';
+			}else{
+				$status = 'Declined';
+			}
+			$this->db->set('status', $status);
+			$this->db->where('est_id',$estimate)->update('estimates'); 
 
-			$client_address = $this->user_profile->get_user_details($client,'email');
-			$data['paid_amount'] = $paid_amount;
+			$activity = 'EST #'.$this->uri->segment(6). ' marked as '.$this->uri->segment(4);
 
-			$params['recipient'] = $client_address;
+			$this->_log_activity($estimate,$activity,$icon = 'fa-paperclip'); //log activity	 
+			$this->_estimate_changed($ref_no,$status); //send email notification	 
 
-			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' Payment Received';
-			$params['message'] = $this->load->view('emails/thank_you_message',$data,TRUE);
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('estimate_'.$this->uri->segment(4).'_successfully'));
+			redirect('clients/estimates/details/'.$estimate);
+
+	}
+
+	function _estimate_changed($ref_no,$status){
+
+			$company_address = $this->config->item('company_email');
+			$data['ref_no'] = $ref_no;
+			$data['status'] = $status;
+
+			$params['recipient'] = $company_address;
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' Estimate '.$ref_no.' '.$status;
+			$params['message'] = $this->load->view('emails/estimate_status',$data,TRUE);
 
 			$params['attached_file'] = '';
 
 			modules::run('fomailer/send_email',$params);
 	}
-	public function invoicepdf(){
 
-			$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
-			$data['payment_status'] = $this->invoice->payment_status($this->uri->segment(4));
-			$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
-			$data['page'] = lang('invoices');
-
-		$this->load->view('emails/invoice',$data);
-		// Get output html
-		$html = $this->output->get_output();
-		
-		// Load library
-		$this->load->library('dompdf_gen');
-		
-		// Convert to PDF
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("welcome.pdf");
-		/*
-
-			$this->load->helper (array('dompdf', 'file' ));
-		$html = $this->load->view('emails/invoice',$data,TRUE);
-		pdf_create( $html , 'Invoice # '.$this->uri->segment(4) );
-		*/
-				
-	}
 	function _log_activity($invoice_id,$activity,$icon){
 			$this->db->set('module', 'invoices');
 			$this->db->set('module_field_id', $invoice_id);

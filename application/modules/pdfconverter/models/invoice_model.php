@@ -2,8 +2,8 @@
 
 /**
  *
- * @package	Uniportal
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelancer Office
+ * @author	William M
  */
 class Invoice_model extends CI_Model
 {
@@ -32,6 +32,20 @@ class Invoice_model extends CI_Model
 		}else{
 			return "Parially Paid";
 		}
+	}
+
+	function estimate_details($estimate)
+	{
+		$this->db->join('users','users.id = estimates.client');
+		return $this->db->where('est_id',$estimate)->get('estimates')->result();
+	}
+	function estimate_items($estimate)
+	{
+		$this->db->join('estimates','estimates.est_id = estimate_items.estimate_id');
+		$query = $this->db->where('estimate_id',$estimate)->get('estimate_items');
+		if ($query->num_rows() > 0){
+			return $query->result();
+		} 
 	}
 	
 }

@@ -38,6 +38,22 @@ class PdfConverter extends MX_Controller {
 				
 	}
 
+	function estimate(){
+
+			$data['estimate_details'] = $this->invoice->estimate_details($this->uri->segment(3));
+			$data['estimate_items'] = $this->invoice->estimate_items($this->uri->segment(3));
+			$data['page'] = lang('estimates');
+
+			$this->load->view('estimate',$data);	
+			$html = $this->output->get_output();
+			$this->load->library('dompdf_gen');
+
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream('Estimate #'.$this->uri->segment(4));
+				
+	}
+
 }
 
 /* End of file welcome.php */

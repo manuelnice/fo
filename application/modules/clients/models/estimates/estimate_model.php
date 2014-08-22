@@ -38,10 +38,10 @@ class Estimate_model extends CI_Model
 	{
 			return $this->db->get('items_saved')->result();
 	}
-	function invoice_details($invoice_id)
+	function estimate_details($estimate)
 	{
-		$this->db->join('users','users.id = invoices.client');
-		return $this->db->where('inv_id',$invoice_id)->get('invoices')->result();
+		$this->db->join('users','users.id = estimates.client');
+		return $this->db->where('est_id',$estimate)->get('estimates')->result();
 	}
 	function payment_details($p_id)
 	{
@@ -65,10 +65,10 @@ class Estimate_model extends CI_Model
 	{
 		return $this->db->where('item_id',$item)->get('items_saved')->result();
 	}
-	function invoice_items($invoice_id)
+	function estimate_items($estimate)
 	{
-		$this->db->join('invoices','invoices.inv_id = items.invoice_id');
-		$query = $this->db->where('invoice_id',$invoice_id)->get('items');
+		$this->db->join('estimates','estimates.est_id = estimate_items.estimate_id');
+		$query = $this->db->where('estimate_id',$estimate)->get('estimate_items');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

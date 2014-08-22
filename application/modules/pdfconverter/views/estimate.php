@@ -8,7 +8,7 @@
     <meta name="keyword" content="<?=$this->config->item('site_desc')?>">
     <link rel="shortcut icon" href="<?=IMG_URL?>favicon.ico">
 
-    <title>Invoice </title>
+    <title>Estimate </title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
 
@@ -27,8 +27,8 @@
 	<section class="hbox stretch">
 		
 			<?php
-					if (!empty($invoice_details)) {
-			foreach ($invoice_details as $key => $inv) { ?>
+					if (!empty($estimate_details)) {
+			foreach ($estimate_details as $key => $e) { ?>
 			<aside>
 			<section class="vbox">
 				
@@ -47,12 +47,12 @@
 						<?=lang('phone')?>: <?=$this->config->item('company_phone')?> </p>
 					</div>
 						<div class="col-xs-12 text-right">
-						<h4>INV #<?=$inv->reference_no?></h4> 
+						<h4>EST #<?=$e->reference_no?></h4> 
 						<p class="m-t m-b">
-					<?=lang('invoice_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->due_date));?></strong><br> 
-					<?=lang('payment_status')?>: <?=$payment_status?> <br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username)?></strong> </p>
+					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($e->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($e->due_date));?></strong><br> 
+					<?=lang('estimate_status')?>: <?=$e->status?> <br> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($e->id,'fullname')?$this->user_profile->get_profile_details($e->id,'fullname') : $e->username)?></strong> </p>
 					</div>
 					</div>
 
@@ -66,8 +66,8 @@
 					<th width="90"><?=lang('amount')?> </th>
 					</tr> </thead> <tbody>
 					<?php
-					if (!empty($invoice_items)) {
-					foreach ($invoice_items as $key => $item) { ?>
+					if (!empty($estimate_items)) {
+					foreach ($estimate_items as $key => $item) { ?>
 					<tr>
 						<td><?=$item->item_desc?> </td>
 						<td><?=$item->quantity?></td> 						
@@ -77,13 +77,12 @@
 					<?php } } ?>
 					
 					<?php
-					$invoice_cost = $this->user_profile->invoice_payable($inv->inv_id);
-					$payment_made = $this->user_profile->invoice_payment($inv->inv_id);
-					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
+					$estimate_cost = $this->user_profile->estimate_payable($e->est_id);
+					$tax = ($this->config->item('default_tax')/100) * $estimate_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>
-						<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format($invoice_cost,2)?>
+						<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format($estimate_cost,2)?>
 						</strong></td>
 					</tr>
 					<tr>
@@ -91,15 +90,15 @@
 						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($tax,2)?></td>
 					</tr>
 					<tr>
-					<td colspan="3" class="text-right no-border"><strong><?=lang('balance_due')?></strong></td>
-					<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format(($invoice_cost + $tax) - $payment_made,2)?></strong></td>
+					<td colspan="3" class="text-right no-border"><strong><?=lang('estimate_cost')?></strong></td>
+					<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format($estimate_cost + $tax,2)?></strong></td>
 					</tr>
 					</tbody>
 					</table>
 					</section> 
 
 
-					<p><?=$inv->notes?></p>
+					<p><?=$e->notes?></p>
 
 
 					<?php } } ?>

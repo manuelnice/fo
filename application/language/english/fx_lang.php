@@ -167,6 +167,7 @@ $lang['estimate'] = 'Estimate';
 $lang['estimate_date'] = 'Estimate Date';
 $lang['estimate_details'] = 'Estimate Details';
 $lang['estimated_hours'] = 'Estimated Hours';
+$lang['estimate_cost'] = 'Estimate Cost';
 $lang['expiry_date'] = 'Expiry Date';
 $lang['estimate_status'] = 'Estimate Status';
 $lang['estimate_history'] = 'Estimate History';
