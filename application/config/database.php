@@ -5,10 +5,10 @@
  * Edit this file and upate with your own MySQL database details.
 */
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'freelance';
+$db['default']['hostname'] = 'gitfreelancer.db.11959923.hostedresource.com';
+$db['default']['username'] = 'gitfreelancer';
+$db['default']['password'] = 'Ranger55@@';
+$db['default']['database'] = 'gitfreelancer';
 
 
 
