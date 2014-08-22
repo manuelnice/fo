@@ -55,14 +55,12 @@
 								<?php
 								if (!empty($tasks)) {
 								foreach ($tasks as $key => $task) { ?>
-								<?php
-								$colors = ["info", "success", "danger", "warning"];
-									$k = array_rand($colors);
-								?>
+								
 								<tr>
 									<td>
+									<?php if ($task >= 100) { $bg = 'success'; }else{ $bg = 'danger'; } ?>
 										<div class="progress progress-xs m-t-xs m-b-none">
-											<div class="progress-bar progress-bar-<?=$colors[$k]?>" data-toggle="tooltip" data-original-title="<?=$task->progress?>%" style="width: <?=$task->progress?>%">
+											<div class="progress-bar progress-bar-<?=$bg?>" data-toggle="tooltip" data-original-title="<?=$task->progress?>%" style="width: <?=$task->progress?>%">
 											</div>
 										</div>
 									</td>
