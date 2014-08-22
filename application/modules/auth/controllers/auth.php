@@ -471,20 +471,21 @@ class Auth extends MX_Controller
 				if ($this->tank_auth->change_password(
 						$this->form_validation->set_value('old_password'),
 						$this->form_validation->set_value('new_password'))) {	// success
-					$this->_show_message($this->lang->line('auth_message_password_changed'));
+
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message',lang('auth_message_password_changed'));
+				    redirect($this->input->post('r_url'));
+					//$this->_show_message($this->lang->line('auth_message_password_changed'));
 
 				} else {														// fail
 					$errors = $this->tank_auth->get_error_message();
 					foreach ($errors as $k => $v)	$data['errors'][$k] = $this->lang->line($v);
 				}
 			}
-			if (!$this->input->is_ajax_request()) {
-				redirect('profile/credentials');
-				//$this->_show_message('Password change failed. Reload the page and try again');
-			}else{
 		
-		$this->load->view('auth/change_password_form', $data);
-	}
+		$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message',lang('password_or_field_error'));
+		    redirect('profile/settings');
 		}
 	}
 
@@ -514,19 +515,20 @@ class Auth extends MX_Controller
 					// Send email with new email address and its activation link
 					$this->_send_email('change_email', $data['new_email'], $data);
 
-					$this->_show_message(sprintf($this->lang->line('auth_message_new_email_sent'), $data['new_email']));
+					$this->session->set_flashdata('response_status', 'success');
+					$this->session->set_flashdata('message',sprintf(lang('auth_message_new_email_sent'), $data['new_email']));
+				    redirect($this->input->post('r_url'));
+
+					//$this->_show_message(sprintf($this->lang->line('auth_message_new_email_sent'), $data['new_email']));
 
 				} else {
 					$errors = $this->tank_auth->get_error_message();
 					foreach ($errors as $k => $v)	$data['errors'][$k] = $this->lang->line($v);
 				}
-			}
-			if (!$this->input->is_ajax_request()) {
-				redirect('profile/credentials');
-				//$this->_show_message('Email change failed. Reload the page and try again');
-			}else{
-			$this->load->view('auth/change_email_form', $data);
-		}
+			}			
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message',lang('password_or_email_error'));
+		    redirect('profile/settings');
 		}
 	}
 
@@ -547,12 +549,10 @@ class Auth extends MX_Controller
 			$this->tank_auth->logout();
 			$this->session->set_flashdata('message',$this->lang->line('auth_message_new_email_activated'));
 					redirect('auth/login');
-			//$this->_show_message($this->lang->line('auth_message_new_email_activated').' '.anchor('/auth/login/', 'Login'));
 
 		} else {																// fail
 			$this->session->set_flashdata('message',$this->lang->line('auth_message_new_email_failed'));
 					redirect('auth/login');
-			//$this->_show_message($this->lang->line('auth_message_new_email_failed'));
 		}
 	}
 

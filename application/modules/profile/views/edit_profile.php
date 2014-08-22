@@ -18,9 +18,9 @@
         <input type="hidden" name="r_url" value="<?=uri_string()?>">
 
         <div class="form-group">
-          <label class="col-lg-3 control-label"><?=lang('full_name')?></label>
+          <label class="col-lg-3 control-label"><?=lang('full_name')?> <span class="text-danger">*</span></label>
           <div class="col-lg-7">
-          <input type="text" class="form-control" name="fullname" value="<?=$p->fullname?>">
+          <input type="text" class="form-control" name="fullname" value="<?=$p->fullname?>" required>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
         <label class="col-lg-3 control-label"><?=lang('country')?> <span class="text-danger">*</span> </label>
         <div class="col-lg-7">
           <div class="m-b"> 
-          <select id="select2-option" style="width:260px" name="country" > 
+          <select id="select2-option" style="width:260px" name="country" required> 
           <optgroup label="Current"> 
           <option value="<?=$p->country?>"><?=$p->country?></option>
           </optgroup> 
@@ -90,6 +90,31 @@
         <button type="submit" class="btn btn-sm btn-dark"><?=lang('update_profile')?></button>
       </form>
       <?php } ?>
+
+
+      <h4 class="page-header"><?=lang('change_email')?></h4>
+
+       <?php
+       $attributes = array('class' => 'bs-example form-horizontal');
+        echo form_open(base_url().'auth/change_email',$attributes); ?>
+        <input type="hidden" name="r_url" value="<?=uri_string()?>">
+     <div class="form-group">
+          <label class="col-lg-3 control-label"><?=lang('password')?></label>
+          <div class="col-lg-7">
+          <input type="password" class="form-control" name="password" placeholder="Password" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><?=lang('new_email')?></label>
+          <div class="col-lg-7">
+          <input type="email" class="form-control" name="email" placeholder="New Email" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-sm btn-success"><?=lang('change_email')?></button>
+      </form>
+
+
     </div>
   </section>
   <!-- /profile form -->
@@ -101,19 +126,19 @@
       <header class="panel-heading font-bold"><?=lang('account_details')?></header>
       <div class="panel-body">
         <?php
-        echo form_open(uri_string()); ?>
+        echo form_open(base_url().'auth/change_password'); ?>
         <input type="hidden" name="r_url" value="<?=uri_string()?>">
         <div class="form-group">
-          <label><?=lang('old_password')?></label>
-          <input type="text" class="form-control" name="oldpassword" value="**********">
+          <label><?=lang('old_password')?> <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" name="old_password" placeholder="Old Password" required>
         </div>
         <div class="form-group">
-          <label><?=lang('new_password')?></label>
-          <input type="text" class="form-control" name="newpassword" placeholder="Password">
+          <label><?=lang('new_password')?> <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" name="new_password" placeholder="New Password" required>
         </div>
          <div class="form-group">
-          <label><?=lang('confirm_password')?></label>
-          <input type="text" class="form-control" name="confirmpassword" placeholder="Confirm Password">
+          <label><?=lang('confirm_password')?> <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" name="confirm_new_password" placeholder="Confirm Password" required>
         </div>
         
         <button type="submit" class="btn btn-sm btn-dark"><?=lang('change_password')?></button>
@@ -123,7 +148,7 @@
 
        <?php
        $attributes = array('class' => 'bs-example form-horizontal');
-        echo form_open_multipart(uri_string(),$attributes); ?>
+        echo form_open_multipart(base_url().'profile/avatar',$attributes); ?>
         <input type="hidden" name="r_url" value="<?=uri_string()?>">
        <div class="form-group">
         <label class="col-lg-3 control-label"><?=lang('avatar_image')?></label>

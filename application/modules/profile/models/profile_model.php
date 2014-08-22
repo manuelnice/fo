@@ -61,44 +61,13 @@ class Profile_model extends CI_Model
 			return NULL;
 		}
 	}
-	function total_cf($student,$program,$table,$program_field,$cf_field)
-    	{
-    		if ($student) {
-    			$this->db->where('student',$student);
-    		}	
-	$this->db->where($program_field,$program);
-	$this->db->select_sum($cf_field);
-	$query = $this->db->get($table);
-	if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row->$cf_field;
-  		}
-	}
-	function get_record_by($table,$where,$join_table,$join_criteria)
-    	{
-    		if ($join_table) {
-    			$this->db->join($join_table,$join_criteria);
-    		}	
-	$this->db->where($where);
-	$query = $this->db->get($table);
-	if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row;
-  		}
-	}
-	function if_unit_registered($unit,$student)
-    	{
-	$this->db->where('unit',$unit);
-	$this->db->where('student',$student);
-	$query = $this->db->get('unit_registrations');
-	if ($query->num_rows() > 0)
-		{
-  			 return TRUE;
-  		}else{
-  			return FALSE;
-  		}
+	function update_avatar($filename)
+	{
+		$data = array(
+			'avatar'	=> $filename,
+		);
+		$this->db->where('user_id',$this->tank_auth->get_user_id())->update('account_details', $data);
+		return TRUE;
 	}
 	
 }
