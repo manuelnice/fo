@@ -4,8 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
-| Kabarak University - Bsc. in Information Technology
+| System Developed by William M
 */
 
 
@@ -22,16 +21,6 @@ class Profile extends MX_Controller {
 		$this->load->model('profile_model');
 	}
 
-	function timeline()
-	{
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title('Welcome - Kabarak Portal');
-	$data['page'] = 'profile';
-	$this->template
-	->set_layout('users')
-	->build('timeline',isset($data) ? $data : NULL);
-	}
 	function settings()
 	{
 		if($_POST){
@@ -76,30 +65,22 @@ class Profile extends MX_Controller {
 	}
 	}
 
-	function avatar()
+	function changeavatar()
 	{		
 		if ($this->input->post()) {
-						$this->load->library('form_validation');
-						$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-						$this->form_validation->set_rules('userfile', 'Avatar', 'required');
-
-						if ($this->form_validation->run() == FALSE)
-						{
-								$this->session->set_flashdata('response_status', 'error');
-								$this->session->set_flashdata('message', lang('no_avatar_selected'));
-								redirect($this->input->post('r_url', TRUE));
-						}else{
-
-								if ($this->config->item('demo_mode') == 'FALSE') {
-								$config['upload_path'] = './resource/avatar/';
-									$config['allowed_types'] = 'png|jpeg|gif';
-									$config['max_size']	= $this->config->item('file_max_size');
-									$config['file_name'] = strtoupper($this->config->item('company_name')).'-AVATAR-'.$this->tank_auth->get_username;
+						
+						if ($this->config->item('demo_mode') == 'FALSE') {
+									$config['upload_path'] = './resource/avatar/';
+									$config['allowed_types'] = 'gif|jpg|png';
+									$config['max_size']	= '600';
+									$config['max_width']  = '500';
+									$config['max_height']  = '450';
+									$config['file_name'] = strtoupper($this->config->item('company_name')).'-AVATAR-'.$this->tank_auth->get_username();
 									$config['overwrite'] = TRUE;
 
 									$this->load->library('upload', $config);
 
-									if ( ! $this->upload->do_upload())
+									if (!$this->upload->do_upload())
 									{
 										$this->session->set_flashdata('response_status', 'error');
 										$this->session->set_flashdata('message',lang('operation_failed'));
@@ -119,11 +100,10 @@ class Profile extends MX_Controller {
 									$this->session->set_flashdata('message',lang('demo_warning'));
 									redirect($this->input->post('r_url', TRUE));
 								}
-					}
-		}else{
-								$this->session->set_flashdata('response_status', 'error');
-								$this->session->set_flashdata('message', lang('no_avatar_selected'));
-								redirect($this->input->post('r_url', TRUE));
+			}else{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('no_avatar_selected'));
+				redirect('profile/settings');
 		}
 	}
 	function help()

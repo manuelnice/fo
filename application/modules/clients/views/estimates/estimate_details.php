@@ -22,7 +22,7 @@
 			foreach ($estimates as $key => $e) { 
 			if ($e->status == 'Declined'){ $e_status = "Declined"; $label = "danger"; }
 			elseif($e->invoiced == 'Yes') { $e_status = "Invoiced"; $label = "success";	}
-			elseif($e->emailed == 'Yes') { $e_status = "Emailed"; $label = "info";	}
+			elseif($e->status == 'Accepted') { $e_status = "Accepted"; $label = "info";	}
 			else{ $e_status = "Pending"; $label = "default"; }
 			?>
 

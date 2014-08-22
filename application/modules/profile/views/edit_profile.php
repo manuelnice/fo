@@ -148,7 +148,7 @@
 
        <?php
        $attributes = array('class' => 'bs-example form-horizontal');
-        echo form_open_multipart(base_url().'profile/avatar',$attributes); ?>
+        echo form_open_multipart(base_url().'profile/changeavatar',$attributes); ?>
         <input type="hidden" name="r_url" value="<?=uri_string()?>">
        <div class="form-group">
         <label class="col-lg-3 control-label"><?=lang('avatar_image')?></label>
