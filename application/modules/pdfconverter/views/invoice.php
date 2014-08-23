@@ -52,7 +52,7 @@
 					<?=lang('invoice_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->date_saved));?></strong><br>
 					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->due_date));?></strong><br> 
 					<?=lang('payment_status')?>: <?=$payment_status?> <br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username)?></strong> </p>
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($inv->id,'fullname')?$this->user_profile->get_profile_details($inv->id,'fullname') : $inv->username)?></strong> </p>
 					</div>
 					</div>
 

@@ -41,7 +41,7 @@ class Files extends MX_Controller {
 								$config['upload_path'] = './resource/project-files/';
 									$config['allowed_types'] = $this->config->item('allowed_files');
 									$config['max_size']	= $this->config->item('file_max_size');
-									$config['file_name'] = strtoupper($this->config->item('company_name')).'-PROJECT-'.$this->input->post('project_code', TRUE).'-0';
+									$config['file_name'] = 'PROJECT-'.$this->input->post('project_code', TRUE).'-0';
 									$config['overwrite'] = FALSE;
 
 									$this->load->library('upload', $config);

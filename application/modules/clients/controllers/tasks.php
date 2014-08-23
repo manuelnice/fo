@@ -53,7 +53,7 @@ class Tasks extends MX_Controller {
 			$this->_assigned_notification($project,$this->input->post('task_name'),$this->tank_auth->get_user_id()); 
 			//send notification to assigned user
 
-			$activity = 'Added a task '.$this->input->post('task_name');
+			$activity = 'Added a task titled:  '.$this->input->post('task_name');
 			$this->_log_activity($project,$activity,$icon = 'fa-tasks'); //log activity
 
 			$this->session->set_flashdata('response_status', 'success');

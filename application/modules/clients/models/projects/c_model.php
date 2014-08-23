@@ -77,7 +77,7 @@ class C_model extends CI_Model
 	}
 	function project_comments($project)
 	{
-		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments')->result();
+		return $this->db->where(array('project'=> $project, 'deleted' => 'No'))->order_by('date_posted','desc')->get('comments')->result();
 	}
 	function project_tasks($project)
 	{

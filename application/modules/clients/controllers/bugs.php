@@ -79,7 +79,7 @@ class Bugs extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('comment_failed'));
-				redirect('collaborator/bug_view/details/'.$this->input->get('bug',TRUE));
+				redirect('clients/bug_view/details/'.$this->input->get('bug',TRUE));
 		}else{			
 			$form_data = array(
 			                'bug_id' => $this->input->post('bug'),
@@ -92,10 +92,10 @@ class Bugs extends MX_Controller {
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
-			redirect('collaborator/bug_view/details/'.$this->input->get('bug',TRUE));
+			redirect('clients/bug_view/details/'.$this->input->get('bug',TRUE));
 			}
 		}else{
-		redirect('collaborator/bugs');
+		redirect('clients/bugs');
 		}
 	}
 	

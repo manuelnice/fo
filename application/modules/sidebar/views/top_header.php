@@ -8,16 +8,17 @@
 		</a> <section class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
 				<div class="wrapper lter m-t-n-xs"> <a href="#" class="thumb pull-left m-r"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"> </a>
 					<div class="clear"> 
-					<a href="<?=base_url()?>profile">
+					<a href="<?=base_url()?>profile/settings">
 						<span class="text-white font-bold"><?php
 						echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname'): $this->tank_auth->get_username()?>
 						</a>
-						</span> <small class="block"><?=lang('role')?>: <?=$this->tank_auth->user_role($this->tank_auth->get_role_id())?></small> <a href="<?=base_url()?>profile" class="btn btn-xs btn-success m-t-xs">My Account</a>
+						</span> <small class="block"><?=lang('role')?>: <?=$this->tank_auth->user_role($this->tank_auth->get_role_id())?></small> <a href="<?=base_url()?>profile/settings" class="btn btn-xs btn-success m-t-xs">My Account</a>
 					</div>
 				</div>
 			</section> </li>
 			<li>
-				<div class="m-t m-l"> <a href="<?=base_url()?>welcome/changelog" class="dropdown-toggle btn btn-xs btn-primary" title="Change Log">
+				<div class="m-t m-l">
+				<a href="<?=base_url()?>profile/help" class="dropdown-toggle btn btn-xs btn-primary" title="Change Log">
 					<i class="fa fa-code"></i></a>
 				</div> </li>
 			</ul>
@@ -26,8 +27,16 @@
 
 						<li class="dropdown hidden-xs"> <a href="#" class="dropdown-toggle dker" data-toggle="dropdown"><i class="fa fa-fw fa-search"></i></a> <section class="dropdown-menu aside-xl animated fadeInUp"> <section class="panel bg-white">
 							<?php 
+							$role = $this->tank_auth->user_role($this->tank_auth->get_role_id());
+							if ($role == 'client') { 
+									$link = 'clients/inv_manage/search'; }
+								elseif ($role == 'collaborator') { 
+									$link = 'collaborator/inv_manage/search'; }
+								else{ 
+									$link = 'invoices/inv_manage/search';
+							}
 							$attributes = array('role' => 'search');
-							echo form_open(base_url().'clients/inv_manage/search',$attributes); ?>
+							echo form_open(base_url().$link,$attributes); ?>
 								<div class="form-group wrapper m-b-none">
 									<div class="input-group">
 										<input type="text" class="form-control" name="keyword" placeholder="<?=lang('invoice_search')?>">

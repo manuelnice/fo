@@ -107,7 +107,7 @@
 					}
 					?>
 					 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username)?></strong> </p> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($inv->id,'fullname')?$this->user_profile->get_profile_details($inv->id,'fullname') : $inv->username)?></strong> </p> 
 					<?=lang('invoice_status')?>: <span class="label bg-<?=$badge?>"><?=$invoice_status?> </span><br>
 						</div>
 					</div>

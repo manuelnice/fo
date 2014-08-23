@@ -183,6 +183,26 @@ class Projects extends MX_Controller {
 		}
 	}
 
+	function search()
+	{
+		if ($this->input->post()) {
+				$this->load->module('layouts');
+				$this->load->library('template');
+				$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+				$data['page'] = lang('projects');
+				$keyword = $this->input->post('keyword', TRUE);
+				$data['projects'] = $this->project_model->search_project($keyword);
+				$this->template
+				->set_layout('users')
+				->build('projects/projects',isset($data) ? $data : NULL);
+			
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('enter_search_keyword'));
+			redirect('collaborator/projects');
+		}
+	
+	}
 
 	function delete()
 	{

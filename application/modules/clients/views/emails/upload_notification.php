@@ -7,7 +7,7 @@
     <p>You can view the Project using the link below.</p>
         --------------------------
         <br>
-        <?=base_url()?>projects/view/details/<?=$project_id?>
+        <?=base_url()?>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

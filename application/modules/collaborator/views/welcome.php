@@ -107,7 +107,8 @@
 			<div class="col-lg-4"> <section class="panel panel-default">
 			<header class="panel-heading"><?=lang('average_payments')?> </header>
 			<div class="panel-body text-center"> <h4><small> <?=lang('paid_amount')?> : </small>
-				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong><?=$this->config->item('currency')?> </h4>
+				<?=$this->config->item('default_currency')?>
+				<?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong> </h4>
 				<small class="text-muted block"><?=date('M')?> <?=date('Y')?></small>
 				<div class="inline">
 					<div class="easypiechart" data-percent="<?=$this->user_profile->average_monthly_paid(date('m'))?>" data-line-width="16" data-loop="false" data-size="188">

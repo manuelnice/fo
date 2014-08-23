@@ -1,6 +1,45 @@
-Welcome to Freelancer Office
+Read the <a href="http://fodocs.gitbench.com/" target="_blank">Documentation</a> and <a href="http://fodocs.gitbench.com/" target="_blank">User Guide</a> here
 <br>
-
 <code>
----Version 1.0 Releases----<br>
+---- Changelog.txt ----<br>
+
+<ul>
+
+<li><strong>Version 1.1</strong> - 2014-04-15<br>
+
+Fixed - Ticket notification email reply address empty<br>
+
+Fixed - Custom quotation delete bug<br>
+
+Fixed - Quotation checkbox not in line with label
+
+</li>
+
+
+
+<li><strong>Version 2.1.6</strong> - 2014-03-18<br>
+
+Bug fix for adding items to invoices
+</li>
+
+
+
+<li><strong>Version 2.1.5</strong> - 2014-03-10<br>
+
+Custom Quotation Feature<br>
+
+Calculating issue with discounts on dashboard stats fixed<br>
+
+jQuery updated<br>
+
+Several bugs fixed
+</li>
+
+
+
+<li><strong>Version 2.0.0</strong> - 2013-03-07<br>
+ - First release</li>
+ 
+
+</ul>
 </code>

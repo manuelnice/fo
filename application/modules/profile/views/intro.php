@@ -2,7 +2,7 @@
 
 <header class="header bg-white b-b b-light"> 
 
-<p>Kabuportal User Guide</p> </header> <section> <section class="hbox stretch"> 
+<p>Freelancer Office v.<?=$this->config->item('version')?> <?=$this->config->item('company_name')?> </p> </header> <section> <section class="hbox stretch"> 
 <section> 
 <section class="vbox"> 
 <section class="scrollable wrapper" id="userguide"> 
@@ -24,14 +24,12 @@ echo $changelog;
 <div class="wrapper bg-light" >
 <header class="bg-light dk header"> 
 
-<p>Contributors </p> </header> <section class="scrollable bg-white"> 
+<p>Translators </p> </header> <section class="scrollable bg-white"> 
 
 <div class="list-group list-group-alt no-radius no-borders"> 
 
 	<a class="list-group-item" href=""> <i class="fa fa-circle text-success text-xs"></i>
-	<span>
-	James Bond
-	</span> </a>
+	<span>William M.</span> </a>
 
 </div> </section>
 
