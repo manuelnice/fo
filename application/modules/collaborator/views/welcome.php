@@ -6,68 +6,71 @@
 	<?php  echo modules::run('sidebar/flash_msg');?>
 	<div class="m-b-md"> <h3 class="m-b-none"><?=lang('dashboard')?></h3>
 		<small><?=lang('welcome_back')?> , <?php
-		echo $this->user_profile->get_fullname($this->tank_auth->get_user_id())  ? $this->user_profile->get_fullname($this->tank_auth->get_user_id()) : $this->tank_auth->get_username()?> </small>
+		echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') : $this->tank_auth->get_username()?> </small>
 	</div>
 	<section class="panel panel-default">
 		<div class="row m-l-none m-r-none bg-light lter">
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light">
 				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-dark"></i> <i class="fa fa-coffee fa-stack-1x text-white"></i>
 				</span> <a class="clear" href="#">
-				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_table_rows('projects')?> </strong>
+				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('projects',array('client'=>$this->tank_auth->get_user_id()))?> </strong>
 				</span> <small class="text-muted text-uc"><?=lang('projects')?> </small> </a>
 			</div>
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light">
-				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-tasks fa-stack-1x text-white"></i>
+				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-envelope fa-stack-1x text-white"></i>
 				</span> <a class="clear" href="#">
-				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_table_rows('tasks')?></strong>
-				</span> <small class="text-muted text-uc"><?=lang('tasks')?>  </small> </a>
+				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status'=>'Unread'))?> </strong>
+				</span> <small class="text-muted text-uc"><?=lang('messages')?>  </small> </a>
 			</div>
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light">
 				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-danger"></i> <i class="fa fa-suitcase fa-stack-1x text-white"></i>
 				</span> <a class="clear" href="#">
-				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_table_rows('invoices')?> </strong></span>
+				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('invoices',array('client'=>$this->tank_auth->get_user_id()))?>  </strong></span>
 				<small class="text-muted text-uc"><?=lang('invoices')?>  </small> </a>
 			</div>
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
-				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-success"></i> <i class="fa fa-user fa-stack-1x text-white"></i>
-				</span> <a class="clear" href="index.html#">
-				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_table_rows('users')?></strong>
-				</span> <small class="text-muted text-uc"><?=lang('clients')?>  </small> </a>
+				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-success"></i> <i class="fa fa-calendar-o fa-stack-1x text-white"></i>
+				</span> <a class="clear" href="#">
+				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('activities',array('user'=>$this->tank_auth->get_user_id()))?> </strong>
+				</span> <small class="text-muted text-uc"><?=lang('activities')?>  </small> </a>
 			</div>
 		</div> </section>
 		<div class="row">
 			<div class="col-md-8">
 				<section class="panel panel-default">
-				<header class="panel-heading font-bold"> <?=lang('projects')?> <?=lang('tasks')?></header>
+				<header class="panel-heading font-bold"> <?=lang('recent_projects')?></header>
 				<div class="panel-body">
-					<header class="panel-heading">
-						<span class="label bg-danger pull-right">4 Completed Tasks
-					</span> <?=lang('recent_tasks')?> </header>
+					
 					<table class="table table-striped m-b-none text-sm">
 						<thead>
 							<tr>
 								<th><?=lang('progress')?></th>
-								<th><?=lang('task_name')?> </th>
+								<th><?=lang('project_name')?> </th>
 								<th class="pull-right"><?=lang('options')?></th>
 							</tr> </thead>
 							<tbody>
 								
 								<?php
-								if (!empty($tasks)) {
-								foreach ($tasks as $key => $task) { ?>
-								
+								if (!empty($projects)) {
+								foreach ($projects as $key => $project) { ?>								
 								<tr>
-									<td>
-									<?php if ($task >= 100) { $bg = 'success'; }else{ $bg = 'danger'; } ?>
-										<div class="progress progress-xs m-t-xs m-b-none">
-											<div class="progress-bar progress-bar-<?=$bg?>" data-toggle="tooltip" data-original-title="<?=$task->progress?>%" style="width: <?=$task->progress?>%">
+								<?php
+							if ($project->auto_progress == 'FALSE') {
+								$progress = $project->progress;
+							}else{
+								$progress = round((($project->time_logged/3600)/$project->estimate_hours)*100,2);
+							} ?>
+									<td>									
+							<?php if ($progress >= 100) { $bg = 'success'; }else{ $bg = 'danger'; } ?>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-<?=$bg?>" data-toggle="tooltip" data-original-title="<?=$progress?>%" style="width: <?=$progress?>%">
 											</div>
 										</div>
 									</td>
-									<td><?=$task->task_name?> </td>
+									<td><?=$project->project_title?> </td>
 									<td class="pull-right">
-										<a class="btn  btn-success btn-xs" href="<?=site_url()?>projects/tasks/update/<?=$task->t_id?>" data-toggle="ajaxModal">
-										<i class="fa fa-edit text"></i> Update</a>
+										<a class="btn  btn-success btn-xs" href="<?=base_url()?>clients/projects/details/<?=$project->project_id?>">
+										<i class="fa fa-suitcase text"></i> <?=lang('project')?></a>
 									</td>
 								</tr>
 								<?php }
@@ -83,19 +86,19 @@
 					</div> <footer class="panel-footer bg-white no-padder">
 					<div class="row text-center no-gutter">
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->task_by_status('100')?>
-							</span> <small class="text-muted m-b block"><?=lang('complete_tasks')?></small>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('bugs',array('reporter'=>$this->tank_auth->get_user_id()))?>
+							</span> <small class="text-muted m-b block"><?=lang('reported_bugs')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->project_by_status('100')?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('projects',array('progress >='=>'100'))?>
 							</span> <small class="text-muted m-b block"><?=lang('complete_projects')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->received_messages($this->tank_auth->get_user_id())?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id()))?>
 							</span> <small class="text-muted m-b block"><?=lang('received_messages')?></small>
 						</div>
 						<div class="col-xs-3">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_table_rows('comments')?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('comments',array('posted_by'=>$this->tank_auth->get_user_id()))?>
 							</span> <small class="text-muted m-b block"><?=lang('project_comments')?></small>
 						</div>
 					</div> </footer>
@@ -104,7 +107,7 @@
 			<div class="col-lg-4"> <section class="panel panel-default">
 			<header class="panel-heading"><?=lang('average_payments')?> </header>
 			<div class="panel-body text-center"> <h4><small> <?=lang('paid_amount')?> : </small>
-				<?=number_format($this->user_profile->monthly_payment(date('m')))?> </strong><?=$this->config->item('currency')?> </h4>
+				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong><?=$this->config->item('currency')?> </h4>
 				<small class="text-muted block"><?=date('M')?> <?=date('Y')?></small>
 				<div class="inline">
 					<div class="easypiechart" data-percent="<?=$this->user_profile->average_monthly_paid(date('m'))?>" data-line-width="16" data-loop="false" data-size="188">

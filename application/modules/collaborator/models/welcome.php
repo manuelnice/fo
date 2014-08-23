@@ -2,8 +2,8 @@
 
 /**
  *
- * @package	Uniportal
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelance Office
+ * @author	William M
  */
 class Welcome extends CI_Model
 {
@@ -21,24 +21,9 @@ class Welcome extends CI_Model
 		}
 	}
 
-	function dashboard_events($limit)
+	function recent_projects($user,$limit)
 	{
-		
-		$this->db->join('users','users.id = activities.user');
-		$query = $this->db->get('activities',$limit);
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
-	}
-	function recent_messages($user)
-	{
-		$this->db->join('users','users.id = messages.user_from');
-		$this->db->where('user_to',$user);
-		$this->db->where('deleted','No');
-		$query = $this->db->get('messages');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where(array('assign_to'=>$user,'proj_deleted'=>'No'))->order_by('date_created','DESC')->get('projects',$limit)->result();
 	}
 	function recent_tasks()
 	{

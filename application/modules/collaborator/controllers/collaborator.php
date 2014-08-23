@@ -35,9 +35,7 @@ class Collaborator extends MX_Controller {
 	$this->load->library('highcharts');
 	$this->template->title('Welcome - '.$this->config->item('company_name'));
 	$data['page'] = lang('home');
-	$data['events'] = $this->home_model->dashboard_events($limit = 5);
-	$data['messages'] = $this->home_model->recent_messages($this->tank_auth->get_user_id(),$limit = 5);
-	$data['tasks'] = $this->home_model->recent_tasks($this->tank_auth->get_user_id(),$limit = 5);
+	$data['projects'] = $this->home_model->recent_projects($this->tank_auth->get_user_id(),$limit = 5);
 	$data['activities'] = $this->home_model->recent_activities($limit = 6);
 
 	$this->highcharts->set_title('MONTHLY STATISTICS', 'Monthly Payments'); // set chart title: title, subtitle(optional)

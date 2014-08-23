@@ -67,18 +67,22 @@ class Profile extends MX_Controller {
 
 	function changeavatar()
 	{		
+
+
 		if ($this->input->post()) {
+
 						
 						if ($this->config->item('demo_mode') == 'FALSE') {
 									$config['upload_path'] = './resource/avatar/';
 									$config['allowed_types'] = 'gif|jpg|png';
-									$config['max_size']	= '600';
+									$config['max_size']	= '800';
 									$config['max_width']  = '500';
 									$config['max_height']  = '450';
 									$config['file_name'] = strtoupper($this->config->item('company_name')).'-AVATAR-'.$this->tank_auth->get_username();
 									$config['overwrite'] = TRUE;
 
 									$this->load->library('upload', $config);
+									$this->upload->initialize($config);
 
 									if (!$this->upload->do_upload())
 									{
