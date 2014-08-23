@@ -6,7 +6,7 @@
 		<a href="#" class="dropdown-toggle dker" data-toggle="dropdown"> <i class="fa fa-building-o"></i>
 			<span class="font-bold"></span>
 		</a> <section class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
-				<div class="wrapper lter m-t-n-xs"> <a href="#" class="thumb pull-left m-r"> <img src="<?=IMG_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"> </a>
+				<div class="wrapper lter m-t-n-xs"> <a href="#" class="thumb pull-left m-r"> <img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar')?>" class="img-circle"> </a>
 					<div class="clear"> 
 					<a href="<?=base_url()?>profile">
 						<span class="text-white font-bold"><?php
@@ -41,7 +41,7 @@
 					</section> </li>
 					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="thumb-sm avatar pull-left"> 
-						<img src="<?=IMG_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar') ?>">
+						<img src="<?=AVATAR_URL?><?=$this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'avatar') ?>">
 						</span> <?php 
 	echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') : $this->tank_auth->get_username()?> <b class="caret"></b> </a>
 						<ul class="dropdown-menu animated fadeInRight">
@@ -49,7 +49,11 @@
 							</span>
 							<li> <a href="<?=base_url()?>profile/settings">Settings</a> </li>
 							<li> <a href="<?=base_url()?>profile/activities">
-								<span class="badge bg-danger pull-right">3
+								<span class="badge bg-danger pull-right">
+								<?php
+				$query = $this->db->where('user',$this->tank_auth->get_user_id())->get('activities');
+               echo $query->num_rows();
+                ?>
 							</span> <?=lang('activities')?> </a> </li>
 							<li> <a href="<?=base_url()?>profile/help"><?=lang('help')?></a> </li>
 							<li class="divider"></li>

@@ -16,19 +16,9 @@ class Profile_model extends CI_Model
 			return $query->result();
 		} 
 	}
-	function get_activities($user ,$limit)
+	function activities($user,$limit)
 	{
-		$this->db->join('users','users.id = posts.posted_by');
-		$this->db->join('account_details','account_details.user_id = posts.posted_by');
-		if ($user) {
-			$this->db->where('posted_by',$user);
-		}
-		$this->db->where('post_deleted',0);
-		$this->db->order_by('date_posted','DESC');
-		$query = $this->db->get('posts',$limit);
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('user',$user)->order_by('activity_date','DESC')->get('activities',$limit,$this->uri->segment(3))->result();
 	}
 	function get_faqs($status)
 	{

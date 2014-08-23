@@ -156,7 +156,6 @@
           <input type="file" class="filestyle" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline input-s" name="userfile">
         </div>
       </div>
-        
         <button type="submit" class="btn btn-sm btn-success"><?=lang('change_avatar')?></button>
       </form>
 

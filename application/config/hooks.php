@@ -11,7 +11,7 @@
 */
 
 // Stores the requested URL, which will sometimes be different than previous url 
-$hook['pre_controller'][] = array(
+/* $hook['pre_controller'][] = array(
                                          'class'         => 'App_hooks',
                                          'function'      => 'save_requested',
                                          'filename'      => 'App_hooks.php',
@@ -27,6 +27,7 @@ $hook['post_controller'][] = array(
                                          'filepath'      => 'hooks',
                                          'params'        => ''
                                                         );
+                                                        */
 $hook['pre_controller'][] = array(
                                         'class'    => '',
                                         'function' => 'load_config',

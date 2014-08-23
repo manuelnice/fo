@@ -20,6 +20,9 @@ class Profile extends MX_Controller {
 		}
 		$this->load->model('profile_model');
 	}
+	function index(){
+		redirect('profile/settings');
+	}
 
 	function settings()
 	{
@@ -70,24 +73,22 @@ class Profile extends MX_Controller {
 
 
 		if ($this->input->post()) {
-
 						
 						if ($this->config->item('demo_mode') == 'FALSE') {
-									$config['upload_path'] = './resource/avatar/';
-									$config['allowed_types'] = 'gif|jpg|png';
-									$config['max_size']	= '800';
-									$config['max_width']  = '500';
-									$config['max_height']  = '450';
-									$config['file_name'] = strtoupper($this->config->item('company_name')).'-AVATAR-'.$this->tank_auth->get_username();
-									$config['overwrite'] = TRUE;
+							$config['upload_path'] = './resource/avatar/';
+							$config['allowed_types'] = 'gif|jpg|png';
+							$config['max_size']	= '800';
+							$config['max_width']  = '500';
+							$config['max_height']  = '500';
+							$config['file_name'] = strtoupper('USER-'.$this->tank_auth->get_username()).'-AVATAR';
+							$config['overwrite'] = TRUE;
 
-									$this->load->library('upload', $config);
-									$this->upload->initialize($config);
+							$this->load->library('upload', $config);
 
-									if (!$this->upload->do_upload())
+							if ( ! $this->upload->do_upload())
 									{
 										$this->session->set_flashdata('response_status', 'error');
-										$this->session->set_flashdata('message',lang('operation_failed'));
+										$this->session->set_flashdata('message',lang('avatar_upload_error'));
 										redirect($this->input->post('r_url', TRUE));
 									}
 									else
@@ -110,14 +111,27 @@ class Profile extends MX_Controller {
 				redirect('profile/settings');
 		}
 	}
-	function help()
+
+	function activities()
 	{
-		$this->load->model('profile_model');
+	$this->load->model('profile_model');
 	$this->load->module('layouts');
 	$this->load->library('template');
-	$this->template->title('Welcome - Kabarak Portal');
-	$data['page'] = 'home';
-	$data['contributors'] = $this->profile_model->get_contributors();
+	$this->template->title(lang('profile').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('home');
+	$data['activities'] = $this->profile_model->activities($this->tank_auth->get_user_id(),$limit = 30);
+	$this->template
+	->set_layout('users')
+	->build('activities',isset($data) ? $data : NULL);
+	}
+
+	function help()
+	{
+	$this->load->model('profile_model');
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('profile').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('home');
 	$data['faqs'] = $this->profile_model->get_faqs($visible = 'yes');
 	$this->template
 	->set_layout('users')
