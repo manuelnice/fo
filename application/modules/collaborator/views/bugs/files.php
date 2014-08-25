@@ -24,10 +24,9 @@
 <div><?=$f->description?>
 </div> 
 <div class="comment-action m-t-sm">
-<a href="<?=base_url()?>collaborator/bug_files/download/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" class="btn btn-default btn-xs active">
-<i class="fa fa-download text-active"></i> <?=lang('download_file')?> </a>
-<a href="<?=base_url()?>collaborator/bug_files/delete/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" data-toggle="ajaxModal" class="btn btn-default btn-xs active">
-<i class="fa fa-times text-active"></i> <?=lang('delete_file')?> </a>
+<a href="<?=base_url()?>collaborator/bug_files/download/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" data-toggle="tooltip" data-original-title="<?=lang('download_file')?>" class="btn btn-dark btn-xs active">
+<i class="fa fa-download text-active"></i></a>
+<a href="<?=base_url()?>collaborator/bug_files/delete/<?=$f->file_id*1800?>/<?=$f->bug*1200?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-trash-o text-active"></i></a>
 
 </div>
 

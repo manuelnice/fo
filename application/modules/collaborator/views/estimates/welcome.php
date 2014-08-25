@@ -6,29 +6,35 @@
 	
 		<aside class="aside-md bg-white b-r" id="subNav">
 
-			<div class="wrapper b-b header"><?=lang('all_projects')?>
-			</div>
+			<header class="dk header b-b">
+		
+		<p class="h4"><?=lang('all_estimates')?></p>
+		</header>
+
+
 			<section class="vbox">
 			 <section class="scrollable w-f">
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
 			<ul class="nav">
 			<?php
-			foreach ($projects as $key => $p) { ?>
-				<li class="b-b b-light <?php if($p->timer == 'On'){ echo "bg-danger lter"; } ?>">
-				<a href="<?=base_url()?>collaborator/projects/details/<?=$p->project_id?>" data-toggle="tooltip" data-original-title="<?=$p->project_title?>">
-				<?=ucfirst($this->user_profile->get_profile_details($p->client,'fullname')? $this->user_profile->get_profile_details($p->client,'fullname'):$this->user_profile->get_user_details($p->client,'username'))?>
+			if (!empty($estimates)) {
+			foreach ($estimates as $key => $e) { 
+			if ($e->status == 'Declined'){ $e_status = "Declined"; $label = "danger"; }
+			elseif($e->invoiced == 'Yes') { $e_status = "Invoiced"; $label = "success";	}
+			elseif($e->status == 'Accepted') { $e_status = "Accepted"; $label = "info";	}
+			else{ $e_status = "Pending"; $label = "default"; }
+			?>
+
+				<li class="b-b b-light">
+				<a href="<?=base_url()?>collaborator/estimates/details/<?=$e->est_id?>">
+				<?=ucfirst($this->user_profile->get_profile_details($e->client,'fullname')? $this->user_profile->get_profile_details($e->client,'fullname'):$e->username)?>
 				<div class="pull-right">
-				<?php
-						$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$p->project_id));
-						$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$p->project_id));
-						$logged_time = ($task_time + $project_time)/3600;
-						echo round($logged_time, 1);
-									?> <?=lang('hours')?>
+				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($e->est_id),2)?>
 				</div> <br>
-				<small class="block text-muted">PRO #<?=$p->project_code?> | <?=strftime("%B %d, %Y", strtotime($p->date_created));?> </small>
+				<small class="block small text-muted">EST <?=$e->reference_no?> | <?=strftime("%B %d, %Y", strtotime($e->date_saved));?> <span class="label label-<?=$label?>"><?=$e_status?></span></small>
 
 				</a> </li>
-				<?php } ?>
+				<?php } } ?>
 			</ul> 
 			</div></section>
 			</section>
@@ -43,11 +49,12 @@
 						<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
+						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'collaborator/projects/search'); ?>
+						<?php  echo form_open(base_url().'collaborator/estimates/search'); ?>
 							<div class="input-group">
-								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?> <?=lang('project')?>">
+								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('reference_no')?>">
 								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 								</span>
 							</div>
@@ -55,8 +62,10 @@
 						</div>
 					</div> </header>
 					<section class="scrollable wrapper w-f">
-					<!-- Start Display chart -->
+					
 					<?php  echo modules::run('sidebar/flash_msg');?>
+					<!-- Start Display chart -->
+					
 
 
 					 <!-- End display chart -->

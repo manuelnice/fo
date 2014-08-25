@@ -27,7 +27,7 @@
 			?>
 
 				<li class="b-b b-light <?php if($e->est_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>">
-				<a href="<?=base_url()?>clients/estimates/details/<?=$e->est_id?>">
+				<a href="<?=base_url()?>collaborator/estimates/details/<?=$e->est_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($e->client,'fullname')? $this->user_profile->get_profile_details($e->client,'fullname'):$e->username)?>
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($e->est_id),2)?>
@@ -61,9 +61,9 @@
 						<ul class="dropdown-menu">								
 								
 								<?php
-								if ($estimate->emailed == 'Yes' AND $estimate->invoiced == 'No') { ?>
-								<li><a href="<?=base_url()?>clients/estimates/status/declined/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_declined')?></a></li>
-								<li><a href="<?=base_url()?>clients/estimates/status/accepted/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_accepted')?></a></li>
+								if ($estimate->invoiced == 'No') { ?>
+								<li><a href="<?=base_url()?>collaborator/estimates/status/declined/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_declined')?></a></li>
+								<li><a href="<?=base_url()?>collaborator/estimates/status/accepted/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_accepted')?></a></li>
 								<?php } ?>
 						</ul>
 						</div>

@@ -39,14 +39,22 @@ class Msg_model extends CI_Model
 		$this->db->join('users','users.id = messages.user_from');
 		return $this->db->where('user_to',$user)->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
 	}
-	function get_conversations($user_from)
+	function get_conversations($recipient)
 	{
 		$this->db->join('users','users.id = messages.user_from');
-		$this->db->where('user_from', $user_from);
-		$this->db->or_where('user_to', $user_from);
-		//$this->db->where('user_to', $this->tank_auth->get_user_id());
+		$this->db->where('user_to', $recipient);
+		$this->db->where('user_from', $this->tank_auth->get_user_id());
+		$this->db->or_where('user_from', $recipient);
 		return $this->db->where('deleted','No')->order_by("date_received","desc")->get('messages')->result();
 	}
+
+	function search_messsages($keyword)
+	{
+		$this->db->join('users','users.id = messages.user_from');
+		$this->db->where('user_to', $this->tank_auth->get_user_id());
+		return $this->db->like('message', $keyword)->order_by("date_received","desc")->get('messages')->result();
+	}
+	
 	public function get_msg_text($msg_id)
    	 {
 		$query = $this->db->select('message')->where('msg_id',$msg_id)->get('messages');

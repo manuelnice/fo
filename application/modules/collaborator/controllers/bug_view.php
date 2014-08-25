@@ -23,6 +23,7 @@ class Bug_view extends MX_Controller {
 	}
 	function details()
 	{		
+		if($this->_bug_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('bug_tracking').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -34,6 +35,10 @@ class Bug_view extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('bugs/bug_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('message', lang('project_access_denied'));
+			redirect('collaborator/bugs');
+		}
 	}
 	function add()
 	{
@@ -109,6 +114,21 @@ class Bug_view extends MX_Controller {
 		$this->load->view('bugs/edit_bug',$data);
 		}
 	}
+
+	function _bug_access($bug){
+		$bug_details = $this->bugs_model->bug_details($bug);
+		foreach ($bug_details as $key => $bug) {
+			$bug_project = $bug->project;
+		}
+		$assign_to = $this->user_profile->get_project_details($bug_project,'assign_to');
+		$user = $this->tank_auth->get_user_id();
+		if ($assign_to == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);

@@ -59,6 +59,7 @@ class Projects extends MX_Controller {
 	}
 	function details()
 	{		
+		if($this->_project_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -71,6 +72,10 @@ class Projects extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('projects/project_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('message', lang('project_access_denied'));
+			redirect('clients/projects');
+		}
 	}
 	function comment()
 	{
@@ -185,6 +190,16 @@ class Projects extends MX_Controller {
 			$params['attached_file'] = '';
 
 			modules::run('fomailer/send_email',$params);
+	}
+
+	function _project_access($project){
+		$client = $this->user_profile->get_project_details($project,'client');
+		$user = $this->tank_auth->get_user_id();
+		if ($client == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 	function _log_activity($project_id,$activity,$icon){

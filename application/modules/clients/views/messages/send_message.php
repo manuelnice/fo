@@ -29,11 +29,13 @@
 								
 							</div>
 							<div class="col-sm-4 m-b-xs">
+							<?php echo form_open(base_url().'clients/messages/search/'); ?>
 								<div class="input-group">
-									<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+									<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 									</span>
 								</div>
+								</form>
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">

@@ -42,7 +42,7 @@ class Bug_files extends MX_Controller {
 								$config['upload_path'] = './resource/bug-files/';
 									$config['allowed_types'] = $this->config->item('allowed_files');
 									$config['max_size']	= $this->config->item('file_max_size');
-									$config['file_name'] = strtoupper($this->config->item('company_name')).'-BUG-'.$this->input->post('issue_ref', TRUE).'-0';
+									$config['file_name'] = 'PROJECT-BUG-'.$this->input->post('issue_ref', TRUE).'-0';
 									$config['overwrite'] = FALSE;
 
 									$this->load->library('upload', $config);
@@ -57,8 +57,9 @@ class Bug_files extends MX_Controller {
 									{
 										$data = $this->upload->data();
 										$file_id = $this->bug->insert_file($data['file_name'],$bug,$description);
+										$filelink = '<a href="'.base_url().RES_DIR.'/bug-files/'.$data['file_name'].'" target="_blank">'.$data['file_name'].'</a>';
 										
-										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$data['file_name'];
+										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$filelink;
 										$this->_log_activity($bug,$activity,$icon='fa-file'); //log activity
 			
 
@@ -150,6 +151,8 @@ class Bug_files extends MX_Controller {
 			}
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			
+			$data['project_title'] = $this->user_profile->get_project_details($p->project,'project_title');
 			$data['upload_user'] = $upload_user;
 			$data['bug'] = $bug;
 			$data['issue_ref'] = $issue_ref;

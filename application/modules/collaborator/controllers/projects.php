@@ -38,6 +38,7 @@ class Projects extends MX_Controller {
 	}
 	function details()
 	{		
+		if($this->_project_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -50,6 +51,10 @@ class Projects extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('projects/project_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('message', lang('project_access_denied'));
+			redirect('collaborator/projects');
+		}
 	}
 	function comment()
 	{
@@ -115,6 +120,36 @@ class Projects extends MX_Controller {
 		$this->load->view('modal/comment_reply',isset($data) ? $data : NULL);
 		}
 	}
+
+	function delcomment()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('comment', 'Comment ID', 'required');
+		$this->form_validation->set_rules('project', 'Project ID', 'required');
+		$project_id = $this->input->post('project', TRUE);
+		$comment_id = $this->input->post('comment', TRUE);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('comment_delete_failed'));
+				redirect('collaborator/projects/details/'.$project_id);
+		}else{			
+			$this->db->set('deleted', 'Yes');
+			$this->db->where('comment_id',$comment_id)->update('comments'); 
+	
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('comment_deleted'));
+			redirect('collaborator/projects/details/'.$project_id);
+			}
+		}else{
+			$data['comment_id'] = $this->input->get('c', TRUE);
+			$data['project_id'] = $this->input->get('p', TRUE);
+			$this->load->view('modal/delete_comment',$data);
+		}
+	}
+
 	function tracking()
 	{
 		$action = ucfirst($this->uri->segment(4));
@@ -304,6 +339,17 @@ class Projects extends MX_Controller {
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('progress_auto_calculated'));
 			redirect('collaborator/projects/details/'.$project);
+	}
+
+	function _project_access($project){
+		$client = $this->user_profile->get_project_details($project,'client');
+		$assign_to = $this->user_profile->get_project_details($project,'assign_to');
+		$user = $this->tank_auth->get_user_id();
+		if ($client == $user OR $assign_to == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 	function _log_activity($project_id,$activity,$icon){

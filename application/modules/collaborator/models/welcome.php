@@ -34,7 +34,7 @@ class Welcome extends CI_Model
 	}
 	function recent_activities($limit)
 	{
-		$query = $this->db->order_by('activity_date','DESC')->get('activities',$limit);
+		$query = $this->db->where('user',$this->tank_auth->get_user_id())->order_by('activity_date','DESC')->get('activities',$limit);
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

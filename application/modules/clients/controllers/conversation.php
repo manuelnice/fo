@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -28,10 +28,10 @@ class Conversation extends MX_Controller {
 	$this->load->library('template');
 	$this->template->title(lang('messages').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('messages');
-	$user_from = $this->uri->segment(4)/1200;
+	$recipient = $this->uri->segment(4)/1200;
 
-	$this->_set_read($user_from);
-	$data['conversations'] = $this->msg_model->get_conversations($user_from);
+	$this->_set_read($recipient);
+	$data['conversations'] = $this->msg_model->get_conversations($recipient);
 	$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
 	$this->template
 	->set_layout('users')

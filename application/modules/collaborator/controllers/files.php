@@ -56,8 +56,9 @@ class Files extends MX_Controller {
 									{
 										$data = $this->upload->data();
 										$file_id = $this->project->insert_file($data['file_name'],$project,$description);
+										$filelink = '<a href="'.base_url().RES_DIR.'/project-files/'.$data['file_name'].'" target="_blank">'.$data['file_name'].'</a>';
 										
-										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$data['file_name'];
+										$activity = ucfirst($this->tank_auth->get_username())." added a file ".$filelink;
 										$this->_log_activity($project,$activity,$icon='fa-file'); //log activity
 			
 

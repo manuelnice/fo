@@ -51,9 +51,9 @@
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'invoices/manage/search'); ?>
+						<?php  echo form_open(base_url().'collaborator/inv_manage/search'); ?>
 							<div class="input-group">
-								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
+								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?> <?=lang('invoice')?>">
 								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 								</span>
 							</div>

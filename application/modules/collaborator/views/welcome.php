@@ -13,8 +13,8 @@
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light">
 				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-dark"></i> <i class="fa fa-coffee fa-stack-1x text-white"></i>
 				</span> <a class="clear" href="#">
-				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('projects',array('client'=>$this->tank_auth->get_user_id()))?> </strong>
-				</span> <small class="text-muted text-uc"><?=lang('projects')?> </small> </a>
+				<span class="h3 block m-t-xs"><strong><?=$this->user_profile->count_rows('projects',array('assign_to'=>$this->tank_auth->get_user_id()))?> </strong>
+				</span> <small class="text-muted text-uc"><?=lang('assigned_projects')?> </small> </a>
 			</div>
 			<div class="col-sm-6 col-md-3 padder-v b-r b-light">
 				<span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-envelope fa-stack-1x text-white"></i>
@@ -46,7 +46,7 @@
 							<tr>
 								<th><?=lang('progress')?></th>
 								<th><?=lang('project_name')?> </th>
-								<th class="pull-right"><?=lang('options')?></th>
+								<th><?=lang('options')?></th>
 							</tr> </thead>
 							<tbody>
 								
@@ -68,7 +68,7 @@
 										</div>
 									</td>
 									<td><?=$project->project_title?> </td>
-									<td class="pull-right">
+									<td>
 										<a class="btn  btn-success btn-xs" href="<?=base_url()?>clients/projects/details/<?=$project->project_id?>">
 										<i class="fa fa-suitcase text"></i> <?=lang('project')?></a>
 									</td>
@@ -90,7 +90,7 @@
 							</span> <small class="text-muted m-b block"><?=lang('reported_bugs')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('projects',array('progress >='=>'100'))?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('projects',array('progress >='=>'100','assign_to'=>$this->tank_auth->get_user_id()))?>
 							</span> <small class="text-muted m-b block"><?=lang('complete_projects')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
@@ -111,14 +111,20 @@
 				<?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong> </h4>
 				<small class="text-muted block"><?=date('M')?> <?=date('Y')?></small>
 				<div class="inline">
-					<div class="easypiechart" data-percent="<?=$this->user_profile->average_monthly_paid(date('m'))?>" data-line-width="16" data-loop="false" data-size="188">
-						<span class="h2 step"><?=$this->user_profile->average_monthly_paid(date('m'))?></span>%
+				<?php
+					$client_payments = $this->user_profile->client_paid($this->tank_auth->get_user_id());
+					$client_payable = $this->user_profile->client_payable($this->tank_auth->get_user_id());
+					$perc_paid = round(($client_payments/$client_payable) *100);
+					?>
+					<div class="easypiechart" data-percent="<?=$perc_paid?>" data-line-width="16" data-loop="false" data-size="188">
+					
+						<span class="h2 step"><?=$perc_paid?></span>%
 						<div class="easypie-text"><?=lang('paid')?>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel-footer">Your <small>% invoice payments this month</small>
+			<div class="panel-footer">Your total <small>% invoice payments</small>
 			</div> </section>
 		</div>
 	</div>

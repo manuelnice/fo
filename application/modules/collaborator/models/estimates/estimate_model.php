@@ -5,7 +5,7 @@
  * @package	Freelancer
  * @author	William Mandai (http://willymandai.com)
  */
-class Invoice_model extends CI_Model
+class Estimate_model extends CI_Model
 {
 	
 	function get_all_records($table,$where,$join_table,$join_criteria,$order)
@@ -38,10 +38,10 @@ class Invoice_model extends CI_Model
 	{
 			return $this->db->get('items_saved')->result();
 	}
-	function invoice_details($invoice_id)
+	function estimate_details($estimate)
 	{
-		$this->db->join('users','users.id = invoices.client');
-		return $this->db->where('inv_id',$invoice_id)->get('invoices')->result();
+		$this->db->join('users','users.id = estimates.client');
+		return $this->db->where('est_id',$estimate)->get('estimates')->result();
 	}
 	function payment_details($p_id)
 	{
@@ -55,26 +55,20 @@ class Invoice_model extends CI_Model
 		$this->db->where('module', 'invoices');
 		return $this->db->where('module_field_id',$invoice_id)->order_by('activity_date','desc')->get('activities')->result();
 	}
-	function search_invoice($keyword)
+	function search_estimate($keyword)
 	{
-		$this->db->join('users','users.id = invoices.client');
+		$this->db->join('users','users.id = estimates.client');
 		$this->db->where('client', $this->tank_auth->get_user_id());
-		return $this->db->like('reference_no', $keyword)->order_by("date_saved","desc")->get('invoices')->result();
-	}
-	function search_payment($keyword)
-	{
-		$this->db->join('users','users.id = payments.paid_by');
-		$this->db->where('paid_by', $this->tank_auth->get_user_id());
-		return $this->db->like('trans_id', $keyword)->order_by("created_date","desc")->get('payments')->result();
+		return $this->db->like('reference_no', $keyword)->order_by("date_saved","desc")->get('estimates')->result();
 	}
 	function saved_item_details($item)
 	{
 		return $this->db->where('item_id',$item)->get('items_saved')->result();
 	}
-	function invoice_items($invoice_id)
+	function estimate_items($estimate)
 	{
-		$this->db->join('invoices','invoices.inv_id = items.invoice_id');
-		$query = $this->db->where('invoice_id',$invoice_id)->get('items');
+		$this->db->join('estimates','estimates.est_id = estimate_items.estimate_id');
+		$query = $this->db->where('estimate_id',$estimate)->get('estimate_items');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

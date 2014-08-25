@@ -218,7 +218,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
 																<a href="#"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
-																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
+																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-default m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
 																					$comment_day = strtotime($comment->date_posted) ;
@@ -226,13 +226,19 @@ if ($project->auto_progress == 'FALSE') { ?>
 															?> ago </span> </header>
 															<div class="panel-body">
 																<div><small><?=$comment->message?></small></div>
+
+
 																<div class="comment-action m-t-sm">
 																<?php
 																if ($comment->posted_by != $this->tank_auth->get_user_id()) { ?>
 																
-																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>									
+																<a href="#comment-form" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="<?=lang('comment')?>" title="<?=lang('comment')?>"> <i class="fa fa-comment text-muted"></i>  </a>									
 																<?php } ?>
-																<a href="<?=base_url()?>collaborator/projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+																<a href="<?=base_url()?>collaborator/projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> </a>
+																<?php
+																if ($comment->posted_by == $this->tank_auth->get_user_id()) { ?>
+																<a href="<?=base_url()?>collaborator/projects/delcomment?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('delete')?>"  class="btn btn-danger btn-xs"> <i class="fa fa-trash-o text-white"></i> </a>  
+																<?php } ?>
 
 																</div>
 															</div>

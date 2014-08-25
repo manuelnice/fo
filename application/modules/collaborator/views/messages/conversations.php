@@ -32,11 +32,13 @@
 								</div>
 							</div>
 							<div class="col-sm-4 m-b-xs">
+							<?php echo form_open(base_url().'collaborator/messages/search/'); ?>
 								<div class="input-group">
-									<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+									<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 									</span>
 								</div>
+								</form>
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">
@@ -62,16 +64,15 @@
 																$today = time();
 																$received = strtotime($msg->date_received) ;
 																echo $this->user_profile->get_time_diff($today,$received);
-																?> ago </span>
+																?> ago 
+																<?php
+								if ($msg->user_to == $this->tank_auth->get_user_id()) { ?>
+				<a href="<?=base_url()?>collaborator/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-trash-o text-white text-active"></i> 
+				</a>
+									<?php } ?></span>
 									</header>
 								<div class="panel-body"><div><?=$msg->message?></div>
-								<div class="comment-action m-t-sm">
-								<?php
-								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
-				<a href="<?=base_url()?>collaborator/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> 
-				<?=lang('delete')?> </a>
-									<?php } ?>
-								</div>
+								
 								</div> 
 								</section>
 						</article>
@@ -102,7 +103,8 @@
 
 							</div></section>
 			<footer class="footer b-t bg-white-only">
-				<form class="m-t-sm">
+				<?php $attributes = array('class' => 'm-t-sm');
+								echo form_open(base_url().'collaborator/messages/search/', $attributes); ?>
 					<div class="input-group">
 						<input class="input-sm form-control input-s-sm" placeholder="<?=lang('search')?>" type="text">
 							<div class="input-group-btn"> <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>

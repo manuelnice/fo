@@ -78,7 +78,11 @@ class Bug_view extends MX_Controller {
 	}
 	function edit()
 	{
+		
+
 		if ($this->input->post()) {
+
+			if($this->_bug_access($this->input->post('bug_id'))){
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('issue_ref', 'Issue Ref', 'required');
@@ -88,7 +92,7 @@ class Bug_view extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('issue_not_edited'));
-				redirect('collaborator/bugs');
+				redirect('clients/bugs');
 		}else{	
 		$bug_id	 =  $this->input->post('bug_id');
 			$form_data = array(
@@ -104,7 +108,12 @@ class Bug_view extends MX_Controller {
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
-			redirect('collaborator/bug_view/details/'.$bug_id);
+			redirect('clients/bug_view/details/'.$bug_id);
+			}
+
+			}else{
+			$this->session->set_flashdata('message', lang('project_access_denied'));
+			redirect('clients/bugs');
 		}
 		}else{
 		$data['projects'] = $this->bugs_model->projects();
@@ -112,6 +121,20 @@ class Bug_view extends MX_Controller {
 		$this->load->view('bugs/edit_bug',$data);
 		}
 	}
+
+	function _bug_access($bug){
+		$bug_details = $this->bugs_model->bug_details($bug);
+		foreach ($bug_details as $key => $bug) {
+			$bug_reporter = $bug->reporter;
+		}
+		$user = $this->tank_auth->get_user_id();
+		if ($bug_reporter == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);

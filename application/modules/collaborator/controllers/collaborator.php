@@ -67,9 +67,7 @@ class Collaborator extends MX_Controller {
 	}
 	function _monthly_data($month)
 	{
-		$this->db->select_sum('amount');
-		$this->db->where('month_paid', $month); 
-		$query = $this->db->get('payments');
+		$query = $this->db->select_sum('amount')->where(array('paid_by'=>$this->tank_auth->get_user_id(),'month_paid'=> $month))->get('payments');
 		foreach ($query->result() as $row)
 			{
 				$amount = $row->amount ? $row->amount : 0;

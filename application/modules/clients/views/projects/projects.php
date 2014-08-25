@@ -16,7 +16,7 @@
 			if (!empty($projects)) {
 			foreach ($projects as $key => $p) { ?>
 				<li class="b-b b-light <?php if($p->timer == 'On'){ echo "bg-danger lter"; } ?>">
-				<a href="<?=base_url()?>clients/projects/details/<?=$p->project_id?>">
+				<a href="<?=base_url()?>clients/projects/details/<?=$p->project_id?>" data-toggle="tooltip" data-original-title="<?=$p->project_title?>">
 				<?=ucfirst($this->user_profile->get_profile_details($p->assign_to,'fullname')? $this->user_profile->get_profile_details($p->assign_to,'fullname'):$this->user_profile->get_user_details($p->assign_to,'username'))?>
 				<div class="pull-right">
 				<?php
@@ -58,7 +58,7 @@
 					<section class="scrollable wrapper w-f">
 					<!-- Start Display chart -->
 					
-					 <?php  //echo modules::run('invoices/index'); ?>
+					<?php  echo modules::run('sidebar/flash_msg');?>
 
 
 					 <!-- End display chart -->

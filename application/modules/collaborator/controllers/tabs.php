@@ -31,6 +31,7 @@ class Tabs extends MX_Controller {
 	function timesheet()
 	{		
 		$data['timesheets'] = $this->project->timesheets($this->uri->segment(4));
+		$data['tasks_log'] = $this->project->task_timer($this->uri->segment(4));
 		$this->load->view('tabs/timesheets',isset($data) ? $data : NULL);
 	}
 	function tasks()

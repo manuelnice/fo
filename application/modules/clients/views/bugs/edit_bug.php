@@ -4,7 +4,7 @@
 		<h4 class="modal-title"><?=lang('edit')?> <?=lang('bugs')?></h4>
 		</div><?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'collaborator/bug_view/edit',$attributes); ?>
+          echo form_open(base_url().'clients/bug_view/edit',$attributes); ?>
           <?php
 								if (!empty($bug_details)) {
 				foreach ($bug_details as $key => $bug) { ?>

@@ -14,7 +14,7 @@
       <div style="width: 100%;padding: 11px 0;">
         <div style="color:#999;width:35%;float:left;"><?=lang('project_name')?></div>
         <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;">
-        <?=$this->user_profile->get_project_details($bug->project,'project_title')?></div>
+       <a href="<?=base_url()?>clients/projects/details/<?=$bug->project?>"><?=$this->user_profile->get_project_details($bug->project,'project_title')?></a></div>
         <div style="clear:both;"></div>
         </div><div style="width: 100%;padding: 10px 0;">
         <div style="color:#999;width:35%;float:left;"><?=lang('reference_no')?></div>

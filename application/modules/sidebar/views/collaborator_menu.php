@@ -11,7 +11,7 @@
           <ul class="dropdown-menu text-left">
             <li><a href="<?=base_url()?>collaborator/conversation/send"><?=lang('send_message')?></a></li>
             <li><a href="<?=base_url()?>collaborator/bug_view/add" data-toggle="ajaxModal"><?=lang('new_bug')?></a></li>
-            <li><a href="<?=base_url()?>collaborator/profile"><?=lang('my_profile')?></a></li>
+            <li><a href="<?=base_url()?>profile/settings"><?=lang('my_profile')?></a></li>
           </ul>
         </div>
       </div> </header>

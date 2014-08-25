@@ -69,7 +69,7 @@ class C_model extends CI_Model
 	}
 	function project_comments($project)
 	{
-		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments')->result();
+		return $this->db->where(array('project' => $project,'deleted' => 'No'))->order_by('date_posted','desc')->get('comments')->result();
 	}
 
 	function search_project($keyword)
@@ -96,7 +96,7 @@ class C_model extends CI_Model
 	}
 	function timesheets($project)
 	{
-		return $this->db->where('project',$project)->get('project_timer')->result();
+		return $this->db->where('project',$project)->order_by('date_timed','desc')->get('project_timer')->result();
 	}
 	function comment_replies($comment)
 	{
@@ -133,6 +133,10 @@ class C_model extends CI_Model
   		 $row = $query->row();
   		 return $row->time_logged;
   		}
+	}
+	function task_timer($project)
+	{
+		return $this->db->where('pro_id',$project)->get('tasks_timer')->result();
 	}
 	function get_task_logged_time($task){
 	$query = $this->db->select('logged_time')->where('t_id',$task)->get('tasks');

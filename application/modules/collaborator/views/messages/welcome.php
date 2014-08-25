@@ -33,11 +33,13 @@
 								</div>
 							</div>
 							<div class="col-sm-4 m-b-xs">
+							<?php echo form_open(base_url().'collaborator/messages/search/'); ?>
 								<div class="input-group">
-									<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+									<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 									</span>
 								</div>
+								</form>
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">
@@ -70,7 +72,8 @@
 								</ul>
 							</div></section>
 			<footer class="footer b-t bg-white-only">
-				<form class="m-t-sm">
+				<?php $attributes = array('class' => 'm-t-sm');
+								echo form_open(base_url().'collaborator/messages/search/', $attributes); ?>
 					<div class="input-group">
 						<input class="input-sm form-control input-s-sm" placeholder="<?=lang('search')?>" type="text">
 							<div class="input-group-btn"> <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
