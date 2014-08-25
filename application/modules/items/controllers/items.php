@@ -24,13 +24,16 @@ class Items extends MX_Controller {
 
 	function index()
 	{
+		$this->list_items();
+	}
+
+	function list_items()
+	{
 	$this->load->module('layouts');
 	$this->load->library('template');
 	$this->template->title(lang('items').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('items');
-	$data['items'] = $this->item_model->get_all_records($table = 'items_saved',
-		$array = array(
-			'deleted' => 'No'),$join_table = '',$join_criteria = 't','item_id');
+	$data['items'] = $this->item_model->list_items($limit = 20);
 	$this->template
 	->set_layout('users')
 	->build('items',isset($data) ? $data : NULL);

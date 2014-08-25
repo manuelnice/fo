@@ -8,18 +8,9 @@
 class Item_model extends CI_Model
 {
 	
-	function get_all_records($table,$where,$join_table,$join_criteria,$order)
+	function list_items($limit)
 	{
-		$this->db->where($where);
-		if($join_table){
-		$this->db->join($join_table,$join_criteria);
-		}
-		$query = $this->db->order_by($order,'desc')->get($table);
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} else{
-			return NULL;
-		}
+		return $this->db->where('deleted','No')->order_by('item_id','desc')->get('items_saved',$limit,$this->uri->segment(3))->result();
 	}
 	
 	function saved_item_details($item)
