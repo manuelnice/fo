@@ -54,7 +54,7 @@ class View extends MX_Controller {
 	}
 	function activities()
 	{		
-		$data['user_activities'] = $this->user->user_activities($this->uri->segment(4));
+		$data['user_activities'] = $this->user->user_activities($this->uri->segment(4),$limit = 10);
 		$this->load->view('client_activities',isset($data) ? $data : NULL);
 	}
 }

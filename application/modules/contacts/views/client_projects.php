@@ -16,15 +16,13 @@
 					<td><?=$project->project_title?> </td>
 					<td><?=strftime("%B %d, %Y", strtotime($project->due_date));?> </td>
 					<td><div class="progress progress-xs m-t-xs progress-striped active m-b-none">
-											<div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="<?=$project->progress?>%" style="width: <?=$project->progress?>%">
+				<div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="<?=$project->progress?>%" style="width: <?=$project->progress?>%">
 											</div>
 										</div>
 					</td>
 					<td>
-					<a href="<?=base_url()?>projects/view/update/<?=$project->project_id?>" class="btn btn-info btn-xs">
-					<i class="fa fa-pencil"></i> <?=lang('edit')?></a>
-					<a href="<?=base_url()?>projects/view/delete/<?=$project->project_id?>" class="btn btn-danger btn-xs">
-					<i class="fa fa-times"></i> <?=lang('delete')?></a>
+					<a href="<?=base_url()?>projects/view/edit/<?=$project->project_id?>" class="btn btn-default btn-xs">
+					<i class="fa fa-edit" title="<?=lang('edit_project')?>"></i> </a>
 					</td>
 				</tr>
 				<?php  }} else{ ?>

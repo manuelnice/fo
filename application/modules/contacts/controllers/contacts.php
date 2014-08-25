@@ -4,12 +4,12 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
 
-class Clients extends MX_Controller {
+class Contacts extends MX_Controller {
 
 	function __construct()
 	{
@@ -58,7 +58,7 @@ class Clients extends MX_Controller {
 	function add()
 	{
 		if ($this->input->post()) {
-			redirect('clients');
+			redirect('contacts');
 		}else{
 		$this->load->view('modal/add_client');
 		}

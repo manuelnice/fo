@@ -14,7 +14,7 @@
 					<td><?=strftime("%B %d, %Y", strtotime($p->created_date));?></td>
 					<td><a class="text-success" href="<?=base_url()?>invoices/manage/details/<?=$p->invoice?>"><?=$p->reference_no?></a></td>
 					<td><?=$p->method_name;?> </td>
-					<td><?=$p->amount;?></td>
+					<td><?=$this->config->item('default_currency')?> <?=number_format($p->amount,2)?></td>
 					<td><?=$p->trans_id;?></td>
 				</tr>
 				<?php  }} else{ ?>

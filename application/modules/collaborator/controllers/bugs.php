@@ -51,6 +51,7 @@ class Bugs extends MX_Controller {
 	->set_layout('users')
 	->build('bugs/welcome',isset($data) ? $data : NULL);
 	}
+
 	function search()
 	{
 		if($this->input->post()){
@@ -62,13 +63,14 @@ class Bugs extends MX_Controller {
 			$data['bugs'] = $this->bugs_model->bugs_search($keyword,$limit = 20);
 			$this->template
 			->set_layout('users')
-			->build('bugs',isset($data) ? $data : NULL);
+			->build('bugs/welcome',isset($data) ? $data : NULL);
 		}else{
 			$this->session->set_flashdata('response_status', 'error');
 			$this->session->set_flashdata('message', lang('enter_search_keyword'));
-			redirect('bugs');
+			redirect('collaborator/bugs');
 		}	
 	}
+
 	function comment()
 	{
 		if ($this->input->post()) {

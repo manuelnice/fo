@@ -69,7 +69,7 @@
 									</td>
 									<td><?=$project->project_title?> </td>
 									<td>
-										<a class="btn  btn-success btn-xs" href="<?=base_url()?>clients/projects/details/<?=$project->project_id?>">
+										<a class="btn  btn-success btn-xs" href="<?=base_url()?>collaborator/projects/details/<?=$project->project_id?>">
 										<i class="fa fa-suitcase text"></i> <?=lang('project')?></a>
 									</td>
 								</tr>
@@ -94,7 +94,7 @@
 							</span> <small class="text-muted m-b block"><?=lang('complete_projects')?></small>
 						</div>
 						<div class="col-xs-3 b-r b-light">
-							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id()))?>
+							<span class="h4 font-bold m-t block"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'deleted'=>'No'))?>
 							</span> <small class="text-muted m-b block"><?=lang('received_messages')?></small>
 						</div>
 						<div class="col-xs-3">

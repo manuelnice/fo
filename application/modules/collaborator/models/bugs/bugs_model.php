@@ -58,10 +58,11 @@ class Bugs_model extends CI_Model
 	function bugs_search($keyword,$limit)
 	{
 		$this->db->join('projects','projects.project_id = bugs.project');
-		$query = $this->db->like('issue_ref',$keyword)->or_like('bug_description',$keyword)->order_by('reported_on','desc')->get('bugs',$limit);
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		$this->db->where('assign_to',$this->tank_auth->get_user_id());
+		return $this->db->like('issue_ref',$keyword)
+						->or_like('bug_description',$keyword)
+						->order_by('reported_on','desc')
+						->get('bugs',$limit)->result();
 	}
 	function projects()
 	{

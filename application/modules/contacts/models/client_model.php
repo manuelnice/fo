@@ -52,13 +52,12 @@ class Client_model extends CI_Model
 			return $query->result();
 		} 
 	}
-	function user_activities($user_id)
+	function user_activities($user_id,$limit)
 	{
 		$this->db->join('users','users.id = activities.user');
-		$query = $this->db->where('user',$user_id)->order_by('activity_date','DESC')->get('activities',50);
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
+		return $this->db->where('user',$user_id)
+							->order_by('activity_date','DESC')
+							->get('activities',$limit,$this->uri->segment(5))->result();
 	}
 }
 

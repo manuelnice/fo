@@ -13,7 +13,7 @@
 			if (!empty($clients)) {
 			foreach ($clients as $key => $user) { ?>
 				<li class="b-b b-light">
-				<a href="<?=base_url()?>clients/view/details/<?=$user->id*1200?>">
+				<a href="<?=base_url()?>contacts/view/details/<?=$user->id*1200?>">
 				<?=ucfirst($this->user_profile->get_profile_details($user->id,'fullname')? $this->user_profile->get_profile_details($user->id,'fullname'):$user->username)?>
 				
 				<small class="block text-muted"><?=strftime("%B %d, %Y", strtotime($user->created));?> </small>
@@ -39,7 +39,7 @@
 						</div>
 						<a class="btn btn-sm btn-danger" href="<?=base_url()?>users/registered/all" title="<?=lang('system_users')?>">
 						<i class="fa fa-group"></i> <?=lang('system_users')?></a>
-						<a class="btn btn-sm btn-dark" href="<?=base_url()?>clients/add" data-toggle="ajaxModal" title="<?=lang('new_client')?>">
+						<a class="btn btn-sm btn-dark" href="<?=base_url()?>contacts/add" data-toggle="ajaxModal" title="<?=lang('new_client')?>">
 						<i class="fa fa-plus"></i> <?=lang('new_user')?></a>
 						</div>
 						<div class="col-sm-4 m-b-xs">
@@ -61,7 +61,7 @@
 					
 				</div>
 				<hr>
-				<a href="<?=base_url()?>clients/add" data-toggle="ajaxModal" class="btn btn-primary btn-lg btn-block">
+				<a href="<?=base_url()?>contacts/add" data-toggle="ajaxModal" class="btn btn-primary btn-lg btn-block">
 				<i class="fa fa-user pull-right"></i><?=lang('new_client')?></a>
 					</section>  
 

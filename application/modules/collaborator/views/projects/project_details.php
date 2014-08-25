@@ -47,9 +47,9 @@ if ($project->auto_progress == 'FALSE') { ?>
 										}
 
 										?>
-											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
+											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#FB6B5B','#8EC165']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
 											<div class="line pull-in"></div>
-											<div class="text-xs"> <i class="fa fa-circle text-success"></i> <?=$perc_open_tasks?>% <?=lang('open')?> <i class="fa fa-circle text-danger"></i> <?=$perc_closed_tasks?>% <?=lang('closed')?></div>
+											<div class="text-xs"> <i class="fa fa-circle text-danger"></i> <?=$perc_open_tasks?>% <?=lang('open')?> <i class="fa fa-circle text-success"></i> <?=$perc_closed_tasks?>% <?=lang('closed')?></div>
 										</div> </section>
 										<!-- end -->
 										<div class="clearfix m-b">
