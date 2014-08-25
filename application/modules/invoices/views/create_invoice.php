@@ -101,35 +101,8 @@
 				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=date('d-m-Y')?>" name="due_date" data-date-format="dd-mm-yyyy" >
 				</div> 
 				</div> 
-				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('allow_paypal')?></label>
-				<div class="col-lg-3">
-				<select name="allow_paypal" class="form-control">					
-						<option value="Yes">Yes</option>
-						<option value="No">No</option>
-				</select>
-				</div>
-				</div>
-				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('recurring')?> </label>
-				<div class="col-lg-3">
-				<select name="recurring" class="form-control">						
-						<option value="No">No</option>
-						<option value="Yes">Yes</option>
-				</select>
-				</div>
-				</div>
-				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('frequency')?> </label>
-				<div class="col-lg-3">
-				<select name="r_freq" class="form-control">					
-						<option value="7">Weekly</option>
-						<option value="30">Monthly</option>
-						<option value="92">Quartely</option>
-						<option value="365">Yearly</option>
-				</select>
-				</div>
-				</div>			
+				
+						
 				
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('notes')?> </label>

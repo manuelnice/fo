@@ -108,8 +108,7 @@
 
 					<div class="col-xs-6"> 
 						<p class="h4"><strong><?=$this->config->item('company_name')?></strong></p>
-						<p><a href="<?=$this->config->item('company_domain')?>"><br>
-						<?=$this->config->item('company_domain')?></a><br>
+						
 						<?=$this->config->item('company_address')?><br>
 						<?=lang('phone')?>: <?=$this->config->item('company_phone')?> <br></p>
 
@@ -148,7 +147,7 @@
 						<td><?=$item->quantity?></td> 						
 						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->unit_cost,2)?></td>
 						<td><?=$this->config->item('default_currency_symbol')?><?=number_format($item->total_cost,2)?> 
-						<a class="hidden-print" href="<?=base_url()?>invoices/manage/delete_item/<?=$item->item_id?>/<?=$item->invoice_id?>" data-toggle="ajaxModal"><i class="fa fa-times text-danger"></i></a></td>
+						<a class="hidden-print" href="<?=base_url()?>invoices/manage/delete_item/<?=$item->item_id?>/<?=$item->invoice_id?>" data-toggle="ajaxModal"><i class="fa fa-trash-o text-danger"></i></a></td>
 					</tr>
 					<?php } } ?>
 					<tr class="hidden-print">

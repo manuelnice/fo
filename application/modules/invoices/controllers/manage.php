@@ -64,10 +64,7 @@ class Manage extends MX_Controller {
 			                'reference_no' => $this->input->post('reference_no'),
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
-			                'notes' => $this->input->post('notes'),
-			                'allow_paypal' => $this->input->post('allow_paypal'),
-			                'recurring' => $this->input->post('recurring'),
-			                'r_freq' => $this->input->post('r_freq')
+			                'notes' => $this->input->post('notes'),							
 			            );
 			$this->db->insert('invoices', $form_data); 
 			$invoice_id = $this->db->insert_id();
@@ -119,9 +116,6 @@ class Manage extends MX_Controller {
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
 			                'notes' => $this->input->post('notes'),
-			                'allow_paypal' => $this->input->post('allow_paypal'),
-			                'recurring' => $this->input->post('recurring'),
-			                'r_freq' => $this->input->post('r_freq')
 			            );
 			$this->db->where('inv_id',$invoice_id)->update('invoices', $form_data);
 
