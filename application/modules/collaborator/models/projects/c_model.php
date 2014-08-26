@@ -136,7 +136,7 @@ class C_model extends CI_Model
 	}
 	function task_timer($project)
 	{
-		return $this->db->where('pro_id',$project)->get('tasks_timer')->result();
+		return $this->db->where('pro_id',$project)->order_by('date_timed','desc')->get('tasks_timer')->result();
 	}
 	function get_task_logged_time($task){
 	$query = $this->db->select('logged_time')->where('t_id',$task)->get('tasks');

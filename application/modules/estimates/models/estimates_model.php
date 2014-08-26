@@ -30,6 +30,12 @@ class Estimates_model extends CI_Model
 		} 
 	}
 
+	function search_estimate($keyword)
+	{
+		$this->db->join('users','users.id = estimates.client');
+		return $this->db->like('reference_no', $keyword)->order_by("date_saved","desc")->get('estimates')->result();
+	}
+
     function payment_methods()
 	{
 			return $this->db->get('payment_methods')->result();

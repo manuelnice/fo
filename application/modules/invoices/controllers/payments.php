@@ -53,34 +53,25 @@ class Payments extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('payment_details',isset($data) ? $data : NULL);
+	}	
+
+	function search()
+	{
+		if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('payments').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('payments');
+	$keyword = $this->input->post('keyword', TRUE);
+	$data['payments'] = $this->invoice->search_payment($keyword);
+	$this->template
+	->set_layout('users')
+	->build('payments',isset($data) ? $data : NULL);
+		}else{
+			redirect('invoices/payments');
+		}
 	}
 
-	public function invoicepdf(){
-
-			$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
-			$data['payment_status'] = $this->invoice->payment_status($this->uri->segment(4));
-			$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
-			$data['page'] = lang('invoices');
-
-		$this->load->view('emails/invoice',$data);
-		// Get output html
-		$html = $this->output->get_output();
-		
-		// Load library
-		$this->load->library('dompdf_gen');
-		
-		// Convert to PDF
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("welcome.pdf");
-		/*
-
-			$this->load->helper (array('dompdf', 'file' ));
-		$html = $this->load->view('emails/invoice',$data,TRUE);
-		pdf_create( $html , 'Invoice # '.$this->uri->segment(4) );
-		*/
-				
-	}
 	function _log_activity($invoice_id,$activity,$icon){
 			$this->db->set('module', 'invoices');
 			$this->db->set('module_field_id', $invoice_id);

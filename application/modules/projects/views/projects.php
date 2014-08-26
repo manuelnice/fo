@@ -15,7 +15,7 @@
 			<?php
 			foreach ($projects as $key => $p) { ?>
 				<li class="b-b b-light <?php if($p->timer == 'On'){ echo "bg-danger lter"; } ?>">
-				<a href="<?=base_url()?>projects/view/details/<?=$p->project_id?>">
+				<a href="<?=base_url()?>projects/view/details/<?=$p->project_id?>" data-toggle="tooltip" data-original-title="<?=$p->project_title?>">
 				<?=ucfirst($this->user_profile->get_profile_details($p->client,'fullname')? $this->user_profile->get_profile_details($p->client,'fullname'):$this->user_profile->get_user_details($p->client,'username'))?>
 				<div class="pull-right">
 				<?php

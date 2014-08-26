@@ -169,6 +169,34 @@ class Projects extends MX_Controller {
 			$this->load->view('modal/delete_project',$data);
 		}
 	}
+	function delcomment()
+	{
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('comment', 'Comment ID', 'required');
+		$this->form_validation->set_rules('project', 'Project ID', 'required');
+		$project_id = $this->input->post('project', TRUE);
+		$comment_id = $this->input->post('comment', TRUE);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('comment_delete_failed'));
+				redirect('projects/view/details/'.$project_id);
+		}else{			
+			$this->db->set('deleted', 'Yes');
+			$this->db->where('comment_id',$comment_id)->update('comments'); 
+	
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('comment_deleted'));
+			redirect('projects/view/details/'.$project_id);
+			}
+		}else{
+			$data['comment_id'] = $this->input->get('c', TRUE);
+			$data['project_id'] = $this->input->get('p', TRUE);
+			$this->load->view('modal/delete_comment',$data);
+		}
+	}
 	function timelog()
 	{		
 		if ($this->input->post()) {

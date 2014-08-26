@@ -4,7 +4,7 @@
 						if (!empty($project_details)) {
 		foreach ($project_details as $key => $project) { ?>
 		<header class="header bg-white b-b b-light">
-			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong></p>
+			<p><a href="<?=base_url()?>projects/view_projects/all" class="btn btn-xs btn-dark lter">&laquo; Back</a> Project Title : <strong><?=$project->project_title?></strong> [#<?=$project->project_code?> - <?=$project->username?>]</p>
 			<p class="pull-right">
 			<a href="<?=base_url()?>projects/view/edit/<?=$project->project_id?>" class="btn btn-sm btn-default" title="<?=lang('edit_project')?>"> <i class="fa fa-pencil text-dark"></i> <?=lang('edit_project')?></a>
 <?php
@@ -47,9 +47,9 @@ if ($project->auto_progress == 'FALSE') { ?>
 										}
 
 										?>
-											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#8EC165','#FB6B5B']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
+											<div class="sparkline inline" data-type="pie" data-height="150" data-slice-colors="['#FB6B5B','#8EC165']"><?=$perc_open_tasks?>,<?=$perc_closed_tasks ?></div>
 											<div class="line pull-in"></div>
-											<div class="text-xs"> <i class="fa fa-circle text-success"></i> <?=$perc_open_tasks?>% <?=lang('open')?> <i class="fa fa-circle text-danger"></i> <?=$perc_closed_tasks?>% <?=lang('closed')?></div>
+											<div class="text-xs"> <i class="fa fa-circle text-danger"></i> <?=$perc_open_tasks?>% <?=lang('open')?> <i class="fa fa-circle text-success"></i> <?=$perc_closed_tasks?>% <?=lang('closed')?></div>
 										</div> </section>
 										<!-- end -->
 										<div class="clearfix m-b">
@@ -218,7 +218,7 @@ if ($project->auto_progress == 'FALSE') { ?>
 														<section class="comment-body panel panel-default">
 															<header class="panel-heading bg-white">
 																<a href="<?=base_url()?>contacts/view/details/<?=$comment->posted_by*1200?>"><?=ucfirst($this->user_profile->get_profile_details($comment->posted_by,'fullname')?$this->user_profile->get_profile_details($comment->posted_by,'fullname'):$this->user_profile->get_user_details($comment->posted_by,'username'))?></a>
-																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-danger m-l-xs"><?=lang('you')?></label> <?php } ?>
+																<?php if($comment->posted_by == $this->tank_auth->get_user_id()){ ?><label class="label bg-default m-l-xs"><?=lang('you')?></label> <?php } ?>
 																<span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> <?php
 																					$today = time();
 																					$comment_day = strtotime($comment->date_posted) ;
@@ -230,9 +230,14 @@ if ($project->auto_progress == 'FALSE') { ?>
 																<?php
 																if ($comment->posted_by != $this->tank_auth->get_user_id()) { ?>
 																
-																<a href="#comment-form" class="btn btn-dark btn-xs"> <i class="fa fa-comment text-muted"></i> <?=lang('comment')?> </a>									
+								<a href="#comment-form" title="<?=lang('comment')?>" class="btn btn-default btn-xs">
+								<i class="fa fa-comment text-muted"></i>  </a>									
 																<?php } ?>
-																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> <?=lang('reply')?> </a> 
+																<a href="<?=base_url()?>projects/replies?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('reply')?>"  class="btn btn-default btn-xs"> <i class="fa fa-mail-reply text-muted"></i> </a> 
+																<?php
+																if ($comment->posted_by == $this->tank_auth->get_user_id()) { ?>
+																<a href="<?=base_url()?>projects/delcomment?c=<?=$comment->comment_id?>&p=<?=$project->project_id?>" data-toggle="ajaxModal" title="<?=lang('delete')?>"  class="btn btn-danger btn-xs"> <i class="fa fa-trash-o text-white"></i> </a>  
+																<?php } ?>
 
 																</div>
 															</div>

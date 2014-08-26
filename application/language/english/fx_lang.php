@@ -129,6 +129,7 @@ $lang['delete_bug'] = 'Delete Bug';
 $lang['delete_invoice'] = 'Delete Invoice';
 $lang['delete_project'] = 'Delete Project';
 $lang['delete_estimate'] = 'Delete Estimate';
+$lang['delete_comment'] = 'Delete Comment';
 $lang['delete_bug_warning'] = 'You are about to delete an Issue from the system.';
 $lang['delete_file_warning'] = 'You are about to delete a file from the system';
 $lang['delete_invoice_warning'] = 'This operation will delete the Invoice and it\'s items. Do yo want to proceed?';

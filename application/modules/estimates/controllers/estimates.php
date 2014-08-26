@@ -37,6 +37,23 @@ class Estimates extends MX_Controller {
 	->set_layout('users')
 	->build('estimates',isset($data) ? $data : NULL);
 	}
+
+	function search()
+	{
+		if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('estimates').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('estimates');
+	$keyword = $this->input->post('keyword', TRUE);
+	$data['estimates'] = $this->estimate->search_estimate($keyword);
+	$this->template
+	->set_layout('users')
+	->build('estimates',isset($data) ? $data : NULL);
+		}else{
+			redirect('estimates');
+		}
+	}
 }
 
 /* End of file invoices.php */

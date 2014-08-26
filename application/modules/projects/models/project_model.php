@@ -3,7 +3,7 @@
 /**
  *
  * @package	Freelancer
- * @author	William Mandai (http://willymandai.com)
+ * @author	William M
  */
 class Project_model extends CI_Model
 {
@@ -23,7 +23,8 @@ class Project_model extends CI_Model
 	}
 	function project_details($project)
 	{
-		return $this->db->where('project_id',$project)->get('projects')->result();
+		$this->db->join('users','users.id = projects.assign_to');
+		return $this->db->where(array('proj_deleted'=>'No', 'project_id'=>$project))->get('projects')->result();
 	}
 	function task_details($task)
 	{
@@ -37,7 +38,7 @@ class Project_model extends CI_Model
 	}
 	function project_comments($project)
 	{
-		return $this->db->where('project',$project)->order_by('date_posted','desc')->get('comments')->result();
+		return $this->db->where(array('deleted'=>'No','project'=>$project))->order_by('date_posted','desc')->get('comments')->result();
 	}
 	function project_tasks($project)
 	{
@@ -55,7 +56,7 @@ class Project_model extends CI_Model
 	}
 	function timesheets($project)
 	{
-		return $this->db->where('project',$project)->get('project_timer')->result();
+		return $this->db->where('project',$project)->order_by('date_timed','desc')->get('project_timer')->result();
 	}
 	function assign_to()
 	{
@@ -64,6 +65,10 @@ class Project_model extends CI_Model
 	function clients()
 	{
 		return $this->db->where('role_id',2)->get('users')->result();
+	}
+	function task_timer($project)
+	{
+		return $this->db->where('pro_id',$project)->order_by('date_timed','desc')->get('tasks_timer')->result();
 	}
 	function get_project_start($project){
 	$query = $this->db->select('timer_start')->where('project_id',$project)->get('projects');

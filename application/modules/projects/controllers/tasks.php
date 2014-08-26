@@ -125,7 +125,7 @@ class Tasks extends MX_Controller {
 			$this->db->set('logged_time', $time_logged);
 			$this->db->set('start_time', '');
 			$this->db->where('t_id',$task)->update('tasks');
-			$this->_log_timesheet($task,$task_start,time()); //log activity
+			$this->_log_timesheet($project,$task,$task_start,time()); //log activity
 
 		}else{
 			$this->db->set('timer_status', $action);
@@ -184,7 +184,8 @@ class Tasks extends MX_Controller {
 
 			modules::run('fomailer/send_email',$params);
 	}
-	function _log_timesheet($task,$start_time,$end_time){
+	function _log_timesheet($project,$task,$start_time,$end_time){
+			$this->db->set('pro_id', $project);
 			$this->db->set('task', $task);
 			$this->db->set('start_time', $start_time);
 			$this->db->set('end_time', $end_time);
