@@ -17,6 +17,10 @@ class Item_model extends CI_Model
 	{
 		return $this->db->where('item_id',$item)->get('items_saved')->result();
 	}
+	function search_item($keyword,$limit)
+	{
+		return $this->db->where('deleted', 'No')->like('item_desc', $keyword)->order_by("item_id","desc")->get('items_saved',$limit,$this->uri->segment(3))->result();
+	}
 	
 }
 

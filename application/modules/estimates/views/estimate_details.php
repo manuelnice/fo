@@ -74,7 +74,7 @@
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<a href="<?=base_url()?>estimates/action/pdf/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" class="btn btn-sm btn-dark pull-right">
+						<a href="<?=base_url()?>pdfconverter/estimate/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" class="btn btn-sm btn-dark pull-right">
 					<i class="fa fa-file-pdf-o"></i> <?=lang('pdf')?></a> 
 					
 						</div>
@@ -103,8 +103,7 @@
 					?>
 
 					<div class="col-xs-6"> <h4><?=$this->config->item('company_name')?></h4>
-						<p><a href="<?=$this->config->item('company_domain')?>">
-						<?=$this->config->item('company_domain')?></a></p>
+						
 						<p><?=$this->config->item('company_address')?></p>
 						<p> <?=lang('phone')?>: <?=$this->config->item('company_phone')?> <br></p>
 
@@ -115,7 +114,7 @@
 					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->date_saved));?></strong><br>
 					<?=lang('expiry_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->due_date));?></strong><br> 
 					<?=lang('estimate_status')?>: <span class="label bg-<?=$label?>"><?=$est_status?> </span><br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($estimate->id)?$this->user_profile->get_fullname($estimate->id) : $estimate->username)?></strong> </p> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($estimate->id,'fullname')?$this->user_profile->get_profile_details($estimate->id,'fullname') : $estimate->username)?></strong> </p> 
 						</div>
 					</div>
 
@@ -136,7 +135,7 @@
 						<td><?=$item->quantity?></td> 						
 						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->unit_cost,2)?></td>
 						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($item->total_cost,2)?>
-						<a class="hidden-print" href="<?=base_url()?>estimates/manage/delete_item/<?=$item->item_id?>/<?=$item->estimate_id?>" data-toggle="ajaxModal"><i class="fa fa-times text-danger"></i></a></td>
+						<a class="hidden-print" href="<?=base_url()?>estimates/manage/delete_item/<?=$item->item_id?>/<?=$item->estimate_id?>" data-toggle="ajaxModal"><i class="fa fa-trash-o text-danger"></i></a></td>
 					</tr>
 					<?php } } ?>
 					<tr class="hidden-print">

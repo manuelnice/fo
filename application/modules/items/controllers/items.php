@@ -38,6 +38,22 @@ class Items extends MX_Controller {
 	->set_layout('users')
 	->build('items',isset($data) ? $data : NULL);
 	}
+	function search()
+	{
+		if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('items').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('items');
+	$keyword = $this->input->post('keyword', TRUE);
+	$data['items'] = $this->item_model->search_item($keyword,$limit = 20);
+	$this->template
+	->set_layout('users')
+	->build('items',isset($data) ? $data : NULL);
+	}else{
+		$this->list_items();
+	}
+	}
 	function add()
 	{
 		if ($this->input->post()) {

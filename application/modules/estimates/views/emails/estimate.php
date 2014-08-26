@@ -51,7 +51,7 @@
 						<p class="m-t m-b">
 					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($est->date_saved));?></strong><br>
 					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($est->due_date));?></strong><br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($est->id)?$this->user_profile->get_fullname($est->id) : $est->username)?></strong> </p>
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($est->id,'fullname')?$this->user_profile->get_profile_details($est->id,'fullname') : $est->username)?></strong> </p>
 					</div>
 					</div>
 

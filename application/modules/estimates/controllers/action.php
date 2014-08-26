@@ -168,32 +168,7 @@ class Action extends MX_Controller {
 		}
 	}
 
-	public function pdf(){
-
-			$data['estimate_details'] = $this->estimate->estimate_details($this->uri->segment(4));
-			$data['estimate_items'] = $this->estimate->estimate_items($this->uri->segment(4));
-			$refno = $this->uri->segment(5);
-			$data['page'] = lang('estimates');
-
-		$this->load->view('emails/estimate',$data);
-		// Get output html
-		$html = $this->output->get_output();
-		
-		// Load library
-		$this->load->library('dompdf_gen');
-		
-		// Convert to PDF
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream('Estimate #'.$refno);
-		/*
-
-			$this->load->helper (array('dompdf', 'file' ));
-		$html = $this->load->view('emails/invoice',$data,TRUE);
-		pdf_create( $html , 'Invoice # '.$this->uri->segment(4) );
-		*/
-				
-	}
+	
 
 	function _log_activity($est_id,$activity,$icon){
 			$this->db->set('module', 'estimates');

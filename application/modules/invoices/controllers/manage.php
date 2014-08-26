@@ -47,6 +47,23 @@ class Manage extends MX_Controller {
 	->build('invoices',isset($data) ? $data : NULL);
 	}
 
+	function search()
+	{
+		if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('invoices');
+	$keyword = $this->input->post('keyword', TRUE);	
+	$data['invoices'] = $this->invoice->search_invoice($keyword);
+	$this->template
+	->set_layout('users')
+	->build('invoices',isset($data) ? $data : NULL);
+		}else{
+			redirect('invoices/manage/view/all');
+		}
+	}
+
 	function add()
 	{
 		if ($this->input->post()) {

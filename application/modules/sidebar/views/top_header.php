@@ -33,7 +33,7 @@
 								elseif ($role == 'collaborator') { 
 									$link = 'collaborator/inv_manage/search'; }
 								else{ 
-									$link = 'invoices/inv_manage/search';
+									$link = 'invoices/manage/search';
 							}
 							$attributes = array('role' => 'search');
 							echo form_open(base_url().$link,$attributes); ?>

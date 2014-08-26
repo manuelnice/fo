@@ -14,12 +14,16 @@
 		<div class="col-sm-4 m-b-xs">
 			
 		</div>
+
+
 		<div class="col-sm-3">
+			<?php echo form_open(base_url().'items/search/'); ?>
 			<div class="input-group">
-				<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-				<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+				<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+				<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 				</span>
 			</div>
+			</form>
 		</div>
 	</div>
 	<div class="table-responsive">
