@@ -38,7 +38,7 @@
 					<?php
 					if (!empty($users)) {
 					foreach ($users as $key => $user) { ?>
-						<option value="<?=$user->id?>"><?=$user->username?></option>
+						<option value="<?=$user->id?>"><?=ucfirst($user->username)?></option>
 					<?php } } ?>	
 				</select>
 				</div>

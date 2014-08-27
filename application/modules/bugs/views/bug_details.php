@@ -72,7 +72,7 @@
 						<a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal" title="<?=lang('new_bug')?>" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> <?=lang('new_bug')?></a>
 						</div>
 
-						<a href="<?=base_url()?>bugs/view/edit" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
+						<a href="<?=base_url()?>bugs/view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
 
 						<div class="btn-group">
 						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>
@@ -91,7 +91,7 @@
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'invoices/manage/search'); ?>
+						<?php  echo form_open(base_url().'bugs/search'); ?>
 							<div class="input-group">
 								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
 								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>

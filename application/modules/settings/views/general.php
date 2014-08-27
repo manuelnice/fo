@@ -60,7 +60,7 @@ echo form_open_multipart(uri_string(), $attributes); ?>
 					</optgroup> 
 					<optgroup label="Other Countries"> 
 						<?php foreach ($countries as $country): ?>
-						<option value="<?=$country->country?>"><?=$country->country?></option>
+						<option value="<?=$country->value?>"><?=$country->value?></option>
 						<?php endforeach; ?>
 					</optgroup> 
 					</select> 
