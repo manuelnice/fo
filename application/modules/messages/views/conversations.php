@@ -10,7 +10,7 @@
 							<?php
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
-							<li class="b-b b-light">
+							<li class="b-b b-light <?php if($user->user_from == $this->uri->segment(4)/1200){ echo "bg-light dk"; } ?>">
 								<a href="<?=base_url()?>messages/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>
@@ -24,19 +24,20 @@
 					<header class="header bg-white b-b clearfix">
 						<div class="row m-t-sm">
 							<div class="col-sm-8 m-b-xs">
-								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+								
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>messages/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
+									<a class="btn btn-sm btn-dark" href="<?=base_url()?>messages/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
 								</div>
 							</div>
 							<div class="col-sm-4 m-b-xs">
+							<?php echo form_open(base_url().'messages/search/'); ?>
 								<div class="input-group">
-									<input type="text" class="input-sm form-control" placeholder="<?=lang('search')?>">
-									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="button">Go!</button>
+									<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('keyword')?>">
+									<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 									</span>
 								</div>
+								</form>
 							</div>
 						</div> </header>
 						<section class="scrollable hover w-f">
@@ -62,15 +63,15 @@
 																$today = time();
 																$received = strtotime($msg->date_received) ;
 																echo $this->user_profile->get_time_diff($today,$received);
-																?> ago </span>
+																?> ago 
+																<?php
+								if ($msg->user_to == $this->tank_auth->get_user_id()) { ?>
+				<a href="<?=base_url()?>messages/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-trash-o text-white text-active"></i> 
+				</a>
+									<?php } ?></span>
 									</header>
 								<div class="panel-body"><div><?=$msg->message?></div>
-								<div class="comment-action m-t-sm">
-								<?php
-								if ($msg->user_from == $this->tank_auth->get_user_id()) { ?>
-				<a href="<?=base_url()?>messages/conversation/delete/<?=$msg->msg_id*1200?>/<?=$this->uri->segment(4)?>" data-toggle="ajaxModal" class="btn btn-danger btn-xs active"><i class="fa fa-times text-white text-active"></i> <?=lang('delete')?> </a>
-									<?php } ?>
-								</div>
+								
 								</div> 
 								</section>
 						</article>

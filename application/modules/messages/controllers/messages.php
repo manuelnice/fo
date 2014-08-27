@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -35,6 +35,25 @@ class Messages extends MX_Controller {
 	$this->template
 	->set_layout('users')
 	->build('messages',isset($data) ? $data : NULL);
+	}
+	function search()
+	{
+		if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('messages').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('messages');
+	$keyword = $this->input->post('keyword', TRUE);
+	$data['messages'] = $this->msg_model->search_message($keyword);
+	$data['users'] = $this->msg_model->group_messages_by_users($this->tank_auth->get_user_id());
+	$this->template
+	->set_layout('users')
+	->build('messages',isset($data) ? $data : NULL);
+			
+		}else{
+			redirect('messages');
+		}
+	
 	}
 }
 

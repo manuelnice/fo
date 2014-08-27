@@ -2,8 +2,8 @@
 
 /**
  *
- * @package	Uniportal
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelancer Office
+ * @author	William M
  */
 class Msg_model extends CI_Model
 {
@@ -21,23 +21,10 @@ class Msg_model extends CI_Model
 			return NULL;
 		}
 	}
-	function get_record_by($table,$where,$join_table,$join_criteria)
-    	{
-    		if ($join_table) {
-    			$this->db->join($join_table,$join_criteria);
-    		}	
-	$this->db->where($where);
-	$query = $this->db->get($table);
-	if ($query->num_rows() > 0)
-		{
-  		 $row = $query->row();
-  		 return $row;
-  		}
-	}
 	function group_messages_by_users($user)
 	{
 		$this->db->join('users','users.id = messages.user_from');
-		return $this->db->where('user_to',$user)->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
+		return $this->db->where(array('deleted'=>'No','user_to'=>$user))->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
 	}
 	function get_conversations($recipient)
 	{
@@ -45,6 +32,7 @@ class Msg_model extends CI_Model
 		$this->db->where('user_to', $recipient);
 		$this->db->where('user_from', $this->tank_auth->get_user_id());
 		$this->db->or_where('user_from', $recipient);
+		$this->db->where('user_to', $this->tank_auth->get_user_id());
 		return $this->db->where('deleted','No')->order_by("date_received","desc")->get('messages')->result();
 	}
 

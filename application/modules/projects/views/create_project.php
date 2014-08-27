@@ -31,19 +31,28 @@
 				<div class="col-lg-6">
 					<input type="text" class="form-control" placeholder="Project Title" name="project_title">
 				</div>
-				</div>				
+				</div>	
+
 				<div class="form-group">
-				<label class="col-lg-2 control-label"><?=lang('client')?> <span class="text-danger">*</span></label>
-				<div class="col-lg-3">
-				<select name="client" class="form-control">
-					<?php
-					if (!empty($clients)) {
-					foreach ($clients as $key => $client) { ?>
-						<option value="<?=$client->id?>"><?=ucfirst($client->username)?></option>
-					<?php } } ?>					
-				</select>
-				</div>
-				</div>
+			        <label class="col-lg-2 control-label"><?=lang('client')?> <span class="text-danger">*</span> </label>
+			        <div class="col-lg-6">
+			          <div class="m-b"> 
+			          <select id="select2-option" style="width:260px" name="client" required> 
+			          
+			          <optgroup label="Clients"> 
+			            <?php
+			            if (!empty($clients)) {
+			            foreach ($clients as $key => $c) { ?>
+			            <option value="<?=$c->id?>"><?=ucfirst($c->username)?></option>
+			            <?php }} ?>
+			          </optgroup> 
+			          </select> 
+			          </div> 
+			        </div>
+			      </div>	
+
+
+
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('start_date')?></label> 
 				<div class="col-lg-8">

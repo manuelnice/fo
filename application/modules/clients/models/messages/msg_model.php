@@ -30,7 +30,7 @@ class Msg_model extends CI_Model
 	function group_messages_by_users($user)
 	{
 		$this->db->join('users','users.id = messages.user_from');
-		return $this->db->where('user_to',$user)->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
+		return $this->db->where(array('deleted'=>'No','user_to'=>$user))->group_by("user_from")->order_by("date_received","desc")->get('messages')->result();
 	}
 	function get_conversations($user_from)
 	{
@@ -38,6 +38,7 @@ class Msg_model extends CI_Model
 		$this->db->where('user_to', $user_from);
 		$this->db->where('user_from', $this->tank_auth->get_user_id());
 		$this->db->or_where('user_from', $user_from);
+		$this->db->where('user_to', $this->tank_auth->get_user_id());
 		return $this->db->where('deleted','No')->order_by("date_received","desc")->get('messages')->result();
 	}
 	public function get_msg_text($msg_id)

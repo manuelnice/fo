@@ -10,7 +10,7 @@
 							<?php
 							if (!empty($users)) {
 							foreach ($users as $key => $user) { ?>
-							<li class="b-b b-light">
+							<li class="b-b b-light <?php if($user->user_from == $this->uri->segment(4)/1200){ echo "bg-light dk"; } ?>">
 								<a href="<?=base_url()?>collaborator/conversation/view/<?=$user->id*1200?>">
 							<i class="fa fa-chevron-right pull-right m-t-xs text-xs icon-muted"></i><?=ucfirst($this->user_profile->get_profile_details($user->user_from,'fullname')?$this->user_profile->get_profile_details($user->user_from,'fullname'): $user->username)?></a></li>
 							<?php }} ?>

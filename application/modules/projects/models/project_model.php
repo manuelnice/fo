@@ -70,6 +70,16 @@ class Project_model extends CI_Model
 	{
 		return $this->db->where('pro_id',$project)->order_by('date_timed','desc')->get('tasks_timer')->result();
 	}
+
+	function search_project($keyword)
+	{
+		$this->db->join('users','users.id = projects.client');
+		return $this->db->like('project_code',$keyword)
+						->or_like('project_title',$keyword)
+						->order_by('date_created','desc')
+						->get('projects')->result();
+	}
+
 	function get_project_start($project){
 	$query = $this->db->select('timer_start')->where('project_id',$project)->get('projects');
 		if ($query->num_rows() > 0)

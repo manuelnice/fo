@@ -39,8 +39,7 @@
 				<header class="header bg-white b-b clearfix">
 					<div class="row m-t-sm">
 						<div class="col-sm-8 m-b-xs">
-							<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
-							<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
+							
 						<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
@@ -48,9 +47,9 @@
 						<i class="fa fa-plus"></i> <?=lang('new_project')?></a>
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<?php  echo form_open(base_url().'projects/manage/search'); ?>
+						<?php  echo form_open(base_url().'projects/search'); ?>
 							<div class="input-group">
-								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?>">
+								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?> <?=lang('project')?>">
 								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
 								</span>
 							</div>

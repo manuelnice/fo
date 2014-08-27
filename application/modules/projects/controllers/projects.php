@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -35,6 +35,24 @@ class Projects extends MX_Controller {
 	->set_layout('users')
 	->build('projects',isset($data) ? $data : NULL);
 	}
+
+	function search()
+	{
+	if ($this->input->post()) {
+	$this->load->module('layouts');
+	$this->load->library('template');
+	$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
+	$data['page'] = lang('projects');
+	$keyword = $this->input->post('keyword', TRUE);
+	$data['projects'] = $this->project_model->search_project($keyword);
+	$this->template
+	->set_layout('users')
+	->build('projects',isset($data) ? $data : NULL);
+	}else{
+			redirect('projects/view_projects/all');
+		}
+	}
+
 	function view_projects()
 	{
 	$this->load->module('layouts');
