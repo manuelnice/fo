@@ -104,6 +104,8 @@
 							$db_file = str_replace('%database%', $database, $db_file);
 							file_put_contents('../application/config/database.php', $db_file);
 
+							mysql_query("UPDATE fx_config SET value = '$url' WHERE key='base_url' ");
+
 							$db_file = file_get_contents('config.php');
 							$db_file = str_replace('%url%', $url, $db_file);
 							file_put_contents('../application/config/config.php', $db_file);
