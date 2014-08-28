@@ -19,41 +19,15 @@
 				<input type="text" name="base_url" class="form-control" value="<?=$this->config->item('base_url')?>" data-required="true">
 				<span class="help-block m-b-none"><strong>Change this only if you know what you are doing</strong>.</span>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><?=lang('default_tax')?> </label>
-			<div class="col-lg-5">
-				<div class="input-group m-b">
-					<span class="input-group-addon">%</span>
-					<input class="form-control " type="text" value="<?=$this->config->item('default_tax')?>" name="default_tax">
-				</div>
-				<span class="help-block m-b-none"><strong>This tax will be applied on all invoices</strong>.</span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><?=lang('default_currency')?> <span class="text-danger">*</span></label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control"  value="<?=$this->config->item('default_currency')?>" name="default_currency" data-required="true">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><?=lang('default_currency_symbol')?> <span class="text-danger">*</span></label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control"  value="<?=$this->config->item('default_currency_symbol')?>" name="default_currency_symbol" data-required="true">
-			</div>
-		</div>
+		</div>		
+		
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?=lang('default_language')?> <span class="text-danger">*</span></label>
 			<div class="col-lg-3">
 				<input type="text" class="form-control" value="<?=$this->config->item('default_language')?>" name="default_language" data-required="true">
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><?=lang('paypal_email')?> <span class="text-danger">*</span> </label>
-			<div class="col-lg-10">
-				<input type="email" class="form-control" value="<?=$this->config->item('paypal_email')?>" name="paypal_email" data-type="email" data-required="true">
-			</div>
-		</div>
+		
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?=lang('file_max_size')?> <span class="text-danger">*</span> </label>
 			<div class="col-lg-3">
@@ -66,16 +40,7 @@
 				<input type="text" class="form-control" value="<?=$this->config->item('allowed_files')?>" name="allowed_files">
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><?=lang('paypal_live')?></label>
-			<div class="col-lg-4">
-				<select name="paypal_live" class="form-control">
-					<option value="<?=$this->config->item('paypal_live')?>">Use Current</option>
-					<option value="FALSE"><?=lang('false')?></option>
-					<option value="TRUE"><?=lang('true')?></option>
-				</select>
-			</div>
-		</div>
+		
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?=lang('demo_mode')?></label>
 			<div class="col-lg-4">

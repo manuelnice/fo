@@ -62,31 +62,9 @@ class Settings extends MX_Controller {
 			$this->session->set_flashdata('message', lang('settings_update_failed'));
 			redirect('settings/update/'.$setting);
 		}else{
-			if ($_FILES['userfile'] != "") {
-				$config['upload_path']   = './resource/logo/';
-            			$config['allowed_types'] = 'jpg|jpeg|png';
-            			$config['max_width']  = '200';
-            			$config['max_height']  = '200';
-            			$config['remove_spaces'] = TRUE;
-            			$config['file_name']  = 'logo';
-            			$config['overwrite']  = TRUE;
-            			$config['max_size']      = $this->config->item('file_max_size');
-            			$this->load->library('upload', $config);
-						if ($this->upload->do_upload())
-						{
-							$data = $this->upload->data();
-							$file_name = $data['file_name'];
-							$data = array(
-								'value' => $file_name); $this->db->where('key', 'company_logo')->update('config', $data); 
-						}else{
-							$this->session->set_flashdata('response_status', 'error');
-							$this->session->set_flashdata('message', lang('file_upload_failed'));
-							redirect('settings/update/'.$setting);
-						}
-			}
+			
 		$data = array('value' => $this->input->post('company_name')); $this->db->where('key', 'company_name')->update('config', $data); 
 		$data = array('value' => $this->input->post('contact_person')); $this->db->where('key', 'contact_person')->update('config', $data); 
-		$data = array('value' => $this->input->post('company_address')); $this->db->where('key', 'company_address')->update('config', $data); 
 		$data = array('value' => $this->input->post('company_address')); $this->db->where('key', 'company_address')->update('config', $data); 
 		$data = array('value' => $this->input->post('company_phone')); $this->db->where('key', 'company_phone')->update('config', $data); 
 		$data = array('value' => $this->input->post('company_domain')); $this->db->where('key', 'company_domain')->update('config', $data); 
@@ -102,10 +80,7 @@ class Settings extends MX_Controller {
 	private function _update_system_settings($setting){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('base_url', 'Base URL', 'required');
-		$this->form_validation->set_rules('default_currency', 'Default Currency', 'required');
-		$this->form_validation->set_rules('default_currency_symbol', 'Currency Symbol', 'required');
 		$this->form_validation->set_rules('default_language', 'Default Language', 'required');
-		$this->form_validation->set_rules('paypal_email', 'Paypal Email', 'required');
 		$this->form_validation->set_rules('file_max_size', 'File Max Size', 'required');		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -114,14 +89,11 @@ class Settings extends MX_Controller {
 			redirect('settings/update/'.$setting);
 		}else{
 		$data = array('value' => $this->input->post('base_url')); $this->db->where('key', 'base_url')->update('config', $data); 
-		$data = array('value' => $this->input->post('default_tax')); $this->db->where('key', 'default_tax')->update('config', $data); 
-		$data = array('value' => $this->input->post('default_currency')); $this->db->where('key', 'default_currency')->update('config', $data); 
-		$data = array('value' => $this->input->post('default_currency_symbol')); $this->db->where('key', 'default_currency_symbol')->update('config', $data); 
+		
 		$data = array('value' => $this->input->post('default_language')); $this->db->where('key', 'default_language')->update('config', $data); 
-		$data = array('value' => $this->input->post('paypal_email')); $this->db->where('key', 'paypal_email')->update('config', $data); 
+		
 		$data = array('value' => $this->input->post('file_max_size')); $this->db->where('key', 'file_max_size')->update('config', $data); 
-		$data = array('value' => $this->input->post('allowed_files')); $this->db->where('key', 'allowed_files')->update('config', $data); 
-		$data = array('value' => $this->input->post('paypal_live')); $this->db->where('key', 'paypal_live')->update('config', $data); 
+		$data = array('value' => $this->input->post('allowed_files')); $this->db->where('key', 'allowed_files')->update('config', $data); 		
 		$data = array('value' => $this->input->post('demo_mode')); $this->db->where('key', 'demo_mode')->update('config', $data); 
 		$data = array('value' => $this->input->post('default_terms')); $this->db->where('key', 'default_terms')->update('config', $data); 
 
@@ -156,6 +128,88 @@ class Settings extends MX_Controller {
 			redirect('settings/update/'.$setting);
 		}
 		
+	}
+	function update_payment_settings(){
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('default_currency', 'Default Currency', 'required');
+		$this->form_validation->set_rules('default_currency_symbol', 'Default Currency Symbol', 'required');	
+		$this->form_validation->set_rules('paypal_email', 'Paypal Email', 'required');		
+		$this->form_validation->set_rules('paypal_cancel_url', 'Paypal Cancel', 'required');	
+		$this->form_validation->set_rules('paypal_ipn_url', 'Paypal IPN', 'required');	
+		$this->form_validation->set_rules('paypal_success_url', 'Paypal Success', 'required');	
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('settings_update_failed'));
+			redirect('settings/update/general');
+		}else{
+	$data = array('value' => $this->input->post('default_tax')); $this->db->where('key', 'default_tax')->update('config', $data); 
+	$data = array('value' => $this->input->post('default_currency')); $this->db->where('key', 'default_currency')->update('config', $data); 
+	$data = array('value' => $this->input->post('default_currency_symbol')); $this->db->where('key', 'default_currency_symbol')->update('config', $data); 
+	$data = array('value' => $this->input->post('paypal_email')); $this->db->where('key', 'paypal_email')->update('config', $data);
+	$data = array('value' => $this->input->post('paypal_live')); $this->db->where('key', 'paypal_live')->update('config', $data);
+	$data = array('value' => $this->input->post('paypal_cancel_url')); $this->db->where('key', 'paypal_cancel_url')->update('config', $data);
+	$data = array('value' => $this->input->post('paypal_ipn_url')); $this->db->where('key', 'paypal_ipn_url')->update('config', $data);
+	$data = array('value' => $this->input->post('paypal_success_url')); $this->db->where('key', 'paypal_success_url')->update('config', $data); 
+
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('settings_updated_successfully'));
+			redirect('settings/update/general');
+		}
+	}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('settings_update_failed'));
+			redirect('settings/update/general');
+	}
+		
+	}
+	function upload_logo(){
+		if ($_FILES['userfile'] != "") {
+				$config['upload_path']   = './resource/logo/';
+            			$config['allowed_types'] = 'jpg|jpeg|png';
+            			$config['max_width']  = '200';
+            			$config['max_height']  = '200';
+            			$config['remove_spaces'] = TRUE;
+            			$config['file_name']  = 'logo';
+            			$config['overwrite']  = TRUE;
+            			$config['max_size']      = $this->config->item('file_max_size');
+            			$this->load->library('upload', $config);
+						if ($this->upload->do_upload())
+						{
+							$data = $this->upload->data();
+							$file_name = $data['file_name'];
+							$data = array(
+								'value' => $file_name); $this->db->where('key', 'company_logo')->update('config', $data); 
+						}else{
+							$this->session->set_flashdata('response_status', 'error');
+							$this->session->set_flashdata('message', lang('file_upload_failed'));
+							redirect('settings/update/'.$setting);
+						}
+			}
+	}
+	function database()
+	{
+		if ($this->config->item('demo_mode') == 'FALSE') { 
+		$this->load->dbutil();
+		$prefs = array(
+                'format'      => 'txt',             // gzip, zip, txt
+                'filename'    => 'latest-freelancerbackup.sql',    // File name - NEEDED ONLY WITH ZIP FILES
+                'add_drop'    => TRUE,              // Whether to add DROP TABLE statements to backup file
+                'add_insert'  => TRUE,              // Whether to add INSERT data to backup file
+                'newline'     => "\n"               // Newline character used in backup file
+              );
+			$backup =& $this->dbutil->backup($prefs);
+			$this->load->helper('file');
+			write_file('resource/database.backup/latest-freelancerbackup.sql', $backup); 
+			$this->load->helper('download');
+			force_download('latest-freelancerbackup.sql', $backup);
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message',lang('backup_failed'));
+			redirect('settings/update/general');
+		}
 	}
 }
 
