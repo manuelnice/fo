@@ -47,7 +47,7 @@ $captcha = array(
 		echo form_open($this->uri->uri_string(),$attributes); ?>
 			<?php if ($use_username) { ?>
 			<div class="form-group">
-				<label class="control-label">Username / Reg No</label>
+				<label class="control-label">Username</label>
 				<?php echo form_input($username); ?>
 				<span style="color: red;"><?php echo form_error($username['name']); ?><?php echo isset($errors[$username['name']])?$errors[$username['name']]:''; ?></span>
 			</div>

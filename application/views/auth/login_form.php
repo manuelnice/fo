@@ -45,7 +45,7 @@ $captcha = array(
 		$attributes = array('class' => 'panel-body wrapper-lg');
 		echo form_open($this->uri->uri_string(),$attributes); ?>
 			<div class="form-group">
-				<label class="control-label">Email or Username/Reg No</label>
+				<label class="control-label">Email or Username</label>
 				<?php echo form_input($login); ?>
 				<span style="color: red;">
 				<?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?></span>

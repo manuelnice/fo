@@ -654,10 +654,19 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 		));
 
 		// Save captcha params in session
-		$this->session->set_flashdata(array(
+		$data = array(
+    				'captcha_time' => $cap['time'],
+    				'ip_address' => $this->input->ip_address(),
+    				'word' => $cap['word']
+    				);
+		$query = $this->db->insert_string('fx_captcha', $data);
+		$this->db->query($query);
+		/*
+		$this->session->set_userdata(array(
 				'captcha_word' => $cap['word'],
 				'captcha_time' => $cap['time'],
 		));
+		*/
 
 		return $cap['image'];
 	}
@@ -668,10 +677,28 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 	 * @param	string
 	 * @return	bool
 	 */
-	function _check_captcha($code)
+	function _check_captcha()
 	{
-		$time = $this->session->flashdata('captcha_time');
-		$word = $this->session->flashdata('captcha_word');
+				// First, delete old captchas
+				$expiration = time() - $this->config->item('captcha_expire', 'tank_auth'); // 3 Minutes limit
+				$this->db->query("DELETE FROM fx_captcha WHERE captcha_time < ".$expiration);
+
+				// Then see if a captcha exists:
+				$sql = "SELECT COUNT(*) AS count FROM fx_captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?";
+				$binds = array($_POST['captcha'], $this->input->ip_address(), $expiration);
+				$query = $this->db->query($sql, $binds);
+				$row = $query->row();
+
+				if ($row->count == 0)
+				{
+					$this->form_validation->set_message('_check_captcha', $this->lang->line('auth_incorrect_captcha'));
+				   return FALSE;
+				}else{
+					return TRUE;
+				}
+/*
+		$time = $this->session->userdata('captcha_time'); //$this->session->flashdata('captcha_time');
+		$word = $this->session->userdata('captcha_word'); //$this->session->flashdata('captcha_word');
 
 		list($usec, $sec) = explode(" ", microtime());
 		$now = ((float)$usec + (float)$sec);
@@ -686,7 +713,12 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 			$this->form_validation->set_message('_check_captcha', $this->lang->line('auth_incorrect_captcha'));
 			return FALSE;
 		}
+		$this->session->unset_userdata(array(
+				'captcha_word' => '',
+				'captcha_time' => '',
+		));
 		return TRUE;
+		*/
 	}
 
 	/**
