@@ -1,13 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Author Message
-|--------------------------------------------------------------------------
-|
-| System Developed with love by William Mandai
-| 
-*/
-
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 class Fomailer extends MX_Controller {
 
@@ -16,7 +12,8 @@ class Fomailer extends MX_Controller {
 		parent::__construct();
 		$this->load->library('tank_auth');
 		if (!$this->tank_auth->get_username()) {
-			$this->session->set_flashdata('message', 'Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance.');
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
 		$this->load->model('mailer_model','m_mdl');
@@ -27,9 +24,11 @@ class Fomailer extends MX_Controller {
 		$this->load->library('email');
 		$config['protocol'] = $this->config->item('protocol');
 		if ($this->config->item('protocol') == 'smtp') {
+			$this->load->library('encrypt');
+			$raw_smtp_pass =  $this->encrypt->decode($this->config->item('smtp_pass'));
 			$config['smtp_host'] = $this->config->item('smtp_host');
 			$config['smtp_user'] = $this->config->item('smtp_user');
-			$config['smtp_pass'] = $this->config->item('smtp_pass');
+			$config['smtp_pass'] = $raw_smtp_pass;
 			$config['smpt_port'] = $this->config->item('smtp_port');
 			$config['smtp_timeout'] = 5;
 		}		

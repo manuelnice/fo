@@ -1,4 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 class Sidebar extends MX_Controller {
 function __construct()

@@ -1,12 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Author Message
-|--------------------------------------------------------------------------
-|
-| System Developed with love by William M
-| 
-*/
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 
 class Settings extends MX_Controller {
@@ -248,20 +245,7 @@ class Settings extends MX_Controller {
 			redirect('settings/update/general');
 		}
 	}
-
-	function restoreTables($folder_name = null) {
-		$file_name = 'latest-freelancerbackup.sql';
-		$folder_name = 'database.backup';
-		$path = 'resource/'; // Codeigniter application /assets
-		$file_restore = $this->load->file($path . $folder_name . '/' . $file_name, true);
-		$file_array = explode(';', $file_restore);
-		foreach ($file_array as $query)
-		{
-		$this->db->query("SET FOREIGN_KEY_CHECKS = 0");
-		$this->db->query($query);
-		$this->db->query("SET FOREIGN_KEY_CHECKS = 1");
-		}
-	}
+	
 }
 
 /* End of file settings.php */

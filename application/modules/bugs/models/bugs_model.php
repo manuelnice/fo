@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  *
- * @package	Freelancer
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelancer Office
+ * 
  */
+
 class Bugs_model extends CI_Model
 {
 	

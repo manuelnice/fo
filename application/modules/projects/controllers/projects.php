@@ -1,12 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Author Message
-|--------------------------------------------------------------------------
-|
-| System Developed with love by William M
-| 
-*/
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 
 class Projects extends MX_Controller {
@@ -134,6 +131,7 @@ class Projects extends MX_Controller {
 	{
 		$action = ucfirst($this->uri->segment(3));
 		$project = $this->uri->segment(4);
+		$timer_msg = '';
 		if ($action == 'Off') {			
 			$project_start =  $this->project_model->get_project_start($project); //project start time
 			$project_logged_time =  $this->project_model->get_project_logged_time($project); 
@@ -144,14 +142,16 @@ class Projects extends MX_Controller {
 			$this->db->set('timer_start', '');
 			$this->db->where('project_id',$project)->update('projects');
 			$this->_log_timesheet($project,$project_start,time()); //log activity
+			$timer_msg = 'timer_stopped_success';
 
 		}else{
 			$this->db->set('timer', $action);
 			$this->db->set('timer_start', time());
 			$this->db->where('project_id',$project)->update('projects');
+			$timer_msg = 'timer_started_success';
 		}
 			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('operation_successful'));
+			$this->session->set_flashdata('message', lang($timer_msg));
 			redirect('projects/view/details/'.$project);
 	}
 	function delete()

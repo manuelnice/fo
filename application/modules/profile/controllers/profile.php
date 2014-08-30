@@ -1,11 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Author Message
-|--------------------------------------------------------------------------
-|
-| System Developed by William M
-*/
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 
 class Profile extends MX_Controller {

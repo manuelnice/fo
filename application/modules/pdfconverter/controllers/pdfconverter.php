@@ -1,11 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Developed by William M.
-|--------------------------------------------------------------------------
-|
-|
-*/
+/**
+ *
+ * @package	Freelancer Office
+ * 
+ */
 
 
 class PdfConverter extends MX_Controller {

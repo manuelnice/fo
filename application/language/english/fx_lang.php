@@ -1,7 +1,7 @@
 <?php
 
 $lang['account_details'] = 'Account Details';
-$lang['access_denied'] = 'Hey, you are not allowed to access this page. Please contact the system admin for assistance';
+$lang['access_denied'] = 'Operation rejected. Please contact system admin for assistance';
 $lang['activities'] = 'Activities';
 $lang['activity'] = 'Activity';
 $lang['activity_date'] = 'Activity Date';
@@ -463,6 +463,8 @@ $lang['tax'] = 'Tax';
 $lang['time_entry'] = 'Time Entry';
 $lang['timer_started'] = 'Timer Started';
 $lang['timer_off'] = 'Timer Off';
+$lang['timer_started_success'] = 'Timer Started Successfully';
+$lang['timer_stopped_success'] = 'Timer Stopped Successfully';
 $lang['time_status'] = 'Time Status';
 $lang['timeline'] = 'Timeline';
 $lang['timesheets'] = 'Timesheets';

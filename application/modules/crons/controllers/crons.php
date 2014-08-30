@@ -17,9 +17,9 @@ class Crons extends MX_Controller {
         //if (!$this->input->is_cli_request()) show_error('Direct access is not allowed');
     }
 
-    function clean_demo_db($key = $this->uri->segment(3)){
+    function clean_demo_db(){
         if($this->config->item('demo_mode') == 'TRUE'){
-            if ($this->config->item('reset_key') == $key) {
+            if ($this->config->item('reset_key') == $this->uri->segment(3)) {
                 $this->db->truncate('fx_activities');
                 $this->db->truncate('fx_bugs'); 
                 $this->db->truncate('fx_bug_comments'); 
@@ -38,6 +38,8 @@ class Crons extends MX_Controller {
                 $this->db->truncate('fx_project_timer'); 
                 $this->db->truncate('fx_tasks'); 
                 $this->db->truncate('fx_tasks_timer'); 
+                //$this->db->truncate('fx_un_sessions');
+                $this->_restoreTables();
             }else{
                 $this->session->set_flashdata('response_status', 'error');
                 $this->session->set_flashdata('message', lang('reset_key_error'));
@@ -53,6 +55,20 @@ class Crons extends MX_Controller {
             $this->session->set_flashdata('response_status', 'error');
             $this->session->set_flashdata('message', lang('clean_demo_db_error'));
             redirect('settings/update/general');
+        }
+    }
+
+    function _restoreTables($folder_name = null) {
+        $file_name = 'InitialDB.sql';
+        $folder_name = 'database.backup';
+        $path = 'resource/'; 
+        $file_restore = $this->load->file($path . $folder_name . '/' . $file_name, true);
+        $file_array = explode(';', $file_restore);
+        foreach ($file_array as $query)
+        {
+        $this->db->query("SET FOREIGN_KEY_CHECKS = 0");
+        $this->db->query($query);
+        $this->db->query("SET FOREIGN_KEY_CHECKS = 1");
         }
     }
  

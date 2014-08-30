@@ -27,7 +27,7 @@
 								<a href="#subNav" data-toggle="class:hide" class="btn btn-sm btn-default active">
 								<i class="fa fa-caret-right text fa-lg"></i><i class="fa fa-caret-left text-active fa-lg"></i></a>
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="<?=base_url()?>collaborator/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
+									<a class="btn btn-sm btn-dark" href="<?=base_url()?>collaborator/conversation/send" title="<?=lang('send_message')?>" data-placement="right">
 									<i class="fa fa-envelope"></i> <?=lang('send_message')?></a>
 								</div>
 							</div>
