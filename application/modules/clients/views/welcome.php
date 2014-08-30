@@ -4,6 +4,7 @@
 		<li class="active"><?=lang('dashboard')?></li>
 	</ul>
 	<?php  echo modules::run('sidebar/flash_msg');?>
+	
 	<div class="m-b-md"> <h3 class="m-b-none"><?=lang('dashboard')?></h3>
 		<small><?=lang('welcome_back')?> , <?php
 		echo $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') ? $this->user_profile->get_profile_details($this->tank_auth->get_user_id(),'fullname') : $this->tank_auth->get_username()?> </small>
@@ -107,17 +108,26 @@
 			<div class="col-lg-4"> <section class="panel panel-default">
 			<header class="panel-heading"><?=lang('average_payments')?> </header>
 			<div class="panel-body text-center"> <h4><small> <?=lang('paid_amount')?> : </small>
-				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong><?=$this->config->item('currency')?> </h4>
+				<?=$this->config->item('default_currency')?>
+				<?=number_format($this->user_profile->get_sum('payments','amount',array('paid_by'=>$this->tank_auth->get_user_id())),2)?> </strong> </h4>
 				<small class="text-muted block"><?=date('M')?> <?=date('Y')?></small>
 				<div class="inline">
-					<div class="easypiechart" data-percent="<?=$this->user_profile->average_monthly_paid(date('m'))?>" data-line-width="16" data-loop="false" data-size="188">
-						<span class="h2 step"><?=$this->user_profile->average_monthly_paid(date('m'))?></span>%
+				<?php
+					$client_payments = $this->user_profile->client_paid($this->tank_auth->get_user_id());
+					$client_payable = $this->user_profile->client_payable($this->tank_auth->get_user_id());
+					if ($client_payable > 0 AND $client_payments > 0) {
+						$perc_paid = round(($client_payments/$client_payable) *100);
+					}else{ $perc_paid = 0; }					
+					?>
+					<div class="easypiechart" data-percent="<?=$perc_paid?>" data-line-width="16" data-loop="false" data-size="188">
+					
+						<span class="h2 step"><?=$perc_paid?></span>%
 						<div class="easypie-text"><?=lang('paid')?>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel-footer">Your <small>% invoice payments this month</small>
+			<div class="panel-footer">Your total <small>% invoice payments</small>
 			</div> </section>
 		</div>
 	</div>

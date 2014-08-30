@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -16,6 +16,7 @@ class Settings extends MX_Controller {
 		parent::__construct();
 		$this->load->library('tank_auth');
 		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'admin') {
+			$this->session->set_flashdata('response_status', 'error');
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
@@ -90,7 +91,7 @@ class Settings extends MX_Controller {
 		}else{
 		$data = array('value' => $this->input->post('base_url')); $this->db->where('key', 'base_url')->update('config', $data); 
 		
-		$data = array('value' => $this->input->post('default_language')); $this->db->where('key', 'default_language')->update('config', $data); 
+		$data = array('value' => $this->input->post('default_language')); $this->db->where('key', 'language')->update('config', $data); 
 		
 		$data = array('value' => $this->input->post('file_max_size')); $this->db->where('key', 'file_max_size')->update('config', $data); 
 		$data = array('value' => $this->input->post('allowed_files')); $this->db->where('key', 'allowed_files')->update('config', $data); 		
@@ -165,28 +166,64 @@ class Settings extends MX_Controller {
 	}
 		
 	}
+
+	function update_email_teplates(){
+		if ($this->input->post()) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email_estimate_message', 'Estimate Message', 'required');
+		$this->form_validation->set_rules('email_invoice_message', 'Invoice Message', 'required');	
+		$this->form_validation->set_rules('reminder_message', 'Reminder Message', 'required');	
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('settings_update_failed'));
+			redirect('settings/update/general');
+		}else{
+	$data = array('value' => $this->input->post('email_estimate_message')); $this->db->where('key', 'email_estimate_message')->update('config', $data); 
+	$data = array('value' => $this->input->post('email_invoice_message')); $this->db->where('key', 'email_invoice_message')->update('config', $data); 
+	$data = array('value' => $this->input->post('reminder_message')); $this->db->where('key', 'reminder_message')->update('config', $data); 
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('settings_updated_successfully'));
+			redirect('settings/update/email');
+		}
+	}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('settings_update_failed'));
+			redirect('settings/update/email');
+	}
+		
+	}
 	function upload_logo(){
 		if ($_FILES['userfile'] != "") {
-				$config['upload_path']   = './resource/logo/';
+				$config['upload_path']   = './resource/images/';
             			$config['allowed_types'] = 'jpg|jpeg|png';
-            			$config['max_width']  = '200';
-            			$config['max_height']  = '200';
+            			$config['max_width']  = '300';
+            			$config['max_height']  = '300';
             			$config['remove_spaces'] = TRUE;
             			$config['file_name']  = 'logo';
             			$config['overwrite']  = TRUE;
-            			$config['max_size']      = $this->config->item('file_max_size');
+            			$config['max_size']      = '300';
             			$this->load->library('upload', $config);
 						if ($this->upload->do_upload())
 						{
 							$data = $this->upload->data();
 							$file_name = $data['file_name'];
 							$data = array(
-								'value' => $file_name); $this->db->where('key', 'company_logo')->update('config', $data); 
+								'value' => $file_name);
+							$this->db->where('key', 'company_logo')->update('config', $data); 
+							$this->session->set_flashdata('response_status', 'success');
+							$this->session->set_flashdata('message', lang('logo_changed'));
+							redirect('settings/update/general');
 						}else{
 							$this->session->set_flashdata('response_status', 'error');
-							$this->session->set_flashdata('message', lang('file_upload_failed'));
-							redirect('settings/update/'.$setting);
+							$this->session->set_flashdata('message', lang('logo_upload_error'));
+							redirect('settings/update/general');
 						}
+			}else{
+							$this->session->set_flashdata('response_status', 'error');
+							$this->session->set_flashdata('message', lang('file_upload_failed'));
+							redirect('settings/update/general');
 			}
 	}
 	function database()

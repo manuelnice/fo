@@ -146,6 +146,33 @@ class Tasks extends MX_Controller {
 		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
 		$this->load->view('tabs/tasks',isset($data) ? $data : NULL);
 	}
+	function delete()
+	{
+		if ($this->input->post()) {
+			$project = $this->input->post('project', TRUE);
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('task_id', 'Task ID', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('operation_failed'));
+				redirect('projects/view/details/'.$project);
+		}else{	
+		$task = $this->input->post('task_id');
+
+			$this->db->delete('tasks', array('t_id' => $task)); 
+			$this->db->delete('tasks_timer', array('task' => $task)); 
+
+			$this->session->set_flashdata('response_status', 'success');
+			$this->session->set_flashdata('message', lang('operation_successful'));
+			redirect('projects/view/details/'.$project);
+		}
+		}else{
+			$data['task_id'] = $this->uri->segment(4);
+			$data['project'] = $this->uri->segment(5);
+			$this->load->view('modal/delete_task',$data);
+		}
+	}
 	function pilot(){
 		if ($this->uri->segment(4) == 'on') {
 			$status = 'TRUE';

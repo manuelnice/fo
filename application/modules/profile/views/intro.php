@@ -29,7 +29,7 @@ echo $changelog;
 <div class="list-group list-group-alt no-radius no-borders"> 
 
 	<a class="list-group-item" href=""> <i class="fa fa-circle text-success text-xs"></i>
-	<span>William M.</span> </a>
+	<span>William M - English</span> </a>
 
 </div> </section>
 

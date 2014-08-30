@@ -21,19 +21,7 @@ class View extends MX_Controller {
 		}
 		$this->load->model('user_model','user');
 	}
-	function details()
-	{		
-		$this->load->module('layouts');
-		$this->load->library('template');
-		$this->template->title(lang('users').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
-		$data['page'] = lang('clients');
-		$data['user_details'] = $this->user->user_details($this->uri->segment(4));
-		$data['user_invoices'] = $this->user->user_invoices($this->uri->segment(4));
-		$data['user_projects'] = $this->user->user_projects($this->uri->segment(4));
-		$this->template
-		->set_layout('users')
-		->build('user_details',isset($data) ? $data : NULL);
-	}
+	
 	function update()
 	{
 		if ($this->input->post()) {
@@ -45,7 +33,7 @@ class View extends MX_Controller {
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('operation_failed'));
-				redirect('users/registered/all');
+				redirect('users/account');
 		}else{	
 		$user_id =  $this->input->post('user_id');
 			$profile_data = array(
@@ -58,14 +46,15 @@ class View extends MX_Controller {
 			$user_data = array(
 			                'email' => $this->input->post('email'),
 			                'role_id' => $this->input->post('role_id'),
-			                 'modified' => date("Y-m-d H:i:s")
+			                'modified' => date("Y-m-d H:i:s")
 			                );
 			$this->db->where('id',$user_id)->update('users', $user_data); 
 			$activity = 'Edited a user information';
-			$this->_log_user_activity($activity); //log activity
+			$this->_log_user_activity($activity,$icon = 'fa-user'); //log activity
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('user_edited_successfully'));
-			redirect('users/registered/all');
+			redirect('users/account');
 		}
 		}else{
 		$data['user_details'] = $this->user->user_details($this->uri->segment(4));
@@ -73,9 +62,13 @@ class View extends MX_Controller {
 		$this->load->view('modal/edit_user',$data);
 		}
 	}
-	function _log_user_activity($activity){
+
+	function _log_user_activity($activity,$icon){
+			$this->db->set('module', 'users');
+			$this->db->set('module_field_id', $this->tank_auth->get_user_id());
 			$this->db->set('user', $this->tank_auth->get_user_id());
 			$this->db->set('activity', $activity);
+			$this->db->set('icon', $icon);
 			$this->db->insert('activities'); 
 	}
 }

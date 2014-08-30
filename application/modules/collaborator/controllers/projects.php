@@ -52,6 +52,7 @@ class Projects extends MX_Controller {
 		->set_layout('users')
 		->build('projects/project_details',isset($data) ? $data : NULL);
 		}else{
+			$this->session->set_flashdata('response_status', 'error');
 			$this->session->set_flashdata('message', lang('project_access_denied'));
 			redirect('collaborator/projects');
 		}

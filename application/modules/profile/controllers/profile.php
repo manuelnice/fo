@@ -132,7 +132,6 @@ class Profile extends MX_Controller {
 	$this->load->library('template');
 	$this->template->title(lang('profile').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 	$data['page'] = lang('home');
-	$data['faqs'] = $this->profile_model->get_faqs($visible = 'yes');
 	$this->template
 	->set_layout('users')
 	->build('intro',isset($data) ? $data : NULL);

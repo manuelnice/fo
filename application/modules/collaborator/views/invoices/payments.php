@@ -111,7 +111,7 @@
                 <div style="width:75%;border-bottom:1px solid #eee;float:right"><strong>
                 
                 <?php
-                $query = $this->db->get('payments');
+                $query = $this->db->where('paid_by',$this->tank_auth->get_user_id())->get('payments');
                 if ($query->num_rows() > 0){
                   $row = $query->last_row('array'); ?>
                   <a href="<?=base_url()?>collaborator/inv_manage/details/<?=$row['invoice']?>">

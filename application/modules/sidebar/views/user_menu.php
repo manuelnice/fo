@@ -1,11 +1,11 @@
 <!-- .aside -->
 <aside class="bg-black lter b-r aside-md hidden-print" id="nav">
   <section class="vbox">
-    <header class="header bg-success lter text-center clearfix">
+    <header class="header bg-dark lter text-center clearfix">
       <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-dark btn-icon" title="Links"><i class="fa fa-link"></i></button>
+        <button type="button" class="btn btn-sm btn-light btn-icon" title="Links"><i class="fa fa-link"></i></button>
         <div class="btn-group hidden-nav-xs">
-          <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"> <?=lang('quick_links')?>
+          <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown"> <?=lang('quick_links')?>
           <span class="caret">
           </span> </button>
           <ul class="dropdown-menu text-left">
@@ -65,26 +65,30 @@
             </div>
           </section>
           <footer class="footer lt hidden-xs b-t b-black">
-            <div id="chat" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
-            <header class="panel-heading b-b b-light">Active chats</header>
+              <div id="msg" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
+              <header class="panel-heading b-b b-light">Message Shortcut</header>
+              <div class="panel-body animated fadeInRight">
+                <p class="text-sm"><?=lang('get_started')?></p>
+                <p><a href="<?=base_url()?>clients/conversation/send" class="btn btn-sm btn-primary"><?=lang('send_message')?></a></p>
+              </div> </section> </section>
+            </div>
+            <div id="bug" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
+            <header class="panel-heading b-b b-light"> Bug Shortcut</header>
             <div class="panel-body animated fadeInRight">
-              <p class="text-sm">No active chats.</p>
-              <p><a href="#" class="btn btn-sm btn-default">Start a chat</a></p>
-            </div> </section> </section>
-          </div>
-          <div id="invite" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
-          <header class="panel-heading b-b b-light"> John <i class="fa fa-circle text-success"></i> </header>
-          <div class="panel-body animated fadeInRight">
-            <p class="text-sm">No contacts in your lists.</p>
-            <p><a href="#" class="btn btn-sm btn-facebook"><i class="fa fa-fw fa-facebook"></i> Invite from Facebook</a></p>
-          </div>
+              <p class="text-sm"><?=lang('get_started')?></p>
+              <p>
+              <a href="<?=base_url()?>clients/bug_view/add" data-toggle="ajaxModal" class="btn btn-sm btn-primary">
+              <?=lang('new_bug')?></a>
+              </p>
+            </div>
+          </section>
         </section>
-      </section>
-    </div>
-    <a href="#nav" data-toggle="class:nav-xs" class="pull-right btn btn-sm btn-info btn-icon"> <i class="fa fa-angle-left text"></i> <i class="fa fa-angle-right text-active"></i> </a>
-    <div class="btn-group hidden-nav-xs"> <button type="button" title="Chats" class="btn btn-icon btn-sm btn-black " data-toggle="dropdown" data-target="#chat"><i class="fa fa-comment-o"></i></button> <button type="button" title="Contacts" class="btn btn-icon btn-sm btn-black" data-toggle="dropdown" data-target="#invite"><i class="fa fa-facebook"></i></button>
-    </div>
-  </footer>
+      </div>
+      <div class="btn-group hidden-nav-xs">
+      <button type="button" title="Message" class="btn btn-icon btn-sm btn-black " data-toggle="dropdown" data-target="#msg"><i class="fa fa-envelope"></i></button>
+       <button type="button" title="Bugs" class="btn btn-icon btn-sm btn-black" data-toggle="dropdown" data-target="#bug"><i class="fa fa-bug"></i></button>
+      </div>
+    </footer>
 
   
 </section>

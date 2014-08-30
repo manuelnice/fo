@@ -19,7 +19,7 @@
 			<?php
 			if (!empty($invoices)) {
 			foreach ($invoices as $key => $invoice) { ?>
-				<li class="b-b b-light">
+				<li class="b-b b-light <?php if($invoice->inv_id == $this->uri->segment(4)){ echo "bg-light dker"; } ?>">
 				<a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>
 				<div class="pull-right">

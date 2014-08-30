@@ -164,16 +164,23 @@ class Projects extends MX_Controller {
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('delete_failed'));
 				redirect('projects/view_projects/all');
-		}else{			
+		}else{	
+		$project_id = $this->input->post('project_id');
+
 			$this->db->delete('projects', array('project_id' => $this->input->post('project_id'))); 
 			$this->db->delete('comments', array('project' => $this->input->post('project_id'))); 
 			$this->db->delete('activities', array('module' => 'projects','module_field_id' => $this->input->post('project_id'))); 
 			$this->db->delete('project_timer', array('project' => $this->input->post('project_id'))); 
 			$this->db->delete('tasks', array('project' => $this->input->post('project_id'))); 
+			$this->db->delete('tasks_timer', array('pro_id' => $this->input->post('project_id'))); 
 			$this->db->delete('bugs', array('project' => $this->input->post('project_id'))); 
 			// Delete project files
+			$files = $this->project_model->project_files($this->input->post('project_id'));
+			foreach ($files as $key => $f) {
+				unlink('./resource/project-files/'.$f->file_name);
+			}
 
-			$this->db->delete('files', array('project' => $this->input->post('project_id'))); 
+			$this->db->delete('files', array('project' => $project_id)); 
 			// Log Activity
 			$activity = 'Deleted Project #'.$this->input->post('project_id').' from the system';
 			$this->_log_activity($project_id,$activity,$icon = 'fa-times'); //log activity

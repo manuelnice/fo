@@ -6,7 +6,7 @@
           echo form_open(base_url().'auth/register_user',$attributes); ?>
 		<div class="modal-body">
 			<p><?=lang('new_client_notice')?></p>
-			 <input type="hidden" name="r_url" value="<?=base_url()?>clients">
+			 <input type="hidden" name="r_url" value="<?=base_url()?>contacts">
           				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('username')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">

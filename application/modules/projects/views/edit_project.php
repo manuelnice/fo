@@ -1,19 +1,74 @@
-<section id="content"> <section class="vbox"> <section class="scrollable padder">
-	<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-		<li><a href="<?=base_url()?>"><i class="fa fa-home"></i> <?=lang('home')?></a></li>
-		<li><a href="<?=base_url()?>projects/view_projects/all"><?=lang('projects')?></a></li>
-		<li class="active"><?=lang('edit_project')?></li>
-	</ul>
-	<?php  echo modules::run('sidebar/flash_msg');?>
+<!-- Start -->
 
-<!-- Start create project -->
+
+<section id="content">
+	<section class="hbox stretch">
+	
+		<aside class="aside-md bg-white b-r" id="subNav">
+
+			<div class="wrapper b-b header"><?=lang('all_projects')?>
+			</div>
+			<section class="vbox">
+			 <section class="scrollable w-f">
+			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+			<ul class="nav">
+			<?php
+				if (!empty($projects)) {
+			foreach ($projects as $key => $p) { ?>
+				<li class="b-b b-light <?php if($p->project_id == $this->uri->segment(4)){ echo "bg-light dker"; } ?>">
+				<a href="<?=base_url()?>projects/view/details/<?=$p->project_id?>" data-toggle="tooltip" data-original-title="<?=$p->project_title?>">
+				<?=ucfirst($this->user_profile->get_profile_details($p->client,'fullname')? $this->user_profile->get_profile_details($p->client,'fullname'):$this->user_profile->get_user_details($p->client,'username'))?>
+				<div class="pull-right">
+				<?php
+						$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$p->project_id));
+						$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$p->project_id));
+						$logged_time = ($task_time + $project_time)/3600;
+						echo round($logged_time, 1);
+									?> <?=lang('hours')?>
+				</div> <br>
+				<small class="block text-muted">PRO #<?=$p->project_code?> | <?=strftime("%B %d, %Y", strtotime($p->date_created));?> </small>
+
+				</a> </li>
+				<?php } }?>
+			</ul> 
+			</div></section>
+			</section>
+			</aside> 
+			
+			<aside>
+			<section class="vbox">
+			<?php
+								if (!empty($project_details)) {
+				foreach ($project_details as $key => $project) { ?>
+				<header class="header bg-white b-b clearfix">
+					<div class="row m-t-sm">
+						<div class="col-sm-8 m-b-xs">
+							
+						<div class="btn-group">
+						
+						</div>
+						<a class="btn btn-sm btn-dark" href="<?=base_url()?>projects/view/add" title="<?=lang('new_project')?>" data-original-title="<?=lang('new_project')?>" data-toggle="tooltip" data-placement="bottom">
+						<i class="fa fa-plus"></i> <?=lang('new_project')?></a>
+						<a class="btn btn-sm btn-danger" href="<?=base_url()?>projects/delete/<?=$project->project_id?>" title="<?=lang('delete_project')?>" data-toggle="ajaxModal" data-placement="bottom">
+						<i class="fa fa-trash-o"></i> <?=lang('delete_project')?></a>
+						</div>
+						<div class="col-sm-4 m-b-xs">
+						<?php  echo form_open(base_url().'projects/search'); ?>
+							<div class="input-group">
+								<input type="text" class="input-sm form-control" name="keyword" placeholder="<?=lang('search')?> <?=lang('project')?>">
+								<span class="input-group-btn"> <button class="btn btn-sm btn-default" type="submit">Go!</button>
+								</span>
+							</div>
+							</form>
+						</div>
+					</div> </header>
+					<section class="scrollable wrapper w-f">
+					<!-- Start create project -->
 <div class="col-sm-12">
 	<section class="panel panel-default">
 	<header class="panel-heading font-bold"><i class="fa fa-info-circle"></i> <?=lang('project_details')?></header>
 	<div class="panel-body">
-<?php
-								if (!empty($project_details)) {
-				foreach ($project_details as $key => $project) { ?>
+
 <?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
           echo form_open(base_url().'projects/view/edit',$attributes); ?>
@@ -107,6 +162,19 @@
 
 
 <!-- End create project -->
-</section>
-</section>
-<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
+
+
+
+
+
+
+					</section>  
+
+
+
+
+		</section> </aside> </section> <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
+
+
+
+<!-- end -->

@@ -114,7 +114,9 @@
 				<?php
 					$client_payments = $this->user_profile->client_paid($this->tank_auth->get_user_id());
 					$client_payable = $this->user_profile->client_payable($this->tank_auth->get_user_id());
-					$perc_paid = round(($client_payments/$client_payable) *100);
+					if ($client_payable > 0 AND $client_payments > 0) {
+						$perc_paid = round(($client_payments/$client_payable) *100);
+					}else{ $perc_paid = 0; }					
 					?>
 					<div class="easypiechart" data-percent="<?=$perc_paid?>" data-line-width="16" data-loop="false" data-size="188">
 					

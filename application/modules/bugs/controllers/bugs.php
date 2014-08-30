@@ -178,7 +178,15 @@ class Bugs extends MX_Controller {
 				redirect('bugs');
 		}else{			
 			$this->db->delete('bugs', array('bug_id' => $this->input->post('bug_id'))); 
+			$this->db->delete('bug_comments', array('bug_id' => $this->input->post('bug_id')));
+			$this->db->delete('activities', array('module' => 'bugs','module_field_id' => $this->input->post('bug_id')));
 			//delete the files here
+			$files = $this->bugs_model->bug_files($this->input->post('bug_id'));
+			foreach ($files as $key => $f) {
+				unlink('./resource/bug-files/'.$f->file_name);
+			}
+			$this->db->delete('bug_files', array('bug' => $this->input->post('bug_id'))); 
+
 			$activity = $this->tank_auth->get_username()." deleted a bug";
 			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-times'); //log activity
 			

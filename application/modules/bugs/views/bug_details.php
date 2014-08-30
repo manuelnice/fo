@@ -74,6 +74,8 @@
 
 						<a href="<?=base_url()?>bugs/view/edit/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('edit_bug')?>" class="btn btn-sm btn-dark"><i class="fa fa-pencil"></i></a>
 
+						<a href="<?=base_url()?>bugs/delete/<?=$bug->bug_id?>" data-toggle="ajaxModal" title="<?=lang('delete_bug')?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+
 						<div class="btn-group">
 						<button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><?=lang('set_status')?>
 						<span class="caret"></span>

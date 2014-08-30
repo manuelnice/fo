@@ -83,6 +83,8 @@ class User_profile {
 			{
   		 $row = $query->row();
   		 return $row->total_cost;
+  		}else{
+  			return 0;
   		}
 		}
 	}
@@ -178,6 +180,27 @@ class User_profile {
 	$this->ci->db->where('project_id',$project);
 	$this->ci->db->select($field);
 	$query = $this->ci->db->get('projects');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->$field;
+  		}
+	}
+
+	function estimate_details($estimate,$field) {
+	$this->ci->db->where('est_id',$estimate);
+	$this->ci->db->select($field);
+	$query = $this->ci->db->get('estimates');
+		if ($query->num_rows() > 0)
+			{
+  		 $row = $query->row();
+  		 return $row->$field;
+  		}
+	}
+	function payment_details($pid,$field) {
+	$this->ci->db->where('p_id',$pid);
+	$this->ci->db->select($field);
+	$query = $this->ci->db->get('payments');
 		if ($query->num_rows() > 0)
 			{
   		 $row = $query->row();

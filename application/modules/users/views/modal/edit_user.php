@@ -9,7 +9,6 @@
 								if (!empty($user_details)) {
 				foreach ($user_details as $key => $user) { ?>
 		<div class="modal-body">
-			<p><?=lang('report_bug_message')?></p>
 			 <input type="hidden" name="user_id" value="<?=$user->user_id?>">
           				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('email')?> <span class="text-danger">*</span></label>

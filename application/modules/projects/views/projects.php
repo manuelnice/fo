@@ -42,9 +42,9 @@
 						<div class="col-sm-8 m-b-xs">
 							
 						<div class="btn-group">
-						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
+						
 						</div>
-						<a class="btn btn-sm btn-danger" href="<?=base_url()?>projects/view/add" title="<?=lang('new_project')?>" data-original-title="<?=lang('new_project')?>" data-toggle="tooltip" data-placement="bottom">
+						<a class="btn btn-sm btn-dark" href="<?=base_url()?>projects/view/add" title="<?=lang('new_project')?>" data-original-title="<?=lang('new_project')?>" data-toggle="tooltip" data-placement="bottom">
 						<i class="fa fa-plus"></i> <?=lang('new_project')?></a>
 						</div>
 						<div class="col-sm-4 m-b-xs">
@@ -60,7 +60,7 @@
 					<section class="scrollable wrapper w-f">
 					<!-- Start Display chart -->
 					
-					 <?php  //echo modules::run('invoices/index'); ?>
+					 <?php  echo modules::run('sidebar/flash_msg');?>
 
 
 					 <!-- End display chart -->

@@ -81,8 +81,7 @@ echo form_open(uri_string(), $attributes); ?>
 
 		<h4 class="page-header"><?=lang('company_logo')?></h4>
         <?php
-        echo form_open(base_url().'auth/change_password'); ?>
-        <input type="hidden" name="r_url" value="<?=uri_string()?>">
+        echo form_open_multipart(base_url().'settings/upload_logo'); ?>
         
 			<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('company_logo')?></label>

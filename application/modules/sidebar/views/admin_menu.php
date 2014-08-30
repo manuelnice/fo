@@ -1,17 +1,18 @@
 <!-- .aside -->
-<aside class="bg-black lter b-r aside-md hidden-print" id="nav">
+<aside class="bg-black b-r aside-md hidden-print" id="nav">
   <section class="vbox">
     <header class="header bg-success lter text-center clearfix">
       <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-dark btn-icon" title="New project"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-sm btn-dark btn-icon" title="<?=lang('quick_links')?>"><i class="fa fa-link"></i></button>
         <div class="btn-group hidden-nav-xs">
-          <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"> Quick Links
+          <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown"> <?=lang('quick_links')?>
           <span class="caret">
           </span> </button>
           <ul class="dropdown-menu text-left">
-            <li><a href="">Settings</a></li>
-            <li><a href="">Add Student</a></li>
-            <li><a href="">Mailbox</a></li>
+            <li><a href="<?=base_url()?>messages/conversation/send"><?=lang('send_message')?></a></li>
+            <li><a href="<?=base_url()?>bugs/view/add" data-toggle="ajaxModal"><?=lang('new_bug')?></a></li>
+            <li><a href="<?=base_url()?>settings/update/general"><?=lang('settings')?></a></li>
+            
           </ul>
         </div>
       </div> </header>
@@ -21,18 +22,18 @@
           <nav class="nav-primary hidden-xs">
             <ul class="nav">
               <li class="<?php if($page == lang('home')){echo  "active"; }?>">
-                <a href="<?=base_url()?>"> <i class="fa fa-dashboard icon"> <b class="bg-info"></b> </i>
+                <a href="<?=base_url()?>"> <i class="fa fa-dashboard icon"> <b class="bg-dark"></b> </i>
               <span><?=lang('home')?></span> </a> </li>
 
-              <li class="<?php if($page == lang('clients')){echo  "active"; }?>"> <a href="<?=base_url()?>contacts" > <i class="fa fa-group icon"> <b class="bg-success"></b> </i>
+              <li class="<?php if($page == lang('clients')){echo  "active"; }?>"> <a href="<?=base_url()?>contacts" > <i class="fa fa-user icon"> <b class="bg-dark"></b> </i>
               <span><?=lang('contacts')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-info"></b> </i>
+              <li class="<?php if($page == lang('items')){echo  "active"; }?>"> <a href="<?=base_url()?>items" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('items_saved',array('deleted'=>'No'))?></b> <i class="fa fa-tasks icon"> <b class="bg-dark"></b> </i>
               <span><?=lang('items')?> </span> </a> </li>
 
                <li class="<?php if($page == lang('invoices') OR $page == lang('estimates') OR $page == lang('payments') OR $page == lang('chart') OR $page == lang('add_invoice')){echo  "active"; }?>">
                 <a href="#" >
-                <i class="fa fa-shopping-cart icon"> <b class="bg-danger"></b> </i>
+                <i class="fa fa-shopping-cart icon"> <b class="bg-dark"></b> </i>
                 <span class="pull-right"> <i class="fa fa-angle-down text"></i> <i class="fa fa-angle-up text-active"></i>
                 </span>
                 <span><?=lang('sales')?> </span> </a>
@@ -48,21 +49,21 @@
                 </ul> </li>
 
               
-              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>projects/view_projects/all" > <i class="fa fa-coffee icon"> <b class="bg-success"></b> </i>
+              <li class="<?php if($page == lang('projects')){echo  "active"; }?>"> <a href="<?=base_url()?>projects/view_projects/all" > <i class="fa fa-coffee icon"> <b class="bg-dark"></b> </i>
               <span><?=lang('projects')?> </span> </a> </li>
 
-              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-danger pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-info"></b> </i>
+              <li class="<?php if($page == lang('messages')){echo  "active"; }?>"> <a href="<?=base_url()?>messages" > <b class="badge bg-info pull-right"><?=$this->user_profile->count_rows('messages',array('user_to'=>$this->tank_auth->get_user_id(),'status' => 'Unread'))?></b> <i class="fa fa-envelope-o icon"> <b class="bg-dark"></b> </i>
               <span><?=lang('messages')?> </span> </a> </li> 
               
 
-              <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>bugs/view_by_status/all" > <i class="fa fa-bug icon"> <b class="bg-danger"></b> </i>
+              <li class="<?php if($page == lang('bug_tracking')){echo  "active"; }?>"> <a href="<?=base_url()?>bugs/view_by_status/all" > <i class="fa fa-bug icon"> <b class="bg-dark"></b> </i>
                 <span><?=lang('bug_tracking')?> </span> </a> </li>              
 
               
 
               <li class="<?php if($page == lang('general_settings') OR $page == lang('system_settings') OR $page == lang('email_settings')){echo  "active"; }?>">
                 <a href="#" >
-                <i class="fa fa-cogs icon"> <b class="bg-danger"></b> </i>
+                <i class="fa fa-cogs icon"> <b class="bg-dark"></b> </i>
                 <span class="pull-right"> <i class="fa fa-angle-down text"></i> <i class="fa fa-angle-up text-active"></i>
                 </span>
                 <span><?=lang('settings')?> </span> </a>
@@ -83,24 +84,25 @@
             </div>
           </section>
           <footer class="footer lt hidden-xs b-t b-black">
-            <div id="chat" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
-            <header class="panel-heading b-b b-light">Active chats</header>
+            <div id="inv" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
+            <header class="panel-heading b-b b-light">Invoice Shortcuts</header>
             <div class="panel-body animated fadeInRight">
-              <p class="text-sm">No active chats.</p>
-              <p><a href="#" class="btn btn-sm btn-default">Start a chat</a></p>
+              <p class="text-sm">Create Invoice</p>
+              <p><a href="<?=base_url()?>invoices/manage/add" class="btn btn-sm btn-primary"><?=lang('new_invoice')?></a></p>
             </div> </section> </section>
           </div>
-          <div id="invite" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
-          <header class="panel-heading b-b b-light"> John <i class="fa fa-circle text-success"></i> </header>
+          <div id="pro" class="dropup"> <section class="dropdown-menu on aside-md m-l-n"> <section class="panel bg-white">
+          <header class="panel-heading b-b b-light"> Project Shortcuts </header>
           <div class="panel-body animated fadeInRight">
-            <p class="text-sm">No contacts in your lists.</p>
-            <p><a href="#" class="btn btn-sm btn-facebook"><i class="fa fa-fw fa-facebook"></i> Invite from Facebook</a></p>
+            <p class="text-sm">Create Project</p>
+            <p><a href="<?=base_url()?>projects/view/add" class="btn btn-sm btn-primary"><?=lang('create_project')?></a></p>
           </div>
         </section>
       </section>
     </div>
-    <a href="#nav" data-toggle="class:nav-xs" class="pull-right btn btn-sm btn-info btn-icon"> <i class="fa fa-angle-left text"></i> <i class="fa fa-angle-right text-active"></i> </a>
-    <div class="btn-group hidden-nav-xs"> <button type="button" title="Chats" class="btn btn-icon btn-sm btn-black " data-toggle="dropdown" data-target="#chat"><i class="fa fa-comment-o"></i></button> <button type="button" title="Contacts" class="btn btn-icon btn-sm btn-black" data-toggle="dropdown" data-target="#invite"><i class="fa fa-facebook"></i></button>
+    
+    <div class="btn-group hidden-nav-xs"> <button type="button" title="Chats" class="btn btn-icon btn-sm btn-black " data-toggle="dropdown" data-target="#inv"><i class="fa fa-shopping-cart"></i></button>
+    <button type="button" title="Projects" class="btn btn-icon btn-sm btn-black" data-toggle="dropdown" data-target="#pro"><i class="fa fa-coffee"></i></button>
     </div>
   </footer>
 

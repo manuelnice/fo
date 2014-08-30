@@ -38,6 +38,9 @@
 
 
 <div class="comment-action m-t-sm">
+<a href="<?=base_url()?>projects/tasks/edit/<?=$task->t_id?>" data-toggle="ajaxModal" title="<?=lang('edit_task')?>" class="btn btn-xs btn-dark"><i class="fa fa-edit text-white"></i></a>
+
+
 <?php
 if ($task->auto_progress == 'FALSE') { ?>
 
@@ -52,9 +55,14 @@ if ($task->timer_status == 'On') { ?>
  <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
 
 <?php }else{ ?>
- <a href="<?=base_url()?>projects/tasks/tracking/on/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-success btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('start_timer')?> </a> <a href="#" class="btn btn-default btn-xs"> <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> </a> 
+ <a href="<?=base_url()?>projects/tasks/tracking/on/<?=$task->project?>/<?=$task->t_id?>" class="btn btn-success btn-xs active"> <i class="fa fa-clock-o text-muted text"></i> <i class="fa fa-clock-o text-white text-active"></i> <?=lang('start_timer')?> </a> 
+
+ <a href="<?=base_url()?>projects/tasks/delete/<?=$task->t_id?>/<?=$task->project?>" data-toggle="ajaxModal" title="<?=lang('delete_task')?>" class="btn btn-xs btn-danger"><i class="fa fa-trash-o text-white"></i></a>
+ <?=round($task->logged_time/3600,2)?> <?=lang('hours')?> 
 
 <?php } ?>
+
+
 </div>
 
 

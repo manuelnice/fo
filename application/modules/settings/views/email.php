@@ -26,7 +26,7 @@ echo form_open_multipart(uri_string(), $attributes); ?>
 				<label class="col-lg-4 control-label"><?=lang('email_protocol')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
 				<select name="protocol" class="form-control">
-				<option value="<?=$this->config->item('company_name')?>">Use Current</option>
+				<option value="<?=$this->config->item('protocol')?>">Use Current</option>
 				<option value="mail">MAIL</option>
 				<option value="smtp">SMTP</option>
 				</select>
@@ -98,9 +98,7 @@ echo form_open(base_url().'settings/update_email_teplates', $attributes); ?>
 				<div class="col-lg-8">
 					<textarea class="form-control" name="reminder_message" required><?=$this->config->item('reminder_message')?></textarea>
 				</div>
-			</div>
-
-        
+			</div>        
         
         <button type="submit" class="btn btn-sm btn-success pull-right"><?=lang('save_changes')?></button>
       </form>

@@ -2,32 +2,15 @@
 
 /**
  *
- * @package	Uniportal
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelancer Office
+ * @author	William M
  */
 class Profile_model extends CI_Model
 {
-	function get_contributors()
-	{
-		$this->db->join('users','users.id = contributors.contributor_id');
-		$this->db->join('account_details','account_details.user_id = contributors.contributor_id');
-		$query = $this->db->get('contributors');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
-	}
+	
 	function activities($user,$limit)
 	{
 		return $this->db->where('user',$user)->order_by('activity_date','DESC')->get('activities',$limit,$this->uri->segment(3))->result();
-	}
-	function get_faqs($status)
-	{
-		$this->db->where('visible',$status);
-		$this->db->join('users','users.id = faqs.author');
-		$query = $this->db->get('faqs');
-		if ($query->num_rows() > 0){
-			return $query->result();
-		} 
 	}
 	function get_all($table)
 	{

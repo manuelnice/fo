@@ -14,6 +14,7 @@ class Welcome extends MX_Controller {
 	function __construct()
 	{
 		parent::__construct();
+
 		if (!$this->tank_auth->is_logged_in()) {
 			$this->session->set_flashdata('message',lang('login_required'));
 			redirect('auth/login');
@@ -24,6 +25,7 @@ class Welcome extends MX_Controller {
 		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) == 'client') {
 			redirect('clients');
 		}
+
 	}
 
 	function index()

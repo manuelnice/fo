@@ -41,6 +41,7 @@ class Inv_manage extends MX_Controller {
 	
 	function details()
 	{		
+		if($this->_invoice_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -55,6 +56,11 @@ class Inv_manage extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('invoices/invoice_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('access_denied'));
+			redirect('collaborator/inv_manage');
+		}
 	}
 
 	function search()
@@ -77,6 +83,17 @@ class Inv_manage extends MX_Controller {
 		}
 	
 	}
+
+	function _invoice_access($invoice){
+		$client = $this->user_profile->get_invoice_details($invoice,'client');
+		$user = $this->tank_auth->get_user_id();
+		if ($client == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	function _log_activity($invoice_id,$activity,$icon){
 			$this->db->set('module', 'invoices');
 			$this->db->set('module_field_id', $invoice_id);

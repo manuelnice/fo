@@ -20,13 +20,22 @@
 				<span class="help-block m-b-none"><strong>Change this only if you know what you are doing</strong>.</span>
 			</div>
 		</div>		
-		
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?=lang('default_language')?> <span class="text-danger">*</span></label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" value="<?=$this->config->item('default_language')?>" name="default_language" data-required="true">
+			<div class="col-lg-4">
+				<select name="default_language" class="form-control" required>
+				<option value="<?=$this->config->item('language')?>">Use Current - <?=ucfirst($this->config->item('language'))?></option>
+				<option value="english">English</option>
+				<option value="spanish">Spanish</option>
+				<option value="french">French</option>
+				<option value="portuguese">Portuguese</option>
+				<option value="italian">Italian</option>
+				<option value="dutch">Dutch</option>
+				</select>
 			</div>
 		</div>
+		
 		
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?=lang('file_max_size')?> <span class="text-danger">*</span> </label>

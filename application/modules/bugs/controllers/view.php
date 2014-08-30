@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -63,7 +63,7 @@ class View extends MX_Controller {
 			$this->db->insert('bugs', $form_data); 
 			$bug_id = $this->db->insert_id();
 			$activity = 'Created an Issue #'.$this->input->post('issue_ref');
-			$this->_log_bug_activity($bug_id,$activity); //log activity
+			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-plus'); //log activity
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));

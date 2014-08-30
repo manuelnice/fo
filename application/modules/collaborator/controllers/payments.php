@@ -4,7 +4,7 @@
 | Author Message
 |--------------------------------------------------------------------------
 |
-| System Developed with love by William Mandai
+| System Developed with love by William M
 | 
 */
 
@@ -41,6 +41,7 @@ class Payments extends MX_Controller {
 
 	function details()
 	{		
+		if($this->_payment_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('payments').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -55,6 +56,11 @@ class Payments extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('invoices/payment_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('access_denied'));
+			redirect('collaborator/payments');
+		}
 	}
 
 	function search()
@@ -73,9 +79,19 @@ class Payments extends MX_Controller {
 		}else{
 			$this->session->set_flashdata('response_status', 'error');
 			$this->session->set_flashdata('message', lang('enter_search_keyword'));
-			redirect('clients/payments');
+			redirect('collaborator/payments');
 		}
 	
+	}
+
+	function _payment_access($payment){
+		$client = $this->user_profile->payment_details($payment,'paid_by');
+		$user = $this->tank_auth->get_user_id();
+		if ($client == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 	function _log_activity($invoice_id,$activity,$icon){

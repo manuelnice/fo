@@ -1,10 +1,14 @@
-	<?php
+<?php
 			$total_receipts = $this->user_profile->get_sum('payments','amount',$array = array('inv_deleted' => 'No'));
 			$total_sales = $this->user_profile->get_sum('items','total_cost',$array = array('total_cost >' => '0'));
 			$outstanding = $total_sales - $total_receipts;
-			?>
+			if ($total_sales > 0 AND $total_receipts > 0) {
+						$perc_paid = ($total_receipts/$total_sales)*100;
+					}else{ $perc_paid = 0; }					
+					?>
 <div class="progress progress-xs progress-striped active">
-			<div class="progress-bar progress-bar-info" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=lang('due_amount')?> <?=$this->config->item('default_currency')?> <?=number_format($outstanding,2)?> <?=number_format(($total_receipts/$total_sales)*100,2)?>%" style="width: <?=number_format(($total_receipts/$total_sales)*100)?>%">
+			<div class="progress-bar progress-bar-info" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=lang('due_amount')?> <?=$this->config->item('default_currency')?> <?=number_format($outstanding,2)?> 
+			<?=number_format($perc_paid,2)?>%" style="width: <?=number_format($perc_paid)?>%">
 			</div>
 			</div>
 

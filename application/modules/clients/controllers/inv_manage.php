@@ -61,6 +61,7 @@ class Inv_manage extends MX_Controller {
 	
 	function details()
 	{		
+		if($this->_invoice_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('invoices').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -75,6 +76,11 @@ class Inv_manage extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('invoices/invoice_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('access_denied'));
+			redirect('clients/inv_manage');
+		}
 	}
 
 	function _send_payment_email($invoice_id,$paid_amount){
@@ -92,31 +98,14 @@ class Inv_manage extends MX_Controller {
 
 			modules::run('fomailer/send_email',$params);
 	}
-	public function invoicepdf(){
-
-			$data['invoice_details'] = $this->invoice->invoice_details($this->uri->segment(4));
-			$data['payment_status'] = $this->invoice->payment_status($this->uri->segment(4));
-			$data['invoice_items'] = $this->invoice->invoice_items($this->uri->segment(4));
-			$data['page'] = lang('invoices');
-
-		$this->load->view('emails/invoice',$data);
-		// Get output html
-		$html = $this->output->get_output();
-		
-		// Load library
-		$this->load->library('dompdf_gen');
-		
-		// Convert to PDF
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("welcome.pdf");
-		/*
-
-			$this->load->helper (array('dompdf', 'file' ));
-		$html = $this->load->view('emails/invoice',$data,TRUE);
-		pdf_create( $html , 'Invoice # '.$this->uri->segment(4) );
-		*/
-				
+	function _invoice_access($invoice){
+		$client = $this->user_profile->get_invoice_details($invoice,'client');
+		$user = $this->tank_auth->get_user_id();
+		if ($client == $user) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 	function _log_activity($invoice_id,$activity,$icon){
 			$this->db->set('module', 'invoices');

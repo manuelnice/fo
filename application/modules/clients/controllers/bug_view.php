@@ -23,6 +23,7 @@ class Bug_view extends MX_Controller {
 	}
 	function details()
 	{		
+		if($this->_bug_access($this->uri->segment(4))){
 		$this->load->module('layouts');
 		$this->load->library('template');
 		$this->template->title(lang('bug_tracking').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
@@ -34,6 +35,11 @@ class Bug_view extends MX_Controller {
 		$this->template
 		->set_layout('users')
 		->build('bugs/bug_details',isset($data) ? $data : NULL);
+		}else{
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('access_denied'));
+			redirect('clients/bugs');
+		}
 	}
 	function add()
 	{

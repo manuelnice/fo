@@ -11,7 +11,7 @@
 */
 
 // Stores the requested URL, which will sometimes be different than previous url 
-/* $hook['pre_controller'][] = array(
+$hook['pre_controller'][] = array(
                                          'class'         => 'App_hooks',
                                          'function'      => 'save_requested',
                                          'filename'      => 'App_hooks.php',
@@ -27,11 +27,19 @@ $hook['post_controller'][] = array(
                                          'filepath'      => 'hooks',
                                          'params'        => ''
                                                         );
-                                                        */
+                                                        
+// Load Config from DB
 $hook['pre_controller'][] = array(
                                         'class'    => '',
                                         'function' => 'load_config',
-                                        'filename' => 'my_config.php',
+                                        'filename' => 'App_config.php',
+                                        'filepath' => 'hooks'
+                                                        );
+// Load the DB Language
+$hook['pre_controller'][] = array(
+                                        'class'    => '',
+                                        'function' => 'set_lang',
+                                        'filename' => 'App_lang.php',
                                         'filepath' => 'hooks'
                                                         );
 

@@ -1,43 +1,53 @@
 Read the <a href="http://fodocs.gitbench.com/" target="_blank">Documentation</a> and <a href="http://fodocs.gitbench.com/" target="_blank">User Guide</a> here
 <br>
+Freelance Office is a web based client portal application that you can use to manage your clients in one click.<br>
+
+### What is needed to Install? ### <br>
+<ul>
+<li> * Apache Server </li>
+<li> * MySQL 5 and above</li>
+<li> * Mod_Rewrite enabled</li>
+<li> * Cron Jobs</li>
+<li> * CURL PHP Library</li>
+<li> * PostMark Account (Optional)</li> 
+</ul>
+<br>
+### We need your contribution in translating the Language file to ###<br>
+<ul>
+<li>* French</li>
+<li>* Italian</li>
+<li>* Spanish</li>
+<li>* Portuguese</li>
+<li>* Dutch</li>
+</ul>
+<br>
+
+### If you need help ###<br>
+<ul>
+<li>* Open an Issue on Bitbucket (http://bitbucket.org/wmandai/freelancer-office)</li>
+<li>* Email via Envato Contact form http://codecanyon.net/user/gitbench</li>
+</ul>
+
+
 <code>
 ---- Changelog.txt ----<br>
 
 <ul>
 
-<li><strong>Version 1.1</strong> - 2014-04-15<br>
+<li><strong>Version 1.1</strong> - 01-09-2014<br>
 
-Fixed - Ticket notification email reply address empty<br>
+Added MySQL Database Backup<br>
 
-Fixed - Custom quotation delete bug<br>
+Fixed App_Lang hooks<br>
 
-Fixed - Quotation checkbox not in line with label
+Added PayPal URL to Database<br>
 
+Fixed - Bug Divison by Zero in Invoice Graphs
 </li>
 
 
 
-<li><strong>Version 2.1.6</strong> - 2014-03-18<br>
-
-Bug fix for adding items to invoices
-</li>
-
-
-
-<li><strong>Version 2.1.5</strong> - 2014-03-10<br>
-
-Custom Quotation Feature<br>
-
-Calculating issue with discounts on dashboard stats fixed<br>
-
-jQuery updated<br>
-
-Several bugs fixed
-</li>
-
-
-
-<li><strong>Version 2.0.0</strong> - 2013-03-07<br>
+<li><strong>Version 1.0</strong> - 31-08-2014<br>
  - First release</li>
  
 

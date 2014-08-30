@@ -96,7 +96,7 @@ $autoload['config'] = array();
 |
 */
 
-$autoload['language'] = array('fx');
+$autoload['language'] = array();
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array('fx');
 |
 */
 
-$autoload['model'] = array('siteconfig');
+$autoload['model'] = array('AppModel');
 
 
 /* End of file autoload.php */

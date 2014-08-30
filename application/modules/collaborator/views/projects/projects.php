@@ -13,6 +13,7 @@
 			   <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
 			<ul class="nav">
 			<?php
+			if (!empty($projects)) {
 			foreach ($projects as $key => $p) { ?>
 				<li class="b-b b-light <?php if($p->timer == 'On'){ echo "bg-danger lter"; } ?>">
 				<a href="<?=base_url()?>collaborator/projects/details/<?=$p->project_id?>" data-toggle="tooltip" data-original-title="<?=$p->project_title?>">
@@ -28,7 +29,7 @@
 				<small class="block text-muted">PRO #<?=$p->project_code?> | <?=strftime("%B %d, %Y", strtotime($p->date_created));?> </small>
 
 				</a> </li>
-				<?php } ?>
+				<?php } } ?>
 			</ul> 
 			</div></section>
 			</section>

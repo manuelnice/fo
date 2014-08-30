@@ -79,6 +79,9 @@ class View extends MX_Controller {
 		$this->load->library('template');
 		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 		$data['page'] = lang('projects');
+		$data['projects'] = $this->project->get_all_records($table = 'projects',
+		$array = array(
+			'proj_deleted' => 'No'),$join_table = 'account_details',$join_criteria = 'account_details.user_id = projects.client','date_created');
 		$data['assign_to'] = $this->project->assign_to();
 		$data['clients'] = $this->project->clients();
 		$this->template
@@ -133,6 +136,9 @@ class View extends MX_Controller {
 		$data['assign_to'] = $this->project->assign_to();
 		$data['clients'] = $this->project->clients();
 		$data['project_details'] = $this->project->project_details($this->uri->segment(4));
+		$data['projects'] = $this->project->get_all_records($table = 'projects',
+		$array = array(
+			'proj_deleted' => 'No'),$join_table = 'account_details',$join_criteria = 'account_details.user_id = projects.client','date_created');
 		$this->template
 		->set_layout('users')
 		->build('edit_project',isset($data) ? $data : NULL);

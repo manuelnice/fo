@@ -12,12 +12,12 @@
         },
         {
           element: '#nav header',
-          intro: '<p class="h4 text-uc"><strong>2: Quick Access</strong></p><p>Contains links that can be used for common operations.</p>',
+          intro: '<p class="h4 text-uc"><strong>2: Quick Access</strong></p><p>Get quick access to common operations using this links.</p>',
           position: 'right'
         },
         {
           element: '#userguide',
-          intro: '<p class="h4 text-uc"><strong>3: Changelog</strong></p><p>Contains Freelancer Office changelog are displays the current version. Use the Documentation link to Access the userguide</p>',
+          intro: '<p class="h4 text-uc"><strong>3: Change log</strong></p><p>Know when updates are available and what\'s new in the current release</p>',
           position: 'right'
         }, 
         {
