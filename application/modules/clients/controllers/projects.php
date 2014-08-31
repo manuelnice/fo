@@ -170,17 +170,14 @@ class Projects extends MX_Controller {
 	
 
 	function _comment_notification($project){
-			$project_details = $this->project_model->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->project_model->get_project_details($project,'project_title');
+			$project_manager = $this->project_model->get_project_details($project,'assign_to');
 
 			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;
 			$data['posted_by'] = $posted_by;
-			$data['project_id'] = $project;
 
-			$params['recipient'] = $this->config->item('company_email');
+			$params['recipient'] = $this->user_profile->get_user_details($project_manager,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
 			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE);

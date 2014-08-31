@@ -65,6 +65,8 @@ class Bug_view extends MX_Controller {
 			$bug_id = $this->db->insert_id();
 			$activity = 'Created an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-plus'); //log activity
+
+			$this->_bug_notification($assigned_to);
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));
@@ -100,6 +102,7 @@ class Bug_view extends MX_Controller {
 			$this->db->where('bug_id',$bug_id)->update('bugs', $form_data); 
 			$activity = 'Edited an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-edit'); //log activity
+			$this->_bug_notification($this->tank_auth->get_user_id());
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
@@ -124,6 +127,22 @@ class Bug_view extends MX_Controller {
 		}else{
 			return FALSE;
 		}
+	}
+
+	function _bug_notification($assigned_to){
+			
+			$added_by = $this->tank_auth->get_username();
+			$data['project_manager'] = $this->user_profile->get_user_details($assigned_to,'username');
+			$data['added_by'] = $added_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New Bug Reported';
+			$params['message'] = $this->load->view('emails/bug_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
 	}
 
 	function _log_bug_activity($bug_id,$activity,$icon){

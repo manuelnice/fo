@@ -197,14 +197,14 @@ class Bugs extends MX_Controller {
 			$bug_details = $this->bugs_model->bug_details($bug);
 			foreach ($bug_details as $key => $b) {
 				$issue_ref = $b->issue_ref;
-				$assigned_to = $b->assigned_to;
+				$reporter = $b->reporter;
 			}
 
 			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['issue_ref'] = $issue_ref;
 			$data['posted_by'] = $posted_by;
 
-			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+			$params['recipient'] = $this->user_profile->get_user_details($reporter,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
 			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE); 

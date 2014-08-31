@@ -138,10 +138,7 @@ class Files extends MX_Controller {
 		}
 	}
 	function _upload_notification($project){
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->project->get_project_details($project,'project_title');
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;

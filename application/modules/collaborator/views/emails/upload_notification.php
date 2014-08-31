@@ -7,7 +7,7 @@
     <p>You can view the Project by logging in to your Dashboard.</p>
         --------------------------
         <br>
-        <?=base_url()?>auth/login
+        <a href="<?=base_url()?>auth/login">My Account</a>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

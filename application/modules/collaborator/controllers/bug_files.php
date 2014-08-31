@@ -150,7 +150,6 @@ class Bug_files extends MX_Controller {
 			
 			$data['project_title'] = $this->user_profile->get_project_details($p->project,'project_title');
 			$data['upload_user'] = $upload_user;
-			$data['bug'] = $bug;
 			$data['issue_ref'] = $issue_ref;
 
 			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');

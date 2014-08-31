@@ -80,22 +80,7 @@ class Inv_manage extends MX_Controller {
 			redirect('clients/inv_manage');
 		}
 	}
-
-	function _send_payment_email($invoice_id,$paid_amount){
-			$client = $this->invoice->get_client($invoice_id);
-
-			$client_address = $this->user_profile->get_user_details($client,'email');
-			$data['paid_amount'] = $paid_amount;
-
-			$params['recipient'] = $client_address;
-
-			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' Payment Received';
-			$params['message'] = $this->load->view('emails/thank_you_message',$data,TRUE);
-
-			$params['attached_file'] = '';
-
-			modules::run('fomailer/send_email',$params);
-	}
+	
 	function _invoice_access($invoice){
 		$client = $this->user_profile->get_invoice_details($invoice,'client');
 		$user = $this->tank_auth->get_user_id();

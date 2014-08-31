@@ -88,6 +88,7 @@ class Bugs extends MX_Controller {
 			$this->db->insert('bug_comments', $form_data); 
 			$activity = "Added a comment to a bug";
 			$this->_log_bug_activity($this->input->post('bug'),$activity,$icon = 'fa-comment'); //log activity
+			$this->_comment_notification($this->input->post('bug'));
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
@@ -117,6 +118,7 @@ class Bugs extends MX_Controller {
 			$activity = 'Marked Issue #'.$this->input->get('ref').' as '.$bug_status;
 			$this->_log_bug_activity($bug,$activity,$icon = 'fa-info'); //log activity
 			//send email to the reporter
+			$this->_bug_status($bug,$bug_status);
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_marked_successfully'));
@@ -147,6 +149,11 @@ class Bugs extends MX_Controller {
 		}else{			
 			$this->db->delete('bugs', array('bug_id' => $this->input->post('bug_id'))); 
 			//delete the files here
+			$files = $this->bugs_model->bug_files($this->input->post('bug_id'));
+			foreach ($files as $key => $f) {
+				unlink('./resource/bug-files/'.$f->file_name);
+			}
+			
 			$activity = $this->tank_auth->get_username()." deleted a bug";
 			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-times'); //log activity
 			
@@ -159,6 +166,51 @@ class Bugs extends MX_Controller {
 			$this->load->view('modal/delete',$data);
 		}
 	}
+
+	function _bug_status($bug,$status){
+
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$issue_ref = $b->issue_ref;
+				$reporter = $b->reporter;
+			}
+
+			$marked_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['issue_ref'] = $issue_ref;
+			$data['status'] = $status;
+			$data['marked_by'] = $marked_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($reporter,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' Bug '.$issue_ref.' marked as '.$status;
+			$params['message'] = $this->load->view('emails/bug_status',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+
+	function _comment_notification($bug){
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$reporter = $b->reporter;
+				$project = $b->project;
+			}
+			$data['project_title'] = $this->user_profile->get_project_details($project,'project_title');
+
+			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['posted_by'] = $posted_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($reporter,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New bug comment received from '.$posted_by;
+			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE); 
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);

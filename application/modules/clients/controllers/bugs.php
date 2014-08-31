@@ -87,6 +87,7 @@ class Bugs extends MX_Controller {
 			$this->db->insert('bug_comments', $form_data); 
 			$activity = "Added a comment to a bug";
 			$this->_log_bug_activity($this->input->post('bug'),$activity,$icon = 'fa-comment'); //log activity
+			$this->_comment_notification($this->input->post('bug'));
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
@@ -128,6 +129,27 @@ class Bugs extends MX_Controller {
 			$data['bug_id'] = $this->uri->segment(3);
 			$this->load->view('modal/delete',$data);
 		}
+	}
+
+	function _comment_notification($bug){
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$issue_ref = $b->issue_ref;
+				$assigned_to = $b->assigned_to;
+			}
+
+			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['issue_ref'] = $issue_ref;
+			$data['posted_by'] = $posted_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
+			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE); 
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
 	}
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');

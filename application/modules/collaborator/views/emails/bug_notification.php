@@ -2,9 +2,9 @@
 <html><head><title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
-    <p>Hello</p>
-    <p>A new comment has been posted by <?=$posted_by?> to project <?=$project_title?>. </p>
-    <p>You can view the comment using the link below.</p>
+    <p>Hello <?=$project_manager?></p>
+    <p>A new bug has been reported by <?=$added_by?>. </p>
+    <p>You can view the Bug using the Dashboard Page.</p>
         --------------------------
         <br>
         <a href="<?=base_url()?>">My Account</a>

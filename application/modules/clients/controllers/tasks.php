@@ -48,7 +48,7 @@ class Tasks extends MX_Controller {
 			            );
 			$this->db->insert('tasks', $form_data); 
 
-			$this->_assigned_notification($project,$this->input->post('task_name'),$this->tank_auth->get_user_id()); 
+			$this->_assigned_notification($project,$this->input->post('task_name'),$assigned_to); 
 			//send notification to assigned user
 
 			$activity = 'Added a task titled:  '.$this->input->post('task_name');
@@ -74,31 +74,21 @@ class Tasks extends MX_Controller {
 	}
 
 	function _assigned_notification($project,$task_name,$assigned_to){
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
 
-			$assigned_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$added_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;
-			$data['assigned_by'] = $assigned_by;
-			$data['project_id'] = $project;
+			$data['added_by'] = $added_by;
 			$data['task_name'] = $task_name;
 
 			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
 
-			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New task assigned to you by '.$assigned_by;
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New task requested by '.$added_by;
 			$params['message'] = $this->load->view('emails/assigned_notification',$data,TRUE);
 
 			$params['attached_file'] = '';
 
 			modules::run('fomailer/send_email',$params);
-	}
-	function _log_timesheet($task,$start_time,$end_time){
-			$this->db->set('task', $task);
-			$this->db->set('start_time', $start_time);
-			$this->db->set('end_time', $end_time);
-			$this->db->insert('tasks_timer'); 
 	}
 
 	function _log_activity($project,$activity,$icon){

@@ -210,8 +210,6 @@ class Projects extends MX_Controller {
 		$this->load->library('template');
 		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 		$data['page'] = lang('projects');
-		$data['assign_to'] = $this->project_model->assign_to();
-		$data['clients'] = $this->project_model->clients();
 		$data['project_details'] = $this->project_model->project_details($this->uri->segment(4));
 		$this->template
 		->set_layout('users')
@@ -306,19 +304,16 @@ class Projects extends MX_Controller {
 	}
 
 	function _comment_notification($project){
-			$project_details = $this->project_model->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
+			$client = $this->user_profile->get_project_details($project,'client');
 
 			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;
 			$data['posted_by'] = $posted_by;
-			$data['project_id'] = $project;
 
-			$params['recipient'] = $this->config->item('company_email');
+			$params['recipient'] = $this->user_profile->get_user_details($client,'email');
 
-			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New project comment received from '.$posted_by;
 			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE);
 
 			$params['attached_file'] = '';
