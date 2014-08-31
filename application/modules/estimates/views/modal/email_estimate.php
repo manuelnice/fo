@@ -7,13 +7,19 @@
 		</div><?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
           echo form_open(base_url().'estimates/action/emailestimate',$attributes); ?>
+
+          <?php
+          			$est_tax = $est->tax?$est->tax:$this->config->item('default_tax');
+					$est_cost = $this->user_profile->estimate_payable($est->est_id);
+					$tax = ($est_tax/100) * $est_cost;
+          ?>
 		<div class="modal-body">
 
 			<input type="hidden" name="ref" value="<?=$est->reference_no?>">
 			<input type="hidden" name="est_id" value="<?=$est->est_id?>">
 			<input type="hidden" name="client_name" value="<?=ucfirst($this->user_profile->get_profile_details($est->client,'fullname')? $this->user_profile->get_profile_details($est->client,'fullname'):$est->username)?>">
 			
-			<input type="hidden" name="amount" value="<?=$this->user_profile->estimate_payable($est->est_id)?>">
+			<input type="hidden" name="amount" value="<?=number_format(($est_cost + $tax),2)?>">
 			 
           				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('subject')?> <span class="text-danger">*</span></label>

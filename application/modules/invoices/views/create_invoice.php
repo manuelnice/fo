@@ -27,7 +27,7 @@
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
 				</div> <br>
-				<small class="block text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> </small>
+				<small class="block text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%b %d, %Y", strtotime($invoice->date_saved));?> </small>
 
 				</a> </li>
 				<?php } } ?>
@@ -101,6 +101,17 @@
 				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=date('d-m-Y')?>" name="due_date" data-date-format="dd-mm-yyyy" >
 				</div> 
 				</div> 
+
+				<div class="form-group">
+			<label class="col-lg-2 control-label"><?=lang('default_tax')?> </label>
+			<div class="col-lg-4">
+				<div class="input-group m-b">
+					<span class="input-group-addon">%</span>
+					<input class="form-control " type="text" value="<?=$this->config->item('default_tax')?>" name="tax">
+				</div>
+				<span class="help-block m-b-none">This tax will overwrite the Default Tax</span>
+			</div>
+		</div>
 				
 						
 				

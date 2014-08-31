@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
     <p>Hello</p>
-    <p>A new file has been uploaded by <?=$upload_user?> to project <?=$project_title?>. </p>
-    <p>You can view the Project using the link below.</p>
+    <p>A new comment has been posted by <?=$posted_by?> to bug <?=$issue_ref?>. </p>
+    <p>You can view the comment using the link below.</p>
         --------------------------
         <br>
-        <a href="<?=base_url()?>">View Project</a>
+        <a href="<?=base_url()?>">View Comment</a>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

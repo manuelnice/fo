@@ -20,9 +20,11 @@
 				<label class="col-lg-4 control-label"><?=lang('amount')?> (<?=$this->config->item('default_currency_symbol')?>) <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
 				<?php
+				$tax_inv = $this->user_profile->get_invoice_details($invoice_id,'tax');
+					$inv_tax = $tax_inv?$tax_inv:$this->config->item('default_tax');
 					$invoice_cost = $this->user_profile->invoice_payable($invoice_id);
 					$payment_made = $this->user_profile->invoice_payment($invoice_id);
-					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
+					$tax = ($inv_tax/100) * $invoice_cost;
 					$invoice_due = ($invoice_cost + $tax) - $payment_made;
 				?>
 					<input type="text" class="form-control" value="<?=round($invoice_due,2)?>" name="amount">

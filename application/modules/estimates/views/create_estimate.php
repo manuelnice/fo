@@ -103,7 +103,18 @@
 				<div class="col-lg-8">
 				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=date('d-m-Y')?>" name="due_date" data-date-format="dd-mm-yyyy" >
 				</div> 
-				</div>		
+				</div>	
+
+				<div class="form-group">
+			<label class="col-lg-2 control-label"><?=lang('default_tax')?> </label>
+			<div class="col-lg-4">
+				<div class="input-group m-b">
+					<span class="input-group-addon">%</span>
+					<input class="form-control " type="text" value="<?=$this->config->item('default_tax')?>" name="tax">
+				</div>
+				<span class="help-block m-b-none">This tax will overwrite the Default Tax</span>
+			</div>
+		</div>	
 				
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('notes')?> </label>

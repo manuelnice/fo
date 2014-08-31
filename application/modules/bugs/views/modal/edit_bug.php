@@ -43,6 +43,21 @@
 				</select>
 				</div>
 				</div>
+
+				<div class="form-group">
+				<label class="col-lg-4 control-label"><?=lang('assigned_to')?> <span class="text-danger">*</span></label>
+				<div class="col-lg-8">
+				<select name="assigned_to" class="form-control">
+				<option value="<?=$bug->assigned_to?>">Use Current</option>
+					<?php
+					if (!empty($admins)) {
+					foreach ($admins as $key => $admin) { ?>
+						<option value="<?=$admin->id?>"><?=ucfirst($admin->username)?></option>
+					<?php } } ?>	
+				</select>
+				</div>
+				</div>
+
 				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('priority')?> </label>
 				<div class="col-lg-8">

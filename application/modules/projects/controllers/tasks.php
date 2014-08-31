@@ -188,15 +188,11 @@ class Tasks extends MX_Controller {
 	}
 
 	function _assigned_notification($project,$task_name,$assigned_to){
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
 
 			$assigned_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;
 			$data['assigned_by'] = $assigned_by;
-			$data['project_id'] = $project;
 			$data['task_name'] = $task_name;
 
 			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');

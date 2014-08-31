@@ -7,12 +7,18 @@
 		</div><?php
 			 $attributes = array('class' => 'bs-example form-horizontal');
           echo form_open(base_url().'invoices/manage/emailinvoice',$attributes); ?>
+          <?php
+          			$inv_tax = $invoice->tax?$invoice->tax:$this->config->item('default_tax');
+					$invoice_cost = $this->user_profile->invoice_payable($invoice->inv_id);
+					$payment_made = $this->user_profile->invoice_payment($invoice->inv_id);
+					$tax = ($inv_tax/100) * $invoice_cost;
+          ?>
 		<div class="modal-body">
 			<input type="hidden" name="ref" value="<?=$invoice->reference_no?>">
 			<input type="hidden" name="invoice_id" value="<?=$invoice->inv_id?>">
 			<input type="hidden" name="client_name" value="<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?>">
 			
-			<input type="hidden" name="amount" value="<?=$this->user_profile->invoice_payable($invoice->inv_id)?>">
+			<input type="hidden" name="amount" value="<?=number_format(($invoice_cost + $tax) - $payment_made,2)?>">
 			 
           				<div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('subject')?> <span class="text-danger">*</span></label>

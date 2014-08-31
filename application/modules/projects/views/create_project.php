@@ -42,7 +42,6 @@
 						<div class="col-sm-8 m-b-xs">
 							
 						<div class="btn-group">
-						<a class="btn btn-sm btn-default" href="<?=current_url()?>" data-original-title="<?=lang('refresh')?>" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-refresh"></i></a>
 						</div>
 						<a class="btn btn-sm btn-danger" href="<?=base_url()?>projects/view/add" title="<?=lang('new_project')?>" data-original-title="<?=lang('new_project')?>" data-toggle="tooltip" data-placement="bottom">
 						<i class="fa fa-plus"></i> <?=lang('new_project')?></a>
@@ -96,7 +95,7 @@
 			            <?php
 			            if (!empty($clients)) {
 			            foreach ($clients as $key => $c) { ?>
-			            <option value="<?=$c->id?>"><?=ucfirst($c->username)?></option>
+			            <option value="<?=$c->id?>"><?=ucfirst($this->user_profile->get_profile_details($c->id,'fullname')?$this->user_profile->get_profile_details($c->id,'fullname'):$c->username)?></option>
 			            <?php }} ?>
 			          </optgroup> 
 			          </select> 
@@ -148,7 +147,7 @@
 				<div class="form-group">
 				<label class="col-lg-2 control-label"><?=lang('project_description')?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
-				<textarea name="description" class="form-control">Project Description</textarea>
+				<textarea name="description" class="form-control"><?=lang('project_description')?> </textarea>
 				</div>
 				</div>
 				<button type="submit" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> <?=lang('create_project')?></button>

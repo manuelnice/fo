@@ -21,10 +21,10 @@
 			<ul class="nav"><?php
 					if (!empty($invoices)) {
 			foreach ($invoices as $key => $invoice) { ?>
-				<li class="b-b b-light"><a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
+				<li class="b-b b-light <?php if($invoice->inv_id == $this->uri->segment(4)){ echo "bg-light dk"; } ?>"><a href="<?=base_url()?>invoices/manage/details/<?=$invoice->inv_id?>">
 				<?=ucfirst($this->user_profile->get_profile_details($invoice->client,'fullname')? $this->user_profile->get_profile_details($invoice->client,'fullname'):$invoice->username)?><div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?></div> <br>
-				<small class="block text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> </small>
+				<small class="block small text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%b %d, %Y", strtotime($invoice->date_saved));?> </small>
 
 				</a> </li>
 				<?php } } ?>
@@ -92,7 +92,7 @@
 					 <?php
 				if(!$this->session->flashdata('message')){
 						if(strtotime($inv->due_date) < time()){ ?>
-						<div class="alert alert-danger hidden-print"> 
+						<div class="alert alert-info hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
 						<?=lang('invoice_overdue')?>
 						</div>

@@ -32,7 +32,7 @@
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($e->est_id),2)?>
 				</div> <br>
-				<small class="block small text-muted">EST <?=$e->reference_no?> | <?=strftime("%B %d, %Y", strtotime($e->date_saved));?> <span class="label label-<?=$label?>"><?=$e_status?></span></small>
+				<small class="block small text-muted">EST <?=$e->reference_no?> | <?=strftime("%b %d, %Y", strtotime($e->date_saved));?> <span class="label label-<?=$label?>"><?=$e_status?></span></small>
 
 				</a> </li>
 				<?php } } ?>
@@ -53,20 +53,19 @@
 					<i class="fa fa-print"></i> </a> 
 
 									
-
+						<?php
+								if ($estimate->invoiced == 'No') { ?>
 						<div class="btn-group">
 						<button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 						<?=lang('more_actions')?>
 						<span class="caret"></span></button>
-						<ul class="dropdown-menu">								
-								
-								<?php
-								if ($estimate->invoiced == 'No') { ?>
+						<ul class="dropdown-menu">
 								<li><a href="<?=base_url()?>collaborator/estimates/status/declined/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_declined')?></a></li>
 								<li><a href="<?=base_url()?>collaborator/estimates/status/accepted/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('mark_as_accepted')?></a></li>
-								<?php } ?>
+								
 						</ul>
 						</div>
+						<?php } ?>
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
@@ -135,8 +134,9 @@
 					<?php } } ?>
 					
 					<?php
+					$est_tax = $estimate->tax?$estimate->tax:$this->config->item('default_tax');
 					$estimate_cost = $this->user_profile->estimate_payable($estimate->est_id);
-					$tax = ($this->config->item('default_tax')/100) * $estimate_cost;
+					$tax = ($est_tax/100) * $estimate_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>

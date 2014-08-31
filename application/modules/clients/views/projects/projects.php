@@ -26,7 +26,7 @@
 						echo round($logged_time, 1);
 									?> <?=lang('hours')?>
 				</div> <br>
-				<small class="block text-muted">PRO #<?=$p->project_code?> | <?=strftime("%B %d, %Y", strtotime($p->date_created));?> </small>
+				<small class="block text-muted">PRO #<?=$p->project_code?> | <?=strftime("%b %d, %Y", strtotime($p->date_created));?> </small>
 
 				</a> </li>
 				<?php } } ?>

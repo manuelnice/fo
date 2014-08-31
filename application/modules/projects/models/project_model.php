@@ -2,8 +2,8 @@
 
 /**
  *
- * @package	Freelancer
- * @author	William M
+ * @package	Freelancer Office
+ * 
  */
 class Project_model extends CI_Model
 {
@@ -64,7 +64,7 @@ class Project_model extends CI_Model
 	}
 	function clients()
 	{
-		return $this->db->where('role_id',2)->get('users')->result();
+		return $this->db->where('role_id !=',1)->get('users')->result();
 	}
 	function task_timer($project)
 	{

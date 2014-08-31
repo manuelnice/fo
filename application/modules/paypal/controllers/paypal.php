@@ -25,7 +25,10 @@ class Paypal extends MX_Controller {
 		$invoice_cost = $this->user_profile->invoice_payable($invoice['inv_id']);
 
 		$payment_made = $this->user_profile->invoice_payment($invoice['inv_id']);
-		$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
+
+		$inv_tax = $invoice['tax']?$invoice['tax']:$this->config->item('default_tax');
+		$tax = ($inv_tax/100) * $invoice_cost;
+
 		$invoice_due = ($invoice_cost + $tax) - $payment_made;
 
 		$data['invoice_info'] = array('item_name'=> $invoice['reference_no'], 

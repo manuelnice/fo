@@ -2,12 +2,12 @@
 <html><head><title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
-    <p>Hello There</p>
+    <p>Hello</p>
     <p>A new task (<?=$task_name?>) has been assigned to you by <?=$assigned_by?> in project <?=$project_title?>. </p>
-    <p>You can view this task using the link below.</p>
+    <p>You can view this task by logging in to the portal using the link below.</p>
         --------------------------
         <br>
-        <?=base_url()?>projects/view/details/<?=$project_id?>
+        <a href="<?=base_url()?>">Log In</a>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

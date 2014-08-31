@@ -76,8 +76,9 @@
 					<?php } } ?>
 					
 					<?php
+					$est_tax = $est->tax?$est->tax:$this->config->item('default_tax');
 					$estimate_cost = $this->user_profile->estimate_payable($est->est_id);
-					$tax = ($this->config->item('default_tax')/100) * $estimate_cost;
+					$tax = ($est_tax/100) * $estimate_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>

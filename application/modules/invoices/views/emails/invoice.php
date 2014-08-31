@@ -77,9 +77,10 @@
 					<?php } } ?>
 					
 					<?php
+					$inv_tax = $inv->tax?$inv->tax:$this->config->item('default_tax');
 					$invoice_cost = $this->user_profile->invoice_payable($inv->inv_id);
 					$payment_made = $this->user_profile->invoice_payment($inv->inv_id);
-					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
+					$tax = ($inv_tax/100) * $invoice_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>

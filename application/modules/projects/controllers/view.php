@@ -25,10 +25,10 @@ class View extends MX_Controller {
 		$this->template->title(lang('projects').' - '.$this->config->item('company_name'). ' '. $this->config->item('version'));
 		$data['page'] = lang('projects');
 		$data['project_details'] = $this->project->project_details($this->uri->segment(4));
-		$data['project_activities'] = $this->project->project_activities($this->uri->segment(4));
+		//$data['project_activities'] = $this->project->project_activities($this->uri->segment(4));
 		$data['project_comments'] = $this->project->project_comments($this->uri->segment(4));
-		$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
-		$data['project_files'] = $this->project->project_files($this->uri->segment(4));
+		//$data['project_tasks'] = $this->project->project_tasks($this->uri->segment(4));
+		//$data['project_files'] = $this->project->project_files($this->uri->segment(4));
 		$this->template
 		->set_layout('users')
 		->build('project_details',isset($data) ? $data : NULL);
@@ -121,6 +121,9 @@ class View extends MX_Controller {
 			$activity = ucfirst($this->tank_auth->get_username()).' edited a project #'.$this->input->post('project_code');
 			$this->_log_activity($project_id,$activity); //log activity
 
+			if ($this->input->post('progress') == '100') {
+				$this->_project_complete($project_id);
+			}
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('project_edited_successfully'));
 			redirect('projects/view/details/'.$project_id);
@@ -141,6 +144,34 @@ class View extends MX_Controller {
 		->build('edit_project',isset($data) ? $data : NULL);
 		}
 	}
+
+	function _project_complete($project) {
+			$client = $this->user_profile->get_project_details($project,'client');
+			$client_email = $this->user_profile->get_user_details($client,'email');
+			$data['project_title'] = $this->user_profile->get_project_details($project,'project_title');
+			$data['project_code'] = $this->user_profile->get_project_details($project,'project_code');
+
+				$task_time = $this->user_profile->get_sum('tasks','logged_time',array('project'=>$project));
+				$project_time = $this->user_profile->get_sum('projects','time_logged',array('project_id'=>$project));
+				$logged_time = ($task_time + $project_time)/3600;
+			$project_hours = round($logged_time, 1);
+
+
+			$data['project_hours'] = $project_hours;
+			$data['client'] = $client_email;
+			
+			$params['recipient'] = $client_email;
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ] New Project Submission Received';	
+			$params['message'] = $this->load->view('emails/project_complete',$data,TRUE);
+			
+			
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+
+	}
+
 	function _log_activity($project_id,$activity){
 			$this->db->set('module', 'projects');
 			$this->db->set('module_field_id', $project_id);

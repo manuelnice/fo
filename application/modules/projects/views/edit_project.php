@@ -96,7 +96,7 @@
 			            <?php
 			            if (!empty($clients)) {
 			            foreach ($clients as $key => $c) { ?>
-			            <option value="<?=$c->id?>"><?=ucfirst($c->username)?></option>
+			            <option value="<?=$c->id?>"><?=ucfirst($this->user_profile->get_profile_details($c->id,'fullname')?$this->user_profile->get_profile_details($c->id,'fullname'):$c->username)?></option>
 			            <?php }} ?>
 			          </optgroup> 
 			          </select> 

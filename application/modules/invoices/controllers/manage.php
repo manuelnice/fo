@@ -78,6 +78,7 @@ class Manage extends MX_Controller {
 			                'reference_no' => $this->input->post('reference_no'),
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
+			                'tax' => $this->input->post('tax'),	
 			                'notes' => $this->input->post('notes'),							
 			            );
 			$this->db->insert('invoices', $form_data); 
@@ -130,6 +131,7 @@ class Manage extends MX_Controller {
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
 			                'notes' => $this->input->post('notes'),
+			                'tax' => $this->input->post('tax'),	
 			            );
 			$this->db->where('inv_id',$invoice_id)->update('invoices', $form_data);
 
@@ -237,16 +239,20 @@ class Manage extends MX_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('amount', 'Amount', 'required|numeric|greater_than[0]');
-		if ($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run($this) == FALSE)
 		{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('payment_failed'));
 				redirect('invoices/manage/details/'.$invoice_id);
-		}else{			
+		}else{	
+
 			$invoice_payable = $this->user_profile->invoice_payable($invoice_id);
 			$invoice_paid = $this->user_profile->invoice_payment($invoice_id);
-			$tax = ($this->config->item('default_tax')/100) * $invoice_payable;
+			$inv_tax = $this->user_profile->get_invoice_details($invoice_id,'tax');
+
+			$tax = ($inv_tax/100) * $invoice_payable;
 			$due = ($invoice_payable + $tax) - $invoice_paid;
+
 			if ($paid_amount > $due) {
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('overpaid_amount'));
@@ -254,7 +260,7 @@ class Manage extends MX_Controller {
 			}
 			$form_data = array(
 			                'invoice' => $this->input->post('invoice_id'),
-			                'paid_by' => $this->tank_auth->get_user_id(),
+			                'paid_by' => $this->user_profile->get_invoice_details($invoice_id,'client'),
 			                'payment_method' => $this->input->post('payment_method'),
 			                'amount' => $this->input->post('amount'),
 			                'trans_id' => $this->input->post('trans_id'),

@@ -86,7 +86,7 @@
 					 <?php
 				if(!$this->session->flashdata('message')){
 						if(strtotime($estimate->due_date) < time() AND $estimate->invoiced == 'No'){ ?>
-						<div class="alert alert-danger hidden-print"> 
+						<div class="alert alert-info hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
 						<?=lang('estimate_overdue')?>
 						</div>
@@ -150,8 +150,9 @@ echo form_open(base_url().'estimates/manage/item', $attributes); ?>
 						</form>
 					</tr>
 					<?php
+					$est_tax = $estimate->tax?$estimate->tax:$this->config->item('default_tax');
 					$estimate_cost = $this->user_profile->estimate_payable($estimate->est_id);
-					$tax = ($this->config->item('default_tax')/100) * $estimate_cost;
+					$tax = ($est_tax/100) * $estimate_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right"><strong><?=lang('sub_total')?></strong></td>

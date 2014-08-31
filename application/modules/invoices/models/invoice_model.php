@@ -24,7 +24,7 @@ class Invoice_model extends CI_Model
 	
     function clients()
 	{
-		$query = $this->db->where('role_id',2)->get('users');
+		$query = $this->db->where('role_id !=',1)->get('users');
 		if ($query->num_rows() > 0){
 			return $query->result();
 		} 

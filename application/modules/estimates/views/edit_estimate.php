@@ -47,9 +47,7 @@
 			<a data-original-title="<?=lang('print_estimate')?>" data-toggle="tooltip" data-placement="bottom" href="#" class="btn btn-sm btn-info" onClick="window.print();">
 					<i class="fa fa-print"></i> </a> 
 
-						<a data-original-title="<?=lang('edit_estimate')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-dark" href="<?=base_url()?>estimates/manage/edit/<?=$estimate->est_id?>/<?=$est->reference_no?>" title="<?=lang('edit_estimate')?>"><i class="fa fa-pencil"></i></a>
-
-					<a data-original-title="<?=lang('email_estimate')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-dark" href="<?=base_url()?>estimates/manage/email/<?=$est->est_id?>/<?=$est->reference_no?>" title="<?=lang('email_estimate')?>"><i class="fa fa-envelope"></i></a>
+						<a data-original-title="<?=lang('edit_estimate')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-dark" href="<?=base_url()?>estimates/manage/edit/<?=$estimate->est_id?>/<?=$est->reference_no?>" title="<?=lang('edit_estimate')?>"><i class="fa fa-pencil"></i></a>					
 
 						<a class="btn btn-sm btn-success <?php if($est->invoiced == 'Yes'){ echo "disabled"; } ?>" href="<?=base_url()?>estimates/manage/convert/<?=$est->est_id?>/<?=$est->reference_no?>" data-toggle="ajaxModal"
 						 title="<?=lang('convert_to_invoice')?>">
@@ -60,18 +58,18 @@
 						<?=lang('more_actions')?>
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-								<li><a href="<?=base_url()?>estimates/action/marksent"><?=lang('mark_as_sent')?></a></li>
-								<li><a href="<?=base_url()?>estimates/manage/estimatehistory"><?=lang('estimate_history')?></a></li>
+								<li><a href="<?=base_url()?>estimates/action/emailestimate/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('email_estimate')?></a></li>
+								<li><a href="<?=base_url()?>estimates/manage/timeline/<?=$estimate->est_id?>/<?=$estimate->reference_no?>"><?=lang('estimate_history')?></a></li>
 								<li class="divider"></li>
-								<li><a href="<?=base_url()?>estimates/action/edit"><?=lang('edit_estimate')?></a></li>
-								<li><a href="<?=base_url()?>estimates/action/delete"><?=lang('delete_estimate')?></a></li>
+								<li class="divider"></li>
+								<li><a href="<?=base_url()?>estimates/action/delete/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" data-toggle="ajaxModal"><?=lang('delete_estimate')?></a></li>
 						</ul>
 						</div>
 						
 						</div>
 						<div class="col-sm-4 m-b-xs">
-						<a href="<?=base_url()?>estimates/action/generatepdf" class="btn btn-sm btn-dark pull-right">
-					<i class="fa fa-download"></i> <?=lang('pdf')?></a> 
+						<a href="<?=base_url()?>pdfconverter/estimate/<?=$estimate->est_id?>/<?=$estimate->reference_no?>" class="btn btn-sm btn-dark pull-right">
+					<i class="fa fa-file-pdf-o"></i> <?=lang('pdf')?></a> 
 					
 						</div>
 					</div> </header>
@@ -121,7 +119,18 @@
 				<div class="col-lg-8">
 				<input class="input-sm input-s datepicker-input form-control" size="16" type="text" value="<?=$est->due_date?>" name="due_date" data-date-format="dd-mm-yyyy" >
 				</div> 
-				</div> 
+				</div>
+
+				<div class="form-group">
+			<label class="col-lg-2 control-label"><?=lang('default_tax')?> </label>
+			<div class="col-lg-4">
+				<div class="input-group m-b">
+					<span class="input-group-addon">%</span>
+					<input class="form-control " type="text" value="<?=$est->tax?$est->tax : $this->config->item('default_tax')?>" name="tax">
+				</div>
+				<span class="help-block m-b-none">This tax will overwrite the Default Tax</span>
+			</div>
+		</div> 
 
 							
 				<div class="form-group">

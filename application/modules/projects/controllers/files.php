@@ -138,17 +138,14 @@ class Files extends MX_Controller {
 		}
 	}
 	function _upload_notification($project){
-			$project_details = $this->project->project_details($project);
-			foreach ($project_details as $key => $p) {
-				$project_title = $p->project_title;
-			}
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
+			$project_manager = $this->user_profile->get_project_details($project,'assign_to');
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;
 			$data['upload_user'] = $upload_user;
-			$data['project_id'] = $project;
 
-			$params['recipient'] = $this->config->item('company_email');
+			$params['recipient'] = $this->user_profile->get_user_details($project_manager,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New File Uploaded';
 			$params['message'] = $this->load->view('emails/upload_notification',$data,TRUE);

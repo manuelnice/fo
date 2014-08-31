@@ -61,6 +61,8 @@ class View extends MX_Controller {
 			$bug_id = $this->db->insert_id();
 			$activity = 'Created an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-plus'); //log activity
+
+			$this->_assigned_notification($bug_id, $this->input->post('assigned_to'));
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_submitted_successfully'));
@@ -92,6 +94,7 @@ class View extends MX_Controller {
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
+			                'assigned_to' => $this->input->post('assigned_to'),
 			                'reporter' => $this->input->post('reporter'),
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
@@ -101,17 +104,45 @@ class View extends MX_Controller {
 			$activity = 'Edited an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-pencil'); //log activity
 
+			$this->_assigned_notification($bug_id, $this->input->post('assigned_to'));
+
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
 			redirect('bugs/view/details/'.$bug_id);
 		}
 		}else{
+		$data['admins'] = $this->bugs_model->users('');
 		$data['users'] = $this->bugs_model->users('all');
 		$data['projects'] = $this->bugs_model->projects();
 		$data['bug_details'] = $this->bugs_model->bug_details($this->uri->segment(4));
 		$this->load->view('modal/edit_bug',$data);
 		}
 	}
+
+	function _assigned_notification($bug,$assigned_to){
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$issue_ref = $b->issue_ref;
+				$project = $b->project;
+			}
+
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
+
+			$assigned_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['project_title'] = $project_title;
+			$data['assigned_by'] = $assigned_by;
+			$data['issue_ref'] = $issue_ref;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New bug assigned by '.$assigned_by;
+			$params['message'] = $this->load->view('emails/assigned_notification',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);

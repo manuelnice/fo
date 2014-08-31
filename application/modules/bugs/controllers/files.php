@@ -145,6 +145,7 @@ class Files extends MX_Controller {
 			$bug_details = $this->bug->bug_details($bug);
 			foreach ($bug_details as $key => $p) {
 				$issue_ref = $p->issue_ref;
+				$reporter = $p->reporter;
 			}
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
@@ -152,7 +153,7 @@ class Files extends MX_Controller {
 			$data['bug'] = $bug;
 			$data['issue_ref'] = $issue_ref;
 
-			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+			$params['recipient'] = $this->user_profile->get_user_details($reporter,'email');
 
 			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New File Uploaded';
 			$params['message'] = $this->load->view('emails/upload_notification',$data,TRUE);

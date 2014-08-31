@@ -98,10 +98,13 @@ class Bug_view extends MX_Controller {
 				$this->session->set_flashdata('message', lang('issue_not_edited'));
 				redirect('clients/bugs');
 		}else{	
+		$assigned_to = $this->user_profile->get_project_details($this->input->post('project'),'assign_to');
 		$bug_id	 =  $this->input->post('bug_id');
 			$form_data = array(
 			                'issue_ref' => $this->input->post('issue_ref'),
 			                'project' => $this->input->post('project'),
+			                'assigned_to' => $assigned_to,
+			                'reporter' => $this->tank_auth->get_user_id(),
 			                'priority' => $this->input->post('priority'),
 			                'bug_description' => $this->input->post('description'),
 			                'last_modified' => date("Y-m-d H:i:s"),
@@ -109,6 +112,8 @@ class Bug_view extends MX_Controller {
 			$this->db->where('bug_id',$bug_id)->update('bugs', $form_data); 
 			$activity = 'Edited an Issue #'.$this->input->post('issue_ref');
 			$this->_log_bug_activity($bug_id,$activity,$icon = 'fa-edit'); //log activity
+
+			$this->_bug_notification($assigned_to);
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_edited_successfully'));
@@ -130,9 +135,11 @@ class Bug_view extends MX_Controller {
 		$bug_details = $this->bugs_model->bug_details($bug);
 		foreach ($bug_details as $key => $bug) {
 			$bug_reporter = $bug->reporter;
+			$project = $bug->project;
 		}
+		$project_client = $this->user_profile->get_project_details($project,'client');
 		$user = $this->tank_auth->get_user_id();
-		if ($bug_reporter == $user) {
+		if ($bug_reporter == $user OR $project_client == $user) {
 			return TRUE;
 		}else{
 			return FALSE;

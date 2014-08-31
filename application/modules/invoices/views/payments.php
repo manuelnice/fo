@@ -27,7 +27,7 @@
         <div class="pull-right">
         <?=$this->config->item('default_currency')?> <?=number_format($p->amount,2)?>
         </div> <br>
-        <small class="block small text-info">TRANS <?=$p->trans_id?> | <?=strftime("%B %d, %Y", strtotime($p->created_date));?> </small>
+        <small class="block small text-info">TRANS <?=$p->trans_id?> | <?=strftime("%b %d, %Y", strtotime($p->created_date));?> </small>
 
         </a> </li>
         <?php } } ?>

@@ -7,7 +7,7 @@
     <p>You can view the bug using the link below.</p>
         --------------------------
         <br>
-        <?=base_url()?>bugs/view/details/<?=$bug?>
+        <a href="<?=base_url()?>">View Bug</a>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

@@ -7,7 +7,7 @@
     <p>You can view the Bug using the Dashboard Page.</p>
         --------------------------
         <br>
-        <?=base_url()?>
+        <a href="<?=base_url()?>">My Account</a>
 <p>
 Regards<br>
 <?=$this->config->item('company_name')?> Team

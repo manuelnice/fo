@@ -31,7 +31,7 @@
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->estimate_payable($e->est_id),2)?>
 				</div> <br>
-				<small class="block small text-muted">EST <?=$e->reference_no?> | <?=strftime("%B %d, %Y", strtotime($e->date_saved));?> <span class="label label-<?=$label?>"><?=$e_status?></span></small>
+				<small class="block small text-muted">EST <?=$e->reference_no?> | <?=strftime("%b %d, %Y", strtotime($e->date_saved));?> <span class="label label-<?=$label?>"><?=$e_status?></span></small>
 
 				</a> </li>
 				<?php } } ?>

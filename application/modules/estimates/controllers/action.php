@@ -60,6 +60,7 @@ class Action extends MX_Controller {
 			                'client' => $est->client,
 			                'due_date' => $est->due_date,
 			                'notes' => $est->notes,
+			                'tax' => $est->tax,
 			            );
 				$this->db->insert('invoices', $form_data);
 				$invoice_id = $this->db->insert_id();

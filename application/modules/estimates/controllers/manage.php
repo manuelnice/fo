@@ -37,6 +37,7 @@ class Manage extends MX_Controller {
 			                'reference_no' => $this->input->post('reference_no'),
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
+			                'tax' => $this->input->post('tax'),
 			                'notes' => $this->input->post('notes'),
 			            );
 			$this->db->insert('estimates', $form_data); 
@@ -90,6 +91,7 @@ class Manage extends MX_Controller {
 			                'client' => $this->input->post('client'),
 			                'due_date' => $this->input->post('due_date'),
 			                'notes' => $this->input->post('notes'),
+			                'tax' => $this->input->post('tax'),
 			            );
 			$this->db->where('est_id',$estimate_id)->update('estimates', $form_data);
 

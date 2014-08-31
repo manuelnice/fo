@@ -32,7 +32,7 @@
 				<div class="pull-right">
 				<?=$this->config->item('default_currency')?> <?=number_format($this->user_profile->invoice_payable($invoice->inv_id),2)?>
 				</div> <br>
-				<small class="block small text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%B %d, %Y", strtotime($invoice->date_saved));?> <span class="label label-<?=$label?>"><?=$invoice_status?></span></small>
+				<small class="block small text-muted">INV <?=$invoice->reference_no?> | <?=strftime("%b %d, %Y", strtotime($invoice->date_saved));?> <span class="label label-<?=$label?>"><?=$invoice_status?></span></small>
 
 				</a> </li>
 				<?php } } ?>
@@ -94,7 +94,7 @@
 					 <?php
 				if(!$this->session->flashdata('message')){
 						if(strtotime($inv->due_date) < time()){ ?>
-						<div class="alert alert-danger hidden-print"> 
+						<div class="alert alert-info hidden-print"> 
 						<button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-warning"></i>
 						<?=lang('invoice_overdue')?>
 						</div>
@@ -163,9 +163,10 @@ echo form_open(base_url().'invoices/manage/item', $attributes); ?>
 
 					</tr>
 					<?php
+					$inv_tax = $inv->tax?$inv->tax:$this->config->item('default_tax');
 					$invoice_cost = $this->user_profile->invoice_payable($inv->inv_id);
 					$payment_made = $this->user_profile->invoice_payment($inv->inv_id);
-					$tax = ($this->config->item('default_tax')/100) * $invoice_cost;
+					$tax = ($inv_tax/100) * $invoice_cost;
 					?>
 					<tr>
 						<td colspan="3" class="text-right no-border"><strong><?=lang('sub_total')?></strong></td>

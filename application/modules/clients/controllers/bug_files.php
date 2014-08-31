@@ -146,11 +146,12 @@ class Bug_files extends MX_Controller {
 			$bug_details = $this->bug->bug_details($bug);
 			foreach ($bug_details as $key => $p) {
 				$issue_ref = $p->issue_ref;
+				$project = $p->project;
 			}
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['upload_user'] = $upload_user;
-			$data['project_title'] = $this->user_profile->get_project_details($p->project,'project_title');
+			$data['project_title'] = $this->user_profile->get_project_details($project,'project_title');
 			$data['issue_ref'] = $issue_ref;
 
 			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');

@@ -86,6 +86,8 @@ class Bugs extends MX_Controller {
 			$this->db->insert('bug_comments', $form_data); 
 			$activity = "Added a comment to a bug";
 			$this->_log_bug_activity($this->input->post('bug'),$activity,$icon = 'fa-comment'); //log activity
+			$this->_comment_notification($this->input->post('bug'));
+
 			
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('comment_successful'));
@@ -93,37 +95,6 @@ class Bugs extends MX_Controller {
 			}
 		}else{
 		redirect('bugs/view_by_status/all');
-		}
-	}
-	function assign_to()
-	{
-		if ($this->input->post()) {
-		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
-		$this->form_validation->set_rules('assigned_to', 'Assigned To', 'required');
-		if ($this->form_validation->run() == FALSE)
-		{
-				$this->session->set_flashdata('response_status', 'error');
-				$this->session->set_flashdata('message', lang('failed_to_assign_bug'));
-				redirect('bugs/view_by_status/all');
-		}else{			
-			$form_data = array(
-			                'assigned_to' => $this->input->post('assigned_to'),
-			                'bug_status' => 'In Progress',
-			            );
-			$this->db->where('bug_id',$this->input->post('bug_id'))->update('bugs', $form_data); 
-			$activity = 'Assigned Issue #'.$this->input->post('issue_ref').' to a user and marked as In Progress';
-			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-check'); //log activity
-			//send email to the assigned user
-			$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('bug_assigned_successfully'));
-			redirect('bugs/view_by_status/all');
-			}
-		}else{
-			$data['bug_id'] = $this->uri->segment(3);
-			$data['issue_ref'] = $this->uri->segment(4);
-			$data['users'] = $this->bugs_model->users('not_user');
-			$this->load->view('modal/assign_bug',$data);
 		}
 	}
 	function mark_status()
@@ -146,6 +117,7 @@ class Bugs extends MX_Controller {
 			$activity = 'Marked Issue #'.$this->input->get('ref').' as '.$bug_status;
 			$this->_log_bug_activity($bug,$activity,$icon = 'fa-info'); //log activity
 			//send email to the reporter
+			$this->_bug_status($bug,$bug_status);
 
 			$this->session->set_flashdata('response_status', 'success');
 			$this->session->set_flashdata('message', lang('issue_marked_successfully'));
@@ -196,6 +168,52 @@ class Bugs extends MX_Controller {
 			$this->load->view('modal/delete',$data);
 		}
 	}
+
+	function _bug_status($bug,$status){
+
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$issue_ref = $b->issue_ref;
+				$reporter = $b->reporter;
+			}
+
+			$marked_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['issue_ref'] = $issue_ref;
+			$data['status'] = $status;
+			$data['marked_by'] = $marked_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($reporter,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' Bug '.$issue_ref.' marked as '.$status;
+			$params['message'] = $this->load->view('emails/bug_status',$data,TRUE);
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+	
+
+	function _comment_notification($bug){
+			$bug_details = $this->bugs_model->bug_details($bug);
+			foreach ($bug_details as $key => $b) {
+				$issue_ref = $b->issue_ref;
+				$assigned_to = $b->assigned_to;
+			}
+
+			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
+			$data['issue_ref'] = $issue_ref;
+			$data['posted_by'] = $posted_by;
+
+			$params['recipient'] = $this->user_profile->get_user_details($assigned_to,'email');
+
+			$params['subject'] = '[ '.$this->config->item('company_name').' ]'.' New comment received from '.$posted_by;
+			$params['message'] = $this->load->view('emails/comment_notification',$data,TRUE); 
+
+			$params['attached_file'] = '';
+
+			modules::run('fomailer/send_email',$params);
+	}
+
 	function _log_bug_activity($bug_id,$activity,$icon){
 			$this->db->set('module', 'bugs');
 			$this->db->set('module_field_id', $bug_id);
