@@ -110,8 +110,9 @@ class Auth extends MX_Controller
 	function logout()
 	{
 		$this->tank_auth->logout();
+		redirect('auth/login');
 
-		$this->_show_message($this->lang->line('auth_message_logged_out'));
+		//$this->_show_message($this->lang->line('auth_message_logged_out'));
 	}
 
 	/**
@@ -152,7 +153,7 @@ class Auth extends MX_Controller
 
 			$email_activation = $this->config->item('email_activation', 'tank_auth');
 
-			if ($this->form_validation->run()) {								// validation ok
+			if ($this->form_validation->run($this)) {								// validation ok
 				if (!is_null($data = $this->tank_auth->create_user(
 						$use_username ? $this->form_validation->set_value('username') : '',
 						$this->form_validation->set_value('email'),
@@ -168,7 +169,6 @@ class Auth extends MX_Controller
 
 						unset($data['password']); // Clear password (just for any case)
 
-						//$this->_show_message($this->lang->line('auth_message_registration_completed_1'));
                         $this->session->set_flashdata('message', '<strong>You have Registered Successfully!</strong> Check your email for Activation.');
     					redirect('/auth/login');
 
@@ -653,7 +653,7 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 			'expiration'	=> $this->config->item('captcha_expire', 'tank_auth'),
 		));
 
-		// Save captcha params in session
+		// Save captcha params in database
 		$data = array(
     				'captcha_time' => $cap['time'],
     				'ip_address' => $this->input->ip_address(),
@@ -661,12 +661,6 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
     				);
 		$query = $this->db->insert_string('fx_captcha', $data);
 		$this->db->query($query);
-		/*
-		$this->session->set_userdata(array(
-				'captcha_word' => $cap['word'],
-				'captcha_time' => $cap['time'],
-		));
-		*/
 
 		return $cap['image'];
 	}
@@ -680,7 +674,7 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 	function _check_captcha()
 	{
 				// First, delete old captchas
-				$expiration = time() - $this->config->item('captcha_expire', 'tank_auth'); // 3 Minutes limit
+				$expiration = time() - $this->config->item('captcha_expire', 'tank_auth'); 
 				$this->db->query("DELETE FROM fx_captcha WHERE captcha_time < ".$expiration);
 
 				// Then see if a captcha exists:
@@ -696,29 +690,6 @@ $this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, T
 				}else{
 					return TRUE;
 				}
-/*
-		$time = $this->session->userdata('captcha_time'); //$this->session->flashdata('captcha_time');
-		$word = $this->session->userdata('captcha_word'); //$this->session->flashdata('captcha_word');
-
-		list($usec, $sec) = explode(" ", microtime());
-		$now = ((float)$usec + (float)$sec);
-
-		if ($now - $time > $this->config->item('captcha_expire', 'tank_auth')) {
-			$this->form_validation->set_message('_check_captcha', $this->lang->line('auth_captcha_expired'));
-			return FALSE;
-
-		} elseif (($this->config->item('captcha_case_sensitive', 'tank_auth') AND
-				$code != $word) OR
-				strtolower($code) != strtolower($word)) {
-			$this->form_validation->set_message('_check_captcha', $this->lang->line('auth_incorrect_captcha'));
-			return FALSE;
-		}
-		$this->session->unset_userdata(array(
-				'captcha_word' => '',
-				'captcha_time' => '',
-		));
-		return TRUE;
-		*/
 	}
 
 	/**

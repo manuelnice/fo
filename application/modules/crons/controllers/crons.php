@@ -38,7 +38,7 @@ class Crons extends MX_Controller {
                 $this->db->truncate('fx_project_timer'); 
                 $this->db->truncate('fx_tasks'); 
                 $this->db->truncate('fx_tasks_timer'); 
-                //$this->db->truncate('fx_un_sessions');
+                
                 $this->_restoreTables();
             }else{
                 $this->session->set_flashdata('response_status', 'error');

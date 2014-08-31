@@ -117,6 +117,7 @@ class Tank_auth
 		$this->ci->session->set_userdata(array('user_id' => '', 'username' => '', 'status' => ''));
 
 		$this->ci->session->sess_destroy();
+		$this->ci->session->sess_create();
 	}
 
 	/**
