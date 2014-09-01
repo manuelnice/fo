@@ -103,12 +103,17 @@ class PayPal_IPN
         $this->_ci->load->config('paypal_ipn'); // The custom configuration file for this library
 
         // Configuration var
-        $this->isLive = $this->_ci->config->item('paypal_ipn_use_live_settings');
+        $this->isLive = $this->_ci->config->item('paypal_live');
 
         // Settings
-        $settings = $this->_ci->config->item('paypal_ipn_' . (($this->isLive) ? "live" : "sandbox") . '_settings');
-        $this->ipnURL = $settings['url'];
-        $this->merchantEmail = $settings['email'];
+        if ($this->_ci->config->item('paypal_live') == 'FALSE') {
+            $paypalurl = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+        }else{
+            $paypalurl = 'https://www.paypal.com/cgi-bin/webscr';
+        }
+        $settings = $this->_ci->config->item('paypal_ipn_settings');
+        $this->ipnURL = $paypalurl;
+        $this->merchantEmail = $this->_ci->config->item('paypal_email');
         $this->debug = $settings['debug'];
 
         // We load the two models here in the constructor because they are used throughout the library

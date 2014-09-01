@@ -68,7 +68,7 @@ class Paypal_Lib {
 		$this->CI->load->helper('form');
 		$this->CI->load->config('paypallib_config');
 		
-		$this->paypal_url = ($this->CI->config->item('paypal_lib_live')) ? 'https://www.paypal.com/cgi-bin/webscr' : 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+		$this->paypal_url = ($this->CI->config->item('paypal_live')) ? 'https://www.paypal.com/cgi-bin/webscr' : 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 
 		$this->last_error = '';
 		$this->ipn_response = '';
@@ -84,7 +84,7 @@ class Paypal_Lib {
 		$this->add_field('rm','2');			  // Return method = POST
 		$this->add_field('cmd','_xclick');
 
-		$this->add_field('currency_code', $this->CI->config->item('paypal_lib_currency_code'));
+		$this->add_field('currency_code', $this->CI->config->item('default_currency'));
 	    $this->add_field('quantity', '1');
 		$this->button('Pay Now!');
 	}

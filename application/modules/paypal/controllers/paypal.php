@@ -1,5 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * 
+ *
+ * @package	Freelancer Office
+ */
 class Paypal extends MX_Controller {
 
 	function Paypal()
@@ -7,19 +11,21 @@ class Paypal extends MX_Controller {
 		parent::__construct();		
 		$this->load->library('tank_auth');
 		$this->load->library('Paypal_Lib');
-		$this->load->model('mdl_pay');
+		$this->load->model('mdl_pay','AppPay');
 	}
 	
 	function index()
 	{
-		$this->form();
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('paypal_canceled'));
+				redirect('clients');
 	}
 	
 	function pay()
 	{
 		$userid = $this->tank_auth->get_user_id();
 		 
-		$invoice = $this->mdl_pay->invoice_info($this->uri->segment(3));
+		$invoice = $this->AppPay->invoice_info($this->uri->segment(3));
 
 		$invoice_cost = $this->user_profile->invoice_payable($invoice['inv_id']);
 
@@ -40,13 +46,13 @@ class Paypal extends MX_Controller {
 		}
 		$data['paypal_url'] = $paypalurl;
 		
-	$this->load->view('form',$data);
+		$this->load->view('form',$data);
 	}
 	function cancel()
 	{
 				$this->session->set_flashdata('response_status', 'error');
 				$this->session->set_flashdata('message', lang('paypal_canceled'));
-				redirect('');
+				redirect('clients');
 	}
 	
 	function success()
@@ -54,11 +60,11 @@ class Paypal extends MX_Controller {
         if($_POST){
 				$this->session->set_flashdata('response_status', 'success');
 				$this->session->set_flashdata('message', lang('payment_added_successfully'));
-				redirect('');
+				redirect('clients');
         }else{
         $this->session->set_flashdata('response_status', 'error');
         $this->session->set_flashdata('message', 'Something went wrong please contact us if your Payment doesn\'t appear shortly');
-        redirect('');
+        redirect('clients');
         }
 	}
 }

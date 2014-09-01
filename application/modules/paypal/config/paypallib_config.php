@@ -9,9 +9,8 @@ $config['paypal_lib_ipn_log_file'] = BASEPATH . 'logs/paypal_ipn.log';
 $config['paypal_lib_ipn_log'] = TRUE;
 
 // Where are the buttons located at 
-$config['paypal_lib_button_path'] = 'assets/default/paypal/buttons';
+$config['paypal_lib_button_path'] = 'resource/paypal/buttons';
 
-// What is the default currency?
-$config['paypal_lib_live'] = FALSE;
+
 
 ?>

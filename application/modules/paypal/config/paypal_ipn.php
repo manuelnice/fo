@@ -23,24 +23,10 @@
 | codeigniter-paypal-ipn. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Set this to TRUE or FALSE
-$config['paypal_ipn_use_live_settings'] = TRUE;
-
 // Constants for the live environment
-$config['paypal_ipn_live_settings'] = array(
-    'email' => 'payments@bootstrapstore.net', // Your merchant email address
-    'url' => 'https://www.paypal.com/cgi-bin/webscr', // PayPal's IPN handler for validating the data
-    'debug' => FALSE // Whether we want debugging enabled (see below for explanation...)
-);
-// Debugging simply caches the latest PayPal IPN post data into the database, and retrieves it if
-// validateIPN is called without post data. This is useful for directly trying a validateIPN call from
-// the controller.
 
-// Constants for the sandbox environment
-$config['paypal_ipn_sandbox_settings'] = array(
-    'email' => 'payments@bootstrapstore.net',
-    'url' => 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-    'debug' => TRUE
+$config['paypal_ipn_settings'] = array(
+    'debug' => FALSE // Whether we want debugging enabled (see below for explanation...)
 );
 
 /* End of file paypal_ipn.php */

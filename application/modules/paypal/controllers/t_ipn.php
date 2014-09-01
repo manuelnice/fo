@@ -21,8 +21,6 @@ class T_ipn extends MX_Controller {
             if ($this->paypal_ipn->orderStatus == PayPal_IPN::PAID)
             {
                  $this->load->library('tank_auth');
-                 $this->load->model('mdl_pay','AppPay');
-                 $this->load->helper('string');
             	// Prepare the variables to populate the email template:
                 $data = $this->paypal_ipn->order;
              	$items = $this->paypal_ipn->orderItems;
