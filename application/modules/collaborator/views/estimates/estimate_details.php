@@ -105,8 +105,8 @@
 						<div class="col-xs-6 text-right">
 						<p class="h4">EST #<?=$estimate->reference_no?></p> 
 						<p class="m-t m-b">
-					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->date_saved));?></strong><br>
-					<?=lang('expiry_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($estimate->due_date));?></strong><br> 
+					<?=lang('estimate_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($estimate->date_saved));?></strong><br>
+					<?=lang('expiry_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($estimate->due_date));?></strong><br> 
 					<?=lang('estimate_status')?>: <span class="label bg-<?=$label?>"><?=$est_status?> </span><br> 
 					<?=lang('bill_to')?>: <strong>
 					<?=ucfirst($this->user_profile->get_profile_details($estimate->id,'fullname')?$this->user_profile->get_profile_details($estimate->id,'fullname') : $estimate->username)?></strong> </p> 

@@ -49,8 +49,8 @@
 						<div class="col-xs-12 text-right">
 						<h4>EST #<?=$e->reference_no?></h4> 
 						<p class="m-t m-b">
-					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($e->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($e->due_date));?></strong><br> 
+					<?=lang('estimate_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($e->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($e->due_date));?></strong><br> 
 					<?=lang('estimate_status')?>: <?=$e->status?> <br> 
 					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($e->id,'fullname')?$this->user_profile->get_profile_details($e->id,'fullname') : $e->username)?></strong> </p>
 					</div>

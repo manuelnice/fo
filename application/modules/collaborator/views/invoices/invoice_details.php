@@ -97,8 +97,8 @@
 						<div class="col-xs-6 text-right">
 						<p class="h4">INV #<?=$inv->reference_no?></p> 
 						<p class="m-t m-b">
-					<?=lang('invoice_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->due_date));?></strong><br> 
+					<?=lang('invoice_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->due_date));?></strong><br> 
 					<?=lang('payment_status')?>: <span class="label bg-dark"><?=$payment_status?> </span><br> 
 					<?php
 					if ($inv->emailed == 'Yes') { $invoice_status = "Sent"; $badge = "success";	}else{

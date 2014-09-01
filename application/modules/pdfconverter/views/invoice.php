@@ -49,8 +49,8 @@
 						<div class="col-xs-12 text-right">
 						<h4>INV #<?=$inv->reference_no?></h4> 
 						<p class="m-t m-b">
-					<?=lang('invoice_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->due_date));?></strong><br> 
+					<?=lang('invoice_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->due_date));?></strong><br> 
 					<?=lang('payment_status')?>: <?=$payment_status?> <br> 
 					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($inv->id,'fullname')?$this->user_profile->get_profile_details($inv->id,'fullname') : $inv->username)?></strong> </p>
 					</div>
