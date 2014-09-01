@@ -16,7 +16,7 @@
 				<td><?=ucfirst($bug->username)?></td>
 				<td><?=$bug->bug_status?></td>
 				<td><?=$bug->priority?></td>
-				<td><?=strftime("%B %d, %Y", strtotime($bug->reported_on));?></td>
+				<td><?=strftime("%b %d, %Y", strtotime($bug->reported_on));?></td>
 				</tr>
 				<?php  }} else{ ?>
 				<tr>

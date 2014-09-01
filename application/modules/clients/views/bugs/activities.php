@@ -15,7 +15,7 @@
 					<span class="arrow left"></span>
 					<span class="timeline-icon"><i class="fa <?=$a->icon?> time-icon bg-dark"></i>
 					</span>
-					<span class="timeline-date"><?=strftime("%B %d, %Y %H:%M:%S", strtotime($a->activity_date)) ?></span> 
+					<span class="timeline-date"><?=strftime("%b %d, %Y %H:%M:%S", strtotime($a->activity_date)) ?></span> 
 					<h5><a href="<?=base_url()?>clients/view/details/<?=$a->id*1200?>"><?=ucfirst($a->username)?></a> </h5>
 					<p><?=$a->activity?></p>
 				</div>
@@ -28,7 +28,7 @@
 				<div class="panel-body">
 					<span class="arrow right"></span>
 					<span class="timeline-icon"><i class="fa <?=$a->icon?> time-icon bg-info"></i></span>
-					<span class="timeline-date"><?=strftime("%B %d, %Y %H:%M:%S", strtotime($a->activity_date)) ?></span> 
+					<span class="timeline-date"><?=strftime("%b %d, %Y %H:%M:%S", strtotime($a->activity_date)) ?></span> 
 					<h5><a href="#"><?=ucfirst($a->username)?></a></h5>
 					<p><?=$a->activity?></p>
 				</div>
