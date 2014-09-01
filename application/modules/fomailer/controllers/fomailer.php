@@ -16,7 +16,7 @@ class Fomailer extends MX_Controller {
 			$this->session->set_flashdata('message', lang('access_denied'));
 			redirect('');
 		}
-		$this->load->model('mailer_model','m_mdl');
+		$this->load->model('mailer_model','MailModel');
 	}
 
 	function send_email($params)
@@ -48,5 +48,4 @@ class Fomailer extends MX_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file fomailer.php */

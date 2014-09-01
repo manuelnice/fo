@@ -35,5 +35,4 @@ class Bug_tabs extends MX_Controller {
 	}
 }
 
-/* End of file view.php */
-/* Location: ./application/controllers/view.php */
+/* End of file bug_tabs.php */

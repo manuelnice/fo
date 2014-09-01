@@ -39,5 +39,4 @@ class Tabs extends MX_Controller {
 	}
 }
 
-/* End of file view.php */
-/* Location: ./application/controllers/view.php */
+/* End of file tabs.php */

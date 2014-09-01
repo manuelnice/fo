@@ -27,10 +27,6 @@ function __construct()
 		$this->load->view('top_header',isset($data) ? $data : NULL);
 	}
 	
-	public function top_search()
-	{
-		$this->load->view('top_search',isset($data) ? $data : NULL);
-	}
 	public function scripts()
 	{
 		$this->load->view('scripts/uni_scripts',isset($data) ? $data : NULL);
@@ -40,3 +36,4 @@ function __construct()
 		$this->load->view('flash_msg',isset($data) ? $data : NULL);
 	}
 }
+/* End of file sidebar.php */

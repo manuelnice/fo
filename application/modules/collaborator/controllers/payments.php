@@ -102,5 +102,4 @@ class Payments extends MX_Controller {
 
 }
 
-/* End of file invoices.php */
-/* Location: ./application/controllers/invoices.php */
+/* End of file payments.php */

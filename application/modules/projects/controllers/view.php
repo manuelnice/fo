@@ -183,4 +183,3 @@ class View extends MX_Controller {
 }
 
 /* End of file view.php */
-/* Location: ./application/controllers/view.php */

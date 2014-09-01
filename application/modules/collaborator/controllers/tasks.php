@@ -191,5 +191,4 @@ class Tasks extends MX_Controller {
 	}
 }
 
-/* End of file view.php */
-/* Location: ./application/controllers/view.php */
+/* End of file tasks.php */

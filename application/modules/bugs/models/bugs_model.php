@@ -111,4 +111,4 @@ class Bugs_model extends CI_Model
 	
 }
 
-/* End of file model.php */
+/* End of file bugs_model.php */

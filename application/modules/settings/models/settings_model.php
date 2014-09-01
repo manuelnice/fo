@@ -2,8 +2,8 @@
 
 /**
  *
- * @package	Uniportal
- * @author	William Mandai (http://willymandai.com)
+ * @package	Freelancer Office
+ * 
  */
 class Settings_model extends CI_Model
 {

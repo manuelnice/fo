@@ -304,5 +304,4 @@ class Projects extends MX_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file projects.php */

@@ -322,6 +322,7 @@ $lang['password_or_field_error'] = 'The password entered is incorrect or passwor
 $lang['paid'] = 'Paid';
 $lang['paid_amount'] = 'Paid Amount';
 $lang['paypal_email'] = 'Paypal Email';
+$lang['paypal_canceled'] = 'Paypal Payment was canceled.';
 $lang['paypal_cancel_url'] = 'Paypal Cancel';
 $lang['paypal_ipn_url'] = 'Paypal IPN';
 $lang['paypal_success_url'] = 'Paypal Success';

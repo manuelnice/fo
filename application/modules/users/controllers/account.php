@@ -54,5 +54,4 @@ class Account extends MX_Controller {
 	}
 }
 
-/* End of file users.php */
-/* Location: ./application/controllers/users.php */
+/* End of file account.php */

@@ -153,7 +153,7 @@ class Bugs extends MX_Controller {
 			foreach ($files as $key => $f) {
 				unlink('./resource/bug-files/'.$f->file_name);
 			}
-			
+
 			$activity = $this->tank_auth->get_username()." deleted a bug";
 			$this->_log_bug_activity($this->input->post('bug_id'),$activity,$icon = 'fa-times'); //log activity
 			
@@ -221,5 +221,4 @@ class Bugs extends MX_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file bugs.php */

@@ -56,4 +56,3 @@ class Messages extends MX_Controller {
 }
 
 /* End of file messages.php */
-/* Location: ./application/controllers/messages.php */

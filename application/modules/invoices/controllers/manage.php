@@ -486,5 +486,4 @@ class Manage extends MX_Controller {
 
 }
 
-/* End of file invoices.php */
-/* Location: ./application/controllers/invoices.php */
+/* End of file manage.php */

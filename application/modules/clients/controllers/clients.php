@@ -78,5 +78,4 @@ class Clients extends MX_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file clients.php */

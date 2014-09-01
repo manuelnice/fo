@@ -155,5 +155,4 @@ class Bug_view extends MX_Controller {
 	}
 }
 
-/* End of file view.php */
-/* Location: ./application/controllers/view.php */
+/* End of file bug_view.php */

@@ -102,5 +102,4 @@ class Inv_manage extends MX_Controller {
 
 }
 
-/* End of file invoices.php */
-/* Location: ./application/controllers/invoices.php */
+/* End of file inv_manage.php */

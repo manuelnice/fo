@@ -1,5 +1,4 @@
-<?php
-
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Paypal extends MX_Controller {
 
@@ -45,33 +44,21 @@ class Paypal extends MX_Controller {
 	}
 	function cancel()
 	{
-	$data['breadcrumbs'] = array('name' => 'My Purchases');
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title('Author Purchases | Bootstrapstore');
-	$data['active_menu'] = lang('downloads');
-	$this->session->set_flashdata('message', 'Your payment was cancelled.');
-	$this->template
-	->set_layout('public')
-	->build('paypal/cancel',isset($data) ? $data : NULL);
+				$this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('paypal_canceled'));
+				redirect('');
 	}
 	
 	function success()
 	{
         if($_POST){
-	$data['breadcrumbs'] = array('name' => 'My Purchases');
-	$this->load->module('layouts');
-	$this->load->library('template');
-	$this->template->title('Author Purchases | Bootstrapstore');
-	$data['active_menu'] = lang('downloads');
-	$this->session->set_flashdata('message', 'Thanks for purchasing our Premium Bootstrap Themes.');
-	$data['pp_info'] = $this->input->post();
-	$this->template
-	->set_layout('public')
-	->build('paypal/success',isset($data) ? $data : NULL);
+				$this->session->set_flashdata('response_status', 'success');
+				$this->session->set_flashdata('message', lang('payment_added_successfully'));
+				redirect('');
         }else{
-            $this->session->set_flashdata('message', 'Something went wrong please check your Downloads page. If your item doesn\'t appear for a while please contact us');
-        redirect('themes/browse/all');
+        $this->session->set_flashdata('response_status', 'error');
+        $this->session->set_flashdata('message', 'Something went wrong please contact us if your Payment doesn\'t appear shortly');
+        redirect('');
         }
 	}
 }

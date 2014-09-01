@@ -249,4 +249,3 @@ class Settings extends MX_Controller {
 }
 
 /* End of file settings.php */
-/* Location: ./application/controllers/settings.php */
