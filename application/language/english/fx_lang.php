@@ -213,6 +213,7 @@ $lang['featured_item'] = 'Featured on BootstrapStore.Net';
 $lang['featured_themes'] = 'Featured Themes';
 $lang['freelance'] = 'Freelance';
 $lang['frequency'] = 'Frequency';
+$lang['forgot_password'] = 'Forgot Password';
 $lang['full_name'] = 'Full Name';
 $lang['get_started'] = 'Get Started';
 $lang['general_settings'] = 'General Settings';

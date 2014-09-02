@@ -301,15 +301,11 @@ class Auth extends MX_Controller
 					foreach ($errors as $k => $v)	$data['errors'][$k] = $this->lang->line($v);
 				}
 			}
-	$data['breadcrumbs'] = array('dashboard' => 'Send Activation Email');
 	$this->load->module('layouts');
 	$this->load->library('template');
-	$this->template->title('Bootstrap Themes & Templates Marketplace  | Bootstrap Store');
-	$data['meta_desc'] = 'Bootstrapstore is a brand new marketplace for bootstrap themes & templates powered by HTML5 and CSS3.';
-	$data['page'] = lang('home');
-	$this->load->model('item_model');
+	$this->template->title('Send Password - '.$this->config->item('company_name'));
 	$this->template
-	->set_layout('public')
+	->set_layout('login')
 	->build('auth/send_again_form',isset($data) ? $data : NULL);
 		}
 	}
@@ -376,14 +372,11 @@ class Auth extends MX_Controller
 					foreach ($errors as $k => $v)	$data['errors'][$k] = $this->lang->line($v);
 				}
 			}
-	$data['breadcrumbs'] = array('dashboard' => 'Forgot Password');
 	$this->load->module('layouts');
 	$this->load->library('template');
-	$this->template->title('Bootstrap Themes & Templates Marketplace  | Bootstrap Store');
-	$data['meta_desc'] = 'A marketplace for premium bootstrap themes and responsive designs.';
-	$this->load->model('item_model');
+	$this->template->title('Forgot Password - '.$this->config->item('company_name'));
 	$this->template
-	->set_layout('public')
+	->set_layout('login')
 	->build('auth/forgot_password_form',isset($data) ? $data : NULL);
 			//$this->load->view('auth/forgot_password_form', $data);
 		}
@@ -437,15 +430,11 @@ class Auth extends MX_Controller
 					redirect('auth/login');
 			}
 		}
-	$data['breadcrumbs'] = array('dashboard' => 'Reset Password');
 	$this->load->module('layouts');
 	$this->load->library('template');
-	$this->template->title('Bootstrap Themes & Templates Marketplace  | Bootstrap Store');
-	$data['meta_desc'] = 'Bootstrap Store is a new marketplace for bootstrap themes and templates powered by HTML5 and CSS3';
-	$data['page'] = lang('home');
-	$this->load->model('item_model');
+	$this->template->title('Forgot Password - '.$this->config->item('company_name'));
 	$this->template
-	->set_layout('public')
+	->set_layout('login')
 	->build('auth/reset_password_form',isset($data) ? $data : NULL);
 		//$this->load->view('auth/reset_password_form', $data);
 	}
@@ -608,24 +597,23 @@ class Auth extends MX_Controller
 	function _send_email($type, $email, &$data)
 	{
 		if($this->config->item('use_postmark')){
-        $this->load->library('postmark');
-$this->postmark->from($this->config->item('postmark_email'), $this->config->item('company_name'));
-$this->postmark->to($email);
-//$this->postmark->reply_to($from_sender, 'BS User');
+        	$this->load->library('postmark');
+			$this->postmark->from($this->config->item('postmark_email'), $this->config->item('company_name'));
+			$this->postmark->to($email);
 
-$this->postmark->subject(sprintf($this->lang->line('auth_subject_'.$type), $this->config->item('website_name', 'tank_auth')));
+			$this->postmark->subject(sprintf($this->lang->line('auth_subject_'.$type), $this->config->item('company_name')));
 
-$this->postmark->message_plain($this->load->view('email/'.$type.'-txt', $data, TRUE));
-$this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, TRUE));
+			$this->postmark->message_plain($this->load->view('email/'.$type.'-txt', $data, TRUE));
+			$this->postmark->message_html($this->load->view('email/'.$type.'-html', $data, TRUE));
 
-        $this->postmark->send();
-    }else{
+        	$this->postmark->send();
+    	}else{
         
 		$this->load->library('email');
-		$this->email->from($this->config->item('webmaster_email', 'tank_auth'), $this->config->item('website_name', 'tank_auth'));
-		$this->email->reply_to($this->config->item('webmaster_email', 'tank_auth'), $this->config->item('website_name', 'tank_auth'));
+		$this->email->from($this->config->item('company_email'), $this->config->item('company_name'));
+		$this->email->reply_to($this->config->item('company_email'), $this->config->item('company_name'));
 		$this->email->to($email);
-		$this->email->subject(sprintf($this->lang->line('auth_subject_'.$type), $this->config->item('website_name', 'tank_auth')));
+		$this->email->subject(sprintf($this->lang->line('auth_subject_'.$type), $this->config->item('company_name')));
 		$this->email->message($this->load->view('email/'.$type.'-html', $data, TRUE));
 		$this->email->set_alt_message($this->load->view('email/'.$type.'-txt', $data, TRUE));
 		$this->email->send();

@@ -18,7 +18,7 @@
 
    $CI->config->set_item('language', $system_lang);
    
-   $CI->lang->load('fx', $system_lang);
+   $CI->lang->load('fx', $system_lang?$system_lang:'english');
 
   }
 
