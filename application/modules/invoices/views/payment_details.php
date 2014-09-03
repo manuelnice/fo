@@ -87,7 +87,7 @@
               <div style="width: 70%;float: left;">
                 <div style="width: 100%;padding: 11px 0;">
                   <div style="color:#999;width:35%;float:left;"><?=lang('payment_date')?></div>
-                  <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;"><?=strftime("%d %b %Y", strtotime($i->created_date));?></div>
+                  <div style="width:65%;border-bottom:1px solid #eee;float:right;foat:right;"><?=strftime("%d %b %Y %H:%M:%S", strtotime($i->created_date));?></div>
                   <div style="clear:both;"></div>
                 </div><div style="width: 100%;padding: 10px 0;">
                 <div style="color:#999;width:35%;float:left;"><?=lang('transaction_id')?></div>
