@@ -12,7 +12,7 @@ class AppCrons extends MX_Controller {
         $this->load->library('email');
 
         // this controller can only be called from the command line
-        //if (!$this->input->is_cli_request()) show_error('Direct access is not allowed');
+        if (!$this->input->is_cli_request()) show_error('Direct access is not allowed');
     }
     function projects_cron(){
         $config['mailtype'] = 'html';
