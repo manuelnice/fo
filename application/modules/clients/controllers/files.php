@@ -36,7 +36,7 @@ class Files extends MX_Controller {
 						}else{
 
 								if ($this->config->item('demo_mode') == 'FALSE') {
-								$config['upload_path'] = './resource/project-files/';
+									$config['upload_path'] = './resource/project-files/';
 									$config['allowed_types'] = $this->config->item('allowed_files');
 									$config['max_size']	= $this->config->item('file_max_size');
 									$config['file_name'] = 'PROJECT-'.$this->input->post('project_code', TRUE).'-0';
@@ -138,7 +138,7 @@ class Files extends MX_Controller {
 		}
 	}
 	function _upload_notification($project){
-			$project_title = $this->project->get_project_details($project,'project_title');
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
 
 			$upload_user = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;

@@ -170,8 +170,8 @@ class Projects extends MX_Controller {
 	
 
 	function _comment_notification($project){
-			$project_title = $this->project_model->get_project_details($project,'project_title');
-			$project_manager = $this->project_model->get_project_details($project,'assign_to');
+			$project_title = $this->user_profile->get_project_details($project,'project_title');
+			$project_manager = $this->user_profile->get_project_details($project,'assign_to');
 
 			$posted_by = $this->user_profile->get_user_details($this->tank_auth->get_user_id(),'username');
 			$data['project_title'] = $project_title;

@@ -14,8 +14,8 @@
 				foreach ($timesheets as $key => $t) { ?>
 
 				<tr class="success">
-				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->start_time)?></td>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", $t->end_time)?></td>
+				<td><?=strftime("%b %d, %Y %H:%M:%S", $t->start_time)?></td>
+				<td><?=strftime("%b %d, %Y %H:%M:%S", $t->end_time)?></td>
 				<td><?php
 				if (($t->end_time - $t->start_time)/3600 < 1) {
 					echo round(($t->end_time - $t->start_time)/60,0).' '.lang('minutes');
@@ -48,8 +48,8 @@
 				foreach ($tasks_log as $key => $task) { ?>
 
 				<tr>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", $task->start_time)?></td>
-				<td><?=strftime("%B %d, %Y %H:%M:%S", $task->end_time)?></td>
+				<td><?=strftime("%b %d, %Y %H:%M:%S", $task->start_time)?></td>
+				<td><?=strftime("%b %d, %Y %H:%M:%S", $task->end_time)?></td>
 				<td><?php
 				if (($task->end_time - $task->start_time)/3600 < 1) {
 					echo round(($task->end_time - $task->start_time)/60,0).' '.lang('minutes');

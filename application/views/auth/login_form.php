@@ -32,14 +32,16 @@ $captcha = array(
 	'maxlength'	=> 8,
 );
 ?>
-<?php  echo modules::run('sidebar/flash_msg');?>  
+
 
 <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
 
 		<div class="container aside-xxl">
 		 <a class="navbar-brand block" href="<?=base_url()?>"><?=$this->config->item('company_name')?></a> 
 		 <section class="panel panel-default bg-white m-t-lg">
-		<header class="panel-heading text-center"> <strong>Sign In <?=$this->config->item('company_name')?></strong> </header>
+		<header class="panel-heading text-center"> <strong>Sign In <?=$this->config->item('company_name')?></strong> 
+			<?php  echo modules::run('sidebar/flash_msg');?>  
+		</header>
 
 		<?php 
 		$attributes = array('class' => 'panel-body wrapper-lg');

@@ -229,14 +229,14 @@ class Auth extends MX_Controller
 
 			$email_activation = $this->config->item('email_activation', 'tank_auth');
 
-			if ($this->form_validation->run()) {								// validation ok
+			if ($this->form_validation->run($this)) {								// validation ok
 				if (!is_null($data = $this->tank_auth->create_user(
 						$use_username ? $this->form_validation->set_value('username') : '',
 						$this->form_validation->set_value('email'),
 						$this->form_validation->set_value('password'),
 						$email_activation))) {									// success
 
-					$data['site_name'] = $this->config->item('website_name', 'tank_auth');
+					$data['site_name'] = $this->config->item('company_name');
 
 					if ($email_activation) {									// send "activate" email
 						$data['activation_period'] = $this->config->item('email_activation_expire', 'tank_auth') / 3600;
@@ -255,7 +255,7 @@ class Auth extends MX_Controller
 						}
 						unset($data['password']); // Clear password (just for any case)
 						$this->session->set_flashdata('response_status', 'success');
-			$this->session->set_flashdata('message', lang('client_registered_successfully'));
+						$this->session->set_flashdata('message', lang('client_registered_successfully'));
 						redirect($this->input->post('r_url'));
 					}
 				} else {
@@ -596,9 +596,9 @@ class Auth extends MX_Controller
 	 */
 	function _send_email($type, $email, &$data)
 	{
-		if($this->config->item('use_postmark')){
+		if($this->config->item('use_postmark') == 'TRUE'){
         	$this->load->library('postmark');
-			$this->postmark->from($this->config->item('postmark_email'), $this->config->item('company_name'));
+			$this->postmark->from($this->config->item('company_email'), $this->config->item('company_name'));
 			$this->postmark->to($email);
 
 			$this->postmark->subject(sprintf($this->lang->line('auth_subject_'.$type), $this->config->item('company_name')));

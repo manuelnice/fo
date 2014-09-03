@@ -44,7 +44,7 @@ if ($bug->bug_status == 'Unconfirmed') {
 
     <div style="padding-top:10px">
       <div style="width:75%;border-bottom:1px solid #eee;float:right">
-      <strong id="zb-pdf-customer-detail"><a href="<?=base_url()?>clients/view/details/<?=$bug->reporter*1200?>">
+      <strong id="zb-pdf-customer-detail"><a href="<?=base_url()?>contacts/view/details/<?=$bug->reporter*1200?>">
       <?=ucfirst($this->user_profile->get_profile_details($bug->reporter,'fullname')? $this->user_profile->get_profile_details($bug->reporter,'fullname'):$this->user_profile->get_user_details($bug->reporter,'username'))?></a></strong></div>
       <div style="color:#999;width:25%"><?=lang('reporter')?></div> 
     </div>

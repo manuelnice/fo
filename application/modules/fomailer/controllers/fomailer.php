@@ -21,7 +21,7 @@ class Fomailer extends MX_Controller {
 
 	function send_email($params)
 	{
-		if($this->config->item('use_postmark')){
+		if($this->config->item('use_postmark') == 'TRUE'){
         $this->load->library('postmark');
         	$this->postmark->from($this->config->item('company_email'), $this->config->item('company_name'));
 			$this->postmark->to($params['recipient']);
@@ -29,12 +29,9 @@ class Fomailer extends MX_Controller {
 			$this->postmark->message_plain($params['message']);
 			$this->postmark->message_html($params['message']);
 			if($params['attached_file']){ 
-				    	$this->postmark->attach($params['attached_file']);
+			$this->postmark->attach($params['attached_file']);
 				    }
-
         	$this->postmark->send();
-
-
 
     	}else{
     			$this->load->library('email');
