@@ -55,6 +55,13 @@ class Account extends MX_Controller {
 	function delete()
 	{
 		if ($this->input->post()) {
+
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect('users/account');
+		}
+		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('user_id', 'User ID', 'required');
 		if ($this->form_validation->run() == FALSE)
@@ -84,7 +91,9 @@ class Account extends MX_Controller {
 			foreach ($files as $key => $f) {
 				unlink('./resource/bug-files/'.$f->file_name);
 			}
-			unlink('./resource/avatar/'.$this->user_profile->get_profile_details($user,'avatar'));
+			if ($this->user_profile->get_profile_details($user,'avatar') != 'default_avatar.jpg') {
+				unlink('./resource/avatar/'.$this->user_profile->get_profile_details($user,'avatar'));
+			}			
 
 			$this->db->delete('files', array('uploaded_by' => $user)); 
 			$this->db->delete('bug_files', array('uploaded_by' => $user)); 

@@ -79,7 +79,7 @@ echo form_open_multipart(uri_string(), $attributes); ?>
 
        <?php     
 $attributes = array('class' => 'bs-example form-horizontal');
-echo form_open(base_url().'settings/update_email_teplates', $attributes); ?>
+echo form_open(base_url().'settings/update_email_templates', $attributes); ?>
         
         <div class="form-group">
 				<label class="col-lg-4 control-label"><?=lang('email_estimate_message')?> <span class="text-danger">*</span></label>

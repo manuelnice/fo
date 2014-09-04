@@ -51,6 +51,8 @@ class Settings extends MX_Controller {
 		}
 	}
 	private function _update_general_settings($setting){
+			$this->_demo_mode('settings/update/'.$setting);
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('company_name', 'Company Name', 'required');
 		$this->form_validation->set_rules('company_address', 'Company Address', 'required');
@@ -76,6 +78,8 @@ class Settings extends MX_Controller {
 		
 	}
 	private function _update_system_settings($setting){
+		$this->_demo_mode('settings/update/'.$setting);
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('base_url', 'Base URL', 'required');
 		$this->form_validation->set_rules('default_language', 'Default Language', 'required');
@@ -102,6 +106,8 @@ class Settings extends MX_Controller {
 		
 	}
 	private function _update_email_settings($setting){
+		$this->_demo_mode('settings/update/'.$setting);
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('company_email', 'Company Email', 'required');
 		$this->form_validation->set_rules('protocol', 'Email Protocol', 'required');		
@@ -129,6 +135,8 @@ class Settings extends MX_Controller {
 	}
 	function update_payment_settings(){
 		if ($this->input->post()) {
+			$this->_demo_mode('settings/update/general');
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('default_currency', 'Default Currency', 'required');
 		$this->form_validation->set_rules('default_currency_symbol', 'Default Currency Symbol', 'required');	
@@ -164,8 +172,10 @@ class Settings extends MX_Controller {
 		
 	}
 
-	function update_email_teplates(){
+	function update_email_templates(){
 		if ($this->input->post()) {
+			$this->_demo_mode('settings/update/email');
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email_estimate_message', 'Estimate Message', 'required');
 		$this->form_validation->set_rules('email_invoice_message', 'Invoice Message', 'required');	
@@ -192,6 +202,8 @@ class Settings extends MX_Controller {
 		
 	}
 	function upload_logo(){
+		$this->_demo_mode('settings/update/general');
+
 		if ($_FILES['userfile'] != "") {
 				$config['upload_path']   = './resource/images/';
             			$config['allowed_types'] = 'jpg|jpeg|png';
@@ -241,8 +253,15 @@ class Settings extends MX_Controller {
 			force_download('latest-freelancerbackup.sql', $backup);
 		}else{
 			$this->session->set_flashdata('response_status', 'error');
-			$this->session->set_flashdata('message',lang('backup_failed'));
+			$this->session->set_flashdata('message',lang('demo_warning'));
 			redirect('settings/update/general');
+		}
+	}
+	function _demo_mode($redirect_url){
+		if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect($redirect_url);
 		}
 	}
 	

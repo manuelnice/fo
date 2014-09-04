@@ -13,7 +13,7 @@ class Profile extends MX_Controller {
 		parent::__construct();
 		$this->load->library('tank_auth');
 		if (!$this->tank_auth->get_username()) {
-			$this->session->set_flashdata('message', 'Hey buddy, you are not allowed to access this page. Please contact the system admin for assistance.');
+			$this->session->set_flashdata('message', 'You are not allowed to access this page. Please contact the system admin for assistance.');
 			redirect('');
 		}
 		$this->load->model('profile_model');
@@ -25,6 +25,12 @@ class Profile extends MX_Controller {
 	function settings()
 	{
 		if($_POST){
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			 redirect('profile/settings');
+			}
+			
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('fullname', 'Full Name', 'required');
 		$this->form_validation->set_rules('country', 'Country', 'required');
@@ -71,6 +77,11 @@ class Profile extends MX_Controller {
 
 
 		if ($this->input->post()) {
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect($this->input->post('r_url', TRUE));
+			}
 						
 						if ($this->config->item('demo_mode') == 'FALSE') {
 							$config['upload_path'] = './resource/avatar/';

@@ -10,6 +10,7 @@
         <a href="<?=base_url()?>">Log In</a>
         <br>
         --------------------------
+        <br>
         Project Overview:
 		Hours Logged # :  <?=$project_hours?> hours
 <p>

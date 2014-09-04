@@ -22,6 +22,11 @@ class View extends MX_Controller {
 	function update()
 	{
 		if ($this->input->post()) {
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect('users/account');
+		}
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span><br>');
 		$this->form_validation->set_rules('email', 'Email', 'required');

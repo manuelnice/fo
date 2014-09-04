@@ -129,7 +129,9 @@ class Auth extends MX_Controller
 			redirect('/auth/send_again/');
 
 		} elseif (!$this->config->item('allow_registration', 'tank_auth')) {	// registration is off
-			$this->_show_message($this->lang->line('auth_message_registration_disabled'));
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('auth_message_registration_disabled'));
+			redirect('auth/login');
 
 		} else {
 			$use_username = $this->config->item('use_username', 'tank_auth');
@@ -213,6 +215,12 @@ class Auth extends MX_Controller
 	 * @return void
 	 */
 	function register_user(){
+		if (!$this->config->item('allow_registration', 'tank_auth')) {	// registration is off
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('auth_message_registration_disabled'));
+			redirect('');
+
+		} 
 
 			$use_username = $this->config->item('use_username', 'tank_auth');
 			if ($use_username) {
@@ -450,6 +458,12 @@ class Auth extends MX_Controller
 			redirect('/auth/login/');
 
 		} else {
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect($this->input->post('r_url', TRUE));
+			}
+
 			$this->form_validation->set_rules('old_password', 'Old Password', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|xss_clean|min_length['.$this->config->item('password_min_length', 'tank_auth').']|max_length['.$this->config->item('password_max_length', 'tank_auth').']|alpha_dash');
 			$this->form_validation->set_rules('confirm_new_password', 'Confirm new Password', 'trim|required|xss_clean|matches[new_password]');
@@ -458,8 +472,8 @@ class Auth extends MX_Controller
 
 			if ($this->form_validation->run()) {								// validation ok
 				if ($this->tank_auth->change_password(
-						$this->form_validation->set_value('old_password'),
-						$this->form_validation->set_value('new_password'))) {	// success
+					$this->form_validation->set_value('old_password'),
+					$this->form_validation->set_value('new_password'))) {	// success
 
 					$this->session->set_flashdata('response_status', 'success');
 					$this->session->set_flashdata('message',lang('auth_message_password_changed'));
@@ -489,6 +503,12 @@ class Auth extends MX_Controller
 			redirect('/auth/login/');
 
 		} else {
+			if ($this->config->item('demo_mode') == 'TRUE') {
+			$this->session->set_flashdata('response_status', 'error');
+			$this->session->set_flashdata('message', lang('demo_warning'));
+			redirect($this->input->post('r_url', TRUE));
+			}
+			
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
 
