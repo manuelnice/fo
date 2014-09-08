@@ -110,7 +110,7 @@
 						<p class="h4"><strong><?=$this->config->item('company_name')?></strong></p>
 						
 						<?=$this->config->item('company_address')?><br>
-						<?=lang('phone')?>: <?=$this->config->item('company_phone')?> <br></p>
+						<?=lang('phone')?>: <?=$this->config->item('company_phone')?> <br>
 
 						</div>
 						<div class="col-xs-6 text-right">
