@@ -1,6 +1,6 @@
 <?php
 ob_start();
-date_default_timezone_set('Africa/Nairobi');
+//date_default_timezone_set('Africa/Nairobi');
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
