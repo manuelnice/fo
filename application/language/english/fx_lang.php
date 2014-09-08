@@ -482,6 +482,7 @@ $lang['verified'] = 'Verified';
 $lang['visible_to_client'] = 'Visible to Client';
 $lang['welcome_back'] = 'Welcome Back';
 $lang['welcome_to'] = 'Welcome to';
+$lang['write_access_denied'] = 'Cannot write temporary file.';
 $lang['yearly_overview'] = 'Yearly Overview';
 $lang['you'] = 'You';
 

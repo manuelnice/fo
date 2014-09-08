@@ -4,8 +4,8 @@
 <head> 
     <meta charset="utf-8" /> 
     <meta name="description" content="">
-    <meta name="author" content="William Mandai">
-    <meta name="keyword" content="Kabarak University Student portal developed and maintained by William Mandai">
+    <meta name="author" content="<?=$this->config->item('site_author')?>">
+    <meta name="keyword" content="<?=$this->config->item('site_desc')?>">
     <link rel="shortcut icon" href="<?=IMG_URL?>favicon.ico">
 
     <title>Invoice </title>
@@ -49,10 +49,10 @@
 						<div class="col-xs-12 text-right">
 						<h4>INV #<?=$inv->reference_no?></h4> 
 						<p class="m-t m-b">
-					<?=lang('invoice_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($inv->due_date));?></strong><br> 
+					<?=lang('invoice_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($inv->due_date));?></strong><br> 
 					<?=lang('payment_status')?>: <?=$payment_status?> <br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_fullname($inv->id)?$this->user_profile->get_fullname($inv->id) : $inv->username)?></strong> </p>
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($inv->id,'fullname')?$this->user_profile->get_profile_details($inv->id,'fullname') : $inv->username)?></strong> </p>
 					</div>
 					</div>
 

@@ -398,7 +398,7 @@ class Manage extends MX_Controller {
 			$clientname = str_replace("{CLIENT}",$this->input->post('client_name'),$this->input->post('message'));
 			$amount = str_replace("{AMOUNT}",$this->input->post('amount'),$clientname);
 			$currency = str_replace("{CURRENCY}",$this->config->item('default_currency'),$amount);
-			$link = str_replace("{LINK}",base_url().'invoices/view/'.$ref,$currency);
+			$link = str_replace("{LINK}",base_url().'clients/inv_manage/details/'.$ref,$currency);
 			$message = str_replace("{COMPANY}",$this->config->item('company_name'),$link);
 			$this->_email_invoice($invoice_id,$message,$subject);
 
@@ -426,7 +426,7 @@ class Manage extends MX_Controller {
 			$clientname = str_replace("{CLIENT}",$this->input->post('client_name'),$this->input->post('message'));
 			$amount = str_replace("{AMOUNT}",$this->input->post('amount'),$clientname);
 			$currency = str_replace("{CURRENCY}",$this->config->item('default_currency'),$amount);
-			$link = str_replace("{LINK}",base_url().'invoices/view/'.$ref,$currency);
+			$link = str_replace("{LINK}",base_url().'clients/inv_manage/details/'.$ref,$currency);
 			$message = str_replace("{COMPANY}",$this->config->item('company_name'),$link);
 			$this->_email_invoice($invoice_id,$message,$subject);
 
@@ -457,22 +457,35 @@ class Manage extends MX_Controller {
 			$invoice_payable = $this->user_profile->invoice_payable($invoice_id);
 			$invoice_paid = $this->user_profile->invoice_payment($invoice_id);
 			$due = $invoice_payable - $invoice_paid;
-			$data['due_amount'] = $due;
+
+			$data['invoice_details'] = $this->invoice->invoice_details($invoice_id);
+			$data['payment_status'] = $this->invoice->payment_status($invoice_id);
+			$data['invoice_items'] = $this->invoice->invoice_items($invoice_id);
 			
 			$params['recipient'] = $client_address;
 
 			$params['subject'] = $subject;	
 			$params['message'] = $message;
 			
-			$this->load->view('emails/invoice',$data);			
-			// Get output html
-			$html = $this->output->get_output();			
-			// Load library
+			$html = $this->load->view('emails/invoice',$data,TRUE);
 			$this->load->library('dompdf_gen');
-			// Convert to PDF
-			$params['attached_file'] = $this->dompdf->load_html($html);
+			$this->load->helper('file');
+
+			$invoicepdf = $this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$output = $this->dompdf->output();
+
+			if ( ! write_file('./resource/tmp/Invoice #'.$reference_no.'.pdf',$output)){
+			    $this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('write_access_denied'));
+				redirect('invoices/manage/details/'.$invoice_id);
+			 }else{
+			$params['attached_file'] = './resource/tmp/Invoice #'.$reference_no.'.pdf';
+			}
 
 			modules::run('fomailer/send_email',$params);
+
+			unlink('./resource/tmp/Invoice #'.$reference_no.'.pdf');
 	}
 	
 	function _log_activity($invoice_id,$activity,$icon){

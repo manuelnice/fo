@@ -29,7 +29,7 @@ class Fomailer extends MX_Controller {
 			$this->postmark->message_plain($params['message']);
 			$this->postmark->message_html($params['message']);
 			if($params['attached_file']){ 
-			$this->postmark->attach($params['attached_file']);
+			$this->postmark->attach($params['attached_file'] != '');
 				    }
         	$this->postmark->send();
 
@@ -45,7 +45,6 @@ class Fomailer extends MX_Controller {
 						$config['smpt_port'] = $this->config->item('smtp_port');
 						$config['smtp_timeout'] = 5;
 					}		
-				$config['charset'] = 'iso-8859-1';
 				$config['wordwrap'] = TRUE;
 
 				$this->email->initialize($config);			    
@@ -54,7 +53,7 @@ class Fomailer extends MX_Controller {
 
 				$this->email->subject($params['subject']);
 				$this->email->message($params['message']);
-				    if($params['attached_file']){ 
+				    if($params['attached_file'] != ''){ 
 				    	$this->email->attach($params['attached_file']);
 				    }
 				$this->email->send();

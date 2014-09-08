@@ -4,8 +4,8 @@
 <head> 
     <meta charset="utf-8" /> 
     <meta name="description" content="">
-    <meta name="author" content="William Mandai">
-    <meta name="keyword" content="Kabarak University Student portal developed and maintained by William Mandai">
+    <meta name="author" content="<?=$this->config->item('site_author')?>">
+    <meta name="keyword" content="<?=$this->config->item('site_desc')?>">
     <link rel="shortcut icon" href="<?=IMG_URL?>favicon.ico">
 
     <title>Estimate </title>
@@ -28,7 +28,7 @@
 		
 			<?php
 					if (!empty($estimate_details)) {
-			foreach ($estimate_details as $key => $est) { ?>
+			foreach ($estimate_details as $key => $e) { ?>
 			<aside>
 			<section class="vbox">
 				
@@ -47,11 +47,12 @@
 						<?=lang('phone')?>: <?=$this->config->item('company_phone')?> </p>
 					</div>
 						<div class="col-xs-12 text-right">
-						<h4>EST #<?=$est->reference_no?></h4> 
+						<h4>EST #<?=$e->reference_no?></h4> 
 						<p class="m-t m-b">
-					<?=lang('estimate_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($est->date_saved));?></strong><br>
-					<?=lang('due_date')?>: <strong><?=strftime("%B %d, %Y", strtotime($est->due_date));?></strong><br> 
-					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($est->id,'fullname')?$this->user_profile->get_profile_details($est->id,'fullname') : $est->username)?></strong> </p>
+					<?=lang('estimate_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($e->date_saved));?></strong><br>
+					<?=lang('due_date')?>: <strong><?=strftime("%b %d, %Y", strtotime($e->due_date));?></strong><br> 
+					<?=lang('estimate_status')?>: <?=$e->status?> <br> 
+					<?=lang('bill_to')?>: <strong><?=ucfirst($this->user_profile->get_profile_details($e->id,'fullname')?$this->user_profile->get_profile_details($e->id,'fullname') : $e->username)?></strong> </p>
 					</div>
 					</div>
 
@@ -76,8 +77,8 @@
 					<?php } } ?>
 					
 					<?php
-					$est_tax = $est->tax?$est->tax:$this->config->item('default_tax');
-					$estimate_cost = $this->user_profile->estimate_payable($est->est_id);
+					$est_tax = $e->tax?$e->tax:$this->config->item('default_tax');
+					$estimate_cost = $this->user_profile->estimate_payable($e->est_id);
 					$tax = ($est_tax/100) * $estimate_cost;
 					?>
 					<tr>
@@ -90,15 +91,15 @@
 						<td><?=$this->config->item('default_currency_symbol')?> <?=number_format($tax,2)?></td>
 					</tr>
 					<tr>
-					<td colspan="3" class="text-right no-border"><strong><?=lang('amount')?></strong></td>
-					<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format(($estimate_cost + $tax),2)?></strong></td>
+					<td colspan="3" class="text-right no-border"><strong><?=lang('estimate_cost')?></strong></td>
+					<td><strong><?=$this->config->item('default_currency_symbol')?> <?=number_format($estimate_cost + $tax,2)?></strong></td>
 					</tr>
 					</tbody>
 					</table>
 					</section> 
 
 
-					<p><?=$est->notes?></p>
+					<p><?=$e->notes?></p>
 
 
 					<?php } } ?>

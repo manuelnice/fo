@@ -28,7 +28,7 @@ class Action extends MX_Controller {
 			$refno = str_replace("{REF}",$this->input->post('ref'),$clientname);
 			$amount = str_replace("{AMOUNT}",$this->input->post('amount'),$refno);
 			$currency = str_replace("{CURRENCY}",$this->config->item('default_currency'),$amount);
-			$link = str_replace("{LINK}",base_url().'estimates/view/'.$ref,$currency);
+			$link = str_replace("{LINK}",base_url().'clients/estimates/',$currency);
 			$message = str_replace("{COMPANY}",$this->config->item('company_name'),$link);
 			$this->_email_estimate($est_id,$message,$subject);
 
@@ -119,6 +119,11 @@ class Action extends MX_Controller {
 	}
 	function _email_estimate($est_id,$message,$subject){
 			$client = $this->estimate->get_client($est_id);
+			$est_details = $this->estimate->estimate_details($est_id);
+			foreach ($est_details as $key => $est) {
+				$data['estimate_ref'] = $est->reference_no;
+				$reference_no = $est->reference_no;
+			}
 
 			$client_address = $this->user_profile->get_user_details($client,'email');
 			
@@ -129,16 +134,26 @@ class Action extends MX_Controller {
 
 			$data['estimate_details'] = $this->estimate->estimate_details($est_id);
 			$data['estimate_items'] = $this->estimate->estimate_items($est_id);
-			
-			$this->load->view('emails/estimate',$data);			
-			// Get output html
-			$html = $this->output->get_output();			
-			// Load library
+					
+			$html = $this->load->view('emails/estimate',$data,TRUE);
 			$this->load->library('dompdf_gen');
-			// Convert to PDF
-			$params['attached_file'] = $this->dompdf->load_html($html);
+			$this->load->helper('file');
+
+			$estimatepdf = $this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$output = $this->dompdf->output();
+
+			if ( ! write_file('./resource/tmp/Estimate #'.$reference_no.'.pdf',$output)){
+			    $this->session->set_flashdata('response_status', 'error');
+				$this->session->set_flashdata('message', lang('write_access_denied'));
+				redirect('estimates/manage/details/'.$est_id);
+			 }else{
+			$params['attached_file'] = './resource/tmp/Estimate #'.$reference_no.'.pdf';
+			}
 
 			modules::run('fomailer/send_email',$params);
+
+			unlink('./resource/tmp/Estimate #'.$reference_no.'.pdf');
 	}
 	function delete()
 	{
